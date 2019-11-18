@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VstockArticulo" table="VStockArticulo" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VstockArticuloId">
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+            <key-property name="almacenId" type="int">
+                <column name="AlmacenId" />
+            </key-property>
+            <key-property name="articuloId" type="int">
+                <column name="ArticuloId" />
+            </key-property>
+            <key-property name="cantidadStock" type="big_decimal">
+                <column name="CantidadStock" precision="38" scale="4" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

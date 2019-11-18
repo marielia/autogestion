@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.TmpOrdenesDePago" table="TmpOrdenesDePago" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.TmpOrdenesDePagoId">
+            <key-property name="nroOper" type="java.lang.Integer">
+                <column name="NroOper" />
+            </key-property>
+            <key-property name="nroOp" type="java.lang.Integer">
+                <column name="NroOP" />
+            </key-property>
+            <key-property name="fechaOp" type="timestamp">
+                <column name="FechaOP" length="16" />
+            </key-property>
+            <key-property name="codigo" type="string">
+                <column name="Codigo" length="6" />
+            </key-property>
+            <key-property name="descTrans" type="string">
+                <column name="DescTrans" length="30" />
+            </key-property>
+            <key-property name="tpoPago" type="string">
+                <column name="TpoPago" length="15" />
+            </key-property>
+            <key-property name="banco" type="string">
+                <column name="Banco" length="50" />
+            </key-property>
+            <key-property name="nroChequeFactura" type="string">
+                <column name="NroChequeFactura" length="10" />
+            </key-property>
+            <key-property name="fhChequeFactura" type="timestamp">
+                <column name="FhChequeFactura" length="16" />
+            </key-property>
+            <key-property name="importe" type="java.lang.Double">
+                <column name="Importe" precision="53" scale="0" />
+            </key-property>
+            <key-property name="razonSocial" type="string">
+                <column name="Razon_Social" length="50" />
+            </key-property>
+            <key-property name="cuit" type="string">
+                <column name="CUIT" length="15" />
+            </key-property>
+            <key-property name="domicilio" type="string">
+                <column name="Domicilio" length="30" />
+            </key-property>
+            <key-property name="codP" type="java.lang.Integer">
+                <column name="CodP" />
+            </key-property>
+            <key-property name="localidad" type="string">
+                <column name="Localidad" length="20" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

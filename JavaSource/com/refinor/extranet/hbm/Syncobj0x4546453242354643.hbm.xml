@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4546453242354643" table="syncobj_0x4546453242354643" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4546453242354643Id">
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="cajCod" type="string">
+                <column name="CajCod" length="50" />
+            </key-property>
+            <key-property name="proveedor" type="java.lang.Integer">
+                <column name="Proveedor" />
+            </key-property>
+            <key-property name="comprAsoc" type="java.lang.Integer">
+                <column name="ComprAsoc" />
+            </key-property>
+            <key-property name="tipFact" type="string">
+                <column name="TipFact" length="50" />
+            </key-property>
+            <key-property name="sucursal" type="java.lang.Integer">
+                <column name="sucursal" />
+            </key-property>
+            <key-property name="nroFact" type="java.lang.Double">
+                <column name="NroFact" precision="53" scale="0" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="feArrivo" type="timestamp">
+                <column name="FeArrivo" length="16" />
+            </key-property>
+            <key-property name="msg1" type="string">
+                <column name="Msg1" length="50" />
+            </key-property>
+            <key-property name="msg2" type="string">
+                <column name="Msg2" length="50" />
+            </key-property>
+            <key-property name="bruto" type="big_decimal">
+                <column name="Bruto" scale="4" />
+            </key-property>
+            <key-property name="neto" type="big_decimal">
+                <column name="Neto" scale="4" />
+            </key-property>
+            <key-property name="iva" type="big_decimal">
+                <column name="Iva" scale="4" />
+            </key-property>
+            <key-property name="otro" type="big_decimal">
+                <column name="Otro" scale="4" />
+            </key-property>
+            <key-property name="retIva" type="big_decimal">
+                <column name="RetIva" scale="4" />
+            </key-property>
+            <key-property name="retBrutos" type="big_decimal">
+                <column name="RetBrutos" scale="4" />
+            </key-property>
+            <key-property name="coment" type="string">
+                <column name="Coment" length="250" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="nroEjercicioContable" type="java.lang.Long">
+                <column name="NroEjercicioContable" precision="18" scale="0" />
+            </key-property>
+            <key-property name="nroAsientoContable" type="java.lang.Long">
+                <column name="NroAsientoContable" precision="18" scale="0" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

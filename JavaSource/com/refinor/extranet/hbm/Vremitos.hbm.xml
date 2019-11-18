@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Vremitos" table="vRemitos" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VremitosId">
+            <key-property name="fecha" type="timestamp">
+                <column name="fecha" length="16" />
+            </key-property>
+            <key-property name="sucursal" type="int">
+                <column name="sucursal" />
+            </key-property>
+            <key-property name="codRemito" type="java.lang.Integer">
+                <column name="codRemito" />
+            </key-property>
+            <key-property name="codCcss" type="int">
+                <column name="cod_ccss" />
+            </key-property>
+            <key-property name="descCcss" type="string">
+                <column name="desc_ccss" length="50" />
+            </key-property>
+            <key-property name="nroCliente" type="java.lang.Integer">
+                <column name="nroCliente" />
+            </key-property>
+            <key-property name="codCliente" type="string">
+                <column name="codCliente" length="20" />
+            </key-property>
+            <key-property name="cliente" type="string">
+                <column name="Cliente" length="50" />
+            </key-property>
+            <key-property name="codArticulo" type="java.lang.Integer">
+                <column name="codArticulo" />
+            </key-property>
+            <key-property name="articulo" type="string">
+                <column name="Articulo" length="50" />
+            </key-property>
+            <key-property name="bultos1" type="big_decimal">
+                <column name="bultos1" scale="4" />
+            </key-property>
+            <key-property name="fpago" type="string">
+                <column name="fPago" length="7" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

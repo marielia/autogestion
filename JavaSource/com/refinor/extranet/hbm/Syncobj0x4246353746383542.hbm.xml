@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4246353746383542" table="syncobj_0x4246353746383542" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4246353746383542Id">
+            <key-property name="orden" type="int">
+                <column name="Orden" />
+            </key-property>
+            <key-property name="ordenFactura" type="int">
+                <column name="OrdenFactura" />
+            </key-property>
+            <key-property name="sucursal" type="int">
+                <column name="sucursal" />
+            </key-property>
+            <key-property name="tipoLinea" type="string">
+                <column name="TipoLinea" length="50" />
+            </key-property>
+            <key-property name="codArticulo" type="java.lang.Integer">
+                <column name="CodArticulo" />
+            </key-property>
+            <key-property name="espVar" type="java.lang.Integer">
+                <column name="EspVar" />
+            </key-property>
+            <key-property name="descEspVar" type="string">
+                <column name="DescEspVar" length="50" />
+            </key-property>
+            <key-property name="bultos" type="java.lang.Integer">
+                <column name="Bultos" />
+            </key-property>
+            <key-property name="kilosBulto" type="java.lang.Double">
+                <column name="KilosBulto" precision="53" scale="0" />
+            </key-property>
+            <key-property name="precioKilo" type="big_decimal">
+                <column name="PrecioKilo" scale="4" />
+            </key-property>
+            <key-property name="precioTotal" type="big_decimal">
+                <column name="PrecioTotal" scale="4" />
+            </key-property>
+            <key-property name="codEnv" type="java.lang.Integer">
+                <column name="CodEnv" />
+            </key-property>
+            <key-property name="provEnv" type="java.lang.Integer">
+                <column name="ProvEnv" />
+            </key-property>
+            <key-property name="cantEnv" type="java.lang.Integer">
+                <column name="CantEnv" />
+            </key-property>
+            <key-property name="se&#241;aEnv" type="big_decimal">
+                <column name="Se&#241;aEnv" scale="4" />
+            </key-property>
+            <key-property name="se&#241;aTotal" type="big_decimal">
+                <column name="Se&#241;aTotal" scale="4" />
+            </key-property>
+            <key-property name="codExt" type="string">
+                <column name="CodExt" length="50" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

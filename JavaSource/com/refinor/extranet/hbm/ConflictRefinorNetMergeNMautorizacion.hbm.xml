@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.ConflictRefinorNetMergeNMautorizacion" table="conflict_RefinorNetMergeN_MAutorizacion" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.ConflictRefinorNetMergeNMautorizacionId">
+            <key-property name="codigo" type="int">
+                <column name="codigo" />
+            </key-property>
+            <key-property name="codVendedor" type="java.lang.Integer">
+                <column name="codVendedor" />
+            </key-property>
+            <key-property name="codCcss" type="java.lang.Integer">
+                <column name="codCCSS" />
+            </key-property>
+            <key-property name="codCliente" type="java.lang.Integer">
+                <column name="codCliente" />
+            </key-property>
+            <key-property name="codMotivo" type="java.lang.Integer">
+                <column name="codMotivo" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="descripcion" length="200" />
+            </key-property>
+            <key-property name="codChofer" type="java.lang.Integer">
+                <column name="codChofer" />
+            </key-property>
+            <key-property name="codVehiculo" type="java.lang.Integer">
+                <column name="codVehiculo" />
+            </key-property>
+            <key-property name="nroRemito1" type="java.lang.Integer">
+                <column name="nroRemito1" />
+            </key-property>
+            <key-property name="nroRemito2" type="java.lang.Integer">
+                <column name="nroRemito2" />
+            </key-property>
+            <key-property name="codTipoAuto" type="java.lang.Integer">
+                <column name="codTipoAuto" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="fecha" length="23" />
+            </key-property>
+            <key-property name="idCodigoAuto" type="java.lang.Integer">
+                <column name="idCodigoAuto" />
+            </key-property>
+            <key-property name="codEmisor" type="java.lang.Integer">
+                <column name="codEmisor" />
+            </key-property>
+            <key-property name="rowguid" type="string">
+                <column name="rowguid" length="36" />
+            </key-property>
+            <key-property name="codDescripcion" type="java.lang.Integer">
+                <column name="codDescripcion" />
+            </key-property>
+            <key-property name="litrosAcargar" type="java.lang.Long">
+                <column name="litrosAcargar" precision="18" scale="0" />
+            </key-property>
+            <key-property name="tipoComprobanteManual" type="java.lang.Integer">
+                <column name="TipoComprobanteManual" />
+            </key-property>
+            <key-property name="tipoComprobanteAnular" type="java.lang.Integer">
+                <column name="TipoComprobanteAnular" />
+            </key-property>
+            <key-property name="producto" type="java.lang.Integer">
+                <column name="Producto" />
+            </key-property>
+            <key-property name="fechaPedido" type="timestamp">
+                <column name="FechaPedido" length="23" />
+            </key-property>
+            <key-property name="sucursalManual" type="java.lang.Integer">
+                <column name="SucursalManual" />
+            </key-property>
+            <key-property name="sucursalAnular" type="java.lang.Integer">
+                <column name="SucursalAnular" />
+            </key-property>
+            <key-property name="originDatasource" type="string">
+                <column name="origin_datasource" />
+            </key-property>
+            <key-property name="conflictType" type="java.lang.Integer">
+                <column name="conflict_type" />
+            </key-property>
+            <key-property name="reasonCode" type="java.lang.Integer">
+                <column name="reason_code" />
+            </key-property>
+            <key-property name="reasonText" type="string">
+                <column name="reason_text" length="720" />
+            </key-property>
+            <key-property name="pubid" type="string">
+                <column name="pubid" length="36" />
+            </key-property>
+            <key-property name="msreplCreateTime" type="timestamp">
+                <column name="MSrepl_create_time" length="23" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

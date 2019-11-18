@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Dtproperties" table="dtproperties" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.DtpropertiesId">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="property" type="string">
+                <column name="property" length="64" />
+            </key-property>
+        </composite-id>
+        <version name="version" type="int">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="objectid" type="java.lang.Integer">
+            <column name="objectid" />
+        </property>
+        <property name="value" type="string">
+            <column name="value" />
+        </property>
+        <property name="uvalue" type="string">
+            <column name="uvalue" />
+        </property>
+        <property name="lvalue" type="binary">
+            <column name="lvalue" />
+        </property>
+    </class>
+</hibernate-mapping>

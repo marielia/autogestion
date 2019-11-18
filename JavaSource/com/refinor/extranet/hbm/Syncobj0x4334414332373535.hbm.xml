@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4334414332373535" table="syncobj_0x4334414332373535" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4334414332373535Id">
+            <key-property name="codFacturaC" type="java.lang.Integer">
+                <column name="CodFacturaC" />
+            </key-property>
+            <key-property name="proveedor" type="int">
+                <column name="Proveedor" />
+            </key-property>
+            <key-property name="feArrivo" type="timestamp">
+                <column name="FeArrivo" length="16" />
+            </key-property>
+            <key-property name="arrivo" type="java.lang.Integer">
+                <column name="Arrivo" />
+            </key-property>
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="60" />
+            </key-property>
+            <key-property name="descripcionBreve" type="string">
+                <column name="DescripcionBreve" length="20" />
+            </key-property>
+            <key-property name="espVar" type="int">
+                <column name="EspVar" />
+            </key-property>
+            <key-property name="especie" type="int">
+                <column name="Especie" />
+            </key-property>
+            <key-property name="variedad" type="int">
+                <column name="Variedad" />
+            </key-property>
+            <key-property name="zona" type="java.lang.Integer">
+                <column name="Zona" />
+            </key-property>
+            <key-property name="calidad" type="java.lang.Integer">
+                <column name="Calidad" />
+            </key-property>
+            <key-property name="presentacion" type="java.lang.Integer">
+                <column name="Presentacion" />
+            </key-property>
+            <key-property name="tama&#241;o" type="java.lang.Integer">
+                <column name="Tama&#241;o" />
+            </key-property>
+            <key-property name="madurez" type="java.lang.Integer">
+                <column name="Madurez" />
+            </key-property>
+            <key-property name="precioK" type="big_decimal">
+                <column name="PrecioK" scale="4" />
+            </key-property>
+            <key-property name="cantidad" type="java.lang.Double">
+                <column name="Cantidad" precision="53" scale="0" />
+            </key-property>
+            <key-property name="bultos" type="java.lang.Integer">
+                <column name="Bultos" />
+            </key-property>
+            <key-property name="saldoK" type="java.lang.Double">
+                <column name="SaldoK" precision="53" scale="0" />
+            </key-property>
+            <key-property name="saldoB" type="java.lang.Integer">
+                <column name="SaldoB" />
+            </key-property>
+            <key-property name="precioDefinitivo" type="string">
+                <column name="PrecioDefinitivo" length="2" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="codiOrigen" type="java.lang.Integer">
+                <column name="CodiOrigen" />
+            </key-property>
+            <key-property name="codBarra" type="big_decimal">
+                <column name="cod_barra" precision="20" scale="0" />
+            </key-property>
+            <key-property name="unMedida" type="java.lang.Integer">
+                <column name="un_medida" />
+            </key-property>
+            <key-property name="minFact" type="big_decimal">
+                <column name="min_fact" precision="14" scale="4" />
+            </key-property>
+            <key-property name="grupoDesc" type="java.lang.Integer">
+                <column name="grupo_desc" />
+            </key-property>
+            <key-property name="conInsu" type="java.lang.Boolean">
+                <column name="con_insu" />
+            </key-property>
+            <key-property name="esComb" type="java.lang.Boolean">
+                <column name="es_comb" />
+            </key-property>
+            <key-property name="alertaVto" type="java.lang.Boolean">
+                <column name="alerta_vto" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Boolean">
+                <column name="activo" />
+            </key-property>
+            <key-property name="recManual" type="java.lang.Boolean">
+                <column name="rec_manual" />
+            </key-property>
+            <key-property name="afectaStock" type="java.lang.Boolean">
+                <column name="afecta_stock" />
+            </key-property>
+            <key-property name="esGasoil" type="java.lang.Boolean">
+                <column name="es_gasoil" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

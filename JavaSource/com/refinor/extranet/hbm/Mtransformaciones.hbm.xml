@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mtransformaciones" table="mTransformaciones" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.MtransformacionesId">
+            <key-property name="codFacturaCant" type="java.lang.Integer">
+                <column name="CodFacturaCAnt" />
+            </key-property>
+            <key-property name="proveedorAnt" type="int">
+                <column name="ProveedorAnt" />
+            </key-property>
+            <key-property name="feArrivoAnt" type="timestamp">
+                <column name="FeArrivoAnt" length="16" />
+            </key-property>
+            <key-property name="arrivoAnt" type="java.lang.Integer">
+                <column name="ArrivoAnt" />
+            </key-property>
+            <key-property name="codigoAnt" type="int">
+                <column name="CodigoAnt" />
+            </key-property>
+            <key-property name="espVarAnt" type="int">
+                <column name="EspVarAnt" />
+            </key-property>
+            <key-property name="precioKant" type="big_decimal">
+                <column name="PrecioKAnt" scale="4" />
+            </key-property>
+            <key-property name="cantidadAnt" type="java.lang.Integer">
+                <column name="CantidadAnt" />
+            </key-property>
+            <key-property name="saldoKant" type="java.lang.Integer">
+                <column name="SaldoKAnt" />
+            </key-property>
+            <key-property name="saldoBant" type="java.lang.Integer">
+                <column name="SaldoBAnt" />
+            </key-property>
+            <key-property name="precioDefinitivoAnt" type="string">
+                <column name="PrecioDefinitivoAnt" length="50" />
+            </key-property>
+            <key-property name="idUserLockAnt" type="java.lang.Integer">
+                <column name="IdUserLockAnt" />
+            </key-property>
+            <key-property name="fhBajaAnt" type="timestamp">
+                <column name="FhBajaAnt" length="16" />
+            </key-property>
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="espVar" type="int">
+                <column name="EspVar" />
+            </key-property>
+            <key-property name="precioK" type="big_decimal">
+                <column name="PrecioK" scale="4" />
+            </key-property>
+            <key-property name="cantidad" type="java.lang.Integer">
+                <column name="Cantidad" />
+            </key-property>
+            <key-property name="saldoK" type="java.lang.Integer">
+                <column name="SaldoK" />
+            </key-property>
+            <key-property name="saldoB" type="java.lang.Integer">
+                <column name="SaldoB" />
+            </key-property>
+            <key-property name="precioDefinitivo" type="string">
+                <column name="PrecioDefinitivo" length="50" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

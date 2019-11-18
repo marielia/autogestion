@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MgrupoUn" table="MGrupoUN" schema="dbo" catalog="REFIPASS">
+        <id name="codigo" type="int">
+            <column name="codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <property name="codCliente" type="java.lang.Integer">
+            <column name="codCliente" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="activo" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="cuenta" type="string">
+            <column name="Cuenta" length="25" />
+        </property>
+    </class>
+</hibernate-mapping>

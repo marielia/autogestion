@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-feb-2008 16:20:42 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.Mchofer" table="MChofer" schema="dbo" >
+        <id name="codigo" type="int">
+            <column name="codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="codCli" type="java.lang.Integer">
+            <column name="cod_cli" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="20" />
+        </property>
+        <property name="pinChof" type="string">
+            <column name="pin_chof" length="20" />
+        </property>
+        <property name="dni" type="java.lang.Integer">
+            <column name="dni" />
+        </property>
+        <property name="inicializado" type="java.lang.Boolean">
+            <column name="inicializado" />
+        </property>
+        <property name="unidadNeg" type="java.lang.Integer">
+            <column name="unidad_neg" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="activo" />
+        </property>
+        <property name="idUserLock" type="java.lang.Boolean">
+            <column name="IdUserLock" />
+        </property>
+        <property name="FAlta" type="timestamp">
+            <column name="f_alta" length="16" />
+        </property>
+         <property name="FBaja" type="timestamp">
+            <column name="f_baja" length="16" />
+        </property>
+    </class>
+    
+    
+    <sql-query name="findChoferByNombreGrupoUNUnidadNegocio">
+    	<query-param name="codCliente" type="string"/>
+		<query-param name="descripcionUnidadNegocio" type="string"/>
+		<query-param name="descripcionGrupoUN" type="string"/>
+		<query-param name="nombre" type="string"/>
+		<query-param name="dni" type="integer"/>
+		<query-param name="codUnidadNegocio" type="integer"/>
+		<query-param name="codGrupoUN" type="integer"/>
+		
+  		select 
+  		b.codigo as codChofer,   		 
+  		b.apellido as apellidoChofer, 
+  		b.nombre as nombreChofer,
+  		a.codigo as codUnidadNegocio,
+  		a.descripcion as descrUnidadNegocio,
+  		c.codigo as codGrupoUN,
+		c.descripcion as descrGrupoUN,
+		d.cod_cliente_alfa as codClienteAlfa,
+		b.dni as dniChofer,
+		b.activo,
+		b.inicializado,
+		
+		d.descripcion as apecli,
+		d.codigo as codCli,
+		b.pin_chof,
+		b.f_alta,
+		b.f_baja
+		
+		from   MUnidadN as a, 
+				Mchofer as b, 
+				MgrupoUn as c, 
+				Mclientes d
+		where 
+		a.codigo = b.unidad_neg and
+		c.codCliente= d.codigo and
+		c.codigo = a.codGrupoUN and
+		d.cod_cliente_alfa like  :codCliente and
+		(b.apellido like :nombre) and
+		(a.descripcion like :descripcionUnidadNegocio) and
+		(a.codigo = :codUnidadNegocio or :codUnidadNegocio = -1) and
+		(c.descripcion like :descripcionGrupoUN) and
+		(c.codigo = :codGrupoUN or :codGrupoUN = -1) and
+		(b.dni = :dni or :dni = -1) and
+		 (b.activo = :choferActivo or b.activo = :choferBaja)and
+		 (b.inicializado = :choferInicializado or b.inicializado = :choferNoInicializado)
+		 order by b.apellido , b.nombre
+    </sql-query>
+    
+    <sql-query name="findCodigoChofer">
+    <![CDATA[
+		select max(codigo) from Mchofer		
+	]]></sql-query>
+	
+	<query name="findChoferNroDocumento">	
+		from Mchofer where dni = :dni
+	</query>
+	
+	
+	
+	
+	<query name="findChoferPorCliente">	
+		from Mchofer 
+		where codCli = :codClienteInt
+		and inicializado= :choferInicializado 
+		and	activo= :choferActivo
+		and (nombre like :nombreChofer or apellido like :nombreChofer)
+		order by apellido
+	</query>
+	
+	
+	<query name="findChoferDNIxCodigoChofxCliente"> 
+	 <![CDATA[   
+		from Mchofer 
+		where codCli = :codCliente
+		and dni = :dni 
+		and	codigo <> :codChofer		
+	]]>
+	</query>
+	
+	<query name="findChoferDNIxCliente"> 
+	 <![CDATA[   
+		from Mchofer 
+		where codCli = :codCliente
+		and dni = :dni 		
+	]]>
+	</query>
+	
+	<query name="findChoferPorNombreCliente"> 
+	 <![CDATA[   
+		FROM Mchofer c
+		WHERE
+		LTRIM(RTRIM(UPPER(apellido)))+'-'+LTRIM(RTRIM(UPPER(nombre)))  like LTRIM(RTRIM(UPPER(:descripcion)))   
+		and c.codCli = :codCliente
+		and c.activo=1	
+	]]>
+	</query>	
+	
+</hibernate-mapping>

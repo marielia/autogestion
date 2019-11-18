@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-feb-2008 16:20:42 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MpedidosLinea" table="mPedidosLinea" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MpedidosLineaId">
+            <key-property name="codPedido" type="int">
+                <column name="CodPedido" />
+            </key-property>
+            <key-property name="codLinea" type="int">
+                <column name="CodLinea" />
+            </key-property>
+            <key-property name="sucursal" type="int">
+                <column name="sucursal" />
+            </key-property>
+        </composite-id>
+        <property name="lugar" type="string">
+            <column name="Lugar" length="50" />
+        </property>
+        <property name="codArticulo" type="java.lang.Integer">
+            <column name="CodArticulo" />
+        </property>
+        <property name="provCod" type="java.lang.Integer">
+            <column name="ProvCod" />
+        </property>
+        <property name="espVar" type="java.lang.Integer">
+            <column name="EspVar" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="50" />
+        </property>
+        <property name="cantidad1" type="java.lang.Double">
+            <column name="Cantidad1" precision="53" scale="0" />
+        </property>
+        <property name="bultos1" type="java.lang.Integer">
+            <column name="Bultos1" />
+        </property>
+        <property name="cantidad2" type="java.lang.Double">
+            <column name="Cantidad2" precision="53" scale="0" />
+        </property>
+        <property name="bultos2" type="java.lang.Integer">
+            <column name="Bultos2" />
+        </property>
+        <property name="cantidad3" type="java.lang.Double">
+            <column name="Cantidad3" precision="53" scale="0" />
+        </property>
+        <property name="bultos3" type="java.lang.Integer">
+            <column name="Bultos3" />
+        </property>
+        <property name="codModif" type="java.lang.Integer">
+            <column name="CodModif" />
+        </property>
+        <property name="codigoEnv" type="java.lang.Integer">
+            <column name="CodigoEnv" />
+        </property>
+        <property name="cantidadEnv" type="java.lang.Integer">
+            <column name="CantidadEnv" />
+        </property>
+        <property name="codExt" type="string">
+            <column name="CodExt" length="50" />
+        </property>
+        <property name="precioKilo" type="big_decimal">
+            <column name="PrecioKilo" scale="4" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+        <property name="impuestoGr4" type="big_decimal">
+            <column name="impuestoGr4" scale="4" />
+        </property>
+    </class>
+</hibernate-mapping>

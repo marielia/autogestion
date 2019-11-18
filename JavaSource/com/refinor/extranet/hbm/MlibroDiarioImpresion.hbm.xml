@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MlibroDiarioImpresion" table="MLibroDiarioImpresion" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.MlibroDiarioImpresionId">
+            <key-property name="id" type="long">
+                <column name="id" precision="18" scale="0" />
+            </key-property>
+            <key-property name="fechaAlta" type="timestamp">
+                <column name="fecha_alta" length="23" />
+            </key-property>
+            <key-property name="mes" type="string">
+                <column name="mes" length="2" />
+            </key-property>
+            <key-property name="anio" type="string">
+                <column name="anio" length="4" />
+            </key-property>
+            <key-property name="usuario" type="java.lang.Long">
+                <column name="usuario" precision="10" scale="0" />
+            </key-property>
+            <key-property name="nroPaginaInicio" type="java.lang.Long">
+                <column name="nro_pagina_inicio" precision="18" scale="0" />
+            </key-property>
+            <key-property name="nroPaginaFin" type="java.lang.Long">
+                <column name="nro_pagina_fin" precision="18" scale="0" />
+            </key-property>
+            <key-property name="cantidadPaginas" type="java.lang.Long">
+                <column name="cantidad_paginas" precision="18" scale="0" />
+            </key-property>
+            <key-property name="cantidadLineasPaginas" type="java.lang.Integer">
+                <column name="cantidad_lineas_paginas" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

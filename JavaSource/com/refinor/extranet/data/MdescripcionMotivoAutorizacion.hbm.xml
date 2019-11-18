@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-abr-2008 12:47:25 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MdescripcionMotivoAutorizacion" table="MDescripcionMotivoAutorizacion" schema="dbo" >
+        <id name="codigo" type="int">
+            <column name="codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <property name="codigoMotivoAutorizacion" type="java.lang.Integer">
+            <column name="codigo_motivo_autorizacion" />
+        </property>
+    </class>
+    <query name="findDescripcionesPorMotivoAutorizacion">
+       from MdescripcionMotivoAutorizacion d
+       where d.codigoMotivoAutorizacion = :nroMotivoAutorizacion
+       order by d.descripcion
+    </query> 
+    
+     <query name="findDescripcionMotivosAutorizacionPorDescripcion">
+       from MdescripcionMotivoAutorizacion d
+       where d.codigoMotivoAutorizacion = :nroMotivoAutorizacion
+       and LTRIM(RTRIM(UPPER(d.descripcion))) like LTRIM(RTRIM(UPPER(:descripcion)))								
+    </query> 
+       
+    
+</hibernate-mapping>

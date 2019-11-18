@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4341353836463432" table="syncobj_0x4341353836463432" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4341353836463432Id">
+            <key-property name="codigo" type="int">
+                <column name="codigo" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="descripcion" length="50" />
+            </key-property>
+            <key-property name="pagoConVal" type="java.lang.Boolean">
+                <column name="pagoConVal" />
+            </key-property>
+            <key-property name="sumaPuntos" type="java.lang.Boolean">
+                <column name="sumaPuntos" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Boolean">
+                <column name="activo" />
+            </key-property>
+            <key-property name="idUserLock" type="boolean">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="esCtaCte" type="java.lang.Boolean">
+                <column name="esCtaCte" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

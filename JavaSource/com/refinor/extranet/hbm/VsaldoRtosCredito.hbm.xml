@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VsaldoRtosCredito" table="vSaldoRtosCredito" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VsaldoRtosCreditoId">
+            <key-property name="codigo" type="java.lang.Integer">
+                <column name="codigo" />
+            </key-property>
+            <key-property name="cliente" type="java.lang.Integer">
+                <column name="cliente" />
+            </key-property>
+            <key-property name="ccss" type="java.lang.Integer">
+                <column name="ccss" />
+            </key-property>
+            <key-property name="nrosucursal" type="java.lang.Integer">
+                <column name="nrosucursal" />
+            </key-property>
+            <key-property name="codremito" type="java.lang.Integer">
+                <column name="codremito" />
+            </key-property>
+            <key-property name="cantidad" type="big_decimal">
+                <column name="cantidad" precision="38" scale="4" />
+            </key-property>
+            <key-property name="codArticulo" type="java.lang.Integer">
+                <column name="codArticulo" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

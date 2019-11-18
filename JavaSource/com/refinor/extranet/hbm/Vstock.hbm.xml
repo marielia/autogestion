@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Vstock" table="VStock" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VstockId">
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+            <key-property name="ccssnombre" type="string">
+                <column name="CCSSnombre" length="50" />
+            </key-property>
+            <key-property name="almacenId" type="int">
+                <column name="AlmacenId" />
+            </key-property>
+            <key-property name="almacenDescripcion" type="string">
+                <column name="AlmacenDescripcion" length="80" />
+            </key-property>
+            <key-property name="especie" type="int">
+                <column name="Especie" />
+            </key-property>
+            <key-property name="especieDescripcion" type="string">
+                <column name="EspecieDescripcion" length="50" />
+            </key-property>
+            <key-property name="variedad" type="int">
+                <column name="Variedad" />
+            </key-property>
+            <key-property name="variedadDescripcion" type="string">
+                <column name="VariedadDescripcion" length="50" />
+            </key-property>
+            <key-property name="articuloId" type="int">
+                <column name="ArticuloId" />
+            </key-property>
+            <key-property name="articuloDescripcion" type="string">
+                <column name="ArticuloDescripcion" length="60" />
+            </key-property>
+            <key-property name="cantidadStock" type="big_decimal">
+                <column name="CantidadStock" precision="38" scale="4" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Boolean">
+                <column name="Activo" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

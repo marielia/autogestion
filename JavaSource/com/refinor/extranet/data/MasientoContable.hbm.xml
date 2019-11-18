@@ -1,0 +1,599 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-may-2008 14:13:11 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MasientoContable" table="MAsientoContable" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MasientoContableId">
+            <key-property name="id" type="long">
+                <column name="id" precision="18" scale="0" />
+            </key-property>
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+        </composite-id>
+        <property name="nroEjercicio" type="java.lang.Long">
+            <column name="NroEjercicio" precision="18" scale="0" />
+        </property>
+        <property name="nroAsiento" type="long">
+            <column name="NroAsiento" precision="18" scale="0" not-null="true" />
+        </property>
+        <property name="cuenta" type="string">
+            <column name="Cuenta" length="7" />
+        </property>
+        <property name="debHab" type="string">
+            <column name="DebHab" length="1" />
+        </property>
+        <property name="valor" type="big_decimal">
+            <column name="valor" precision="18" scale="3" />
+        </property>
+        <property name="leyenda" type="string">
+            <column name="leyenda" length="50" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="Fecha" length="23" />
+        </property>
+    </class>
+    
+    <sql-query name="findMayorContableMFacturaV">
+   		<query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>  
+	   	<query-param name="cuentaDesde" type="string"/>
+  	    <query-param name="cuentaHasta" type="string"/>
+	    <query-param name="codCcss" type="Integer"/>
+  	   
+  	   
+  	   
+	select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		f.leyenda as leyenda,
+		f.fecha as fecha,
+		b.cta_desc as descCuenta,
+		
+		fac.nroSucursal as nroSuc,
+		fac.nroFactura as nroFac,
+		fac.tipoComp as compr,
+		fac.tipo as letra
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on f.cuenta = b.cuenta
+		     inner join mPuntoVenta  p on p.ccss  = c.cod_ccss and  p.ccss = f.ccssId
+		     inner join mFacturasV fac on fac.nroAsientoContable = f.nroAsiento 
+		     						   and fac.nroSucursal = p.sucursal
+		     						   and fac.nroEjercicioContable = f.NroEjercicio
+		      
+		where
+		(f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is  null  or dateadd(dd,1,:fechaHasta) is null)) and
+		(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1)
+		
+		order by f.cuenta, f.fecha
+			
+			
+	</sql-query>
+	
+	
+	<sql-query name="findMayorContableMPedido">
+   		<query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>  
+	   	<query-param name="cuentaDesde" type="string"/>
+  	    <query-param name="cuentaHasta" type="string"/>
+	    <query-param name="codCcss" type="Integer"/>
+  	   
+  	   	
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		f.leyenda as leyenda,
+		f.fecha as fecha,
+		b.cta_desc as descCuenta,
+		
+		fac.nroSucursal as nroSuc,
+		fac.codRemito as nroFac,
+		'REM' as compr,
+		' ' as letra
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on f.cuenta = b.cuenta
+		     inner join mPuntoVenta  p on p.ccss  = c.cod_ccss and  p.ccss = f.ccssId
+		     inner join mPedidos fac on fac.nroAsientoContable = f.nroAsiento 
+		     							and fac.nroSucursal = p.sucursal 
+		     							and fac.nroEjercicioContable = f.NroEjercicio
+		      
+		where
+		(f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is  null  or dateadd(dd,1,:fechaHasta) is null)) and
+		(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1)
+		
+		order by f.cuenta, f.fecha
+
+		
+	</sql-query>
+	
+	<sql-query name="findMayorContableMRecibo">
+   		<query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>  
+	   	<query-param name="cuentaDesde" type="string"/>
+  	    <query-param name="cuentaHasta" type="string"/>
+	    <query-param name="codCcss" type="Integer"/>
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		f.leyenda as leyenda,
+		f.fecha as fecha,
+		b.cta_desc as descCuenta,
+		
+		0 as nroSuc,
+		fac.nro_rec as nroFac,
+		'REC' as compr,
+		' ' as letra
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on    f.cuenta = b.cuenta
+		     inner join Mcaja p on      p.ccssId  = c.cod_ccss and  
+						p.ccssId = f.ccssId and 
+						p.nroAsientoContable = f.nroAsiento and
+						p.nroEjercicioContable = f.nroEjercicio
+		     inner join mRecibo fac on  fac.nroOperCaja = p.nroOper 
+						
+		      
+		where
+		(f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is  null  or dateadd(dd,1,:fechaHasta) is null)) and
+		(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1)
+		
+		order by f.cuenta, f.fecha
+	</sql-query>
+	
+	
+	 <sql-query name="findSumasySaldos">
+   		<query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>  	   	
+	    <query-param name="codCcss" type="Integer"/>
+  	   
+		select 
+		
+		f.cuenta as cuenta,		
+		isnull(dbo.obtenerDebeHaberAsientoContable(f.cuenta,:codCcss,:fechaDesde,:fechaHasta,'H'),0) as haber,
+		isnull(dbo.obtenerDebeHaberAsientoContable(f.cuenta,:codCcss,:fechaDesde,:fechaHasta,'D'),0)as debe,
+		isnull(dbo.obtenerDebeHaberAsientoContable(f.cuenta,:codCcss,:fechaDesde,:fechaHasta,'D'),0) - isnull(dbo.obtenerDebeHaberAsientoContable(f.cuenta,:codCcss,:fechaDesde,:fechaHasta,'H'),0) as saldo,
+		b.cta_desc as descCuenta
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on f.cuenta = b.cuenta
+		     
+		where
+		(f.fecha between dbo.fechaSinHora(:fechaDesde) and dbo.fechaSinHora(:fechaHasta) or (:fechaDesde is  null  or :fechaHasta is null)) and
+		(f.cuenta  between null and  null  or (null is null or null is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1) 
+                
+		
+
+		group by 
+			f.cuenta ,		
+			b.cta_desc 
+		
+		order by f.cuenta
+		
+	</sql-query>
+	
+	<sql-query name="findAsientosPorCCSSNroEjerNroAsiento">
+   		<query-param name="nroAsientoDesde" type="integer"/>
+	    <query-param name="nroAsientoHasta" type="integer"/>  	   	
+	    <query-param name="codCcss" type="Integer"/>
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,		
+		f.debHab as debHab,
+		isnull(sum(f.valor),0) as valorDebHab		
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss		     
+		      
+		where
+		(c.f_baja is null) and		
+		(c.cod_ccss = :codCcss or :codCcss = -1) and 
+		(f.nroasiento between  :nroAsientoDesde and :nroAsientoHasta)
+		
+		group by f.ccssId,
+		c.desc_ccss,
+		f.nroEjercicio,
+		f.nroAsiento,		
+		f.debHab
+	</sql-query>
+	
+	
+	
+	<sql-query name="findAsientosPorCCSSNroEjerNroAsientov2">
+   		<query-param name="nroAsientoDesde" type="integer"/>
+	    <query-param name="nroAsientoHasta" type="integer"/>  	   	
+	    <query-param name="codCcss" type="Integer"/>
+		SELECT 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,		
+		f.debHab as debHab,
+		isnull(sum(f.valor),0) as valorDebHab,
+		dif.debHab as debHab2,
+		dif.valorDebHab as valorDebHab2,
+		isnull(sum(f.valor),0) - dif.valorDebHab as total
+				
+		
+		FROM MAsientoContable f INNER JOIN  vAsientoContableConDiff dif ON f.ccssId = dif.ccssId AND
+																			f.nroEjercicio = dif.nroEjercicio AND 
+																			f.nroAsiento = dif.nroAsiento
+			INNER JOIN Mccss c ON  f.ccssId = c.cod_ccss AND dif.ccssId = c.cod_ccss	
+		      
+		WHERE
+		(c.f_baja is null) 
+		AND (f.debHab like 'D') 
+		AND (c.cod_ccss = :codCcss or :codCcss = -1) 
+		AND (f.nroasiento between  :nroAsientoDesde and :nroAsientoHasta) 
+		AND	(dif.nroasiento between  :nroAsientoDesde and :nroAsientoHasta)	
+		
+		GROUP BY
+		f.ccssId,
+		c.desc_ccss,
+		f.nroEjercicio,
+		f.nroAsiento,		
+		f.debHab,
+		dif.debHab,
+		dif.valorDebHab 
+		HAVING 
+		abs(isnull(sum(f.valor),0) - dif.valorDebHab) > 0.009
+		ORDER BY  
+		f.nroAsiento,f.nroEjercicio,	f.ccssId
+	</sql-query>
+	
+	
+	
+	 <sql-query name="findMayorContableMFacturaV2">
+   		<query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>  
+	   	<query-param name="cuentaDesde" type="string"/>
+  	    <query-param name="cuentaHasta" type="string"/>
+	    <query-param name="codCcss" type="Integer"/>
+  	   
+  	   
+  	   
+	select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		REPLACE(REPLACE(isnull(f.leyenda,''), char(10), ''), char(13),'')  as leyenda,
+		dbo.fechaSinhora2(f.fecha) as fecha,
+		b.cta_desc as descCuenta,		
+		fac.nroSucursal as nroSuc,
+		fac.nroFactura as nroFac,
+		fac.tipoComp as compr,
+		fac.tipo as letra,
+		m.cod_cliente_alfa as codigoCli,
+		m.descripcion as cliente,
+		' ' as comprobanteAsociado,
+		0 as nroRendicion,
+		dbo.hora(f.fecha) as hora
+		
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on f.cuenta = b.cuenta
+		     inner join mPuntoVenta  p on p.ccss  = c.cod_ccss and  p.ccss = f.ccssId
+		     inner join mFacturasV fac on fac.nroAsientoContable = f.nroAsiento 
+		     						   and fac.nroSucursal = p.sucursal
+		     						   and fac.nroEjercicioContable = f.NroEjercicio
+			inner join mclientes m on m.codigo = fac.cliente
+		where
+		(dbo.fechasinhora2(f.fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) and
+		(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1)
+		
+			
+		UNION
+			
+			
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		REPLACE(REPLACE(isnull(f.leyenda,''), char(10), ''), char(13),'')  as leyenda,
+		dbo.fechaSinhora2(f.fecha) as fecha,
+		b.cta_desc as descCuenta,		
+		fac.nroSucursal as nroSuc,
+		fac.codRemito as nroFac,
+		'REM' as compr,
+		' ' as letra,
+		m.cod_cliente_alfa as codigoCli,
+		m.descripcion as cliente,
+		' ' as comprobanteAsociado,
+		0 as nroRendicion ,
+		dbo.hora(f.fecha) as hora
+		
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on f.cuenta = b.cuenta
+		     inner join mPuntoVenta  p on p.ccss  = c.cod_ccss and  p.ccss = f.ccssId
+		     inner join mPedidos fac on fac.nroAsientoContable = f.nroAsiento 
+		     							and fac.nroSucursal = p.sucursal 
+		     							and fac.nroEjercicioContable = f.NroEjercicio
+		    inner join mclientes m on m.codigo = fac.cliente
+		      
+		where
+			(dbo.fechasinhora2(f.fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) and
+	(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1)
+		
+		UNION
+		
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		REPLACE(REPLACE(isnull(f.leyenda,''), char(10), ''), char(13),'')  as leyenda,
+		dbo.fechaSinhora2(f.fecha) as fecha,
+		b.cta_desc as descCuenta,		
+		0 as nroSuc,
+		fac.nro_rec as nroFac,
+		'REC' as compr,
+		' ' as letra,
+		m.cod_cliente_alfa as codigoCli,
+		m.descripcion as cliente,
+		' ' as comprobanteAsociado,
+		0 as nroRendicion ,
+		dbo.hora(f.fecha) as hora
+		
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on    f.cuenta = b.cuenta
+		     inner join Mcaja p on      p.ccssId  = c.cod_ccss and  
+						p.ccssId = f.ccssId and 
+						p.nroAsientoContable = f.nroAsiento and
+						p.nroEjercicioContable = f.nroEjercicio
+		     inner join mRecibo fac on  fac.nroOperCaja = p.nroOper 
+			 inner join mclientes m on m.codigo = fac.cliente
+		      			
+		      
+		where
+			(dbo.fechasinhora2(f.fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) and
+	(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and		
+		(c.cod_ccss = :codCcss or :codCcss = -1)
+		
+		UNION
+		
+		
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		REPLACE(REPLACE(isnull(f.leyenda,''), char(10), ''), char(13),'')  as leyenda,
+		dbo.fechaSinhora2(f.fecha) as fecha,
+		b.cta_desc as descCuenta,		
+		0 as nroSuc,
+		fac.nro_rec as nroFac,
+		'RECAN' as compr,
+		' ' as letra,
+		m.cod_cliente_alfa as codigoCli,
+		m.descripcion as cliente,
+		' ' as comprobanteAsociado,
+		0 as nroRendicion ,
+		dbo.hora(f.fecha) as hora
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on    f.cuenta = b.cuenta
+		     inner join Mcaja p on      p.ccssId  = c.cod_ccss and  
+						p.ccssId = f.ccssId and 
+						p.nroAsientoContable_baja = f.nroAsiento and
+						p.nroEjercicioContable_baja = f.nroEjercicio
+		     inner join mRecibo fac on  fac.nroOperCaja = p.nroOper 
+	             inner join mclientes m on m.codigo = fac.cliente
+		      			
+		      
+		where
+			(dbo.fechasinhora2(f.fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) and
+	(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and	
+		(c.f_baja is null) and
+		(b.fBaja is null) and		
+		(c.cod_ccss = :codCcss or :codCcss = -1)
+		
+		UNION
+		
+		
+		
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		REPLACE(REPLACE(isnull(f.leyenda,''), char(10), ''), char(13),'')  as leyenda,
+		dbo.fechaSinhora2(f.fecha) as fecha,
+		b.cta_desc as descCuenta,		
+		0 as nroSuc,
+		 p.nrochq as nroFac,
+		'CHEQUE' as compr,
+		' ' as letra,
+		m.cod_cliente_alfa as codigoCli,
+		m.descripcion as cliente,
+		r.nro_rec as nroReciboAsociadoAlCheque,
+		0 as nroRendicion,
+		dbo.hora(f.fecha) as hora
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on    f.cuenta = b.cuenta
+		     inner join mcheques p on   p.nroAsientoContable = f.nroAsiento and
+						p.nroEjercicioContable = f.nroEjercicio	
+			 inner join mclientes m on m.codigo = p.presentadopornro 
+			  inner join mrecibo r on r.nroOperCaja = p.nroOper
+		  where
+			(dbo.fechasinhora2(f.fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) and
+	(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1)   
+		
+		
+		UNION	
+		
+		select 
+		f.ccssId as ccssId,
+		c.desc_ccss as descCCSS,
+		f.nroEjercicio as nroEjercicio,
+		f.nroAsiento as nroAsiento,
+		f.cuenta as cuenta,
+		f.debHab as debHab,
+		f.valor as valorDebHab,
+		REPLACE(REPLACE(isnull(f.leyenda,''), char(10), ''), char(13),'')  as leyenda,
+		dbo.fechaSinhora2(f.fecha) as fecha,
+		b.cta_desc as descCuenta,		
+		0 as nroSuc,
+		0 as nroFac,
+		'CUENTA BANCO' as compr,
+		' ' as letra,
+		' ' as codigoCli,
+		' ' as cliente,
+		' ' as comprobanteAsociado,
+		p.nroRendicionRefipass as nroRendicion,
+		dbo.hora(f.fecha) as hora
+		
+		from MAsientoContable f inner join Mccss c on  f.ccssId = c.cod_ccss
+		     left join MCtaCble b on    f.cuenta = b.cuenta
+		     inner join mcuentasbancos p on   	p.nroAsientoContable = f.nroAsiento and
+												p.nroEjercicioContable = f.nroEjercicio	 and
+												p.ccssid = f.ccssid
+		  
+		  where
+			(dbo.fechasinhora2(f.fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) and
+	(f.cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(c.f_baja is null) and
+		(b.fBaja is null) and
+		(c.cod_ccss = :codCcss or :codCcss = -1)   
+		
+		
+		   
+		order by f.cuenta, f.fecha
+			
+	</sql-query>
+	
+	
+	
+	
+	 <sql-query name="findMayorContableMFacturaV3">
+   		<query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>  
+	   	<query-param name="cuentaDesde" type="string"/>
+  	    <query-param name="cuentaHasta" type="string"/>
+	    <query-param name="codCcss" type="Integer"/>
+  	   
+  	  
+		SELECT 
+		ccssId	as	ccssId	,
+		descCCSS	as	descCCSS	,
+		nroEjercicio	as	nroEjercicio	,
+		nroAsiento	as	nroAsiento	,
+		cuenta	as	cuenta	,
+		debHab	as	debHab	,
+		valorDebHab	as	valorDebHab	,
+		leyenda	as	leyenda	,
+		fecha	as	fecha	,
+		descCuenta	as	descCuenta	,
+		nroSuc	as	nroSuc	,
+		nroFac	as	nroFac	,
+		compr	as	compr	,
+		letra	as	letra	,
+		codigoCli	as	codigoCli	,
+		cliente	as	cliente	,
+		comprobanteAsociado	as	comprobanteAsociado	,
+		nroRendicion	as	nroRendicion	,
+		hora	as	hora	
+		FROM vAsientoContable where  
+		(dbo.fechasinhora2(fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) and
+	    (cuenta  between :cuentaDesde and  :cuentaHasta  or (:cuentaDesde is null or :cuentaHasta is null)) and
+		(ccssId = :codCcss or :codCcss = -1)   
+		   
+		 ORDER BY  cuenta, fecha
+			
+	</sql-query>
+	
+	
+	
+	
+	 <sql-query name="findLibroDiario">
+   		<query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>  
+	    	  
+		SELECT 
+		ccssId	as	ccssId	,
+		descCCSS	as	descCCSS	,
+		nroEjercicio	as	nroEjercicio	,
+		nroAsiento	as	nroAsiento	,
+		cuenta	as	cuenta	,
+		debHab	as	debHab	,
+		valorDebHab	as	valorDebHab	,
+		leyenda	as	leyenda	,
+		fecha	as	fecha	,
+		descCuenta	as	descCuenta	,
+		nroSuc	as	nroSuc	,
+		nroFac	as	nroFac	,
+		compr	as	compr	,
+		letra	as	letra	,
+		codigoCli	as	codigoCli	,
+		cliente	as	cliente	,
+		comprobanteAsociado	as	comprobanteAsociado	,
+		nroRendicion	as	nroRendicion	,
+		hora	as	hora,
+		id as id	
+		FROM vAsientoContable where  
+		(dbo.fechasinhora2(fecha) between dbo.fechasinhora(:fechaDesde) and dbo.fechasinhora(:fechaHasta) or (dbo.fechasinhora(:fechaDesde) is  null  or dbo.fechasinhora(:fechaHasta) is null)) 
+	 	   
+		 ORDER BY  fecha,nroFac
+			
+	</sql-query>
+</hibernate-mapping>

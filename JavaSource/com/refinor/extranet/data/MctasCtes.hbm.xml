@@ -1,0 +1,2375 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-mar-2008 18:34:29 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MctasCtes" table="MCtasCtes" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MctasCtesId">
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+            <key-property name="ctaCteReg" type="int">
+                <column name="CtaCteReg" />
+            </key-property>
+        </composite-id>
+        <property name="tpoCtaCte" type="string">
+            <column name="TpoCtaCte" length="50" />
+        </property>
+        <property name="clteProv" type="java.lang.Integer">
+            <column name="ClteProv" />
+        </property>
+        <property name="tipoOper" type="string">
+            <column name="TipoOper" length="50" />
+        </property>
+        <property name="nroOper" type="java.lang.Integer">
+            <column name="NroOper" />
+        </property>
+        <property name="nroOperCaja" type="java.lang.Integer">
+            <column name="NroOperCaja" />
+        </property>
+        <property name="nroFactura" type="java.lang.Integer">
+            <column name="NroFactura" />
+        </property>
+        <property name="nroCuota" type="java.lang.Short">
+            <column name="NroCuota" />
+        </property>
+        <property name="fhOper" type="timestamp">
+            <column name="FhOper" length="23" />
+        </property>
+        <property name="importe" type="big_decimal">
+            <column name="Importe" scale="4" />
+        </property>
+        <property name="user" type="string">
+            <column name="User" length="50" />
+        </property>
+        <property name="fhProc" type="timestamp">
+            <column name="FhProc" length="23" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="23" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="depu" type="timestamp">
+            <column name="Depu" length="23" />
+        </property>
+        <property name="codigoTurnoVigencia" type="java.lang.Long">
+            <column name="CodigoTurnoVigencia" precision="18" scale="0" />
+        </property>
+        <property name="rowguid" type="string">
+            <column name="rowguid" length="36" not-null="true" unique="true" />
+        </property>
+    </class>
+    
+    <sql-query name="findTodasLasFacturasAgrupadas">
+    	<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />	
+		<query-param name="fechaDesdeDos" type="timestamp" />
+		<query-param name="fechaHastaDos" type="timestamp" />
+		<query-param name="tipoOperacion" type="String" />
+		<query-param name="codCliente" type="integer" />
+		
+		     /*facturas abonadas */
+    		select 
+			fv.orden as orden, 
+			fv.fecha as fecha, 
+			fv.tipo as tipo,
+			fv.nroSucursal as sucFact, 
+			fv.nroFactura as factura,
+			isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) + isnull(fv.ivaadicional,0) + isnull(fv.impuestoGr1,0) +isnull(fv.impuestoGr2,0)+isnull(fv.impuestoGr3,0)+isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+isnull(fv.iibb,0)+isnull(fv.piva,0) as montoFactura,
+			cl.descripcion as descrCli,
+			cl.cod_cliente_alfa as codCliAlfa,
+			
+			fv.tipocomp as tipoCom, 
+			sum(c.importe) as pagoAplicado,
+			
+			isnull(fv.netoFactura,0) as neto, 
+			fv.feVto as feVeto,
+			cs.desc_ccss as descCCSS,
+			fv.nroRemito as remito,
+			fv.cliente as cliente,
+			v.imp as saldo
+			
+			from 
+			mfacturasv fv, Mclientes cl,mctasctes c, mccss cs,mpuntoventa pv , vsaldoporcomprobantecliente v
+			where
+			fv.cliente = cl.codigo and (fv.cliente = :codCliente)
+			and (fv.fecha between	:fechaDesde and :fechaHasta or :fechaDesde is null and	:fechaHasta is null) 
+			and (fv.fevto between	:fechaDesdeDos and :fechaHastaDos or :fechaDesdeDos is null and	:fechaHastaDos is null)
+			and (rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim(:tipoOperacion)) or 
+			rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente')) or
+			rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicNC Factura Cliente')))
+			and (c.nroOper = fv.orden and c.sucursal = fv.NroSucursal) 
+			and ( cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) 
+			and  (v. sucursal= fv.nroSucursal 
+			and  v.nrooper= fv.orden  
+			and  v.clteprov= fv.cliente	)
+			and (fv.tipocomp = 'ND' or fv.tipocomp = 'FC')
+			and (fv.cond_vta in (4,5))
+			
+			group by
+			fv.orden , 
+			fv.fecha, 
+			fv.tipo ,
+			fv.nroSucursal , 
+			fv.nroFactura ,
+			fv.netoFactura,
+			fv.ivabasico,
+			fv.ivaadicional,
+			fv.impuestoGr1,
+			fv.impuestoGr2,
+			fv.impuestoGr3,
+			fv.impuestoGr4,fv.impuestoGr5,
+			fv.iibb,
+			fv.piva,			 
+			cl.descripcion ,
+			cl.cod_cliente_alfa ,			
+			fv.tipocomp , 
+			fv.netoFactura , 
+			fv.feVto ,
+			cs.desc_ccss,
+			fv.nroRemito,
+			fv.cliente,
+			v.imp
+			
+			UNION
+			
+			
+			/*facturas no abonada*/
+			select 
+			fv.orden as orden, 
+			fv.fecha as fecha, 
+			fv.tipo as tipo,
+			fv.nroSucursal as sucFact, 
+			fv.nroFactura as factura,
+			isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +isnull(impuestoGr2,0)+isnull(fv.impuestoGr3,0)+isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+isnull(fv.iibb,0)+isnull(fv.piva,0) as neto,
+			cl.descripcion as descrCli,
+			cl.cod_cliente_alfa as codCliAlfa,
+			fv.tipocomp as tipoCom, 
+			0 as pagoAplicado,
+			isnull(fv.netoFactura,0) as neto,
+			fv.fevto as fevto,
+			cs.desc_ccss as desccss,
+			fv.nroRemito as remito,
+			
+			fv.cliente as cliente,
+			isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +isnull(impuestoGr2,0)+isnull(fv.impuestoGr3,0)+isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+isnull(fv.iibb,0)+isnull(fv.piva,0) as saldo
+				
+			
+			from mfacturasv fv, Mclientes cl, mccss cs, mpuntoventa pv 
+			where
+			fv.cliente = cl.codigo and (fv.cliente = :codCliente)
+			and (fv.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+			and (fv.fevto between :fechaDesdeDos and :fechaHastaDos or :fechaDesdeDos is null and :fechaHastaDos is null)
+			and (:tipoOperacion = :tipoOperacion) 
+			and fv.orden not in ( select cta.nroOper 
+					      from mctasctes cta 
+					      where cta.sucursal = fv.nrosucursal
+					      and cta.clteprov = :codCliente) 
+			and (cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal)
+			and (rtrim(ltrim(fv.tipocomp))= rtrim(ltrim('ND')) or  rtrim(ltrim(fv.tipocomp))= rtrim(ltrim('FC')))
+			and (fv.cond_vta in (4,5))
+			
+			UNION
+			
+			/*facturas no abonada*/				
+				select 
+				fv.orden as orden, 
+				fv.fecha as fecha, 
+				fv.tipo as tipo,
+				fv.nroSucursal as sucFact, 
+				fv.nroFactura as factura,
+				isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) + isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +	isnull(impuestoGr2,0)+	isnull(fv.impuestoGr3,0)+isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+isnull(fv.iibb,0)+isnull(fv.piva,0),
+				
+				cl.descripcion as descrCli,
+				cl.cod_cliente_alfa as codCliAlfa,
+				
+				fv.tipocomp as tipoCom, 
+				0 as pagoAplicado,
+				isnull(fv.netoFactura,0) as neto,
+				fv.fevto as fevto,
+				cs.desc_ccss,
+				fv.nroRemito as remito, 
+				fv.cliente as codCiente,
+			
+				isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +isnull(fv.ivaadicional,0) + isnull(fv.impuestoGr1,0) +isnull(fv.impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+isnull(fv.impuestoGr4,0)+isnull(fv.iibb,0)+ isnull(fv.piva,0) as saldo
+				
+				from mfacturasv fv, Mclientes cl, mccss cs, mpuntoventa pv 
+				where
+				fv.cliente = cl.codigo and (fv.cliente = :codCliente)
+				and (fv.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+				and (fv.fevto between :fechaDesdeDos and :fechaHastaDos or :fechaDesde is null and :fechaHastaDos is null)	 			
+				and (cs.cod_ccss = pv.ccss and	fv.nroSucursal = pv.sucursal) 
+				and fv.orden not in ( select fv.orden as orden
+						      from mfacturasv fv, Mclientes cl,mccss cs, mpuntoventa pv 
+						      where fv.cliente = cl.codigo 			
+							and (fv.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+							and (fv.fevto between :fechaDesdeDos and :fechaHastaDos or :fechaDesde is null and :fechaHastaDos is null)	 			
+							and  fv.orden not in 	( select cta.nroOper 
+										  from mctasctes cta 
+										  where	cta.sucursal = fv.nrosucursal) 
+							and (cs.cod_ccss = pv.ccss 
+							and  fv.nroSucursal = pv.sucursal) 
+							and  fv.cliente = :codCliente
+							
+						     )
+				
+				and fv.orden not in ( select fv.orden as orden 
+						      from mfacturasv fv, Mclientes cl,mctasctes c, mccss cs, mpuntoventa pv 
+						      where
+							fv.cliente = cl.codigo  
+							and (fv.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+							and (fv.fevto between :fechaDesdeDos and :fechaHastaDos or :fechaDesde is null and :fechaHastaDos is null)	 			
+							and (rtrim(Ltrim(c.TipoOper)) =	rtrim(ltrim(:tipoOperacion)) or 
+							rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente')) or
+							rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicNC Factura Cliente')))
+							and (c.nroOper = fv.orden and c.sucursal = fv.NroSucursal) 
+							and (cs.cod_ccss = pv.ccss and	fv.nroSucursal = pv.sucursal) 
+							and  fv.cliente = :codCliente
+						    )
+    
+    			and (rtrim(ltrim(fv.tipocomp))= rtrim(ltrim('ND')) or  rtrim(ltrim(fv.tipocomp))= rtrim(ltrim('FC')))
+    			and (fv.cond_vta in (4,5))
+    </sql-query>
+    
+    
+     <sql-query name="findNCAplicaFacturaCliente">
+    	<query-param name="nroOperacion" type="integer"/>
+	    <query-param name="nroSucursal" type="integer"/>  
+	    <query-param name="codCliente" type="integer"/>	    
+	    
+
+
+ select 
+		'Nota crédito' as notaCredito,
+		f.nrosucursal as nroSuc,
+		f.fecha as fecha,
+		c.importe as pagoAplicado,
+		a.nrooper as operAplicaNC,
+		b.nroOper as operNC,
+		f.nrofactura as nroFac,
+		'NC' as tipoAbrev
+		from mctasctes a, mctasctes b,mfacturasv f,mctasctes c
+		where 
+		a.tipoOper like 'AplicNC' and
+		a.nroOperCaja = c.nroOperCaja
+		and a.nrooper = b.ctactereg
+		and f.orden = b.nrooper
+		and f.cliente = b.clteprov
+		and f.nroSucursal = b.sucursal
+		and a.nroOperCaja >0
+		and rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicNC Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and a.fhbaja is null
+		
+		UNION
+		
+		
+		select 
+		'Nota crédito' as notaCredito,
+		f.nrosucursal as nroSuc,
+		f.fecha as fecha,
+		c.importe as pagoAplicado,
+		a.nrooper as operAplicaNC,
+		b.nroOper as operNC,
+		f.nrofactura as nroFac,
+		'NC' as tipoAbrev
+		from mctasctes a, mctasctes b,mfacturasv f,mctasctes c
+		where 
+		a.tipoOper like 'AplicNC' and
+		a.nro_reimp = c.nro_reimp
+		and a.nrooper = b.ctactereg
+		and f.orden = b.nrooper
+		and f.cliente = b.clteprov
+		and f.nroSucursal = b.sucursal
+		and a.nroopercaja=0
+		and rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicNC Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and b.tipooper = 'NC'
+		and a.fhbaja is null
+    
+    </sql-query>
+   
+   <sql-query name="findPagoAdelAplicaFacturaClienteV2">
+    	<query-param name="nroOperacion" type="integer"/>
+	    <query-param name="nroSucursal" type="integer"/>  
+	    <query-param name="codCliente" type="integer"/>	    
+	<![CDATA[	  
+	
+	
+		select 
+		'Recibo' as notaCredito,
+		r.nro_rec as nroSuc,
+		r.fecha as fecha,
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		c.nroOper as operNC,
+		c.nrofactura as nroFac,
+		'RC' as tipoAbrev
+		from mctasctes c,mctasctes a,mctasctes d, mrecibo r, mreimputacion m
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))
+		and r.nroOperCaja = d.nroOperCaja	
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null
+		
+		UNION			
+		
+		
+		
+		/*pago que proveiene de una NC*/		
+		select 
+		'Nota crédito' as notaCredito,
+		f.nrosucursal as nroSuc,
+		/*c.fhoper as fecha,*/
+		f.fecha as fecha,		
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		f.orden as operNC,
+		f.nrofactura as nroFac,
+		'NC' as tipoAbrev
+
+		from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mfacturasv f
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))				
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('NC'))	
+		and e.nrooper = f.orden and e.sucursal = f.nrosucursal 
+		and f.cliente = e.clteprov
+		
+		UNION
+		
+	   /*pago que proveiene de una NC de segunda generacion*/
+		select 		
+
+		'Nota crédito' as notaCredito,
+		t.nrosucursal as nroSuc,
+		t.fecha as fecha,
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		e.nroOper as operNC,
+		t.nrofactura as nroFac,
+		f.tipoOper as tipoAbrev
+
+		from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('NC'))    )
+		and (t.orden = f.nrooper
+		and t.cliente = f.clteprov
+		and t.nroSucursal = f.sucursal)
+
+
+		UNION
+		
+		/*pago que proveiene de una NC de cuarta generacion*/
+		select 		
+
+		'Nota crédito' as notaCredito,
+		t.nrosucursal as nroSuc,
+		t.fecha as fecha,
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		e.nroOper as operNC,
+		t.nrofactura as nroFac,
+		'NC' as tipoAbrev
+
+		from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t,mctasctes g
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal	
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('PagoAdel'))    )
+		and (t.orden = g.nrooper
+		and t.cliente = g.clteprov
+		and t.nroSucursal = g.sucursal)
+		and (f.nrooper = g.ctactereg and rtrim(Ltrim(g.tipoOper)) = rtrim(ltrim('NC'))    )
+
+	
+		UNION
+
+	
+		
+		select 
+		'Recibo' as notaCredito,
+		dbo.obtenerNroRecibo(e.nroOper,c.clteprov) as nroSuc,	
+		dbo.obtenerFechaNroRecibo(e.nroOper,c.clteprov) as fecha,		
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		c.nroOper as operNC,
+		c.nrofactura as nroFac,
+		'RC' as tipoAbrev
+
+
+		from mctasctes c,mctasctes a,mreimputacion m,mctasctes d, mctasctes e
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal		
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and e.nroopercaja = 0 
+		and dbo.obtenerNroRecibo(e.nroOper,c.clteprov) is not null	
+
+
+
+		UNION
+
+		select 
+		'Recibo' as notaCredito,
+		dbo.obtenerNroRecibo(d.nroOper,c.clteprov) as nroSuc,	
+		dbo.obtenerFechaNroRecibo(d.nroOper,c.clteprov) as fecha,		
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		c.nroOper as operNC,
+		c.nrofactura as nroFac,
+		'RC' as tipoAbrev
+
+		from mctasctes c,mctasctes a,mreimputacion m,mctasctes d, mctasctes e
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal		
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and e.nroopercaja <> 0 
+
+		
+		UNION
+
+ 		select 
+		'Nota crédito' as notaCredito,
+		f.nrosucursal as nroSuc,
+		f.fecha as fecha,
+		c.importe as pagoAplicado,
+		a.nrooper as operAplicaNC,
+		b.nroOper as operNC,
+		f.nrofactura as nroFac,
+		'NC' as tipoAbrev
+		from mctasctes a, mctasctes b,mfacturasv f,mctasctes c
+		where 
+		a.tipoOper like 'AplicNC' and
+		a.nroOperCaja = c.nroOperCaja
+		and a.nrooper = b.ctactereg
+		and f.orden = b.nrooper
+		and f.cliente = b.clteprov
+		and f.nroSucursal = b.sucursal
+		and a.nroOperCaja >0
+		and rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicNC Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and a.fhbaja is null
+		
+		UNION
+		
+		
+		select 
+		'Nota crédito' as notaCredito,
+		f.nrosucursal as nroSuc,
+		f.fecha as fecha,
+		c.importe as pagoAplicado,
+		a.nrooper as operAplicaNC,
+		b.nroOper as operNC,
+		f.nrofactura as nroFac,
+		'NC' as tipoAbrev
+		from mctasctes a, mctasctes b,mfacturasv f,mctasctes c
+		where 
+		a.tipoOper like 'AplicNC' and
+		a.nro_reimp = c.nro_reimp
+		and a.nrooper = b.ctactereg
+		and f.orden = b.nrooper
+		and f.cliente = b.clteprov
+		and f.nroSucursal = b.sucursal
+		and a.nroopercaja=0
+		and rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicNC Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal	
+		and b.tipooper = 'NC'
+		and a.fhbaja is null 
+
+		UNION
+		
+		select 
+		'Recibo' as nombre,
+		r.nro_rec as nroRec,
+		r.fecha as fecha,
+		c.importe as pagoAplicado,
+		0 as a,
+		0 as b,
+		0 as c,
+		'RC'
+		from mctasctes c, mrecibo r
+		where
+		 c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and c.clteprov = c.clteprov 
+		and c.nroOperCaja = r.nroOperCaja 	
+		and r.fh_baja is null
+		
+		
+		UNION	
+
+		select 
+		'Recibo' as notaCredito,
+		dbo.obtenerNroRecibo(r.nroOper,c.clteprov) as nroSuc,	
+		dbo.obtenerFechaNroRecibo(r.nroOper,c.clteprov) as fecha,		
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		c.nroOper as operNC,
+		c.nrofactura as nroFac,
+		'RC' as tipoAbrev
+		from mctasctes c,mctasctes a,mreimputacion m,mctasctes d, mctasctes e, mctasctes r
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal		
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and e.nroopercaja = 0 		
+
+		and e.nrooper = r.ctactereg
+		and rtrim(Ltrim(r.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and r.nroopercaja = 0 
+		and dbo.obtenerNroRecibo(r.nroOper,c.clteprov) is not null
+		
+		order by r.fecha
+	
+	]]>	
+    
+    </sql-query>  
+    
+    <sql-query name="findPagoAdelAplicaFacturaCliente">
+    	<query-param name="nroOperacion" type="integer"/>
+	    <query-param name="nroSucursal" type="integer"/>  
+	    <query-param name="codCliente" type="integer"/>	 	
+	    <query-param name="tipoOperacion" type="string"/>	 	
+<![CDATA[		
+		select 
+		'Recibo' as notaCredito,
+		r.nro_rec as nroSuc,
+		r.fecha as fecha,
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		c.nroOper as operNC,
+		c.nrofactura as nroFac,
+		'RC' as tipoAbrev
+		from mctasctes c,mctasctes a,mctasctes d, mrecibo r, mreimputacion m
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim(:tipoOperacion))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))
+		and r.nroOperCaja = d.nroOperCaja	
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null
+		
+		UNION			
+		
+		
+		
+		/*pago que proveiene de una NC*/		
+		select 
+		'Nota crédito' as notaCredito,
+		f.nrosucursal as nroSuc,
+		/*c.fhoper as fecha,*/
+		f.fecha as fecha,		
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		f.orden as operNC,
+		f.nrofactura as nroFac,
+		'NC' as tipoAbrev
+
+		from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mfacturasv f
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal	
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))				
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('NC'))	
+		and e.nrooper = f.orden and e.sucursal = f.nrosucursal 
+		and f.cliente = e.clteprov
+		
+		UNION
+		
+	   /*pago que proveiene de una NC de segunda generacion*/
+		select 		
+
+		'Nota crédito' as notaCredito,
+		t.nrosucursal as nroSuc,
+		t.fecha as fecha,
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		e.nroOper as operNC,
+		t.nrofactura as nroFac,
+		f.tipoOper as tipoAbrev
+
+		from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal		
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('NC'))    )
+		and (t.orden = f.nrooper
+		and t.cliente = f.clteprov
+		and t.nroSucursal = f.sucursal)
+
+
+		UNION
+		
+		/*pago que proveiene de una NC de cuarta generacion*/
+		select 		
+
+		'Nota crédito' as notaCredito,
+		t.nrosucursal as nroSuc,
+		t.fecha as fecha,
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		e.nroOper as operNC,
+		t.nrofactura as nroFac,
+		'NC' as tipoAbrev
+
+		from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t,mctasctes g
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal			
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+		and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('PagoAdel'))    )
+		and (t.orden = g.nrooper
+		and t.cliente = g.clteprov
+		and t.nroSucursal = g.sucursal)
+		and (f.nrooper = g.ctactereg and rtrim(Ltrim(g.tipoOper)) = rtrim(ltrim('NC'))    )
+
+	
+UNION
+
+	
+		
+		select 
+		'Recibo' as notaCredito,
+		dbo.obtenerNroRecibo(e.nroOper,c.clteprov) as nroSuc,	
+		dbo.obtenerFechaNroRecibo(e.nroOper,c.clteprov) as fecha,		
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		c.nroOper as operNC,
+		c.nrofactura as nroFac,
+		'RC' as tipoAbrev
+
+
+		from mctasctes c,mctasctes a,mreimputacion m,mctasctes d, mctasctes e
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal			
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+
+and e.nroopercaja = 0 
+
+		and c.nrooper not in (
+
+							select c.nroOper
+							from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t
+									where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+									and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal		
+									and c.nro_reimp = a.nro_reimp
+									and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+									and a.nrooper = d.ctactereg  		
+									and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+									and c.nro_reimp =  m.nro_reimp
+									and c.clteProv = m.cliente
+									and m.fh_baja is null 
+									and d.nroOperCaja =0 
+									and d.nrooper = e.ctactereg
+									and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+									and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('NC'))    )
+									and (t.orden = f.nrooper
+									and t.cliente = f.clteprov
+									and t.nroSucursal = f.sucursal)  
+
+			)
+		
+		and c.nrooper not in (	
+									select c.nroOper from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t,mctasctes g
+									where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+									and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal		
+									and c.nro_reimp = a.nro_reimp
+									and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+									and a.nrooper = d.ctactereg  		
+									and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+									and c.nro_reimp =  m.nro_reimp
+									and c.clteProv = m.cliente
+									and m.fh_baja is null 
+									and d.nroOperCaja =0 
+									and d.nrooper = e.ctactereg
+									and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+									and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('PagoAdel'))    )
+									and (t.orden = g.nrooper
+									and t.cliente = g.clteprov
+									and t.nroSucursal = g.sucursal)
+									and (f.nrooper = g.ctactereg and rtrim(Ltrim(g.tipoOper)) = rtrim(ltrim('NC'))    )
+			)
+
+
+
+union
+
+select 
+		'Recibo' as notaCredito,
+		dbo.obtenerNroRecibo(d.nroOper,c.clteprov) as nroSuc,	
+		dbo.obtenerFechaNroRecibo(d.nroOper,c.clteprov) as fecha,		
+		c.importe as pagoAplicado,
+		c.nrooper as operAplicaNC,
+		c.nroOper as operNC,
+		c.nrofactura as nroFac,
+		'RC' as tipoAbrev
+
+
+		from mctasctes c,mctasctes a,mreimputacion m,mctasctes d, mctasctes e
+		where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal			
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and d.nrooper = e.ctactereg
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+
+and e.nroopercaja <> 0 
+
+		and c.nrooper not in (
+
+							select c.nroOper
+							from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t
+									where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+									and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal			
+									and c.nro_reimp = a.nro_reimp
+									and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+									and a.nrooper = d.ctactereg  		
+									and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+									and c.nro_reimp =  m.nro_reimp
+									and c.clteProv = m.cliente
+									and m.fh_baja is null 
+									and d.nroOperCaja =0 
+									and d.nrooper = e.ctactereg
+									and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+									and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('NC'))    )
+									and (t.orden = f.nrooper
+									and t.cliente = f.clteprov
+									and t.nroSucursal = f.sucursal)  
+
+			)
+		
+		and c.nrooper not in (	
+									select c.nroOper from mctasctes c,mctasctes a,mctasctes d, mreimputacion m,mctasctes e,mctasctes f,mfacturasv t,mctasctes g
+									where rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+									and c.clteProv = :codCliente
+		and c.nroOper = :nroOperacion
+		and c.sucursal = :nroSucursal	
+									and c.nro_reimp = a.nro_reimp
+									and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+									and a.nrooper = d.ctactereg  		
+									and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))			
+									and c.nro_reimp =  m.nro_reimp
+									and c.clteProv = m.cliente
+									and m.fh_baja is null 
+									and d.nroOperCaja =0 
+									and d.nrooper = e.ctactereg
+									and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))	
+									and (e.nrooper = f.ctactereg and rtrim(Ltrim(f.tipoOper)) = rtrim(ltrim('PagoAdel'))    )
+									and (t.orden = g.nrooper
+									and t.cliente = g.clteprov
+									and t.nroSucursal = g.sucursal)
+									and (f.nrooper = g.ctactereg and rtrim(Ltrim(g.tipoOper)) = rtrim(ltrim('NC'))    )
+			)
+
+
+
+
+	]]>	
+    
+    </sql-query>
+    
+    
+    
+    <sql-query name="buscarPagoAdelNoAplicados">
+    <query-param name="codCliente" type="integer"/>	   
+    <query-param name="nroOper" type="integer" />    
+    
+    
+		SELECT  
+		nrooper as nrooper,
+		nroopercaja as ctactereg,
+		importe as importe,
+		tipooper as tipooper,
+		sucursal as sucursal,
+		descripcion as cliente,
+		cod_cliente_alfa as codAlfa
+		
+		FROM mctasctes inner join mclientes on codigo = clteprov
+		WHERE ctactereg = :nroOper
+		and clteprov = :codCliente
+		and tipooper not like 'RemitoTot%'
+		   
+    </sql-query>
+    
+    
+    
+    <sql-query name="findeCtacteregNC">
+    <query-param name="codCliente" type="integer"/>	   
+    <query-param name="nroOperacion" type="integer" />    
+    
+    
+		SELECT 
+		ctactereg as ctactereg, 
+		nrooper as nrooper,
+		nroopercaja as nroopercaja,
+		importe as importe,
+		tipooper as tipooper,
+		sucursal as sucursal,
+		descripcion as cliente,
+		cod_cliente_alfa as codAlfa
+		
+		FROM mctasctes inner join mclientes on codigo = clteprov
+		WHERE nrooper = :nroOperacion
+		and clteprov = :codCliente
+		
+		   
+    </sql-query>
+    
+    <sql-query name="buscarNCyRCNoAplicados">
+    <query-param name="codCliente" type="integer"/>	   
+    <query-param name="fechaDesde" type="timestamp" />
+	<query-param name="fechaHasta" type="timestamp" />	
+	<query-param name="codClienteAlfa" type="timestamp" />	
+	
+	
+		--NC sin aplicar
+		SELECT 
+		f.orden as orden,
+		f.fecha as fecha,
+		'Nota de Crédito No Aplicada' as nombre,
+		f.nrosucursal   as suc,
+		f.nrofactura as nro,
+		c.importe as importe,
+		m.descripcion as cli,
+		m.cod_cliente_alfa as codAlfa,
+		'NOTA DE CREDITO NO APLICADA' as tipocom,
+		--f.tipoComp as tipocom,
+		0 as pagoaplicado,
+		0 as neto,
+		f.fevto as fevtom,
+		'' as ccss,
+		f.nroremito as rem,
+		f.cliente  as codcli,
+		c.importe as saldo,
+		'NCNOAPLI' as tipoCompAux,
+		0 as nroOper,
+		m.topeCredito as tope,
+		'' as letra
+		
+		FROM
+		mctasctes c inner join mfacturasv f on c.nrooper = f.orden and c.sucursal = f.nrosucursal
+		inner join mclientes m on m.codigo = f.cliente
+		WHERE
+		c.tipooper in ('NC') 
+		and c.ctactereg not in (
+				SELECT nrooper FROM mctasctes WHERE tipooper in ('AplicNC') and clteprov=c.clteprov AND fhbaja is null)
+		and c.fhbaja is null
+		and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+		and (c.clteprov = :codCliente or :codCliente = -1)
+		and (m.cod_cliente_alfa like :codClienteAlfa )			 
+
+		UNION
+		
+		--RECIBOS SIN APLICAR
+		SELECT 
+		0 as orden,
+		r.fecha as fecha,
+		'Recibo No Aplicado' as nombre,
+		0 as nro,
+		r.nro_rec as nroAux,
+		r.importe as importeRecibo ,
+		m.descripcion as cli,
+		m.cod_cliente_alfa as codAlfa,
+		'PAGO NO APLICADO DE RECIBO' as tipocom,
+		--'RECIBO' as tipocom,
+		0 as pagoaplicado,
+		0 as neto,
+		null as fevto,
+		'' as ccss,
+		0 as rem,
+		c.clteprov as codclie,
+		c.importe as saldoRecibo,
+		'RECNOAPLI2' as tipoCompAux,
+		0 as nroOper,
+		m.topeCredito as tope,
+		'' as letra
+		
+		FROM
+		mctasctes c inner join mrecibo r on c.nroopercaja = r.nroopercaja and c.clteprov = r.cliente
+		inner join mclientes m on m.codigo = r.cliente
+
+		WHERE
+		c.tipooper in ('PagoAdel') 
+		and c.ctactereg not in (
+								SELECT nrooper FROM mctasctes 
+								WHERE tipooper in ('AplicAdel') and clteprov = c.clteprov
+									and fhbaja is null
+								)
+		and c.fhbaja is null
+		and nrooper=0
+		and (r.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+		and (c.clteprov = :codCliente or :codCliente = -1)
+		and r.fh_baja is null
+		and (m.cod_cliente_alfa like :codClienteAlfa )		
+		
+		UNION
+		
+		SELECT 
+		0 as orden,
+		null as fecha,
+		'PAGOADEL' as nombre,
+		0 as nro,
+		c.nrooper as nroAux,
+		c.importe as importeRecibo ,
+		m.descripcion as cli,
+		m.cod_cliente_alfa as codAlfa,
+		'PAGOADEL' as tipocom,
+		0 as pagoaplicado,
+		0 as neto,
+		null as fevto,
+		c.ccssid as ccss,
+		0 as rem,
+		c.clteprov as codclie,
+		c.importe as saldoRecibo,
+		'PAGOADEL' as tipoCompAux,
+		0 as nroOper,
+		m.topeCredito as tope,
+		'' as letra
+		
+		FROM mctasctes c inner join mclientes m on m.codigo = c.clteprov
+		
+		WHERE c.tipooper in ('PagoAdel')   
+		and c.ctactereg not in (
+								SELECT nrooper 
+								FROM mctasctes 
+								WHERE tipooper in ( 'AplicAdel') and clteprov=c.clteprov
+								and fhbaja is null)
+		and c.fhbaja is null
+		and nrooper > 0
+		and (c.clteprov = :codCliente or :codCliente = -1)
+		and (m.cod_cliente_alfa like :codClienteAlfa )		
+	</sql-query>
+	
+	<sql-query name="buscarNCConSaldo">
+    <query-param name="codCliente" type="integer"/>	   
+    <query-param name="fechaDesde" type="timestamp" />
+	<query-param name="fechaHasta" type="timestamp" />	
+	<query-param name="codClienteAlfa" type="timestamp" />	
+	
+	
+		--NC sin aplicar
+		SELECT 
+		f.orden as orden,
+		f.fecha as fecha,
+		'Nota de Crédito No Aplicada' as nombre,
+		f.nrosucursal   as suc,
+		f.nrofactura as nro,
+		c.importe as importe,
+		m.descripcion as cli,
+		m.cod_cliente_alfa as codAlfa,
+		'NOTA DE CREDITO NO APLICADA' as tipocom,
+		--f.tipoComp as tipocom,
+		0 as pagoaplicado,
+		0 as neto,
+		f.fevto as fevtom,
+		'' as ccss,
+		f.nroremito as rem,
+		f.cliente  as codcli,
+		c.importe as saldo,
+		'NCNOAPLI' as tipoCompAux,
+		0 as nroOper,
+		m.topeCredito as tope,
+		'' as letra
+		
+		FROM
+		mctasctes c inner join mfacturasv f on c.nrooper = f.orden and c.sucursal = f.nrosucursal
+		inner join mclientes m on m.codigo = f.cliente
+		WHERE
+		c.tipooper in ('NC') 
+		and c.ctactereg not in (
+				SELECT nrooper FROM mctasctes WHERE tipooper in ('AplicNC') and clteprov=c.clteprov AND fhbaja is null)
+		and c.fhbaja is null
+		and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+		and (c.clteprov = :codCliente or :codCliente = -1)
+		and (m.cod_cliente_alfa like :codClienteAlfa )			 
+
+		
+		
+		UNION
+		
+		SELECT 
+		0 as orden,
+		null as fecha,
+		'PAGOADEL' as nombre,
+		0 as nro,
+		c.nrooper as nroAux,
+		c.importe as importeRecibo ,
+		m.descripcion as cli,
+		m.cod_cliente_alfa as codAlfa,
+		'PAGOADEL' as tipocom,
+		0 as pagoaplicado,
+		0 as neto,
+		null as fevto,
+		c.ccssid as ccss,
+		0 as rem,
+		c.clteprov as codclie,
+		c.importe as saldoRecibo,
+		'PAGOADEL' as tipoCompAux,
+		0 as nroOper,
+		m.topeCredito as tope,
+		'' as letra
+		
+		FROM mctasctes c inner join mclientes m on m.codigo = c.clteprov
+		
+		WHERE c.tipooper in ('PagoAdel')   
+		and c.ctactereg not in (
+								SELECT nrooper 
+								FROM mctasctes 
+								WHERE tipooper in ( 'AplicAdel') and clteprov=c.clteprov
+								and fhbaja is null)
+		and c.fhbaja is null
+		and nrooper > 0
+		and (c.clteprov = :codCliente or :codCliente = -1)
+		and (m.cod_cliente_alfa like :codClienteAlfa )		
+	</sql-query>
+	
+	
+    <sql-query name="findNCyReciboNoAplicados">
+    <query-param name="codCliente" type="integer"/>	   
+    <query-param name="fechaDesde" type="timestamp" />
+	<query-param name="fechaHasta" type="timestamp" />	
+	
+    		/*recibos no aplicados*/
+    		
+			SELECT 
+			0 as orden,
+			r.fecha as fecha,
+			'Recibo No Aplicado' as nombre,
+			r.nro_rec as nro,
+			null as nroAux,
+			r.importe as importeRecibo ,
+			'' as cli,
+			'' as codAlfa,
+			'RECIBO' as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			null as fevto,
+			'' as ccss,
+			0 as rem,
+			c.clteprov as codclie,
+			c.importe as saldoRecibo,
+			'RECNOAPLI2' as tipoCompAux
+			FROM 
+			mctasctes  c, mrecibo r
+			WHERE 
+			c.tipoOper like 'PagoAdel'
+			and  r.nroOperCaja = c.nroopercaja
+			and (r.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 			
+			and (c.clteprov = :codCliente)
+			and   r.nroOpercaja not in  (select a.nroOpercaja 
+						from mctasctes a
+						where
+						a.tipoOper like '%Adel%' 
+						and   a.ctactereg in (
+								select b.nrooper 
+								from  mctasctes b
+								where 
+								b.tipoOper like '%Adel%'
+								and b.clteprov = a.clteprov
+								and  b.fhbaja is null)
+						and a.clteprov = c.clteprov
+						)
+			and r.fh_baja is null
+			
+			UNION
+			
+			 /*recibo reversado no aplicado*/	
+			SELECT 
+			0 as orden,
+			r.fecha as fecha,
+			'Recibo No Aplicado' as nombre,
+			r.nro_rec as nro,
+			null as nroAux,
+			--c.importe as importe ,
+			r.importe as importeRecibo ,
+			'' as cli,
+			'' as codAlfa,
+			'RECIBO' as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			null as fevto,
+			'' as ccss,
+			0 as rem,
+			c.clteprov as codclie,
+			--0 as saldo,
+			c.importe as saldoRecibo,
+			'RECNOAPLI2' as tipoCompAux
+			
+			
+		FROM mctasctes c,mctasctes a,mctasctes d, mrecibo r, mreimputacion m,mclientes cl
+		WHERE rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))		
+		and (r.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 			
+		and (c.clteprov = :codCliente)
+		and cl.codigo = c.clteprov
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))
+		and r.nroOperCaja = d.nroOperCaja	
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and a.fhBaja is null
+		and r.nro_rec not in (
+			SELECT 
+			r.nro_rec as nro			
+			FROM mctasctes c,mctasctes a,mctasctes d, mrecibo r, mreimputacion m,mclientes cl
+			WHERE rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+			and (c.clteprov = :codCliente)  
+			and cl.codigo = c.clteprov
+			and c.nro_reimp = a.nro_reimp
+			and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+			and a.nrooper = d.ctactereg  		
+			and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))
+			and r.nroOperCaja = d.nroOperCaja	
+			and c.nro_reimp =  m.nro_reimp
+			and c.clteProv = m.cliente
+			and m.fh_baja is null 
+			and a.fhBaja is null
+		)
+		
+		UNION
+		
+		/* aqui aparecen lo pagos no aplicados que proviene de otro pago aplicado 3072009*/		
+SELECT 
+			0 as orden,
+			r.fecha as fecha,
+			'Recibo No Aplicado' as nombre,
+			r.nro_rec as nro,
+			null as nroAux,
+			--a.importe as importe ,
+			r.importe as importeRecibo ,
+			'' as cli,
+			'' as codAlfa,
+			'RECIBO' as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			null as fevto,
+			'' as ccss,
+			0 as rem,
+			a.clteprov as codclie,
+			--0 as saldo,
+			a.importe as saldoRecibo,
+			'RECNOAPLI2' as tipoCompAux
+
+			FROM mctasctes a, mctasctes b, mrecibo r
+			WHERE 
+			rtrim(Ltrim(a.tipoOper)) like rtrim(ltrim('pagoAdel'))
+			and rtrim(Ltrim(b.tipoOper)) like rtrim(ltrim('pagoAdel'))
+			and a.nrooper = b.ctactereg
+			and r.nroopercaja = b.nroopercaja
+			and a.clteprov = :codCliente
+			and (r.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+			and b.ctactereg not in(
+				SELECT b1.ctactereg
+				FROM mctasctes a1, mctasctes b1, mrecibo r1,mctasctes c1
+				WHERE 
+				rtrim(Ltrim(a1.tipoOper)) like rtrim(ltrim('pagoAdel'))
+				and rtrim(Ltrim(b1.tipoOper)) like rtrim(ltrim('pagoAdel'))
+				and a1.nrooper = b1.ctactereg
+				and r1.nroopercaja = b1.nroopercaja
+				and a1.clteprov =  a.clteprov
+				and (rtrim(Ltrim(c1.tipoOper)) like rtrim(ltrim('aplicAdel')) and c1.nrooper = a1.ctactereg)
+			
+			)			
+		
+		
+			UNION
+			
+			/*aqui aparecen los pagos no aplicados generados por saldos de NC*/
+ 
+			select
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			b.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 										
+
+			FROM 		
+		    mctasctes a, mctasctes b,mfacturasv f,mclientes cl
+			where
+			a.tipooper like 'NC'
+			and b.tipooper like 'pagoadel'
+			and a.ctactereg=b.nrooper
+			and (f.orden = a.nrooper and f.nrosucursal = a.sucursal)
+			and cl.codigo = b.clteprov
+			and cl.codigo = a.clteprov
+			and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+			and b.ctactereg not  in(select  b1.ctactereg
+						from mctasctes a1, mctasctes b1, mctasctes c1
+						where a1.tipoOper like 'pagoAdel'
+						and b1.tipoOper  like 'NC'
+						and a1.nrooper = b1.ctactereg					
+						and a1.clteprov =  a.clteprov
+						and (c1.tipooper like 'aplicadel' and c1.nrooper = a1.ctactereg)
+						)
+			
+			and b.ctactereg not  in (select  a1.ctactereg
+						from mctasctes a1, mctasctes b1, mctasctes c1
+						where a1.tipoOper like 'pagoAdel'
+						and b1.tipoOper  like 'NC'
+						and a1.nrooper = b1.ctactereg					
+						and a1.clteprov =  a.clteprov
+						and (c1.tipooper like 'aplicadel' and c1.nrooper = a1.ctactereg)
+			
+			)
+		
+UNION
+	/*levantar una tercera generacion de pagoadel. Es decir tengo una NC, aplique un poco de esa nc y se genero un pagoadel, 
+			con el cual use un poquito y quedo otro pagoadel. por alguna causa no lo puedo levantar al ultimo pago adel. no hay muchos casos 
+			en ctacte, pero tengo que corregir la consulta asi lo levanta. encontre otro ejemplo con otro cliente */
+			
+		SELECT
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			b.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 				 		
+					   
+			FROM
+			 mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+			where (a.tipooper like 'PagoAdel'
+			and b.nrooper = a.ctactereg 
+			and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+			and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+			and a.fhbaja is null
+			and d.tipoOper like ('NC')
+			and d.ctactereg = c.nrooper
+			and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+			and cl.codigo = b.clteprov
+			and cl.codigo = a.clteprov						
+			and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+			and b.fhbaja is null
+			and c.fhbaja is null 
+			and  d.fhbaja is null
+			and b.ctactereg not in (
+						SELECT			
+						e.nrooper
+				 		
+								   
+						FROM
+						mctasctes e, mctasctes r,mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+						where (a.tipooper like 'PagoAdel'
+						and b.nrooper = a.ctactereg 
+						and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+						and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+						and a.fhbaja is null
+						and d.tipooper like 'NC'						
+						and d.ctactereg = c.nrooper
+						and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+						and cl.codigo = d.clteprov
+						and cl.codigo = a.clteprov						
+						and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+						and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+						and b.fhbaja is null
+						and c.fhbaja is null 
+						and  d.fhbaja is null
+						and e.fhbaja is null
+						and r.fhbaja is null
+						and (r.nrooper = a.ctactereg and r.tipoOper like ('PagoAdel'))
+						and (e.nrooper = r.ctactereg and e.tipoOper like ('PagoAdel'))
+						)
+
+			
+		
+		
+			
+
+UNION
+
+/*Aqui aparecen los NC que fueron desaplicadas*/
+select 
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			c.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 	
+			from 
+			mctasctes  c, mfacturasv f,mclientes cl
+			where 
+			c.tipoOper like 'NC'
+			and  f.orden = c.nrooper			
+			and  (c.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)		 
+			and   c.ctactereg  in  (select a.nrooper
+						from mctasctes a
+						where
+						a.tipoOper like '%AplicNC%' 
+						and   a.nro_reimp in (
+								select  b.nro_reimp
+								from  mctasctes b
+								where 
+								b.tipoOper like '%AplicNC%'
+								and b.clteprov = a.clteprov
+								and  b.fhbaja is not null)
+						and a.clteprov = c.clteprov
+						and a.fhbaja is not null
+					)
+			and c.sucursal =f.nrosucursal			
+			and c.fhbaja is null
+			
+			and  c.ctactereg  not in  (select a.nrooper
+						from mctasctes a
+						where
+						a.tipoOper like '%AplicNC%' 
+						and   a.nro_reimp in (
+								select  b.nro_reimp
+								from  mctasctes b
+								where 
+								b.tipoOper like '%AplicNC%'
+								and b.clteprov = a.clteprov
+								and  b.fhbaja is null)
+						and a.clteprov = c.clteprov
+						and a.fhbaja is null
+					)
+			
+			UNION
+			
+			/*nc no aplicadas*/			
+			SELECT 
+			r.orden as orden,
+			r.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			r.nrosucursal   as suc,
+			r.nrofactura as nro,
+			c.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			r.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			r.fevto as fevtom,
+			'' as ccss,
+			r.nroremito as rem,
+			r.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux
+			FROM 
+			mctasctes  c, mfacturasv r
+			WHERE 
+			c.tipoOper like 'NC'
+			and  r.orden = c.nroOper
+			and  r.cliente = c.clteprov
+			and  (c.clteprov = :codCliente and r.cliente = :codCliente)
+			and (r.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+			and r.nrosucursal = c.sucursal
+			and r.orden not in (select a.nroOper 
+								from mctasctes a
+								where
+								a.tipoOper like '%NC%' 
+								and   a.ctactereg in (
+														select b.nrooper 
+														from  mctasctes b
+														where 
+														b.tipoOper like '%NC%')
+								)
+																
+			
+								
+								
+			UNION
+			
+			/* pagos aplicados que proviene de recibos de tercera generacion, un pago adel de un pagoadel de un recibo - 05042011    */
+			SELECT 
+			0 as orden,
+			r.fecha as fecha,
+			'Recibo No Aplicado' as nombre,
+			r.nro_rec as nro,
+			null as nroAux,
+			--a.importe as importe ,
+			r.importe as importeRecibo ,
+			cl.descripcion as cli,
+			cl.cod_cliente_alfa as codAlfa,
+			'RECIBO' as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			null as fevto,
+			'' as ccss,
+			0 as rem,
+			a.clteprov as codclie,
+			--0 as saldo,
+			d.importe as saldoRecibo,
+			'RECNOAPLI2' as tipoCompAux
+
+			FROM
+
+			 mctasctes a, mctasctes b,mctasctes c,mctasctes d, mrecibo r,mclientes cl
+			where (a.tipooper like 'PagoAdel'
+			and b.nrooper = a.ctactereg 
+			and (b.tipooper like 'AplicAdel' and b.nrooper > 0)
+			and c.tipooper like 'PagoAdel' and c.nrooper = b.nrooper)
+			and a.fhbaja is null
+			and d.tipoOper like ('PagoAdel')
+			and c.ctactereg = d.nrooper
+			and ( r.nroopercaja = a.nroopercaja)
+			and cl.codigo = b.clteprov
+			and cl.codigo = a.clteprov						
+			and a.clteprov = :codCliente
+			and (r.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+			and b.fhbaja is null
+			and c.fhbaja is null 
+			and  d.fhbaja is null
+			and d.ctactereg not in (SELECT e.nrooper FROM mctasctes e
+			where e.tipooper like 'AplicAdel' and 
+			e.nrooper = d.ctactereg and e.fhbaja is null and (abs(e.importe) - abs(d.importe)) = 0 and e.clteprov = d.clteprov)
+			
+	UNION		
+	
+			SELECT
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			e.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 	
+
+	 		
+					   
+			FROM
+			mctasctes e, mctasctes r,mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+			where (a.tipooper like 'PagoAdel'
+			and b.nrooper = a.ctactereg 
+			and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+			and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+			and a.fhbaja is null
+			and d.tipooper like 'NC'
+			
+			and d.ctactereg = c.nrooper
+			and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+			and cl.codigo = d.clteprov
+			and cl.codigo = a.clteprov						
+			and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+			and b.fhbaja is null
+			and c.fhbaja is null 
+			and  d.fhbaja is null
+and (r.nrooper = a.ctactereg and r.tipoOper like ('PagoAdel'))
+and (e.nrooper = r.ctactereg and e.tipoOper like ('PagoAdel'))	
+and (e.ctactereg not in (select nrooper from mctasctes where tipoOper like ('AplicAdel') and clteprov = :codCliente))					
+								
+								
+	</sql-query>
+	
+	
+	 <sql-query name="findNCNoAplicados">
+    <query-param name="codCliente" type="integer"/>	   
+    <query-param name="fechaDesde" type="timestamp" />
+	<query-param name="fechaHasta" type="timestamp" />	
+	
+    		
+			
+			/*aqui aparecen los pagos no aplicados generados por saldos de NC*/
+ 
+			select
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			b.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 										
+
+			FROM 		
+		    mctasctes a, mctasctes b,mfacturasv f,mclientes cl
+			where
+			a.tipooper like 'NC'
+			and b.tipooper like 'pagoadel'
+			and a.ctactereg=b.nrooper
+			and (f.orden = a.nrooper and f.nrosucursal = a.sucursal)
+			and cl.codigo = b.clteprov
+			and cl.codigo = a.clteprov
+			and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+			and b.ctactereg not  in(select  b1.ctactereg
+						from mctasctes a1, mctasctes b1, mctasctes c1
+						where a1.tipoOper like 'pagoAdel'
+						and b1.tipoOper  like 'NC'
+						and a1.nrooper = b1.ctactereg					
+						and a1.clteprov =  a.clteprov
+						and (c1.tipooper like 'aplicadel' and c1.nrooper = a1.ctactereg)
+						)
+			
+			and b.ctactereg not  in (select  a1.ctactereg
+						from mctasctes a1, mctasctes b1, mctasctes c1
+						where a1.tipoOper like 'pagoAdel'
+						and b1.tipoOper  like 'NC'
+						and a1.nrooper = b1.ctactereg					
+						and a1.clteprov =  a.clteprov
+						and (c1.tipooper like 'aplicadel' and c1.nrooper = a1.ctactereg)
+			
+			)
+		
+UNION
+	/*levantar una tercera generacion de pagoadel. Es decir tengo una NC, aplique un poco de esa nc y se genero un pagoadel, 
+			con el cual use un poquito y quedo otro pagoadel. por alguna causa no lo puedo levantar al ultimo pago adel. no hay muchos casos 
+			en ctacte, pero tengo que corregir la consulta asi lo levanta. encontre otro ejemplo con otro cliente */
+			
+		SELECT
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			b.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 				 		
+					   
+			FROM
+			 mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+			where (a.tipooper like 'PagoAdel'
+			and b.nrooper = a.ctactereg 
+			and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+			and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+			and a.fhbaja is null
+			and d.tipoOper like ('NC')
+			and d.ctactereg = c.nrooper
+			and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+			and cl.codigo = b.clteprov
+			and cl.codigo = a.clteprov						
+			and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+			and b.fhbaja is null
+			and c.fhbaja is null 
+			and  d.fhbaja is null
+			and b.ctactereg not in (
+						SELECT			
+						e.nrooper
+				 		
+								   
+						FROM
+						mctasctes e, mctasctes r,mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+						where (a.tipooper like 'PagoAdel'
+						and b.nrooper = a.ctactereg 
+						and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+						and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+						and a.fhbaja is null
+						and d.tipooper like 'NC'						
+						and d.ctactereg = c.nrooper
+						and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+						and cl.codigo = d.clteprov
+						and cl.codigo = a.clteprov						
+						and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+						and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+						and b.fhbaja is null
+						and c.fhbaja is null 
+						and  d.fhbaja is null
+						and e.fhbaja is null
+						and r.fhbaja is null
+						and (r.nrooper = a.ctactereg and r.tipoOper like ('PagoAdel'))
+						and (e.nrooper = r.ctactereg and e.tipoOper like ('PagoAdel'))						
+						
+						)
+
+			
+		
+		
+			
+
+UNION
+
+/*Aqui aparecen los NC que fueron desaplicadas*/
+select 
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			c.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 	
+			from 
+			mctasctes  c, mfacturasv f,mclientes cl
+			where 
+			c.tipoOper like 'NC'
+			and  f.orden = c.nrooper			
+			and  (c.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)		 
+			and   c.ctactereg  in  (select a.nrooper
+						from mctasctes a
+						where
+						a.tipoOper like '%AplicNC%' 
+						and   a.nro_reimp in (
+								select  b.nro_reimp
+								from  mctasctes b
+								where 
+								b.tipoOper like '%AplicNC%'
+								and b.clteprov = a.clteprov
+								and  b.fhbaja is not null)
+						and a.clteprov = c.clteprov
+						and a.fhbaja is not null
+					)
+			and c.sucursal =f.nrosucursal			
+			and c.fhbaja is null
+			
+			and  c.ctactereg  not in  (select a.nrooper
+						from mctasctes a
+						where
+						a.tipoOper like '%AplicNC%' 
+						and   a.nro_reimp in (
+								select  b.nro_reimp
+								from  mctasctes b
+								where 
+								b.tipoOper like '%AplicNC%'
+								and b.clteprov = a.clteprov
+								and  b.fhbaja is null)
+						and a.clteprov = c.clteprov
+						and a.fhbaja is null
+					)
+			
+			UNION
+			
+			/*nc no aplicadas*/			
+			SELECT 
+			r.orden as orden,
+			r.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			r.nrosucursal   as suc,
+			r.nrofactura as nro,
+			c.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			r.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			r.fevto as fevtom,
+			'' as ccss,
+			r.nroremito as rem,
+			r.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux
+			FROM 
+			mctasctes  c, mfacturasv r
+			WHERE 
+			c.tipoOper like 'NC'
+			and  r.orden = c.nroOper
+			and  r.cliente = c.clteprov
+			and  (c.clteprov = :codCliente and r.cliente = :codCliente)
+			and (r.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) 
+			and r.nrosucursal = c.sucursal
+			and r.orden not in (select a.nroOper 
+								from mctasctes a
+								where
+								a.tipoOper like '%NC%' 
+								and   a.ctactereg in (
+														select b.nrooper 
+														from  mctasctes b
+														where 
+														b.tipoOper like '%NC%')
+								)
+																
+			
+								
+			
+	UNION		
+	
+			SELECT
+			f.orden as orden,
+			f.fecha as fecha,
+			'Nota de Crédito No Aplicada' as nombre,
+			f.nrosucursal   as suc,
+			f.nrofactura as nro,
+			e.importe as importe,
+			'' as cli,
+			'' as codAlfa,
+			f.tipoComp as tipocom,
+			0 as pagoaplicado,
+			0 as neto,
+			f.fevto as fevtom,
+			'' as ccss,
+			f.nroremito as rem,
+			f.cliente  as codcli,
+			0 as saldo,
+			'NCNOAPLI' as tipoCompAux 	
+
+	 		
+					   
+			FROM
+			mctasctes e, mctasctes r,mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+			where (a.tipooper like 'PagoAdel'
+			and b.nrooper = a.ctactereg 
+			and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+			and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+			and a.fhbaja is null
+			and d.tipooper like 'NC'
+			
+			and d.ctactereg = c.nrooper
+			and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+			and cl.codigo = d.clteprov
+			and cl.codigo = a.clteprov						
+			and  (b.clteprov = :codCliente and f.cliente = :codCliente)
+			and (f.fecha between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)
+			and b.fhbaja is null
+			and c.fhbaja is null 
+			and  d.fhbaja is null
+and (r.nrooper = a.ctactereg and r.tipoOper like ('PagoAdel'))
+and (e.nrooper = r.ctactereg and e.tipoOper like ('PagoAdel'))	
+and (e.ctactereg not in (select nrooper from mctasctes where tipoOper like ('AplicAdel') and clteprov = :codCliente))					
+								
+								
+	</sql-query>
+					 
+	<sql-query name="findRecibosNoAplicadosAFacturas">
+	<query-param name="codCliente" type="string" />
+	select 
+			0 as  cod,
+			r.fecha as fec,
+			null  as fecvto,
+			'RC' as tipo,
+			c.sucursal as suc,
+			r.nro_rec as nro,
+			r.importe as importeRecibo ,
+			c.ClteProv as codigCli,
+			0 as nroOper,
+			c.importe as saldoRecibo,
+			cl.descripcion as cliDescripcion,
+			cl.cod_cliente_alfa  as cliAlfa,
+			cl.topeCredito as tope,
+			'PAGO NO APLICADO DE RECIBO' as tipoC
+
+
+			from 
+			mctasctes  c, mrecibo r,mclientes cl
+			where 
+			c.tipoOper like 'PagoAdel'
+			and  r.nroOperCaja = c.nroopercaja
+			and  cl.codigo = c.clteprov  and cl.cod_cliente_alfa like :codCliente 
+			and   r.nroOpercaja not in  (select a.nroOpercaja 
+						from mctasctes a
+						where
+						a.tipoOper like '%Adel%' 
+						and   a.ctactereg in (
+								select b.nrooper 
+								from  mctasctes b
+								where 
+								b.tipoOper like '%Adel%'
+								and b.clteprov = a.clteprov 
+								and  b.fhbaja is null)
+						and a.clteprov = c.clteprov
+					)
+			
+			and r.fh_baja is null
+			
+			
+			
+			UNION
+		
+		    /*recibo reversado no aplicado*/	
+			SELECT
+			 
+			0 as  cod,
+			r.fecha as fec,
+			null  as fecvto,
+			'RC' as tipo,
+			c.sucursal as suc,
+			r.nro_rec as nro,
+			--d.importe as importe ,
+			r.importe as importeRecibo ,
+			c.ClteProv as codigCli,
+			0 as nroOper,
+			--0 as saldo,
+			d.importe as saldoRecibo,
+			cl.descripcion as cliDescripcion,
+			cl.cod_cliente_alfa  as cliAlfa,
+			cl.topeCredito as tope,
+			--'RECIBO NO APLICADO' as tipoC
+			'PAGO NO APLICADO DE RECIBO' as tipoC
+			
+		FROM		
+		mctasctes c,mctasctes a,mctasctes d, mrecibo r, mreimputacion m,mclientes cl
+		
+		WHERE
+		rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and cl.cod_cliente_alfa like :codCliente  
+		and cl.codigo = c.clteprov
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))
+		and r.nroOperCaja = d.nroOperCaja	
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		/*and m.fh_baja is not null 
+		and a.fhBaja is not null*/
+		and m.fh_baja is  null 
+		and a.fhBaja is  null
+		and r.nro_rec not in (
+			SELECT 
+			r.nro_rec as nro	
+					
+			FROM		
+			mctasctes c,mctasctes a,mctasctes d, mrecibo r, mreimputacion m,mclientes cl
+			
+			WHERE
+			rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+			and cl.cod_cliente_alfa like :codCliente   
+			and cl.codigo = c.clteprov
+			and c.nro_reimp = a.nro_reimp
+			and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+			and a.nrooper = d.ctactereg  		
+			and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))
+			and r.nroOperCaja = d.nroOperCaja	
+			and c.nro_reimp =  m.nro_reimp
+			and c.clteProv = m.cliente
+			and m.fh_baja is null 
+			and a.fhBaja is null
+		)
+			
+			UNION
+			
+			/* aqui aparecen lo pagos no aplicados que proviene de otro pago aplicado 30 07 2009*/
+			SELECT 
+			0 as  cod,
+			r.fecha as fec,
+			null  as fecvto,
+			'RC' as tipo,
+			a.sucursal as suc,
+			r.nro_rec as nro,
+			--a.importe as importe ,
+			r.importe as importeRecibo ,
+			a.ClteProv as codigCli,
+			0 as nroOper,
+			--0 as saldo,
+			a.importe  as saldoRecibo,
+			cl.descripcion as cliDescripcion,
+			cl.cod_cliente_alfa  as cliAlfa,
+			cl.topeCredito as tope,
+			--'RECIBO NO APLICADO' as tipoC
+			'PAGO NO APLICADO DE RECIBO' as tipoC
+			
+			FROM 
+			mctasctes a, mctasctes b, mrecibo r,mclientes cl
+			
+			WHERE a.tipoOper like 'pagoAdel'
+			and b.tipoOper  like 'pagoAdel'
+			and a.nrooper = b.ctactereg
+			and r.nroopercaja = b.nroopercaja
+			and cl.codigo = a.clteprov
+			and cl.cod_cliente_alfa like :codCliente 
+			and b.ctactereg not in(
+					select b1.ctactereg
+					from mctasctes a1, mctasctes b1, mrecibo r1,mctasctes c1
+					where a1.tipoOper like 'pagoAdel'
+					and b1.tipoOper  like 'pagoAdel'
+					and a1.nrooper = b1.ctactereg
+					and r1.nroopercaja = b1.nroopercaja
+					and a1.clteprov =  a.clteprov
+					and (c1.tipooper like 'aplicadel' and c1.nrooper = a1.ctactereg)
+			)
+					
+			UNION	
+		
+			/*aqui aparecen los pagos no aplicados generados por saldos de NC*/
+			SELECT 
+						0 as  cod,
+						f.fecha as fec,
+						f.fevto as fecvto,
+						'RC' as tipo,
+						f.nrosucursal as suc,
+						f.nrofactura as nro,
+						a.importe as importe ,
+						b.ClteProv as codigCli,
+						f.orden as nroOper,
+						b.importe as saldo,
+						cl.descripcion as cliDescripcion,
+						cl.cod_cliente_alfa  as cliAlfa,
+						cl.topeCredito as tope,			
+						'NOTA DE CREDITO NO APLICADA' as tipoC
+			FROM mctasctes a, mctasctes b,mfacturasv f,mclientes cl
+			WHERE
+			a.tipooper like 'NC'
+			and b.tipooper like 'pagoadel'
+			and a.ctactereg=b.nrooper
+			and (f.orden = a.nrooper and f.nrosucursal = a.sucursal)
+			and cl.codigo = b.clteprov
+			and cl.codigo = a.clteprov
+			and cl.cod_cliente_alfa like :codCliente 
+			and b.ctactereg not  in(select  b1.ctactereg
+						from mctasctes a1, mctasctes b1, mctasctes c1
+						where a1.tipoOper like 'pagoAdel'
+						and b1.tipoOper  like 'NC'
+						and a1.nrooper = b1.ctactereg					
+						and a1.clteprov =  a.clteprov
+						and (c1.tipooper like 'aplicadel' and c1.nrooper = a1.ctactereg)
+						)
+			
+			and b.ctactereg not  in (select  a1.ctactereg
+						from mctasctes a1, mctasctes b1, mctasctes c1
+						where a1.tipoOper like 'pagoAdel'
+						and b1.tipoOper  like 'NC'
+						and a1.nrooper = b1.ctactereg					
+						and a1.clteprov =  a.clteprov
+						and (c1.tipooper like 'aplicadel' and c1.nrooper = a1.ctactereg)
+			)
+			UNION
+			
+			/*levantar una tercera generacion de pagoadel. Es decir tengo una NC, aplique un poco de esa nc y se genero un pagoadel, 
+			con el cual use un poquito y quedo otro pagoadel. por alguna causa no lo puedo levantar al ultimo pago adel. no hay muchos casos 
+			en ctacte, pero tengo que corregir la consulta asi lo levanta. encontre otro ejemplo con otro cliente */
+			
+			select
+			
+						0 as  cod,
+						f.fecha as fec,
+						f.fevto as fecvto,
+						'RC' as tipo,
+						f.nrosucursal as suc,
+						f.nrofactura as nro,
+						d.importe as importe ,
+						b.ClteProv as codigCli,
+						f.orden as nroOper,
+						b.importe as saldo,
+						cl.descripcion as cliDescripcion,
+						cl.cod_cliente_alfa  as cliAlfa,
+						cl.topeCredito as tope,			
+						'NOTA DE CREDITO NO APLICADA' as tipoC
+
+from mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+where (a.tipooper like 'PagoAdel'
+and b.nrooper = a.ctactereg 
+and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+and a.fhbaja is null
+and d.tipoOper like ('NC')
+and d.ctactereg = c.nrooper
+and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+and cl.codigo = b.clteprov
+and cl.codigo = a.clteprov
+and cl.cod_cliente_alfa like :codCliente   
+and b.fhbaja is null
+and c.fhbaja is null 
+and b.ctactereg not in (
+
+select
+			
+						e.nrooper
+
+from mctasctes e, mctasctes r,mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+where (a.tipooper like 'PagoAdel'
+and b.nrooper = a.ctactereg 
+and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+and a.fhbaja is null
+and d.tipoOper like ('NC')
+and d.ctactereg = c.nrooper
+and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+and cl.codigo = b.clteprov
+and cl.codigo = a.clteprov
+and cl.cod_cliente_alfa like :codCliente   
+and b.fhbaja is null
+and c.fhbaja is null 
+and e.fhbaja is null
+and r.fhbaja is null
+and (r.nrooper = a.ctactereg and r.tipoOper like ('PagoAdel'))
+and (e.nrooper = r.ctactereg and e.tipoOper like ('PagoAdel'))
+)
+
+UNION
+
+/* NC de cuarte generacion*/
+						select
+			
+						0 as  cod,
+						f.fecha as fec,
+						f.fevto as fecvto,
+						'RC' as tipo,
+						f.nrosucursal as suc,
+						f.nrofactura as nro,
+						d.importe as importe ,
+						b.ClteProv as codigCli,
+						f.orden as nroOper,
+						e.importe as saldo,
+						cl.descripcion as cliDescripcion,
+						cl.cod_cliente_alfa  as cliAlfa,
+						cl.topeCredito as tope,			
+						'NOTA DE CREDITO NO APLICADA' as tipoC
+
+						from mctasctes e, mctasctes r,mctasctes a, mctasctes b,mctasctes c,mctasctes d,mfacturasv f,mclientes cl
+						where (a.tipooper like 'PagoAdel'
+						and b.nrooper = a.ctactereg 
+						and (b.tipooper like 'PagoAdel' and b.nrooper > 0)
+						and c.tipooper like 'AplicNC' and c.nrooper = a.nrooper)
+						and a.fhbaja is null
+						and d.tipoOper like ('NC')
+						and d.ctactereg = c.nrooper
+						and ( f.orden = d.nrooper and f.nrosucursal = d.sucursal)
+						and cl.codigo = b.clteprov
+						and cl.codigo = a.clteprov
+						and cl.cod_cliente_alfa like :codCliente     
+						and b.fhbaja is null
+						and c.fhbaja is null 
+						and e.fhbaja is null
+						and r.fhbaja is null
+						and (r.nrooper = a.ctactereg and r.tipoOper like ('PagoAdel'))
+						and (e.nrooper = r.ctactereg and e.tipoOper like ('PagoAdel'))						
+					    and (e.ctactereg not in (select nrooper from mctasctes inner join mclientes on clteprov = codigo where tipoOper like ('AplicAdel') and cod_cliente_alfa like :codCliente))
+
+			
+			UNION
+			
+			/*Aqui aparecen los NC que fueron desaplicadas*/
+			select 
+			0 as  cod,
+			f.fecha as fec,
+			f.fevto as fecvto,
+			'RC' as tipo,
+			f.nrosucursal as suc,
+			f.nrofactura as nro,
+			c.importe as importe ,
+			c.ClteProv as codigCli,
+			f.orden as nroOper,
+			c.importe as saldo,
+			cl.descripcion as cliDescripcion,
+			cl.cod_cliente_alfa  as cliAlfa,
+			cl.topeCredito as tope,
+			'NOTA DE CREDITO NO APLICADA' as tipoC
+						
+
+			from 
+			mctasctes  c, mfacturasv f,mclientes cl
+			where 
+			c.tipoOper like 'NC'
+			and  f.orden = c.nrooper
+			and  cl.codigo = c.clteprov and cl.cod_cliente_alfa like :codCliente  
+			and   c.ctactereg  in  (select a.nrooper
+						from mctasctes a
+						where
+						a.tipoOper like '%AplicNC%' 
+						and   a.nro_reimp in (
+								select  b.nro_reimp
+								from  mctasctes b
+								where 
+								b.tipoOper like '%AplicNC%'
+								and b.clteprov = a.clteprov
+								and  b.fhbaja is not null)
+						and a.clteprov = c.clteprov
+						and a.fhbaja is not null
+					)
+			and c.sucursal =f.nrosucursal			
+			and c.fhbaja is null
+			
+			
+
+			and   c.ctactereg not in  (select a.nrooper
+						from mctasctes a
+						where
+						a.tipoOper like '%AplicNC%' 
+						and   a.nro_reimp in (
+								select  b.nro_reimp
+								from  mctasctes b
+								where 
+								b.tipoOper like '%AplicNC%'
+								and b.clteprov = a.clteprov
+								and  b.fhbaja is null)
+						and a.clteprov = c.clteprov
+						and a.fhbaja is null
+					)	
+					
+			UNION
+			
+			   		/* pagos aplicados que proviene de recibos de tercera generacion, un pago adel de un pagoadel de un recibo - 05042011    */
+			SELECT 
+			0 as  cod,
+			r.fecha as fec,
+			null  as fecvto,
+			'RC' as tipo,
+			a.sucursal as suc,
+			r.nro_rec as nro,
+			--a.importe as importe ,
+			r.importe as importeRecibo ,
+			a.ClteProv as codigCli,
+			0 as nroOper,
+			--0 as saldo,
+			d.importe  as saldoRecibo,
+			cl.descripcion as cliDescripcion,
+			cl.cod_cliente_alfa  as cliAlfa,
+			cl.topeCredito as tope,
+			--'RECIBO NO APLICADO' as tipoC
+			'PAGO NO APLICADO DE RECIBO' as tipoC
+			
+			FROM 
+			mctasctes a, mctasctes b,mctasctes c,mctasctes d, mrecibo r,mclientes cl
+			where (a.tipooper like 'PagoAdel'
+			and b.nrooper = a.ctactereg 
+			and (b.tipooper like 'AplicAdel' and b.nrooper > 0)
+			and c.tipooper like 'PagoAdel' and c.nrooper = b.nrooper)
+			and a.fhbaja is null
+			and d.tipoOper like ('PagoAdel')
+			and c.ctactereg = d.nrooper
+			and ( r.nroopercaja = a.nroopercaja)
+			and cl.codigo = b.clteprov
+			and cl.codigo = a.clteprov						
+			and cl.cod_cliente_alfa like :codCliente 
+			and b.fhbaja is null
+			and c.fhbaja is null 
+			and  d.fhbaja is null
+			and d.ctactereg not in (select e.nrooper from mctasctes e
+			where e.tipooper like 'AplicAdel' and 
+			e.nrooper = d.ctactereg and e.fhbaja is null and (abs(e.importe) - abs(d.importe)) = 0 and e.clteprov = d.clteprov)
+			
+			UNION
+			
+			/*cheques en cartera - valores posdatados, con estado 0 1 2 */
+			select 
+			0 as  cod,
+			ch.fhCheque as fec,
+			null  as fecvto,
+			'CH' as tipo,
+			0 as suc,
+			ch.nroChq as nro,
+			ch.importe as importe ,
+			ch.presentadoPorNro as codigCli,
+			0 as nroOper,
+			0 as saldo,
+			cl.descripcion as cliDescripcion,
+			cl.cod_cliente_alfa  as cliAlfa,
+			cl.topeCredito as tope,
+			'VALOR POSDATADO' as tipoC
+
+			from  mcheques ch, mclientes cl
+			where 
+			ch.estado in (0,1,2) 
+			and cl.codigo = ch.presentadoPorNro
+			and cl.cod_cliente_alfa like :codCliente 	
+			
+			
+	</sql-query>
+	
+	
+	<sql-query name="findTotalRemitos">
+	  <query-param name="codCliente" type="integer"/>
+		select sum(importe) 
+		from mctasctes 
+		where clteProv=:codCliente 
+		and fhBaja is null and tipoOper like 'RemitoTotProds'
+	
+	</sql-query>
+	
+	<sql-query name="findSaldoPorComprobanteCliente">
+	  <query-param name="codCliente" type="integer"/>
+			select sum(imp) 
+			from vSaldoPorComprobanteCliente 
+			where clteProv = :codCliente
+   </sql-query>
+	
+</hibernate-mapping>

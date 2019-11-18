@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4646393235363831" table="syncobj_0x4646393235363831" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4646393235363831Id">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="nombre" type="string">
+                <column name="Nombre" length="50" />
+            </key-property>
+            <key-property name="sigla" type="string">
+                <column name="Sigla" length="3" />
+            </key-property>
+            <key-property name="interno" type="java.lang.Short">
+                <column name="Interno" />
+            </key-property>
+            <key-property name="letra" type="string">
+                <column name="Letra" length="1" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Short">
+                <column name="Activo" />
+            </key-property>
+            <key-property name="esDocVenta" type="java.lang.Boolean">
+                <column name="Es_doc_venta" />
+            </key-property>
+            <key-property name="nombreBreve" type="string">
+                <column name="NombreBreve" length="20" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

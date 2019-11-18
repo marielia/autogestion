@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MvEnvasesHistXclieXenvXfechaTmp" table="MvEnvasesHistXClieXEnvXFechaTmp" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.MvEnvasesHistXclieXenvXfechaTmpId">
+            <key-property name="id" type="int">
+                <column name="Id" />
+            </key-property>
+            <key-property name="clienteId" type="java.lang.Integer">
+                <column name="ClienteId" />
+            </key-property>
+            <key-property name="clienteDesc" type="string">
+                <column name="ClienteDesc" length="30" />
+            </key-property>
+            <key-property name="envaseId" type="java.lang.Integer">
+                <column name="EnvaseId" />
+            </key-property>
+            <key-property name="envaseDesc" type="string">
+                <column name="EnvaseDesc" length="30" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="cantidad" type="java.lang.Integer">
+                <column name="Cantidad" />
+            </key-property>
+            <key-property name="senia" type="big_decimal">
+                <column name="Senia" scale="4" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

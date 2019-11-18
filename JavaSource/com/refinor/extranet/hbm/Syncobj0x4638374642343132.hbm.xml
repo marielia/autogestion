@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4638374642343132" table="syncobj_0x4638374642343132" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4638374642343132Id">
+            <key-property name="orden" type="int">
+                <column name="Orden" />
+            </key-property>
+            <key-property name="tipo" type="string">
+                <column name="Tipo" length="50" />
+            </key-property>
+            <key-property name="nroSucursal" type="short">
+                <column name="NroSucursal" />
+            </key-property>
+            <key-property name="nroFactura" type="java.lang.Integer">
+                <column name="NroFactura" />
+            </key-property>
+            <key-property name="nroRemito" type="java.lang.Integer">
+                <column name="NroRemito" />
+            </key-property>
+            <key-property name="cliente" type="java.lang.Integer">
+                <column name="Cliente" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="fevto" type="timestamp">
+                <column name="Fevto" length="16" />
+            </key-property>
+            <key-property name="formadePago" type="string">
+                <column name="FormadePago" length="50" />
+            </key-property>
+            <key-property name="cuotas" type="java.lang.Short">
+                <column name="Cuotas" />
+            </key-property>
+            <key-property name="brutoProductos" type="big_decimal">
+                <column name="BrutoProductos" scale="4" />
+            </key-property>
+            <key-property name="brutoVacios" type="big_decimal">
+                <column name="BrutoVacios" scale="4" />
+            </key-property>
+            <key-property name="gastos1" type="big_decimal">
+                <column name="Gastos1" scale="4" />
+            </key-property>
+            <key-property name="gastos2" type="big_decimal">
+                <column name="Gastos2" scale="4" />
+            </key-property>
+            <key-property name="gastos3" type="big_decimal">
+                <column name="Gastos3" scale="4" />
+            </key-property>
+            <key-property name="descGastos1" type="string">
+                <column name="DescGastos1" length="50" />
+            </key-property>
+            <key-property name="descGastos2" type="string">
+                <column name="DescGastos2" length="50" />
+            </key-property>
+            <key-property name="descGastos3" type="string">
+                <column name="DescGastos3" length="50" />
+            </key-property>
+            <key-property name="ivaBasico" type="big_decimal">
+                <column name="IvaBasico" scale="4" />
+            </key-property>
+            <key-property name="ivaAdicional" type="big_decimal">
+                <column name="IvaAdicional" scale="4" />
+            </key-property>
+            <key-property name="netoFactura" type="big_decimal">
+                <column name="NetoFactura" scale="4" />
+            </key-property>
+            <key-property name="catIva" type="java.lang.Short">
+                <column name="CatIva" />
+            </key-property>
+            <key-property name="listaPrecio" type="java.lang.Short">
+                <column name="ListaPrecio" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="msg1" type="string">
+                <column name="Msg1" length="250" />
+            </key-property>
+            <key-property name="msg2" type="string">
+                <column name="Msg2" length="250" />
+            </key-property>
+            <key-property name="codigoTurnoVigencia" type="java.lang.Long">
+                <column name="CodigoTurnoVigencia" precision="18" scale="0" />
+            </key-property>
+            <key-property name="esAjuste" type="java.lang.Boolean">
+                <column name="EsAjuste" />
+            </key-property>
+            <key-property name="impuestoGr1" type="big_decimal">
+                <column name="impuestoGr1" scale="4" />
+            </key-property>
+            <key-property name="impuestoGr2" type="big_decimal">
+                <column name="impuestoGr2" scale="4" />
+            </key-property>
+            <key-property name="impuestoGr3" type="big_decimal">
+                <column name="impuestoGr3" scale="4" />
+            </key-property>
+            <key-property name="nroRendicionRefipass" type="java.lang.Long">
+                <column name="NroRendicionRefipass" precision="18" scale="0" />
+            </key-property>
+            <key-property name="estadoRendicionRefipass" type="java.lang.Integer">
+                <column name="EstadoRendicionRefipass" />
+            </key-property>
+            <key-property name="nroLiquidacionRefipass" type="java.lang.Long">
+                <column name="NroLiquidacionRefipass" precision="18" scale="0" />
+            </key-property>
+            <key-property name="estadoLiquidacionRefipass" type="java.lang.Integer">
+                <column name="EstadoLiquidacionRefipass" />
+            </key-property>
+            <key-property name="iibb" type="big_decimal">
+                <column name="iibb" scale="4" />
+            </key-property>
+            <key-property name="piva" type="big_decimal">
+                <column name="piva" scale="4" />
+            </key-property>
+            <key-property name="nroEjercicioContable" type="java.lang.Long">
+                <column name="NroEjercicioContable" precision="18" scale="0" />
+            </key-property>
+            <key-property name="nroAsientoContable" type="java.lang.Long">
+                <column name="NroAsientoContable" precision="18" scale="0" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

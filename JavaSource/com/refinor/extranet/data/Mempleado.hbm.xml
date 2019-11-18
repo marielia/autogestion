@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-abr-2008 16:09:21 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.Mempleado" table="MEmpleado" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MempleadoId">
+            <key-property name="codigo" type="int">
+                <column name="codigo" />
+            </key-property>
+            <key-property name="ccssId" type="int">
+                <column name="ccssId" />
+            </key-property>
+        </composite-id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <property name="nroLegajo" type="java.lang.Integer">
+            <column name="nro_legajo" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="activo" />
+        </property>
+        <property name="idUserLock" type="int">
+            <column name="IdUserLock" not-null="true" />
+        </property>
+        <property name="dni" type="java.lang.Integer">
+            <column name="dni" />
+        </property>
+    </class>
+    
+    <query name="findEmpleadosPorCodigoYCCSS">
+       from Mempleado
+       where codigo= :codigo and
+       ccssId = :codCcss
+    </query>
+    
+     <query name="findEmpleadosPorCodigo">
+       from Mempleado
+       where codigo= :codigo 
+    </query>
+    
+    <sql-query name="findEmpleados">
+   		SELECT
+		e.codigo, 
+		e.descripcion,
+		e.nro_legajo,
+		e.activo,
+		e.ccssid,
+		isnull(dni,0) as dni,
+		c.desc_ccss
+		FROM mempleado e, mccss c
+		where 
+		e.ccssid = c.cod_ccss and
+		NOT EXISTS (SELECT * 
+					FROM mUsuarioWeb u 
+					WHERE u.codigo_empleado = e.codigo AND
+					u.codigo_ccss_empleado = e.ccssid)
+
+    </sql-query>
+    
+    <sql-query name="findEmpleadosRegitrados">
+   		SELECT 
+		u.id,
+		e.descripcion
+		FROM mUsuarioWeb u ,mempleado e
+		WHERE u.codigo_empleado = e.codigo and 
+		u.codigo_ccss_empleado = e.ccssid
+		order by e.descripcion
+
+    </sql-query>
+    
+    
+</hibernate-mapping>

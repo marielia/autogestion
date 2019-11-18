@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18-abr-2008 12:16:14 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MusuarioWeb" table="MUsuarioWeb" schema="dbo" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="cuit" type="string">
+            <column name="cuit" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" not-null="true" />
+        </property>
+        <property name="clave" type="string">
+            <column name="clave" length="50" not-null="true" />
+        </property>
+        <property name="estado" type="char">
+            <column name="estado" length="1" not-null="true" />
+        </property>
+        <property name="cambioClave" type="int">
+            <column name="cambio_clave" not-null="true" />
+        </property>
+        <property name="intentosFallidos" type="int">
+            <column name="intentos_fallidos" not-null="true" />
+        </property>
+        <property name="ultimoIntentoFallido" type="timestamp">
+            <column name="ultimo_intento_fallido" length="23" not-null="true" />
+        </property>
+        <property name="fechaAlta" type="timestamp">
+            <column name="fecha_alta" length="23" not-null="true" />
+        </property>
+        <property name="tipo" type="int">
+            <column name="tipo" not-null="true" />
+        </property>
+        <property name="creadorId" type="java.lang.Integer">
+            <column name="creador_id" />
+        </property>
+        <property name="codClienteAlfa" type="string">
+            <column name="cod_cliente_alfa" length="20" not-null="true" />
+        </property>
+        <property name="codigoEmpleado" type="java.lang.Integer">
+            <column name="codigo_empleado" />
+        </property>
+        <property name="codigoCcssEmpleado" type="java.lang.Integer">
+            <column name="codigo_ccss_empleado" />
+        </property>
+        <property name="codigoRol" type="java.lang.Integer">
+            <column name="codigo_rol" />
+        </property>
+    </class>
+     <query name="findUsuarioByDocumento">
+	    from MusuarioWeb u 
+	    where  u.cuit = :numeroDocumento
+    </query>
+    
+    <query name="findUsuarioByCodEmpleadosYCCSS">
+	    from MusuarioWeb u 
+	    where  u.codigoCcssEmpleado = :codCcss and
+	    u.codigoEmpleado = :codigo
+    </query>
+    
+	<query name="findUsuarioByEmail"><![CDATA[
+		from MusuarioWeb u where u.email = :email
+	]]></query>
+	<query name="findByCodClienteAlfaAndPass">
+		 	<![CDATA[
+		 		from MusuarioWeb u 
+		 		where u.codClienteAlfa = :codClienteAlfa
+		 		      and u.clave = :clave
+		 	]]>
+	</query>
+	
+	<query name="findByCodClienteAlfa">
+		 	<![CDATA[
+		 		from MusuarioWeb u 
+		 		where u.codClienteAlfa = :codClienteAlfa		 		     
+		 	]]>
+	</query>
+</hibernate-mapping>

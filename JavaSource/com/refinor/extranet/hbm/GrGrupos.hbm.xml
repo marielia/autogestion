@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.GrGrupos" table="GrGrupos" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.GrGruposId">
+            <key-property name="idGrupo" type="int">
+                <column name="IdGrupo" />
+            </key-property>
+            <key-property name="name" type="string">
+                <column name="Name" length="50" />
+            </key-property>
+            <key-property name="sector" type="short">
+                <column name="Sector" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mexclusion" table="MExclusion" schema="dbo" catalog="REFIPASS">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="TExclusion" type="java.lang.Integer">
+            <column name="t_exclusion" />
+        </property>
+        <property name="codCli" type="java.lang.Integer">
+            <column name="cod_cli" />
+        </property>
+        <property name="codPcia" type="java.lang.Integer">
+            <column name="cod_pcia" />
+        </property>
+        <property name="porcExc" type="java.lang.Integer">
+            <column name="porc_exc" />
+        </property>
+        <property name="FDesde" type="timestamp">
+            <column name="f_desde" length="16" />
+        </property>
+        <property name="FHasta" type="timestamp">
+            <column name="f_hasta" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

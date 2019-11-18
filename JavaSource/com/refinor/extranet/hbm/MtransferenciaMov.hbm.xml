@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MtransferenciaMov" table="MTransferenciaMov" schema="dbo" catalog="REFIPASS">
+        <id name="nroTransferencia" type="long">
+            <column name="NroTransferencia" precision="18" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="nroOrden" type="java.lang.Long">
+            <column name="NroOrden" precision="18" scale="0" />
+        </property>
+        <property name="ccssId" type="java.lang.Integer">
+            <column name="ccssId" />
+        </property>
+        <property name="nroOperCaja" type="java.lang.Long">
+            <column name="NroOperCaja" precision="18" scale="0" />
+        </property>
+        <property name="nroOperBanco" type="java.lang.Long">
+            <column name="NroOperBanco" precision="18" scale="0" />
+        </property>
+        <property name="nroSobre" type="java.lang.Long">
+            <column name="NroSobre" precision="18" scale="0" />
+        </property>
+        <property name="fechaTransferencia" type="timestamp">
+            <column name="FechaTransferencia" length="23" />
+        </property>
+        <property name="fechaRetiro" type="timestamp">
+            <column name="FechaRetiro" length="23" />
+        </property>
+        <property name="nroRecibo" type="java.lang.Long">
+            <column name="NroRecibo" precision="18" scale="0" />
+        </property>
+        <property name="codTurno" type="java.lang.Long">
+            <column name="CodTurno" precision="18" scale="0" />
+        </property>
+        <property name="idUser" type="java.lang.Integer">
+            <column name="IdUser" />
+        </property>
+    </class>
+</hibernate-mapping>

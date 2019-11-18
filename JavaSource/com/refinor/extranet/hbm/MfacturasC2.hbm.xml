@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MfacturasC2" table="MFacturasC2" schema="dbo" catalog="REFIPASS">
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="cajCod" type="java.lang.Integer">
+            <column name="CajCod" />
+        </property>
+        <property name="proveedor" type="java.lang.Integer">
+            <column name="Proveedor" />
+        </property>
+        <property name="tipoComprobante" type="java.lang.Integer">
+            <column name="TipoComprobante" />
+        </property>
+        <property name="tipFact" type="string">
+            <column name="TipFact" length="50" />
+        </property>
+        <property name="sucurFact" type="java.lang.Integer">
+            <column name="SucurFact" />
+        </property>
+        <property name="nroFact" type="java.lang.Long">
+            <column name="NroFact" precision="18" scale="0" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="Fecha" length="16" />
+        </property>
+        <property name="feArrivo" type="timestamp">
+            <column name="FeArrivo" length="16" />
+        </property>
+        <property name="arrivo" type="java.lang.Integer">
+            <column name="Arrivo" />
+        </property>
+        <property name="bultos" type="java.lang.Integer">
+            <column name="Bultos" />
+        </property>
+        <property name="bultos2" type="java.lang.Integer">
+            <column name="Bultos2" />
+        </property>
+        <property name="estado" type="string">
+            <column name="Estado" length="50" />
+        </property>
+        <property name="tienePedidos" type="boolean">
+            <column name="TienePedidos" not-null="true" />
+        </property>
+        <property name="tieneFacturasV" type="boolean">
+            <column name="TieneFacturasV" not-null="true" />
+        </property>
+        <property name="msg1" type="string">
+            <column name="Msg1" length="50" />
+        </property>
+        <property name="msg2" type="string">
+            <column name="Msg2" length="50" />
+        </property>
+        <property name="bruto" type="big_decimal">
+            <column name="Bruto" scale="4" />
+        </property>
+        <property name="fleteCod" type="java.lang.Integer">
+            <column name="FleteCod" />
+        </property>
+        <property name="fleteCosto" type="big_decimal">
+            <column name="FleteCosto" scale="4" />
+        </property>
+        <property name="comisionCod" type="java.lang.Double">
+            <column name="ComisionCod" precision="53" scale="0" />
+        </property>
+        <property name="comisionOper" type="string">
+            <column name="ComisionOper" length="50" />
+        </property>
+        <property name="comisionIva" type="java.lang.Double">
+            <column name="ComisionIva" precision="53" scale="0" />
+        </property>
+        <property name="comisionP" type="big_decimal">
+            <column name="ComisionP" scale="4" />
+        </property>
+        <property name="comisionD" type="big_decimal">
+            <column name="ComisionD" scale="4" />
+        </property>
+        <property name="gasto1" type="big_decimal">
+            <column name="Gasto1" scale="4" />
+        </property>
+        <property name="gasto1text" type="string">
+            <column name="Gasto1Text" length="30" />
+        </property>
+        <property name="gasto2" type="big_decimal">
+            <column name="Gasto2" scale="4" />
+        </property>
+        <property name="gasto2text" type="string">
+            <column name="Gasto2Text" length="30" />
+        </property>
+        <property name="gasto3" type="big_decimal">
+            <column name="Gasto3" scale="4" />
+        </property>
+        <property name="gasto3text" type="string">
+            <column name="Gasto3Text" length="30" />
+        </property>
+        <property name="neto" type="big_decimal">
+            <column name="Neto" scale="4" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+        <property name="codigoTurnoVigencia" type="java.lang.Long">
+            <column name="CodigoTurnoVigencia" precision="18" scale="0" />
+        </property>
+        <property name="formaPago" type="java.lang.Integer">
+            <column name="FormaPago" />
+        </property>
+    </class>
+</hibernate-mapping>

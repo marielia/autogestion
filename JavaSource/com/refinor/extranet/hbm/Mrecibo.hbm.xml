@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mrecibo" table="MRecibo" schema="dbo" catalog="REFIPASS">
+        <id name="nroRec" type="int">
+            <column name="nro_rec" />
+            <generator class="assigned" />
+        </id>
+        <property name="ccss" type="java.lang.Integer">
+            <column name="ccss" />
+        </property>
+        <property name="cliente" type="java.lang.Integer">
+            <column name="cliente" />
+        </property>
+        <property name="importe" type="big_decimal">
+            <column name="importe" precision="12" />
+        </property>
+        <property name="nroOperCaja" type="java.lang.Integer">
+            <column name="nroOperCaja" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="fh_baja" length="16" />
+        </property>
+        <property name="idUser" type="string">
+            <column name="id_user" length="25" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="16" />
+        </property>
+        <property name="turnoVig" type="java.lang.Long">
+            <column name="turno_vig" precision="18" scale="0" />
+        </property>
+        <property name="obs" type="string">
+            <column name="obs" />
+        </property>
+    </class>
+</hibernate-mapping>

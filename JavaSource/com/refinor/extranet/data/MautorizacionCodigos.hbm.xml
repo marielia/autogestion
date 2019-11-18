@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-abr-2008 12:47:25 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MautorizacionCodigos" table="MAutorizacionCodigos" schema="dbo">
+        <id name="codigo" type="int">
+            <column name="codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="nroAuto" type="string">
+            <column name="nro_auto" length="15" not-null="true" />
+        </property>
+        <property name="FOtorgado" type="timestamp">
+            <column name="f_otorgado" length="23" />
+        </property>
+        <property name="userOtorgado" type="java.lang.Integer">
+            <column name="user_otorgado" />
+        </property>
+        <property name="FUsado" type="timestamp">
+            <column name="f_usado" length="23" />
+        </property>
+        <property name="userUsado" type="java.lang.Integer">
+            <column name="user_usado" />
+        </property>
+    </class>
+    
+    <sql-query name="get_CodigoAutorizacion_SP" callable="true">
+	    <return alias="codigos" class="com.refinor.extranet.data.MautorizacionCodigos">
+	        <return-property name="codigo" column="codigo"/>
+	        <return-property name="nroAuto" column="nro_auto"/>            
+	        <return-property name="FOtorgado" column="f_otorgado"/>
+	        <return-property name="userOtorgado" column="user_otorgado"/>            
+	        <return-property name="FUsado" column="f_usado"/>            
+	        <return-property name="userUsado" column="user_usado"/>                        
+	     </return>
+	    { call get_CodigoAutorizacion() }
+	</sql-query>
+
+    
+</hibernate-mapping>

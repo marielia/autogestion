@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MmodeloAsiento" table="MModeloAsiento" schema="dbo" catalog="REFIPASS">
+        <id name="id" type="long">
+            <column name="id" precision="18" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="masientoTablaKey" class="com.refinor.extranet.hbm.MasientoTablaKey" fetch="select">
+            <column name="Tabla" length="50" />
+        </many-to-one>
+        <property name="codModelo" type="long">
+            <column name="CodModelo" precision="18" scale="0" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="35" />
+        </property>
+        <property name="cuenta" type="string">
+            <column name="Cuenta" length="7" />
+        </property>
+        <property name="debHab" type="string">
+            <column name="DebHab" length="1" />
+        </property>
+        <property name="columna" type="string">
+            <column name="Columna" length="150" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="Activo" />
+        </property>
+    </class>
+</hibernate-mapping>

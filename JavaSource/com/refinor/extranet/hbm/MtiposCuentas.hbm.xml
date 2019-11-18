@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MtiposCuentas" table="MTiposCuentas" schema="dbo" catalog="REFIPASS">
+        <id name="tpoCta" type="string">
+            <column name="TpoCta" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="tpoCtaD" type="string">
+            <column name="TpoCtaD" length="50" not-null="true" />
+        </property>
+        <property name="chequeras" type="boolean">
+            <column name="Chequeras" not-null="true" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="Activo" />
+        </property>
+        <property name="idUserLock" type="java.lang.Boolean">
+            <column name="IdUserLock" />
+        </property>
+    </class>
+</hibernate-mapping>

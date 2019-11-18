@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MlistaPrecios" table="MListaPrecios" schema="dbo" >
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="20" />
+        </property>
+        <property name="general" type="java.lang.Boolean">
+            <column name="General" />
+        </property>
+        <property name="fhAlta" type="timestamp">
+            <column name="FhAlta" length="16" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+        <property name="ccssId" type="java.lang.Integer">
+            <column name="ccssId" />
+        </property>
+    </class>
+  
+    <sql-query name="findListaPreciosPorCCSS">
+		<query-param name="codCcss" type="int"/>	
+		<query-param name="codCliente" type="integer"/>	
+		   		
+		SELECT distinct
+			p.codigo,
+			p.Descripcion
+		FROM  
+			mlistas l inner join mlistaprecios p on l.codlista = p.codigo
+			inner join marticulos a on l.codespvar = a.codigo
+			left join rel_cli_lstp r on l.codlista = r.cod_lst
+		WHERE 
+			p.fhbaja is null 
+			and (p.ccssId = :codCcss or :codCcss = -1)   
+			and (r.cod_cli = :codCliente or :codCliente = -1) 
+		ORDER BY p.Descripcion
+
+
+    </sql-query>
+    
+     <sql-query name="findListaPreciosPorFiltros">
+		<query-param name="codProducto" type="integer" />
+		<query-param name="codCcss" type="int"/>
+		<query-param name="codListaPrecio" type="integer" />
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="fechaAux" type="timestamp"/>
+		<query-param name="codCliente" type="integer"/>
+		 
+		 
+	  
+	  	<![CDATA[ 	  
+		SELECT 
+			c.desc_ccss as descCCSS,
+			c.cod_ccss as codCCSS, 
+			p.descripcion as descListaPrecio, 
+			p.codigo as codListaPrecio,
+			a.descripcion as descProducto,
+			a.codigo as codProducto, 
+			l.fechad as fechaDesde, 
+			l.fechah as fechaHasta,
+			l.preciok as precio,
+			p.fhbaja as fechaBaja,
+			f.descripcion as descripcionCliente,
+			f.codigo as codCliente,
+			case when f.descripcion is not null then 'Lista Especial'
+			else '' end
+			
+		FROM 
+		mlistas l inner join mlistaprecios p on l.codlista = p.codigo
+		left join mccss c on p.ccssid = c.cod_ccss
+		inner join marticulos a on l.codespvar = a.codigo
+		left join rel_cli_lstp r on l.codlista = r.cod_lst
+		left join mclientes f on   f.codigo = r.cod_cli
+		
+		WHERE
+		(a.codigo = :codProducto or :codProducto = -1 ) and
+		(c.cod_ccss = :codCcss or :codCcss = -1) and
+		(p.codigo = :codListaPrecio or :codListaPrecio = -1) and
+		(f.codigo = :codCliente or :codCliente = -1)	and	
+		p.fhbaja is null and
+		(((isnull(dbo.fechasinhora(l.fechah),dbo.fechasinhora2(:fechaAux)) between :fechaDesde and :fechaHasta) and
+		  dbo.fechasinhora(l.fechad) < :fechaHasta )
+		or (:fechaDesde is null or :fechaHasta is null)
+		or ( dbo.fechasinhora(l.fechah) > :fechaHasta and dbo.fechasinhora(l.fechad) < :fechaHasta)
+		or (l.fechah is null and dbo.fechasinhora(l.fechad) < :fechaHasta))
+	
+		
+		ORDER BY
+		 c.desc_ccss, p.descripcion, a.descripcion,l.fechad  
+ ]]> 
+    </sql-query>
+    
+    
+</hibernate-mapping>

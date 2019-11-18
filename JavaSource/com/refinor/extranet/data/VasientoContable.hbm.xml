@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-sep-2009 12:02:11 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.VasientoContable" table="vAsientoContable" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.VasientoContableId">
+            <key-property name="ccssId" type="int">
+                <column name="ccssId" />
+            </key-property>
+            <key-property name="descCcss" type="string">
+                <column name="descCCSS" length="50" />
+            </key-property>
+            <key-property name="nroEjercicio" type="java.lang.Long">
+                <column name="nroEjercicio" precision="18" scale="0" />
+            </key-property>
+            <key-property name="nroAsiento" type="long">
+                <column name="nroAsiento" precision="18" scale="0" />
+            </key-property>
+            <key-property name="cuenta" type="string">
+                <column name="cuenta" length="7" />
+            </key-property>
+            <key-property name="debHab" type="string">
+                <column name="debHab" length="1" />
+            </key-property>
+            <key-property name="valorDebHab" type="big_decimal">
+                <column name="valorDebHab" precision="18" scale="3" />
+            </key-property>
+            <key-property name="leyenda" type="string">
+                <column name="leyenda" length="8000" />
+            </key-property>
+            <key-property name="fecha" type="string">
+                <column name="fecha" length="8" />
+            </key-property>
+            <key-property name="descCuenta" type="string">
+                <column name="descCuenta" length="35" />
+            </key-property>
+            <key-property name="nroSuc" type="int">
+                <column name="nroSuc" />
+            </key-property>
+            <key-property name="nroFac" type="java.lang.Integer">
+                <column name="nroFac" />
+            </key-property>
+            <key-property name="compr" type="string">
+                <column name="compr" length="50" />
+            </key-property>
+            <key-property name="letra" type="string">
+                <column name="letra" length="50" />
+            </key-property>
+            <key-property name="codigoCli" type="string">
+                <column name="codigoCli" length="20" />
+            </key-property>
+            <key-property name="cliente" type="string">
+                <column name="cliente" length="50" />
+            </key-property>
+            <key-property name="comprobanteAsociado" type="int">
+                <column name="comprobanteAsociado" />
+            </key-property>
+            <key-property name="nroRendicion" type="java.lang.Long">
+                <column name="nroRendicion" precision="18" scale="0" />
+            </key-property>
+            <key-property name="hora" type="string">
+                <column name="hora" length="5" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

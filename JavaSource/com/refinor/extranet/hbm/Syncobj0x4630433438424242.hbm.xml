@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-may-2008 14:13:11 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4630433438424242" table="syncobj_0x4630433438424242" schema="dbo" catalog="RefinorNet3">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4630433438424242Id">
+            <key-property name="tpoCta" type="string">
+                <column name="TpoCta" length="2" />
+            </key-property>
+            <key-property name="tpoCtaD" type="string">
+                <column name="TpoCtaD" length="50" />
+            </key-property>
+            <key-property name="chequeras" type="boolean">
+                <column name="Chequeras" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Boolean">
+                <column name="Activo" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Boolean">
+                <column name="IdUserLock" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

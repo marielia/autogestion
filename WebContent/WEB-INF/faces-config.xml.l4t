@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS ENTITY="JSFProcess">
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#index.jsp" PATH="/pages/web/index.jsp" SHAPE="304,33,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup" NAME="rules:*" PATH="*" SHAPE="32,17,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem" ID="rules:*:0" NAME="item" PATH="*">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="lista_reportes_disponibles::#pages#web#app#reportes#ref_lista_reportes_actual.jsp"
+    NAME="output15"
+    PATH="/pages/web/app/reportes/ref_lista_reportes_actual.jsp"
+    TARGET="rules:#pages#web#app#reportes#ref_lista_reportes_actual.jsp" TITLE="lista_reportes_disponibles"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="index::#pages#web#index.jsp" NAME="output"
+    PATH="/pages/web/index.jsp" TARGET="rules:#pages#web#index.jsp" TITLE="index"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="cambio_password::#pages#web#app#cambio_password.jsp"
+    NAME="output1" PATH="/pages/web/app/cambio_password.jsp"
+    TARGET="rules:#pages#web#app#cambio_password.jsp" TITLE="cambio_password"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="lista_choferes::#pages#web#app#reportes#ref_reporte_choferes.jsp"
+    NAME="output2"
+    PATH="/pages/web/app/reportes/ref_reporte_choferes.jsp"
+    TARGET="rules:#pages#web#app#reportes#ref_reporte_choferes.jsp" TITLE="lista_choferes"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="lista_vehiculos::#pages#web#app#reportes#ref_reporte_vehiculos.jsp"
+    NAME="output3"
+    PATH="/pages/web/app/reportes/ref_reporte_vehiculos.jsp"
+    TARGET="rules:#pages#web#app#reportes#ref_reporte_vehiculos.jsp" TITLE="lista_vehiculos"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="ver_documento::#pages#web#app#verDocumento.jsp" NAME="output4"
+    PATH="/pages/web/app/verDocumento.jsp"
+    TARGET="rules:#pages#web#app#verDocumento.jsp" TITLE="ver_documento"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="mesa_ayuda_alta_modificacion::#pages#web#app#formularios#ref_mesa_ayuda.jsp"
+    NAME="output5" PATH="/pages/web/app/formularios/ref_mesa_ayuda.jsp"
+    TARGET="rules:#pages#web#app#formularios#ref_mesa_ayuda.jsp" TITLE="mesa_ayuda_alta_modificacion"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="lista_autorizaciones::#pages#web#app#reportes#ref_reporte_autorizaciones_usadas.jsp"
+    NAME="output6"
+    PATH="/pages/web/app/reportes/ref_reporte_autorizaciones_usadas.jsp"
+    TARGET="rules:#pages#web#app#reportes#ref_reporte_autorizaciones_usadas.jsp" TITLE="lista_autorizaciones"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#app#reportes#ref_lista_reportes_actual.jsp"
+  PATH="/pages/web/app/reportes/ref_lista_reportes_actual.jsp" SHAPE="304,625,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#app#cambio_password.jsp"
+  PATH="/pages/web/app/cambio_password.jsp" SHAPE="272,209,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#app#reportes#ref_reporte_choferes.jsp"
+  PATH="/pages/web/app/reportes/ref_reporte_choferes.jsp" SHAPE="288,353,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#app#reportes#ref_reporte_vehiculos.jsp"
+  PATH="/pages/web/app/reportes/ref_reporte_vehiculos.jsp" SHAPE="304,385,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#app#verDocumento.jsp"
+  PATH="/pages/web/app/verDocumento.jsp" SHAPE="304,417,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#app#formularios#ref_mesa_ayuda.jsp"
+  PATH="/pages/web/app/formularios/ref_mesa_ayuda.jsp" SHAPE="304,449,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#web#app#reportes#ref_reporte_autorizaciones_usadas.jsp"
+  PATH="/pages/web/app/reportes/ref_reporte_autorizaciones_usadas.jsp" SHAPE="304,481,0,0"/>
+</PROCESS>

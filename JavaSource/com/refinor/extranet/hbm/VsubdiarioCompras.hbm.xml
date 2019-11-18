@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VsubdiarioCompras" table="vSubdiarioCompras" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VsubdiarioComprasId">
+            <key-property name="tipoProv" type="string">
+                <column name="TipoProv" length="1" />
+            </key-property>
+            <key-property name="tipoGasto" type="java.lang.Integer">
+                <column name="TipoGasto" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="tipoComprobante" type="string">
+                <column name="Tipo_Comprobante" length="10" />
+            </key-property>
+            <key-property name="tipo" type="string">
+                <column name="Tipo" length="1" />
+            </key-property>
+            <key-property name="nroComprobante" type="java.lang.Double">
+                <column name="Nro_Comprobante" precision="53" scale="0" />
+            </key-property>
+            <key-property name="cuit" type="string">
+                <column name="CUIT" length="15" />
+            </key-property>
+            <key-property name="descCliente" type="string">
+                <column name="Desc_Cliente" length="50" />
+            </key-property>
+            <key-property name="netoGravado" type="big_decimal">
+                <column name="Neto_Gravado" scale="4" />
+            </key-property>
+            <key-property name="noGravado" type="big_decimal">
+                <column name="No_Gravado" scale="4" />
+            </key-property>
+            <key-property name="iva" type="big_decimal">
+                <column name="Iva" scale="4" />
+            </key-property>
+            <key-property name="retIva" type="big_decimal">
+                <column name="RetIva" scale="4" />
+            </key-property>
+            <key-property name="retGcias" type="big_decimal">
+                <column name="RetGcias" scale="4" />
+            </key-property>
+            <key-property name="retBrutos" type="big_decimal">
+                <column name="RetBrutos" scale="4" />
+            </key-property>
+            <key-property name="retenciones" type="big_decimal">
+                <column name="Retenciones" scale="4" />
+            </key-property>
+            <key-property name="total" type="big_decimal">
+                <column name="Total" scale="4" />
+            </key-property>
+            <key-property name="descJ" type="string">
+                <column name="DescJ" length="50" />
+            </key-property>
+            <key-property name="descI" type="string">
+                <column name="DescI" length="30" />
+            </key-property>
+            <key-property name="codJurDgi" type="java.lang.Integer">
+                <column name="CodJurDGI" />
+            </key-property>
+            <key-property name="catIva" type="java.lang.Integer">
+                <column name="CatIva" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

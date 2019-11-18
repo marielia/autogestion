@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.LstRemitosModifTmp" table="LstRemitosModifTMP" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.LstRemitosModifTmpId">
+            <key-property name="codRemito" type="java.lang.Integer">
+                <column name="CodRemito" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="feArrivo" type="timestamp">
+                <column name="FeArrivo" length="16" />
+            </key-property>
+            <key-property name="cliente" type="java.lang.Integer">
+                <column name="Cliente" />
+            </key-property>
+            <key-property name="clienteD" type="string">
+                <column name="ClienteD" length="25" />
+            </key-property>
+            <key-property name="hiperCliente" type="java.lang.Integer">
+                <column name="HiperCliente" />
+            </key-property>
+            <key-property name="codPedido" type="java.lang.Integer">
+                <column name="CodPedido" />
+            </key-property>
+            <key-property name="codArticulo" type="java.lang.Integer">
+                <column name="CodArticulo" />
+            </key-property>
+            <key-property name="espVar" type="java.lang.Integer">
+                <column name="EspVar" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="25" />
+            </key-property>
+            <key-property name="bultos1" type="java.lang.Integer">
+                <column name="Bultos1" />
+            </key-property>
+            <key-property name="cantidad1" type="java.lang.Integer">
+                <column name="Cantidad1" />
+            </key-property>
+            <key-property name="bultos2" type="java.lang.Integer">
+                <column name="Bultos2" />
+            </key-property>
+            <key-property name="cantidad2" type="java.lang.Integer">
+                <column name="Cantidad2" />
+            </key-property>
+            <key-property name="cantidadEnv" type="java.lang.Integer">
+                <column name="CantidadEnv" />
+            </key-property>
+            <key-property name="precioKilo" type="big_decimal">
+                <column name="PrecioKilo" scale="4" />
+            </key-property>
+            <key-property name="kilos" type="java.lang.Integer">
+                <column name="Kilos" />
+            </key-property>
+            <key-property name="pesosLinea" type="big_decimal">
+                <column name="PesosLinea" scale="4" />
+            </key-property>
+            <key-property name="codExt" type="string">
+                <column name="CodExt" length="15" />
+            </key-property>
+            <key-property name="descCorta" type="string">
+                <column name="DescCorta" length="4" />
+            </key-property>
+            <key-property name="codModif" type="java.lang.Integer">
+                <column name="CodModif" />
+            </key-property>
+            <key-property name="descModif" type="string">
+                <column name="DescModif" length="20" />
+            </key-property>
+            <key-property name="fd" type="timestamp">
+                <column name="Fd" length="16" />
+            </key-property>
+            <key-property name="fh" type="timestamp">
+                <column name="Fh" length="16" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

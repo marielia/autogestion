@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-may-2008 14:13:11 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x3032344142354636" table="syncobj_0x3032344142354636" schema="dbo" catalog="RefinorNet3">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x3032344142354636Id">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="TExclusion" type="java.lang.Integer">
+                <column name="t_exclusion" />
+            </key-property>
+            <key-property name="codCli" type="java.lang.Integer">
+                <column name="cod_cli" />
+            </key-property>
+            <key-property name="codPcia" type="java.lang.Integer">
+                <column name="cod_pcia" />
+            </key-property>
+            <key-property name="porcExc" type="java.lang.Integer">
+                <column name="porc_exc" />
+            </key-property>
+            <key-property name="FDesde" type="timestamp">
+                <column name="f_desde" length="16" />
+            </key-property>
+            <key-property name="FHasta" type="timestamp">
+                <column name="f_hasta" length="16" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

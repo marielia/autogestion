@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MndNcClteLinea" table="mNdNcClteLinea" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.MndNcClteLineaId">
+            <key-property name="codigo" type="long">
+                <column name="Codigo" precision="18" scale="0" />
+            </key-property>
+            <key-property name="sucursal" type="int">
+                <column name="Sucursal" />
+            </key-property>
+            <key-property name="codNdNc" type="java.lang.Long">
+                <column name="CodNdNc" precision="18" scale="0" />
+            </key-property>
+            <key-property name="codArticulo" type="java.lang.Long">
+                <column name="CodArticulo" precision="18" scale="0" />
+            </key-property>
+            <key-property name="cantidad" type="java.lang.Integer">
+                <column name="Cantidad" />
+            </key-property>
+            <key-property name="precio" type="big_decimal">
+                <column name="Precio" precision="14" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

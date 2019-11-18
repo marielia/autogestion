@@ -1,0 +1,774 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-feb-2008 16:20:42 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MlimiteCarga" table="MLimiteCarga" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MlimiteCargaId">
+            <key-property name="codVeh" type="int">
+                <column name="cod_veh" />
+            </key-property>
+            <key-property name="codArt" type="int">
+                <column name="cod_art" />
+            </key-property>
+        </composite-id>
+        <property name="ilimitado" type="java.lang.Boolean">
+            <column name="ilimitado" />
+        </property>
+        <property name="litrosPcarga" type="big_decimal">
+            <column name="litros_pcarga" precision="11" scale="3" />
+        </property>
+        <property name="litrosPdia" type="big_decimal">
+            <column name="litros_pdia" precision="11" scale="3" />
+        </property>
+        <property name="litrosPmes" type="big_decimal">
+            <column name="litros_pmes" precision="11" scale="3" />
+        </property>
+         <property name="obs" type="string">
+            <column name="obs" length="128" />
+        </property>
+         <property name="fliaGruArt" type="string">
+            <column name="fliaGruArt" length="1"/>
+        </property>
+       
+    </class>
+  <!--  <sql-query name="findCuposByPatenteYcliente">
+    	<query-param name="patente" type="string"/>
+		<query-param name="codCliente" type="string"/>
+		
+		<![CDATA[
+		
+		
+	 select 
+        
+		isnull(a.descripcion,'COMBUSTIBLE GLOBAL') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,
+		l.litros_pmes as cupo,
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		isnull(a.codigo,0) as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo
+		
+		from 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		left join marticulos a on l.cod_art = a.codigo
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente 
+		
+		where 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente 
+		
+		
+      ]]>  
+    </sql-query>-->
+    
+    				 
+    <sql-query name="findCuposConsumidoByPatenteYcliente">
+    	<query-param name="patente" type="string"/>
+		<query-param name="codCliente" type="string"/>
+		<query-param name="mes" type="integer"/>
+		<query-param name="anio" type="integer"/>
+		<![CDATA[
+		
+		
+		SELECT         
+		isnull(a.descripcion,' ') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		isnull(a.codigo,0) as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		MONTH(p.fecha) as mes,		
+		YEAR(p.fecha) as anio,
+		isnull(sum(m.bultos1),0) as consumidoXMesRemito,
+		isnull(l.litros_pmes,0) - isnull(sum(m.bultos1),0) as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,' ') as fliaGrupArt,
+		'Artículo' as fliaGrupArtDesc
+		
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		inner join marticulos a on l.cod_art = a.codigo 
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		inner join mpedidos p on p.cliente = c.codigo
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal = p.nroSucursal and l.cod_art = m.codarticulo 
+		inner join mpedidosDTCarga dt on p.codigo = dt.codigo_MP   and p.nroSucursal = dt.sucursal 
+		and dt.cod_vehiculo = v.codigo
+		
+		WHERE 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and		
+		(MONTH(p.fecha) = :mes or :mes = -1) and
+		(YEAR(p.fecha) = :anio or :anio = -1) and
+		l.fliaGrupArt = 'A'
+		
+		GROUP BY
+		a.descripcion,v.dominio,u.codigo,u.descripcion,l.ilimitado,v.codCliente,a.codigo,l.obs,c.descripcion ,
+		v.codBarra,v.activo,l.litros_pmes ,month(p.fecha),YEAR(p.fecha),c.cod_cliente_alfa,v.codigo,l.fliaGrupArt
+		
+		
+	UNION	
+	
+		
+		SELECT         
+		va.VariedadD as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		l.cod_art as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		MONTH(p.fecha) as mes,		
+		YEAR(p.fecha) as anio,
+		isnull(sum(m.bultos1),0) as consumidoXMesRemito,
+		isnull(l.litros_pmes,0) - isnull(sum(m.bultos1),0) as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,' ') as fliaGrupArt,
+		'Grupo' as fliaGrupArtDesc
+		
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh		
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		inner join mpedidos p on p.cliente = c.codigo
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal = p.nroSucursal  
+		inner join mpedidosDTCarga dt on p.codigo = dt.codigo_MP   and p.nroSucursal = dt.sucursal 
+		and dt.cod_vehiculo = v.codigo
+		inner join marticulos a on m.CodArticulo = a.codigo  
+		inner join mvariedades va on va.Variedad = a.Variedad and a.Variedad = l.cod_art  
+		
+		WHERE 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and		
+		(MONTH(p.fecha) = :mes or :mes = -1) and
+		(YEAR(p.fecha) = :anio or :anio = -1) and
+		l.fliaGrupArt = 'G'
+		
+		
+		GROUP BY
+		va.VariedadD,v.dominio,u.codigo,u.descripcion,l.ilimitado,v.codCliente,l.cod_art,l.obs,c.descripcion ,
+		v.codBarra,v.activo,l.litros_pmes ,month(p.fecha),YEAR(p.fecha),c.cod_cliente_alfa,v.codigo,l.fliaGrupArt
+		
+		UNION	
+		
+		SELECT         
+		es.Descripcion as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		l.cod_art as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		MONTH(p.fecha) as mes,		
+		YEAR(p.fecha) as anio,
+		isnull(sum(m.bultos1),0) as consumidoXMesRemito,
+		isnull(l.litros_pmes,0) - isnull(sum(m.bultos1),0) as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,' ') as fliaGrupArt,
+		'Familia' as fliaGrupArtDesc
+		
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh		
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		inner join mpedidos p on p.cliente = c.codigo
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal = p.nroSucursal  
+		inner join mpedidosDTCarga dt on p.codigo = dt.codigo_MP   and p.nroSucursal = dt.sucursal 
+		and dt.cod_vehiculo = v.codigo
+		inner join marticulos a on m.CodArticulo = a.codigo 
+		inner join mvariedades va on va.Variedad = a.Variedad and a.Especie = va.Especie and va.Especie=l.cod_art
+		inner join MEspecies es on es.Codigo = l.cod_art
+		
+		WHERE 		
+			c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and		
+		(MONTH(p.fecha) = :mes or :mes = -1) and
+		(YEAR(p.fecha) = :anio or :anio = -1) and
+		l.fliaGrupArt = 'F'			 
+		
+		GROUP BY
+		es.Descripcion,v.dominio,u.codigo,u.descripcion,l.ilimitado,v.codCliente,l.cod_art,l.obs,c.descripcion ,
+		v.codBarra,v.activo,l.litros_pmes ,month(p.fecha),YEAR(p.fecha),c.cod_cliente_alfa,v.codigo,l.fliaGrupArt
+		
+		UNION
+		
+		SELECT         
+		isnull(a.descripcion,' ') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		isnull(a.codigo,0) as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		0 as mes,		
+		0 as anio,
+		0 as consumidoXMesRemito,
+		0 as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,' ') as fliaGrupArt,
+		'Artículo' as fliaGrupArtDesc
+		
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		inner join marticulos a on l.cod_art = a.codigo  
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		
+		
+		WHERE 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and	
+		(-1 = -1 or -1 = -1) and
+		(-1 = -1 or -1 = -1) and
+		(v.dominio not in (select dt1.patente from mpedidos p1 
+		inner join MpedidosLinea m1 on m1.codPedido = p1.codigo and m1.sucursal = p1.nroSucursal  
+		inner join mpedidosDTCarga dt1 on p1.codigo = dt1.codigo_MP   and p1.nroSucursal = dt1.sucursal 
+		and m1.CodArticulo = a.Codigo ))
+		and l.fliaGrupArt = 'A'
+		
+		GROUP BY
+		a.descripcion,v.dominio,u.codigo,u.descripcion,l.litros_pmes,l.ilimitado,v.codCliente,a.codigo,l.obs,c.descripcion ,
+		v.codBarra,v.activo,c.cod_cliente_alfa,v.codigo,l.fliaGrupArt
+		
+	UNION
+	
+		
+		SELECT         
+		 va.VariedadD as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		l.cod_art as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		0 as mes,		
+		0 as anio,
+		0 as consumidoXMesRemito,
+		0 as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,' ') as fliaGrupArt,
+		'Grupo' as fliaGrupArtDesc
+		
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh		 
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		inner join mvariedades va on va.Variedad = l.cod_art		
+		
+		WHERE 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and	
+		(-1 = -1 or -1 = -1) and
+		(-1 = -1 or -1 = -1) and
+		(v.dominio not in (select dt1.patente from mpedidos p1 
+		inner join MpedidosLinea m1 on m1.codPedido = p1.codigo and m1.sucursal = p1.nroSucursal  
+		inner join mpedidosDTCarga dt1 on p1.codigo = dt1.codigo_MP   and p1.nroSucursal = dt1.sucursal 
+		inner join MArticulos a on m1.CodArticulo = a.Codigo  and 
+		a.Variedad = l.cod_art and dt1.cod_vehiculo = v.codigo))
+		and l.fliaGrupArt = 'G'		
+		
+		GROUP BY
+		va.VariedadD,v.dominio,u.codigo,u.descripcion,l.litros_pmes,l.ilimitado,v.codCliente,l.cod_art,l.obs,c.descripcion ,
+		v.codBarra,v.activo,c.cod_cliente_alfa,v.codigo	,l.fliaGrupArt
+		
+		UNION
+		
+		SELECT         
+		es.Descripcion as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		l.cod_art as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		0 as mes,		
+		0 as anio,
+		0 as consumidoXMesRemito,
+		0 as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,' ') as fliaGrupArt,
+		'Familia' as fliaGrupArtDesc
+		
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh		 
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		inner join MEspecies es on es.Codigo = l.cod_art		
+		
+		WHERE 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and	
+		(-1 = -1 or -1 = -1) and
+		(-1 = -1 or -1 = -1) and
+		(v.dominio not in (select dt1.patente from mpedidos p1 
+		inner join MpedidosLinea m1 on m1.codPedido = p1.codigo and m1.sucursal = p1.nroSucursal 
+		inner join MArticulos ar on ar.Codigo =  m1.CodArticulo and ar.Especie = l.cod_art
+		inner join mpedidosDTCarga dt1 on p1.codigo = dt1.codigo_MP   and p1.nroSucursal = dt1.sucursal 
+		and dt1.cod_vehiculo = v.codigo
+		))
+		and l.fliaGrupArt = 'F'
+		
+		GROUP BY
+		es.Descripcion,v.dominio,u.codigo,u.descripcion,l.litros_pmes,l.ilimitado,v.codCliente,l.cod_art,l.obs,c.descripcion ,
+		v.codBarra,v.activo,c.cod_cliente_alfa,v.codigo,l.fliaGrupArt
+		
+		
+		
+		
+		
+		
+		 ]]>  
+    </sql-query>
+		
+		
+	<!-- <sql-query name="findCuposConsumidoByPatenteYcliente">
+    	<query-param name="patente" type="string"/>
+		<query-param name="codCliente" type="string"/>
+		<query-param name="mes" type="integer"/>
+		<query-param name="anio" type="integer"/>
+		<![CDATA[
+		
+	
+		
+		SELECT         
+		isnull(a.descripcion,'COMBUSTIBLE GLOBAL') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		isnull(a.codigo,0) as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		MONTH(p.fecha) as mes,		
+		YEAR(p.fecha) as anio,
+		isnull(sum(m.bultos1),0) as consumidoXMesRemito,
+		isnull(l.litros_pmes,0) - isnull(sum(m.bultos1),0) as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		inner join marticulos a on l.cod_art = a.codigo 
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		inner join mpedidos p on p.cliente = c.codigo
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal = p.nroSucursal and l.cod_art = m.codarticulo 
+		inner join mpedidosDTCarga dt on p.codigo = dt.codigo_MP   and p.nroSucursal = dt.sucursal 
+		and dt.cod_vehiculo = v.codigo
+		
+		WHERE 		
+			c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and		
+		(MONTH(p.fecha) = :mes or :mes = -1) and
+		(YEAR(p.fecha) = :anio or :anio = -1)
+
+
+		
+		GROUP BY
+		a.descripcion,v.dominio,u.codigo,u.descripcion,l.ilimitado,v.codCliente,a.codigo,l.obs,c.descripcion ,
+		v.codBarra,v.activo,l.litros_pmes ,month(p.fecha),YEAR(p.fecha),c.cod_cliente_alfa,v.codigo
+		
+	
+union
+
+SELECT         
+		isnull(a.descripcion,'COMBUSTIBLE GLOBAL') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		isnull(a.codigo,0) as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		MONTH(p.fecha) as mes,		
+		YEAR(p.fecha) as anio,
+		isnull(sum(m.bultos1),0) as consumidoXMesRemito,
+		isnull(l.litros_pmes,0) - isnull(sum(m.bultos1),0) as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		left join marticulos a on l.cod_art = a.codigo 
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		inner join mpedidos p on p.cliente = c.codigo
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal = p.nroSucursal  
+		inner join mpedidosDTCarga dt on p.codigo = dt.codigo_MP   and p.nroSucursal = dt.sucursal 
+		and dt.cod_vehiculo = v.codigo
+		
+		WHERE 		
+			c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and		
+		(MONTH(p.fecha) = :mes or :mes = -1) and
+		(YEAR(p.fecha) = :anio or :anio = -1) and
+ 		l.cod_art=0 
+
+		
+		GROUP BY
+	
+		a.descripcion,v.dominio,u.codigo,u.descripcion,l.ilimitado,v.codCliente,a.codigo,l.obs,c.descripcion ,
+		v.codBarra,v.activo,l.litros_pmes ,month(p.fecha),YEAR(p.fecha),c.cod_cliente_alfa,v.codigo
+		
+		union 
+		
+				SELECT         
+		isnull(a.descripcion,'  ') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,	
+		isnull(l.litros_pmes,0) as cupoXMes,	
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		isnull(a.codigo,0) as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,		
+		0 as mes,		
+		0 as anio,
+		0 as consumidoXMesRemito,
+		0 as disponiblexMes,
+		c.cod_cliente_alfa as codcliAlfa,
+		v.codigo as codVehi
+		FROM 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		inner join marticulos a on l.cod_art = a.codigo 
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente
+		
+		
+		WHERE 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and	
+		(-1 = -1 or -1 = -1) and
+		(-1 = -1 or -1 = -1) and
+		(v.dominio not in (select dt1.patente from mpedidos p1 
+		inner join MpedidosLinea m1 on m1.codPedido = p1.codigo and m1.sucursal = p1.nroSucursal  
+		inner join mpedidosDTCarga dt1 on p1.codigo = dt1.codigo_MP   and p1.nroSucursal = dt1.sucursal 
+		and m1.CodArticulo = a.Codigo ))
+
+
+		
+		GROUP BY
+		a.descripcion,v.dominio,u.codigo,u.descripcion,l.litros_pmes,l.ilimitado,v.codCliente,a.codigo,l.obs,c.descripcion ,
+		v.codBarra,v.activo,c.cod_cliente_alfa,v.codigo
+		
+		
+      ]]>  
+    </sql-query>-->
+    
+    <sql-query name="findCuposPorVehiculosCliente">    	
+		<query-param name="codCliente" type="string"/>
+		<query-param name="patente" type="string"/>
+		
+		<![CDATA[
+		
+	
+		
+		
+		 select 
+        
+		isnull(a.descripcion,'COMBUSTIBLE GLOBAL') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,
+		isnull(l.litros_pmes,0)  as disponiblexMes,
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		isnull(a.codigo,0) as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,			
+		c.cod_cliente_alfa as codClienteAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,'') as fliaGrupoArt,
+		'Artículo' as fliaGrupoArtDesc
+		
+
+		from 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		left join marticulos a on l.cod_art = a.codigo
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente 
+		
+		where 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and 
+		l.fliaGrupArt = 'A'
+		
+		UNION
+		
+		 select 
+        
+		isnull(a.VariedadD,' ') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,
+		isnull(l.litros_pmes,0)  as disponiblexMes,
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		l.cod_art as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,			
+		c.cod_cliente_alfa as codClienteAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,'') as fliaGrupoArt,
+		'Grupo' as fliaGrupoArtDesc
+
+		from 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		inner join mvariedades a on l.cod_art = a.Variedad
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente 
+		
+		where 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and 
+		l.fliaGrupArt = 'G'
+		
+		UNION
+		
+		
+			
+		 select 
+        
+		isnull(a.Descripcion,' ') as producto,
+		v.dominio as patente,
+		u.codigo as codUN,
+		u.descripcion as unidadNeg,
+		isnull(l.litros_pmes,0)  as disponiblexMes,
+		l.ilimitado as ilimitado,
+		v.codCliente as codCliente,
+		l.cod_art as codigoArt,
+		l.obs as obs,
+		c.descripcion as descCli,
+		v.codBarra as codBarra,
+		v.activo as activo,			
+		c.cod_cliente_alfa as codClienteAlfa,
+		v.codigo as codVehi,
+		isnull(l.fliaGrupArt,'') as fliaGrupoArt,
+		'Familia' as fliaGrupoArtDesc
+
+		from 
+		mlimitecarga as l inner join mvehiculo as v on v.codigo = l.cod_veh
+		inner join MEspecies a on l.cod_art = a.Codigo
+		inner join munidadn u on u.codigo = v.codunidadn 
+		inner join mclientes c on c.codigo = v.codCliente 
+		
+		where 		
+		c.cod_cliente_alfa like :codCliente and
+		v.dominio like :patente and
+		l.fliaGrupArt = 'F'
+		
+
+		
+		
+      ]]>  
+    </sql-query>
+    
+ <sql-query name="findProductosPorVehiculoCCSS">
+	<query-param name="codVehiculo" type="integer"/>
+<query-param name="codCcss" type="integer"/>
+<![CDATA[
+
+
+
+select 
+		c.cod_art,
+		a.descripcion
+		from 
+		mLimiteCarga l,
+		mcomision c,
+		marticulos a,
+		mvehiculo v
+		where
+		c.f_baja is null and 
+		(l.cod_veh = :codVehiculo or :codVehiculo = -1)and 
+		(l.cod_art = c.cod_art and
+		a.codigo = l.cod_art and
+		a.codigo = c.cod_art ) and 
+		(c.ccss = :codCcss or :codCcss=-1) and 
+		v.codigo = l.cod_veh and
+		v.verifica_lim_carga = 1
+		and l.fliagrupart like 'A'
+
+union
+
+
+select 
+		c.cod_art,
+		a.descripcion
+		from 
+		mLimiteCarga l,
+		mcomision c,
+		marticulos a,
+		mvehiculo v,
+		 mvariedades s
+		where
+		c.f_baja is null and 
+		(l.cod_veh = :codVehiculo or :codVehiculo = -1)and 
+		(l.cod_art = s.variedad) and
+
+		(a.variedad = l.cod_art) and
+		(a.codigo = c.cod_art ) and 
+
+		(c.ccss = :codCcss or :codCcss=-1) and 
+		v.codigo = l.cod_veh and
+		v.verifica_lim_carga = 1
+		and l.fliagrupart like 'G'
+
+union
+
+select 
+		c.cod_art,
+		a.descripcion
+		from 
+		mLimiteCarga l,
+		mcomision c,
+		 marticulos a,
+		mvehiculo v,
+		mespecies s
+		where
+		c.f_baja is null and 
+		(l.cod_veh = :codVehiculo or :codVehiculo = -1)and 
+		(l.cod_art = s.codigo) and
+
+		(a.especie = l.cod_art) and
+		(a.codigo = c.cod_art ) and 
+
+		(c.ccss = :codCcss or :codCcss=-1) and 
+		v.codigo = l.cod_veh and
+		v.verifica_lim_carga = 1
+		and l.fliagrupart like 'F'
+
+
+Union
+
+select 
+		c.cod_art,
+		a.descripcion
+		from 
+		mcomision c,
+		marticulos a,
+		mvehiculo v
+		where
+		c.f_baja is null and 
+		(v.codigo =  :codVehiculo  or   :codVehiculo  = -1)and 
+		a.codigo = c.cod_art and 
+		(c.ccss = :codCcss or :codCcss=-1) and
+		(v.verifica_lim_carga = 0 or 
+			 (	v.verifica_lim_carga = 1 and 
+				  (	select top 1 cod_art
+		   			from mLimiteCarga 
+		   			where (cod_veh = :codVehiculo or :codVehiculo=-1 ) and 
+					fliagrupart like 'A'
+					) = 0 
+			 )
+
+		  )
+		  
+		  
+		 
+
+
+   ]]>  
+</sql-query>
+<!--  
+ <sql-query name="findProductosPorVehiculoCCSS">
+    	<query-param name="codVehiculo" type="integer"/>
+		<query-param name="codCcss" type="integer"/>
+		
+		<![CDATA[
+		select 
+		c.cod_art,
+		a.descripcion
+		from 
+		mLimiteCarga l,
+		mcomision c,
+		marticulos a,
+		mvehiculo v
+		where
+		(l.cod_veh = :codVehiculo or :codVehiculo = -1)and 
+		(l.cod_art = c.cod_art and
+		a.codigo = l.cod_art and
+		a.codigo = c.cod_art ) and 
+		(c.ccss = :codCcss or :codCcss=-1) and 
+		v.codigo = l.cod_veh and
+		v.verifica_lim_carga = 1
+		union all
+		select 
+		c.cod_art,
+		a.descripcion
+		from 
+		mcomision c,
+		marticulos a,
+		mvehiculo v
+		where
+		(v.codigo = :codVehiculo or :codVehiculo = -1)and 
+		a.codigo = c.cod_art and 
+		(c.ccss = :codCcss or :codCcss=-1) and
+		(v.verifica_lim_carga = 0 or 
+		 (v.verifica_lim_carga = 1 and 
+		  (select top 1 cod_art
+		   from mLimiteCarga 
+		   where cod_veh = :codVehiculo or :codVehiculo=-1)=0))
+      
+      ]]>  
+    </sql-query>
+
+-->
+</hibernate-mapping>

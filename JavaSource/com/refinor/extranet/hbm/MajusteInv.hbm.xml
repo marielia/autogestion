@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MajusteInv" table="MAjusteInv" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.MajusteInvId">
+            <key-property name="idAjuste" type="int">
+                <column name="id_ajuste" />
+            </key-property>
+            <key-property name="idCcss" type="int">
+                <column name="id_ccss" />
+            </key-property>
+            <key-property name="idAlmacen" type="java.lang.Integer">
+                <column name="id_almacen" />
+            </key-property>
+            <key-property name="idMotAjuste" type="java.lang.Integer">
+                <column name="id_motAjuste" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

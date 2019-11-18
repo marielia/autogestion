@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Sysschemaarticles" table="sysschemaarticles" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.SysschemaarticlesId">
+            <key-property name="artid" type="int">
+                <column name="artid" />
+            </key-property>
+            <key-property name="creationScript" type="string">
+                <column name="creation_script" />
+            </key-property>
+            <key-property name="description" type="string">
+                <column name="description" />
+            </key-property>
+            <key-property name="destObject" type="string">
+                <column name="dest_object" length="128" />
+            </key-property>
+            <key-property name="name" type="string">
+                <column name="name" length="128" />
+            </key-property>
+            <key-property name="objid" type="int">
+                <column name="objid" />
+            </key-property>
+            <key-property name="pubid" type="int">
+                <column name="pubid" />
+            </key-property>
+            <key-property name="preCreationCmd" type="byte">
+                <column name="pre_creation_cmd" />
+            </key-property>
+            <key-property name="status" type="int">
+                <column name="status" />
+            </key-property>
+            <key-property name="type" type="byte">
+                <column name="type" />
+            </key-property>
+            <key-property name="schemaOption" type="binary">
+                <column name="schema_option" />
+            </key-property>
+            <key-property name="destOwner" type="string">
+                <column name="dest_owner" length="128" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

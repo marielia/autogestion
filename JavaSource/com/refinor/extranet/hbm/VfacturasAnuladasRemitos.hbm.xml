@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VfacturasAnuladasRemitos" table="vFacturasAnuladasRemitos" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VfacturasAnuladasRemitosId">
+            <key-property name="facturaAnulada" type="string">
+                <column name="facturaAnulada" length="63" />
+            </key-property>
+            <key-property name="codremito" type="java.lang.Integer">
+                <column name="codremito" />
+            </key-property>
+            <key-property name="nrosucursal" type="int">
+                <column name="nrosucursal" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

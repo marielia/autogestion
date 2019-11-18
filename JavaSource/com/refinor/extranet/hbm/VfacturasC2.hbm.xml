@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VfacturasC2" table="vFacturasC2" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VfacturasC2Id">
+            <key-property name="codigo" type="java.lang.Integer">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="proveedor" type="java.lang.Integer">
+                <column name="Proveedor" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="50" />
+            </key-property>
+            <key-property name="tipFact" type="string">
+                <column name="TipFact" length="50" />
+            </key-property>
+            <key-property name="nroFact" type="java.lang.Long">
+                <column name="NroFact" precision="18" scale="0" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="feArrivo" type="timestamp">
+                <column name="FeArrivo" length="16" />
+            </key-property>
+            <key-property name="arrivo" type="java.lang.Integer">
+                <column name="Arrivo" />
+            </key-property>
+            <key-property name="expr1" type="string">
+                <column name="Expr1" length="15" />
+            </key-property>
+            <key-property name="bultos2" type="java.lang.Integer">
+                <column name="Bultos2" />
+            </key-property>
+            <key-property name="bruto" type="big_decimal">
+                <column name="Bruto" scale="4" />
+            </key-property>
+            <key-property name="fleteCod" type="java.lang.Integer">
+                <column name="FleteCod" />
+            </key-property>
+            <key-property name="expr2" type="string">
+                <column name="Expr2" length="50" />
+            </key-property>
+            <key-property name="fleteCosto" type="big_decimal">
+                <column name="FleteCosto" scale="4" />
+            </key-property>
+            <key-property name="comisionCod" type="java.lang.Double">
+                <column name="ComisionCod" precision="53" scale="0" />
+            </key-property>
+            <key-property name="expr3" type="string">
+                <column name="Expr3" length="50" />
+            </key-property>
+            <key-property name="comisionOper" type="string">
+                <column name="ComisionOper" length="50" />
+            </key-property>
+            <key-property name="comisionIva" type="java.lang.Double">
+                <column name="ComisionIva" precision="53" scale="0" />
+            </key-property>
+            <key-property name="comisionP" type="big_decimal">
+                <column name="ComisionP" scale="4" />
+            </key-property>
+            <key-property name="comisionD" type="big_decimal">
+                <column name="ComisionD" scale="4" />
+            </key-property>
+            <key-property name="gasto1" type="big_decimal">
+                <column name="Gasto1" scale="4" />
+            </key-property>
+            <key-property name="gasto1text" type="string">
+                <column name="Gasto1Text" length="30" />
+            </key-property>
+            <key-property name="gasto2" type="big_decimal">
+                <column name="Gasto2" scale="4" />
+            </key-property>
+            <key-property name="gasto2text" type="string">
+                <column name="Gasto2Text" length="30" />
+            </key-property>
+            <key-property name="gasto3" type="big_decimal">
+                <column name="Gasto3" scale="4" />
+            </key-property>
+            <key-property name="gasto3text" type="string">
+                <column name="Gasto3Text" length="30" />
+            </key-property>
+            <key-property name="neto" type="big_decimal">
+                <column name="Neto" scale="4" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.LstChequesPropResumPreTmp" table="LstChequesPropResumPreTmp" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.LstChequesPropResumPreTmpId">
+            <key-property name="idCheque" type="java.lang.Integer">
+                <column name="IdCheque" />
+            </key-property>
+            <key-property name="bco" type="string">
+                <column name="Bco" length="15" />
+            </key-property>
+            <key-property name="bancoD" type="string">
+                <column name="BancoD" length="20" />
+            </key-property>
+            <key-property name="nroChq" type="string">
+                <column name="NroChq" length="15" />
+            </key-property>
+            <key-property name="ctaBanco" type="string">
+                <column name="CtaBanco" length="30" />
+            </key-property>
+            <key-property name="importe" type="java.lang.Double">
+                <column name="Importe" precision="53" scale="0" />
+            </key-property>
+            <key-property name="estado" type="java.lang.Short">
+                <column name="Estado" />
+            </key-property>
+            <key-property name="presentadoPorTipo" type="string">
+                <column name="PresentadoPorTipo" length="25" />
+            </key-property>
+            <key-property name="presentadoPorNro" type="string">
+                <column name="PresentadoPorNro" length="10" />
+            </key-property>
+            <key-property name="entregadoAtipo" type="string">
+                <column name="EntregadoATipo" length="25" />
+            </key-property>
+            <key-property name="entregadoAnro" type="string">
+                <column name="EntregadoANro" length="10" />
+            </key-property>
+            <key-property name="codCanje" type="string">
+                <column name="CodCanje" length="10" />
+            </key-property>
+            <key-property name="fhDeposito" type="timestamp">
+                <column name="FhDeposito" length="16" />
+            </key-property>
+            <key-property name="fhCheque" type="timestamp">
+                <column name="FhCheque" length="16" />
+            </key-property>
+            <key-property name="fhOper" type="timestamp">
+                <column name="FhOper" length="16" />
+            </key-property>
+            <key-property name="fhAlta" type="timestamp">
+                <column name="FhAlta" length="16" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="importeEmit" type="java.lang.Double">
+                <column name="ImporteEmit" precision="53" scale="0" />
+            </key-property>
+            <key-property name="importeDebit" type="java.lang.Double">
+                <column name="ImporteDebit" precision="53" scale="0" />
+            </key-property>
+            <key-property name="importeRech" type="java.lang.Double">
+                <column name="ImporteRech" precision="53" scale="0" />
+            </key-property>
+            <key-property name="importeAnulad" type="java.lang.Double">
+                <column name="ImporteAnulad" precision="53" scale="0" />
+            </key-property>
+            <key-property name="fd" type="timestamp">
+                <column name="Fd" length="16" />
+            </key-property>
+            <key-property name="fh" type="timestamp">
+                <column name="Fh" length="16" />
+            </key-property>
+            <key-property name="uno" type="java.lang.Short">
+                <column name="Uno" />
+            </key-property>
+            <key-property name="confOno" type="string">
+                <column name="ConfONo" length="20" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

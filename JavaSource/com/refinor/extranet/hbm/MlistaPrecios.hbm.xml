@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MlistaPrecios" table="MListaPrecios" schema="dbo" catalog="REFIPASS">
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="20" />
+        </property>
+        <property name="general" type="java.lang.Boolean">
+            <column name="General" />
+        </property>
+        <property name="fhAlta" type="timestamp">
+            <column name="FhAlta" length="16" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+        <property name="ccssId" type="java.lang.Integer">
+            <column name="ccssId" />
+        </property>
+    </class>
+</hibernate-mapping>

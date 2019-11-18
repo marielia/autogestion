@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4441433945374343" table="syncobj_0x4441433945374343" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4441433945374343Id">
+            <key-property name="codigo" type="short">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="30" />
+            </key-property>
+            <key-property name="porIva1" type="big_decimal">
+                <column name="porIva1" precision="10" />
+            </key-property>
+            <key-property name="porIva2" type="big_decimal">
+                <column name="porIva2" precision="10" />
+            </key-property>
+            <key-property name="letraFc" type="java.lang.Character">
+                <column name="letraFC" length="1" />
+            </key-property>
+            <key-property name="descriminaIva" type="java.lang.Boolean">
+                <column name="descriminaIva" />
+            </key-property>
+            <key-property name="fhAlta" type="timestamp">
+                <column name="FhAlta" length="16" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="codImpFiscal" type="java.lang.Character">
+                <column name="codImpFiscal" length="1" />
+            </key-property>
+            <key-property name="aplPercIb" type="java.lang.Boolean">
+                <column name="apl_percIB" />
+            </key-property>
+            <key-property name="aplPercIva" type="java.lang.Boolean">
+                <column name="apl_percIVA" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

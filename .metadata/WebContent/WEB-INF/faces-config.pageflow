@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15738160944200" configfile="/refipass/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1522" id="pf15738161755261" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15738161755262 pf15738161755263 pf15738161755264 pf15738161755265 pf15738161755266 pf15738161755267 pf15738161755268 pf15738161755269" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/app/reportes/ref_lista_reportes_actual" x="338" y="178" id="pf157381617552610" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15738161755262" path="/pages/web/app/reportes/ref_lista_reportes_actual.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/index" x="338" y="562" id="pf157381617552611" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf15738161755263" path="/pages/web/index.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/app/cambio_password" x="338" y="946" id="pf157381617552612" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf15738161755264" path="/pages/web/app/cambio_password.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/app/reportes/ref_reporte_choferes" x="338" y="1330" id="pf157381617552613" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf15738161755265" path="/pages/web/app/reportes/ref_reporte_choferes.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/app/reportes/ref_reporte_vehiculos" x="338" y="1714" id="pf157381617552614" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf15738161755266" path="/pages/web/app/reportes/ref_reporte_vehiculos.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/app/verDocumento" x="338" y="2098" id="pf157381617552615" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf15738161755267" path="/pages/web/app/verDocumento.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/app/formularios/ref_mesa_ayuda" x="338" y="2482" id="pf157381617552616" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf15738161755268" path="/pages/web/app/formularios/ref_mesa_ayuda.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/web/app/reportes/ref_reporte_autorizaciones_usadas" x="338" y="2866" id="pf157381617552617" referenceLink="//@navigationRule.0/@navigationCase.7/@toViewId|" inlinks="pf15738161755269" path="/pages/web/app/reportes/ref_reporte_autorizaciones_usadas.jsp"/>
+  <links id="pf15738161755262" target="pf157381617552610" source="pf15738161755261" outcome="lista_reportes_disponibles"/>
+  <links id="pf15738161755263" target="pf157381617552611" source="pf15738161755261" outcome="index"/>
+  <links id="pf15738161755264" target="pf157381617552612" source="pf15738161755261" outcome="cambio_password"/>
+  <links id="pf15738161755265" target="pf157381617552613" source="pf15738161755261" outcome="lista_choferes"/>
+  <links id="pf15738161755266" target="pf157381617552614" source="pf15738161755261" outcome="lista_vehiculos"/>
+  <links id="pf15738161755267" target="pf157381617552615" source="pf15738161755261" outcome="ver_documento"/>
+  <links id="pf15738161755268" target="pf157381617552616" source="pf15738161755261" outcome="mesa_ayuda_alta_modificacion"/>
+  <links id="pf15738161755269" target="pf157381617552617" source="pf15738161755261" outcome="lista_autorizaciones"/>
+</pageflow:Pageflow>

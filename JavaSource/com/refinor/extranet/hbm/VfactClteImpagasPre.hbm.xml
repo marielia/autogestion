@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VfactClteImpagasPre" table="VFactClteImpagasPre" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VfactClteImpagasPreId">
+            <key-property name="ctaCteReg" type="int">
+                <column name="CtaCteReg" />
+            </key-property>
+            <key-property name="tpoCtaCte" type="string">
+                <column name="TpoCtaCte" length="50" />
+            </key-property>
+            <key-property name="clteProv" type="java.lang.Integer">
+                <column name="ClteProv" />
+            </key-property>
+            <key-property name="tipoOper" type="string">
+                <column name="TipoOper" length="50" />
+            </key-property>
+            <key-property name="nroOper" type="java.lang.Integer">
+                <column name="NroOper" />
+            </key-property>
+            <key-property name="nroOperCaja" type="java.lang.Integer">
+                <column name="NroOperCaja" />
+            </key-property>
+            <key-property name="nroFactura" type="java.lang.Integer">
+                <column name="NroFactura" />
+            </key-property>
+            <key-property name="nroCuota" type="java.lang.Short">
+                <column name="NroCuota" />
+            </key-property>
+            <key-property name="fhOper" type="timestamp">
+                <column name="FhOper" length="23" />
+            </key-property>
+            <key-property name="importe" type="big_decimal">
+                <column name="Importe" scale="4" />
+            </key-property>
+            <key-property name="user" type="string">
+                <column name="User" length="50" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="23" />
+            </key-property>
+            <key-property name="sucursal" type="java.lang.Integer">
+                <column name="sucursal" />
+            </key-property>
+            <key-property name="importeFactura" type="big_decimal">
+                <column name="ImporteFactura" precision="26" scale="4" />
+            </key-property>
+            <key-property name="tipoComp" type="string">
+                <column name="tipoComp" length="50" />
+            </key-property>
+            <key-property name="imp" type="big_decimal">
+                <column name="imp" precision="38" scale="4" />
+            </key-property>
+            <key-property name="nroFacturaReal" type="java.lang.Integer">
+                <column name="NroFacturaReal" />
+            </key-property>
+            <key-property name="letraFactura" type="string">
+                <column name="LetraFactura" length="50" />
+            </key-property>
+            <key-property name="sucursalFactura" type="short">
+                <column name="SucursalFactura" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

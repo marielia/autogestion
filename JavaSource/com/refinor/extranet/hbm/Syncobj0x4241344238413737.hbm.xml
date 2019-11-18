@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x4241344238413737" table="syncobj_0x4241344238413737" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x4241344238413737Id">
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="50" />
+            </key-property>
+            <key-property name="ctaCont1" type="short">
+                <column name="CtaCont1" />
+            </key-property>
+            <key-property name="ctaCont2" type="short">
+                <column name="CtaCont2" />
+            </key-property>
+            <key-property name="ctaCont3" type="short">
+                <column name="CtaCont3" />
+            </key-property>
+            <key-property name="dca" type="string">
+                <column name="DCA" length="50" />
+            </key-property>
+            <key-property name="inHab" type="string">
+                <column name="InHab" length="50" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

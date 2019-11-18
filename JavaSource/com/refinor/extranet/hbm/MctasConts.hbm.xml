@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MctasConts" table="MCtasConts" schema="dbo" catalog="REFIPASS">
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="50" />
+        </property>
+        <property name="ctaCont1" type="short">
+            <column name="CtaCont1" not-null="true" />
+        </property>
+        <property name="ctaCont2" type="short">
+            <column name="CtaCont2" not-null="true" />
+        </property>
+        <property name="ctaCont3" type="short">
+            <column name="CtaCont3" not-null="true" />
+        </property>
+        <property name="dca" type="string">
+            <column name="DCA" length="50" />
+        </property>
+        <property name="inHab" type="string">
+            <column name="InHab" length="50" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

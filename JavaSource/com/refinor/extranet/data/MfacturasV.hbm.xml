@@ -1,0 +1,1610 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15-may-2008 18:13:56 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+	<class name="com.refinor.extranet.data.MfacturasV"
+		table="mFacturasV" schema="dbo">
+		<composite-id name="id"
+			class="com.refinor.extranet.data.MfacturasVId">
+			<key-property name="orden" type="int">
+				<column name="Orden" />
+			</key-property>
+			<key-property name="nroSucursal" type="short">
+				<column name="NroSucursal" />
+			</key-property>
+		</composite-id>
+		<property name="tipo" type="string">
+			<column name="Tipo" length="50" />
+		</property>
+		<property name="nroFactura" type="java.lang.Integer">
+			<column name="NroFactura" />
+		</property>
+		<property name="nroRemito" type="java.lang.Integer">
+			<column name="NroRemito" />
+		</property>
+		<property name="cliente" type="java.lang.Integer">
+			<column name="Cliente" />
+		</property>
+		<property name="fecha" type="timestamp">
+			<column name="Fecha" length="16" />
+		</property>
+		<property name="fevto" type="timestamp">
+			<column name="Fevto" length="16" />
+		</property>
+		<property name="formadePago" type="string">
+			<column name="FormadePago" length="50" />
+		</property>
+		<property name="cuotas" type="java.lang.Short">
+			<column name="Cuotas" />
+		</property>
+		<property name="brutoProductos" type="big_decimal">
+			<column name="BrutoProductos" scale="4" />
+		</property>
+		<property name="brutoVacios" type="big_decimal">
+			<column name="BrutoVacios" scale="4" />
+		</property>
+		<property name="gastos1" type="big_decimal">
+			<column name="Gastos1" scale="4" />
+		</property>
+		<property name="gastos2" type="big_decimal">
+			<column name="Gastos2" scale="4" />
+		</property>
+		<property name="gastos3" type="big_decimal">
+			<column name="Gastos3" scale="4" />
+		</property>
+		<property name="descGastos1" type="string">
+			<column name="DescGastos1" length="50" />
+		</property>
+		<property name="descGastos2" type="string">
+			<column name="DescGastos2" length="50" />
+		</property>
+		<property name="descGastos3" type="string">
+			<column name="DescGastos3" length="50" />
+		</property>
+		<property name="ivaBasico" type="big_decimal">
+			<column name="IvaBasico" scale="4" />
+		</property>
+		<property name="ivaAdicional" type="big_decimal">
+			<column name="IvaAdicional" scale="4" />
+		</property>
+		<property name="netoFactura" type="big_decimal">
+			<column name="NetoFactura" scale="4" />
+		</property>
+		<property name="catIva" type="java.lang.Short">
+			<column name="CatIva" />
+		</property>
+		<property name="listaPrecio" type="java.lang.Short">
+			<column name="ListaPrecio" />
+		</property>
+		<property name="idUserLock" type="java.lang.Integer">
+			<column name="IdUserLock" />
+		</property>
+		<property name="fhBaja" type="timestamp">
+			<column name="FhBaja" length="16" />
+		</property>
+		<property name="msg1" type="string">
+			<column name="Msg1" length="250" />
+		</property>
+		<property name="msg2" type="string">
+			<column name="Msg2" length="250" />
+		</property>
+		<property name="codigoTurnoVigencia" type="java.lang.Long">
+			<column name="CodigoTurnoVigencia" precision="18" scale="0" />
+		</property>
+		<property name="esAjuste" type="java.lang.Boolean">
+			<column name="EsAjuste" />
+		</property>
+		<property name="impuestoGr1" type="big_decimal">
+			<column name="impuestoGr1" scale="4" />
+		</property>
+		<property name="impuestoGr2" type="big_decimal">
+			<column name="impuestoGr2" scale="4" />
+		</property>
+		<property name="impuestoGr3" type="big_decimal">
+			<column name="impuestoGr3" scale="4" />
+		</property>
+		<property name="nroRendicionRefipass" type="java.lang.Long">
+			<column name="NroRendicionRefipass" precision="18"
+				scale="0" />
+		</property>
+		<property name="iibb" type="big_decimal">
+			<column name="iibb" scale="4" />
+		</property>
+		<property name="piva" type="big_decimal">
+			<column name="piva" scale="4" />
+		</property>
+		<property name="nroEjercicioContable" type="java.lang.Long">
+			<column name="NroEjercicioContable" precision="18"
+				scale="0" />
+		</property>
+		<property name="nroAsientoContable" type="java.lang.Long">
+			<column name="NroAsientoContable" precision="18" scale="0" />
+		</property>
+		<property name="estadoRendicionRefipass"
+			type="java.lang.Integer">
+			<column name="EstadoRendicionRefipass" />
+		</property>
+		<property name="nroLiquidacionRefipass" type="java.lang.Long">
+			<column name="NroLiquidacionRefipass" precision="18"
+				scale="0" />
+		</property>
+		<property name="estadoLiquidacionRefipass"
+			type="java.lang.Integer">
+			<column name="EstadoLiquidacionRefipass" />
+		</property>
+		<property name="fechaLiquidacionRefipass" type="timestamp">
+			<column name="FechaLiquidacionRefipass" length="23" />
+		</property>
+		<property name="tipoComp" type="string">
+			<column name="tipoComp" length="2" />
+		</property>
+		<property name="condVta" type="java.lang.Integer">
+			<column name="cond_vta" />
+		</property>
+		<property name="nroSucAsoc" type="java.lang.Integer">
+			<column name="nro_suc_asoc" />
+		</property>
+		<property name="ordenAsoc" type="java.lang.Integer">
+			<column name="orden_asoc" />
+		</property>
+		<property name="codigoBarras" type="string">
+			<column name="CodigoBarras" length="40" />
+		</property>
+		<property name="codigoBarrasImpresion" type="string">
+			<column name="CodigoBarrasImpresion" />
+		</property>
+		<property name="cai" type="java.lang.Integer">
+			<column name="cai" />
+		</property>
+		<property name="feVtoCai" type="timestamp">
+			<column name="feVtoCai" length="23" />
+		</property>
+		<property name="impuestoGr4" type="big_decimal">
+            <column name="impuestoGr4" scale="4" />
+        </property>
+	</class>
+
+	<sql-query name="findFacturasPorClienteYFechas">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codCliente" type="string" />
+		<query-param name="codCcss" type="integer" />
+		<query-param name="fechaDesdeDos" type="timestamp" />
+		<query-param name="fechaHastaDos" type="timestamp" />
+		<query-param name="tipoOperacion" type="String" />
+		<query-param name="nroSucursal" type="integer"/>
+		<query-param name="nroFactura" type="integer"/>
+
+		select fv.orden as orden, fv.fecha as fecha, fv.tipo as tipo,
+		fv.nroSucursal as sucFact, fv.nroFactura as factura,
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +
+		isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +
+		isnull(impuestoGr2,0)+
+		isnull(fv.impuestoGr3,0)+isnull(fv.iibb,0)+isnull(fv.piva,0)+isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0),
+		fv.nroRemito as remito, cl.descripcion as descrCli,
+		cl.cod_cliente_alfa as codCliAlfa,
+
+		fv.tipocomp as tipoCom, c.importe as pagoAplicado,
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +
+		isnull(fv.ivaadicional,0) + isnull(fv.impuestoGr1,0) +
+		isnull(fv.impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+ isnull(fv.impuestoGr4,0)+ isnull(fv.impuestoGr5,0)+
+		isnull(fv.iibb,0)+ isnull(fv.piva,0) + isnull(c.importe,0) as
+		saldo,
+
+		isnull(fv.ivaBasico,0) as ivaBasico, isnull(fv.pIva,0) as piva,
+		isnull(fv.iibb,0) as iibb, isnull(fv.impuestoGr3,0) as
+		tasaFondo, isnull(fv.impuestoGr2,0) as itc,
+		isnull(fv.nroAsientoContable,0) as asiento,
+		isnull(fv.netoFactura,0) as neto, fv.feVto as feVeto,
+		cs.desc_ccss as ccss,
+		isnull(fv.nroejerciciocontable,0) as ejercicio,
+		fv.nroRendicionRefipass as nroRendRef,
+		cl.codigo as codClienteInt,
+		isnull(fv.impuestoGr4,0) as leyCba,
+		isnull(fv.impuestoGr5,0) as co2
+
+		from mfacturasv fv, Mclientes cl,mctasctes c, mccss cs,
+		mpuntoventa pv 
+		where fv.cliente = cl.codigo and
+		cl.cod_cliente_alfa like :codCliente and 
+		(dbo.fechasinhora(fv.fecha) between	:fechaDesde and :fechaHasta or :fechaDesde is null and	:fechaHasta is null) and 
+		(dbo.fechasinhora(fv.fevto) between	:fechaDesdeDos and :fechaHastaDos or :fechaDesdeDos is null and	:fechaHastaDos is null)and
+		(rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim(:tipoOperacion))
+		or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente')) 
+		or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicNC Factura Cliente'))     )  and 
+		(c.nroOper = fv.orden and c.sucursal = fv.NroSucursal) and (
+		cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) and 
+		(cs.cod_ccss = :codCcss or	:codCcss=-1) and
+		c.fhBaja is null and
+		(fv.nroSucursal = :nroSucursal or :nroSucursal = -1) and
+		(fv.nroFactura = :nroFactura or	:nroFactura = -1) 
+		order by fv.fecha desc
+	</sql-query>
+
+
+
+	<sql-query name="findFacturasNoAbonadas2PorClienteYFechas">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codCliente" type="string" />
+		<query-param name="codCcss" type="integer" />
+		<query-param name="fechaDesdeDos" type="timestamp" />
+		<query-param name="fechaHastaDos" type="timestamp" />
+		<query-param name="tipoOperacion" type="String" />
+		<query-param name="nroSucursal" type="integer"/>
+		<query-param name="nroFactura" type="integer"/>
+
+
+select fv.orden as orden, fv.fecha as fecha, fv.tipo as tipo,
+		fv.nroSucursal as sucFact, fv.nroFactura as factura,
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +
+		isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +
+		isnull(impuestoGr2,0)+isnull(fv.impuestoGr3,0)+
+		isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+ isnull(fv.iibb,0)+isnull(fv.piva,0),
+		fv.nroRemito as remito, cl.descripcion as descrCli,
+		cl.cod_cliente_alfa as codCliAlfa,
+
+		fv.tipocomp as tipoCom, 0 as pagoAplicado,
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +
+		isnull(fv.ivaadicional,0) + isnull(fv.impuestoGr1,0) +
+		isnull(fv.impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+
+		isnull(fv.iibb,0)+ isnull(fv.piva,0) as saldo,
+
+		isnull(fv.ivaBasico,0) as ivaBasico, isnull(fv.pIva,0) as piva,
+		isnull(fv.iibb,0) as iibb, isnull(fv.impuestoGr3,0) as
+		tasaFondo, isnull(fv.impuestoGr2,0) as itc,
+		isnull(fv.nroAsientoContable,0) as asiento,
+		isnull(fv.netoFactura,0) as neto, fv.fevto as fevto,
+		cs.desc_ccss as ccss,
+		isnull(fv.nroejerciciocontable,0) as ejercicio,
+		fv.nroRendicionRefipass as nroRendRef,
+		cl.codigo as codClienteInt,
+		isnull(fv.impuestoGr4,0) as leyCba,
+		isnull(fv.impuestoGr5,0) as co2
+
+		from mfacturasv fv, Mclientes cl, mccss cs, mpuntoventa pv 
+
+		where
+		fv.cliente = cl.codigo and 
+		cl.cod_cliente_alfa like :codCliente and 
+		(dbo.fechasinhora(fv.fecha) between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) and 
+		(cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) and 
+		(cs.cod_ccss = :codCcss or :codCcss=-1) and 
+		(fv.nroSucursal = :nroSucursal or :nroSucursal = -1) and
+		(fv.nroFactura = :nroFactura or	:nroFactura = -1)  and
+		fv.orden not in ( select fv.orden as orden
+				 from mfacturasv fv, Mclientes cl1,mccss cs1, mpuntoventa pv 
+				where
+				fv.cliente = cl.codigo and 
+				cl1.cod_cliente_alfa like cl.cod_cliente_alfa and 
+				(dbo.fechasinhora(fv.fecha) between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)and
+	   			(dbo.fechasinhora(fv.fevto) between :fechaDesdeDos and :fechaHastaDos or :fechaDesdeDos is null and :fechaHastaDos is null) and 	
+				fv.orden not in ( select cta.nroOper 
+						  from mctasctes cta 
+						  where
+						 cta.sucursal = fv.nrosucursal) and 
+				(cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal)				
+				)
+
+		and fv.orden not in ( select fv.orden as orden 
+				      from mfacturasv fv, Mclientes cl1,mctasctes c, mccss cs, mpuntoventa pv 
+				      where
+					fv.cliente = cl.codigo and 
+					cl1.cod_cliente_alfa like cl1.cod_cliente_alfa  and 
+				       (dbo.fechasinhora(fv.fecha) between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)and 
+					(rtrim(Ltrim(c.TipoOper)) =	rtrim(ltrim(:tipoOperacion)) 
+					or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+					or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicNC Factura Cliente'))
+					) 
+					and (c.nroOper = fv.orden and c.sucursal = fv.NroSucursal) and 
+					(cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) and
+					c.fhbaja is null
+					 )
+
+	</sql-query>
+
+
+	<sql-query name="findFacturasNoAbonadasPorClienteYFechas">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codCliente" type="string" />
+		<query-param name="codCcss" type="integer" />
+		<query-param name="fechaDesdeDos" type="timestamp" />
+		<query-param name="fechaHastaDos" type="timestamp" />
+		<query-param name="tipoOperacion" type="String" />
+		<query-param name="nroFactura" type="integer" />
+		<query-param name="nroSucursal" type="integer" />
+		
+		
+		select fv.orden as orden, fv.fecha as fecha, fv.tipo as tipo,
+		fv.nroSucursal as sucFact, fv.nroFactura as factura,
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +
+		isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +
+		isnull(impuestoGr2,0)+isnull(fv.impuestoGr3,0)+
+		isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+isnull(fv.iibb,0)+isnull(fv.piva,0),
+		fv.nroRemito as remito, cl.descripcion as descrCli,
+		cl.cod_cliente_alfa as codCliAlfa,
+
+		fv.tipocomp as tipoCom, 0 as pagoAplicado,
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +
+		isnull(fv.ivaadicional,0) + isnull(fv.impuestoGr1,0) +
+		isnull(fv.impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+ isnull(fv.impuestoGr4,0)+isnull(fv.impuestoGr5,0)+
+		isnull(fv.iibb,0)+ isnull(fv.piva,0) as saldo,
+
+		isnull(fv.ivaBasico,0) as ivaBasico, isnull(fv.pIva,0) as piva,
+		isnull(fv.iibb,0) as iibb, isnull(fv.impuestoGr3,0) as
+		tasaFondo, isnull(fv.impuestoGr2,0) as itc,
+		isnull(fv.nroAsientoContable,0) as asiento,
+		isnull(fv.netoFactura,0) as neto, fv.fevto as fevto,
+		cs.desc_ccss as ccss,
+		isnull(fv.nroejerciciocontable,0) as ejercicio,
+		fv.nroRendicionRefipass as nroRendRef,
+		cl.codigo as codClienteInt,
+		isnull(fv.impuestoGr4,0) as leyCba,
+		isnull(fv.impuestoGr5,0) as co2
+		
+		from mfacturasv fv, Mclientes cl, mccss cs, mpuntoventa pv where
+		fv.cliente = cl.codigo and cl.cod_cliente_alfa like :codCliente
+		and (dbo.fechasinhora(fv.fecha) between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null) and
+		(dbo.fechasinhora(fv.fevto) between	:fechaDesdeDos and :fechaHastaDos or :fechaDesdeDos is null and	:fechaHastaDos is null)
+		and (:tipoOperacion = :tipoOperacion) 
+		and 	fv.orden not in ( select cta.nroOper 
+								from mctasctes cta where
+								cta.sucursal = fv.nrosucursal) 
+		and (cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) 
+		and (cs.cod_ccss = :codCcss or	:codCcss = -1) and
+		(fv.nroSucursal = :nroSucursal or :nroSucursal = -1) and
+		(fv.nroFactura = :nroFactura or	:nroFactura = -1) 
+		order by fv.fecha desc
+	</sql-query>
+
+
+
+	<sql-query name="findFacturasImpagasPorCliente">
+		<query-param name="codClienteAlfa" type="string" />
+
+		<![CDATA[
+	  
+		
+		
+		SELECT
+		f.orden as orden,
+		f.fecha as fecha,
+		'' as nombre,
+		f.nroSucursal as nrosuc,
+		f.nrofactura as nrofac,
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) + isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) + isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0) + isnull(f.iibb,0)+ isnull(f.piva,0) + isnull(f.impuestoGr4,0) + isnull(f.impuestoGr5,0) as total,
+		c.descripcion as cliDescripcion,
+		c.cod_cliente_alfa  as cliAlfa,
+		f.tipoComp as tipoComp,
+		0 as pagoaplicado,
+		0 as neto,
+		f.fevto as fechaavto,
+		'' as ccss,
+		f.nroremito as rem,
+		s.ClteProv as clien,
+		s.imp as saldo,
+		'' as tipoCompAux,
+		s.NroOper as nroOper,
+		c.topeCredito as tope,
+		f.tipo as letra
+		
+		FROM vSaldoPorComprobanteCliente s, mFacturasV f,mclientes c
+		
+		WHERE  (s.nroOper = f.orden and s.sucursal in (237,311,312))
+		and c.codigo = f.cliente and c.cod_cliente_alfa like :codClienteAlfa
+		and s.clteprov = c.codigo
+		and not exists (select d.nroOper
+						from mctasctes  d
+						where
+						d.tipoOper like '%NC%' 
+						and d.nroOper = f.orden
+						and d.sucursal = f.nroSucursal 
+						and d.ctactereg in (
+											select b.nrooper 
+											from  mctasctes b
+											where 
+											b.tipoOper like '%NC%'
+											)
+						)
+		and (f.cond_vta in (4,5))
+		and (f.tipoComp not in('NC'))
+		and abs(s.imp) > 0.10
+		order by f.orden
+		
+		
+    ]]>
+	</sql-query>
+
+	<sql-query name="findRemitosImpagasPorCliente">
+		<query-param name="codCliente" type="string" />
+
+		<![CDATA[
+	   	 select
+		f.codigo as cod,
+		f.fecha as fec,
+		f.fevto as fecvto,
+		'R' as tipo,
+		f.nroSucursal as suc,
+		f.codRemito as remito, 
+		
+		isnull(f.netoFactura,0)+isnull(f.ivabasico,0) + isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) + isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0) + isnull(f.iibb,0)+ isnull(f.piva,0) as total,		
+		
+		s.ClteProv as codigCli,
+		s.NroOper as nroOper,
+		s.imp as saldo,
+		c.descripcion as cliDescripcion,
+		c.cod_cliente_alfa  as cliAlfa,
+		c.topeCredito as tope,
+		'REMITO' as tipoC
+		
+		from vSaldoPorComprobanteCliente s, vpedidosExt f,mclientes c
+		where  (s.nroOper = f.codRemito and s.sucursal = f.nroSucursal)
+		and c.codigo = f.cliente and c.cod_cliente_alfa like :codCliente 
+
+		order by f.codigo
+		
+		
+    ]]>
+	</sql-query>
+
+	<sql-query name="findDocumentoACuentaImpagosPorCliente">
+		<query-param name="codCliente" type="string" />
+
+		<![CDATA[
+	   	 select 
+		s.nrooper, 
+		fhoper,
+		fhproc,
+		c.tipooper, 
+		0,
+		c.nrofactura,
+		0,
+		s.clteprov,
+		s.nrooper,
+		s.imp
+		from mctasctes c, vSaldoPorComprobanteCliente s, mclientes a
+		where s.clteprov=  c.clteprov and a.codigo=s.clteprov  and a.codigo = c.clteprov 
+		and a.cod_cliente_alfa like :codCliente
+		and c.nrooper = s.nrooper 
+		and (TpoCtaCte = 'Clte')
+		and (TipoOper NOT LIKE '%iva%') AND 
+		(TipoOper NOT LIKE '%vacio%') AND 
+		(TipoOper NOT LIKE '%TotIB%') AND 
+		(TipoOper NOT LIKE '%TotImpGr%') and
+		(TipoOper NOT LIKE '%Factura%') and
+		imp<0
+		order by tipooper
+    ]]>
+
+	</sql-query>
+					 
+	<sql-query name="findFacturaPorReciboCliente">
+		<query-param name="nroOperCaja" type="integer" />
+		<query-param name="codCliente" type="integer" />
+		<query-param name="tipoOperacion" type="string" />
+		<query-param name="tipoOperacionDos" type="string" />
+		
+		SELECT 
+		c.nroOperCaja as operCaja, 
+		r.nro_rec as nroRec, 
+		f.fecha as fecha, 
+		f.tipo as tipo, 
+		f.nroSucursal as suc,
+		f.nroFactura as nroFac, 
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +	isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0) +isnull(f.iibb,0)+ isnull(f.piva,0) as neto, 
+		cl.descripcion as clidesc,
+		c.importe as pagoaplicado, 
+		isnull(f.netoFactura,0)+isnull(f.ivabasico,0) + isnull(f.ivaadicional,0) +	isnull(f.impuestoGr1,0) + isnull(f.impuestoGr2,0)+	isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0) + isnull(f.iibb,0)+ isnull(f.piva,0) +isnull(c.importe,0)as saldo,
+		cl.cod_cliente_alfa as codAlfa
+		
+		FROM 
+		mrecibo r, mctasctes c, mFacturasV f,mclientes cl 
+		WHERE 	
+		r.nroOperCaja = c.nroOperCaja 
+		and r.nroOperCaja = :nroOperCaja
+		and rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim(:tipoOperacion)) 
+		and (c.NroOper = f.orden 
+		and c.sucursal = f.NroSucursal) 
+		and cl.codigo = r.cliente 
+		and cl.codigo =	:codCliente 
+		
+		UNION
+		
+		
+		SELECT 
+		r.nroOperCaja as operCaja, 
+		r.nro_rec as nroRec, 
+		f.fecha as fecha, 
+		f.tipo as tipo, 
+		c.Sucursal as suc,
+		c.nroFactura as nroFac, 
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +	isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0) +isnull(f.iibb,0)+ isnull(f.piva,0) as neto, 
+		cl.descripcion as clidesc,
+		c.importe as pagoaplicado,
+		isnull(f.netoFactura,0)+isnull(f.ivabasico,0) + isnull(f.ivaadicional,0) +	isnull(f.impuestoGr1,0) + isnull(f.impuestoGr2,0)+	isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0)+ isnull(f.iibb,0)+ isnull(f.piva,0) +isnull(c.importe,0)as saldo,
+		cl.cod_cliente_alfa as codAlfa
+		
+		FROM mctasctes c,mctasctes a,mctasctes d, mrecibo r,mfacturasv f,mclientes cl, mreimputacion m
+		
+		WHERE rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim(:tipoOperacionDos))
+		and c.clteProv = :codCliente 	
+		and c.nro_reimp = a.nro_reimp
+		and a.tipoOper = 'AplicAdel' 
+		and a.nrooper = d.ctactereg  
+		and d.tipoOper = 'PagoAdel' 
+		and r.nroOperCaja = :nroOperCaja
+		and r.nroopercaja = d.nroopercaja
+		and (c.NroOper = f.orden 
+		and c.sucursal = f.NroSucursal) 
+		and cl.codigo = r.cliente 
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		
+		
+		UNION
+		
+		SELECT 
+		e.nroopercaja as opercaja,		
+		dbo.obtenerNroRecibo(d.nroOper,c.clteprov)  as nroRec, 
+		f.fecha as fecha, 
+		f.tipo as tipo, 
+		c.Sucursal as suc,
+		c.nroFactura as nroFac, 
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +	isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+isnull(f.impuestoGr4,0)+isnull(f.impuestoGr5,0) +isnull(f.iibb,0)+ isnull(f.piva,0) as neto, 
+		cl.descripcion as clidesc,
+		c.importe as pagoaplicado,
+		isnull(f.netoFactura,0)+isnull(f.ivabasico,0) + isnull(f.ivaadicional,0) +	isnull(f.impuestoGr1,0) + isnull(f.impuestoGr2,0)+	isnull(f.impuestoGr3,0)+isnull(f.impuestoGr4,0)+isnull(f.impuestoGr5,0)+ isnull(f.iibb,0)+ isnull(f.piva,0) +isnull(c.importe,0)as saldo,
+		cl.cod_cliente_alfa as codAlfa
+
+		FROM mctasctes c,mctasctes a,mctasctes d, mreimputacion m, mfacturasv f,mclientes cl,mctasctes e
+		
+		WHERE rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim(:tipoOperacionDos))
+		and c.clteProv = :codCliente 
+		and c.nro_reimp = a.nro_reimp
+		and rtrim(Ltrim(a.tipoOper)) = rtrim(ltrim('AplicAdel'))
+		and a.nrooper = d.ctactereg  		
+		and rtrim(Ltrim(d.tipoOper)) = rtrim(ltrim('PagoAdel'))		
+		
+		and c.nro_reimp =  m.nro_reimp
+		and c.clteProv = m.cliente
+		and m.fh_baja is null 
+		and d.nroOperCaja =0 
+		and (c.NroOper = f.orden 
+		and c.sucursal = f.NroSucursal) 
+		and cl.codigo = c.clteprov
+		and e.ctactereg = d.nrooper
+		and rtrim(Ltrim(e.tipoOper)) = rtrim(ltrim('PagoAdel'))		
+		and e.nroopercaja = :nroOperCaja
+
+		UNION
+
+		/*son pagos aplicados de tercera generacion*/
+		SELECT 
+		r.nroOperCaja as operCaja, 
+		r.nro_rec as nroRec, 
+		f.fecha as fecha, 
+		f.tipo as tipo, 
+		c.Sucursal as suc,
+		c.nroFactura as nroFac, 
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +	isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+isnull(f.impuestoGr4,0)+isnull(f.impuestoGr5,0) +isnull(f.iibb,0)+ isnull(f.piva,0) as neto, 
+		cl.descripcion as clidesc,
+		c.importe as pagoaplicado,
+		isnull(f.netoFactura,0)+isnull(f.ivabasico,0) + isnull(f.ivaadicional,0) +	isnull(f.impuestoGr1,0) + isnull(f.impuestoGr2,0)+	isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0) +isnull(f.iibb,0)+ isnull(f.piva,0) +isnull(c.importe,0)as saldo,
+		cl.cod_cliente_alfa as codAlfa
+		
+		FROM mctasctes c,mctasctes a,mctasctes d, mrecibo r,mfacturasv f,mclientes cl, mreimputacion m,mctasctes e, mctasctes g 
+		
+		WHERE rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim(:tipoOperacionDos))
+		and c.clteProv = :codCliente 	
+		and c.nro_reimp = a.nro_reimp
+		and a.tipoOper = 'AplicAdel' 
+		and a.nrooper = d.ctactereg  
+		and d.tipoOper = 'PagoAdel' 
+		and r.nroOperCaja = :nroOperCaja
+		and r.nroopercaja = g.nroopercaja 
+		and (c.NroOper = f.orden 
+		and c.sucursal = f.NroSucursal) 
+		and cl.codigo = r.cliente 
+		and c.nro_reimp =  m.nro_reimp
+		and (c.clteProv = m.cliente
+		and c.clteProv = f.cliente)
+		and m.fh_baja is null 
+		and (g.tipoOper = 'PagoAdel'  and g.ctactereg = e.nrooper and e.tipoOper = 'PagoAdel' and e.ctactereg = d.nrooper)
+		
+		
+		
+		UNION
+
+		/*son pagos aplicados de cuarta generacion*/
+		
+		SELECT 
+		r.nroOperCaja as operCaja, 
+		r.nro_rec as nroRec, 
+		f.fecha as fecha, 
+		f.tipo as tipo, 
+		c.Sucursal as suc,
+		c.nroFactura as nroFac, 
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +	isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+isnull(f.impuestoGr4,0)+isnull(f.impuestoGr5,0) +isnull(f.iibb,0)+ isnull(f.piva,0) as neto, 
+		cl.descripcion as clidesc,
+		c.importe as pagoaplicado,
+		isnull(f.netoFactura,0)+isnull(f.ivabasico,0) + isnull(f.ivaadicional,0) +	isnull(f.impuestoGr1,0) + isnull(f.impuestoGr2,0)+	isnull(f.impuestoGr3,0)+isnull(f.impuestoGr4,0)+isnull(f.impuestoGr5,0) + isnull(f.iibb,0)+ isnull(f.piva,0) +isnull(c.importe,0)as saldo,
+		cl.cod_cliente_alfa as codAlfa
+		
+		FROM mctasctes c,mctasctes a,mctasctes d, mrecibo r,mfacturasv f,mclientes cl, mreimputacion m,mctasctes e, mctasctes g,mctasctes h
+		
+		WHERE rtrim(Ltrim(c.tipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+		and c.clteProv = :codCliente 	
+		and c.nro_reimp = a.nro_reimp
+		and a.tipoOper = 'AplicAdel' 
+		and a.nrooper = d.ctactereg  
+		and d.tipoOper = 'PagoAdel' 
+		and r.nroOperCaja = :nroOperCaja
+		and r.nroopercaja = h.nroopercaja 
+		and (c.NroOper = f.orden 
+		and c.sucursal = f.NroSucursal) 
+		and cl.codigo = r.cliente 
+		and c.nro_reimp =  m.nro_reimp
+		and (c.clteProv = m.cliente
+		and c.clteProv = f.cliente)
+		and m.fh_baja is null 
+		and (g.tipoOper = 'PagoAdel'  and g.ctactereg = e.nrooper and e.tipoOper = 'PagoAdel' and e.ctactereg = d.nrooper)
+		and (h.tipoOper = 'PagoAdel'  and h.ctactereg = g.nrooper and g.tipoOper = 'PagoAdel' and g.ctactereg = e.nrooper)
+
+		
+	</sql-query>
+
+
+	<sql-query name="findCobranzasPorClienteYFechas">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="clienteDesde" type="string" />
+		<query-param name="clienteHasta" type="string" />
+		<![CDATA[ 
+			select 
+				fv.orden,
+				fv.fecha,
+				fv.tipo,
+				fv.nroSucursal,
+				fv.nroFactura,
+				isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) + isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) + isnull(impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+ isnull(fv.impuestoGr4,0)+ isnull(fv.impuestoGr5,0) +isnull(fv.iibb,0)+isnull(fv.piva,0),
+				fv.nroRemito,
+				cl.descripcion as descrCli,
+				cl.cod_cliente_alfa as codCliAlfa,
+				
+				fv.tipocomp,
+				isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) + isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) + isnull(impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+ isnull(fv.impuestoGr4,0)+ isnull(fv.impuestoGr5,0) +isnull(fv.iibb,0)+isnull(fv.piva,0) - isnull(c.imp,0) as pagoAplicado,
+				c.imp as saldo,
+				fv.fevto
+						
+				from mfacturasv fv, Mclientes cl,VsaldoPorComprobanteCliente c
+				where 
+				fv.cliente = cl.codigo  and
+				(cl.cod_cliente_alfa  between :clienteDesde and  :clienteHasta or :clienteDesde is null and :clienteHasta is null) and
+				(fv.fevto between :fechaDesde and :fechaHasta or :fechaDesde is null and :fechaHasta is null)and
+				(c.nroOper = fv.orden  and
+				 c.sucursal = fv.NroSucursal) and
+				 fv.fevto < GETDATE() and
+				 c.imp >= 1	
+		 ]]>
+	</sql-query>
+
+	<sql-query name="findCCSSeImportes">
+		<![CDATA[ 
+			select 
+			cs.cod_ccss,
+			cs.desc_ccss,
+			isnull(sum(isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) + isnull(fv.ivaadicional,0) + isnull(fv.impuestoGr1,0) + isnull(fv.impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+ isnull(fv.iibb,0)+ isnull(fv.piva,0) ),0) as importe
+			from 
+			mfacturasv fv, mpuntoventa pv, mccss cs
+			where  
+			fv.nroSucursal = pv.sucursal and
+			pv.ccss = cs.cod_ccss and
+			(fv.nroRendicionRefipass =0 or fv.nroRendicionRefipass is null or fv.fechaRendicion is null) and
+			(fv.nroFactura!=0 and fv.nroRemito!=0) 
+			group by cod_ccss,desc_ccss	
+			order by importe desc
+		 ]]>
+	</sql-query>
+
+	<sql-query name="findFechaMaximaCCSSFactura">
+		<query-param name="codCcss" type="integer" />
+
+		<![CDATA[ 
+				
+			select 
+			cs.cod_ccss,
+			max(fechaRendicion) 
+			from mfacturasv fv, mpuntoventa pv, mccss cs
+			where  fv.nroSucursal = pv.sucursal and
+			pv.ccss = cs.cod_ccss and
+			cs.cod_ccss = :codCcss
+			group by cs.cod_ccss
+		 ]]>
+	</sql-query>
+
+	<sql-query name="findRendicionesPorCCSS">
+		<query-param name="codCcss" type="integer" />
+
+		<![CDATA[ 
+			select 
+			distinct(fv.NroRendicionRefipass) as nroRendicion,
+			cs.cod_ccss,
+			cs.desc_ccss
+			from 
+			mfacturasv fv, mpuntoventa pv, mccss cs
+			where  
+			fv.nroSucursal = pv.sucursal and
+			pv.ccss = cs.cod_ccss and
+			(fv.nroFactura!=0 and fv.nroRemito!=0) and
+			(fv.NroRendicionRefipass!=0 and fv.NroRendicionRefipass is not null) and
+			cs.cod_ccss = :codCcss
+			order by fv.NroRendicionRefipass desc
+		 ]]>
+	</sql-query>
+
+	<sql-query name="findFacturasContadoPorNroRendicion">
+		<query-param name="codCcss" type="integer" />
+		<query-param name="nroRendicion" type="integer" />
+
+		<![CDATA[ 	
+			SELECT 
+			fv.fecha as fFac,
+			fv.nroSucursal as fSuc,
+			fv.NroFactura as nroFac,
+			
+			cl.codigo as cliCod,
+			cl.descripcion as descCli,
+			
+			cs.cod_ccss as codCCSS,
+			cs.desc_ccss as descCCSS,
+			
+			a.codigo as codProd,
+			a.descripcion as descProd,
+			
+			fl.bultos as cantProd,
+			fl.precioCimp as precioCimp,
+			/*isnull(fl.bultos,0) * isnull(fl.precioCimp,0) as  total,*/
+			isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) + isnull(fv.ivaadicional,0) + isnull(fv.impuestoGr1,0) + isnull(fv.impuestoGr2,0)+ isnull(fv.impuestoGr3,0)+ isnull(fv.impuestoGr4,0)+ isnull(fv.impuestoGr5,0) + isnull(fv.iibb,0)+ isnull(fv.piva,0) as importe,
+			v.dominio as patente,
+			c.dni,
+			c.apellido as apeChof,
+			c.nombre as nomChof,
+			fv.NroRendicionRefipass as nroRendicion,
+			sv.total_comprobante as totalSubDiario,
+			fv.fechaRendicion as fechaRendicion
+			
+			FROM mfacturasv fv, mpuntoventa pv, mccss cs,mclientes cl,mFacturasVLinea fl,
+			mArticulos a,mFacturasVDtCarga dt, mVehiculo v,mchofer c, vsubdiarioventas sv
+			
+			WHERE  (fv.nroSucursal = pv.sucursal and
+			pv.ccss = cs.cod_ccss) and
+			(fv.nroFactura!=0 and fv.nroRemito!=0) and
+			(fv.NroRendicionRefipass!=0 and 
+			fv.NroRendicionRefipass is not null) and 
+			(fv.NroRendicionRefipass = :nroRendicion or :nroRendicion = -1) and
+			(cs.cod_ccss = :codCcss or :codCcss = -1 )  and
+			cl.codigo =  fv.cliente and
+			(fl.ordenFactura = fv.orden and
+			fl.sucursal = fv.nroSucursal) and
+			(fl.codArticulo = a.codigo) and
+			
+			(dt.orden_MFV = fv.orden and dt.sucursal = fv.nroSucursal) and
+			(dt.cod_vehiculo = v.codigo) and
+			(dt.dni = c.dni and  c.cod_cli = fv.cliente) and
+			(sv.nro_comprobante = fv.nrofactura and sv.nrosucursal = fv.nroSucursal)
+			ORDER BY fv.fecha desc
+
+		
+			
+			 ]]>
+	</sql-query>
+
+
+	<sql-query name="findPercepcionesIVAPIVACero">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codClienteInt" type="integer" />
+		<query-param name="codCcss" type="integer" />
+
+		select f.tipoComp as tipoComp, f.fecha as fecha, f.nroSucursal
+		as sucursal, f.nroFactura as nroFac, sum(isnull(fl.bultos,0) *
+		isnull(fl.precioCImp,0)) as importeComp, sum(isnull(fl.bultos,0)
+		* isnull(fl.precioKilo,0)) as baseCalculo, f.fecha as
+		fechaEmision, isnull(f.piva,0) as montoRet,
+		isnull(ex.porc_exc,0) as porcExcl
+
+		from mFacturasV f, mFacturasVlinea fl, mexclusion ex, Mclientes
+		cl, mccss cs, mpuntoventa pv where fl.ordenFactura = f.orden and
+		(f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or :fechaDesde is
+		null and dateadd(dd,1,:fechaHasta) is null)
+		
+		 and (cl.codigo = :codClienteInt or
+		:codClienteInt = -1) and (cl.codigo = f.cliente) and
+		(f.nroSucursal = pv.sucursal) and (pv.ccss = cs.cod_ccss) and
+		(cs.cod_ccss = :codCcss or :codCcss = -1) and
+
+		(f.piva = 0) and (ex.cod_cli = f.cliente and ex.t_exclusion = 2
+		and f.fecha between ex.f_desde and  isnull(ex.f_hasta,getdate()))
+		
+		group by
+		f.tipoComp,f.fecha,f.nroSucursal,f.nroFactura,f.fecha,f.piva,ex.porc_exc
+	</sql-query>
+
+
+	<sql-query name="findPercepcionesIVAPIVADistintoCero">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codClienteInt" type="integer" />
+		<query-param name="codCcss" type="integer" />
+
+
+		select f.tipoComp as tipoComp, f.fecha as fecha, f.nroSucursal
+		as sucursal, f.nroFactura as nroFac, sum(isnull(fl.bultos,0) *
+		isnull(fl.precioCImp,0)) as importeComp, sum(isnull(fl.bultos,0)
+		* isnull(fl.precioKilo,0)) as baseCalculo, f.fecha as
+		fechaEmision, isnull(f.piva,0) as montoRet, isnull(null,0) as
+		porcExcl
+
+		from mFacturasV f, mFacturasVlinea fl, Mclientes cl, mccss cs,
+		mpuntoventa pv where fl.ordenFactura = f.orden and (f.fecha
+		between :fechaDesde and dateadd(dd,1,:fechaHasta) or :fechaDesde is null and
+		dateadd(dd,1,:fechaHasta) is null) and (cl.codigo = :codClienteInt or
+		:codClienteInt = -1) and (cl.codigo = f.cliente) and
+		(f.nroSucursal = pv.sucursal) and (pv.ccss = cs.cod_ccss) and
+		(cs.cod_ccss = :codCcss or :codCcss = -1) and
+
+		(f.piva > 0) group by
+		f.tipoComp,f.fecha,f.nroSucursal,f.nroFactura,f.fecha,f.piva
+	</sql-query>
+
+	<sql-query name="findPercepcionesIIBB">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="clienteDesde" type="string" />
+		<query-param name="clienteHasta" type="string" />
+		<query-param name="codProvincia" type="integer" />
+
+/*Facturas por MremitoFactura*/
+		select
+
+
+		f.Cliente as cli, 
+		cl.cod_cliente_alfa as codCliAlfa,
+		cl.descripcion as razSoci, 
+		isnull(cl.CUIT,' ') as cuit, 
+		f.fecha	as fecha, 
+		f.tipoComp as tipoDoc, 
+		f.tipo as tipoComp,
+		f.nroSucursal as sucursal, 
+		f.nroFactura as nroFac,
+		sum(isnull(m.precioKilo * m.bultos1,0) + isnull(p.IvaBasico,0) +
+		isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+
+		isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+isnull(p.impuestoGr4,0)+isnull(p.impuestoGr5,0)+
+		isnull(p.iibb,0)+ isnull(p.piva,0)) as bruto,
+		sum(isnull(m.precioKilo * m.bultos1,0)) as neto,
+		sum(isnull(p.impuestoGr2,0) + isnull(p.impuestoGr3,0)) as itcTasa, 
+		sum(isnull(p.impuestoGr2,0)) as itc,
+		sum(isnull(p.impuestoGr3,0)) as tasa, 
+/*		sum(p.iibb) as percepcion,*/
+SUM(CASE WHEN  m.codlinea in (1) THEN p.iibb
+ELSE 0 END) AS percepcion,
+
+		c.codPcia as codProv, 
+		pr.descripcion as prov, 
+		cl.cod_inscripIB as	inscIb, 
+		cl.cod_actividad as activi, 
+		ar.es_comb as esCombustible,
+		ar.es_gasoil as esGasoil,
+		cl.cativa as inscrIVa, 
+
+		sum(isnull(p.mon_impo_piib,0)) as baseImponible, 		
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0)+isnull(f.iibb,0)+ isnull(f.piva,0) as importeFac ,
+		m.codArticulo as codArt ,
+		m.descripcion as artiDesc, 
+		cl.nro_ib as nroIIBBCliente,
+		f.descgastos1 as descrGastos,
+		sum(isnull(p.impuestoGr4,0)) as leyCba,
+		 sum(isnull(m.preciokilo,0)) as precioKiloSum,
+		 sum(isnull(p.impuestoGr5,0)) as co2
+
+		from mpedidos p inner join mPuntoVenta pv on p.nroSucursal=pv.sucursal 
+		inner join mCcss c on pv.ccss=c.cod_ccss 
+		inner join mprovincias pr on pr.codigo = c.codPcia 
+		inner join MRemitoFactura r on (p.codRemito =	r.nroRemito and p.nrosucursal = r.suc_rto) 
+		inner join MFacturasV f on f.orden = r.ordenFactura and r.sucursal = f.nrosucursal
+		inner join Mclientes cl on (cl.codigo = f.cliente) 
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal =	p.nroSucursal
+		inner join Marticulos ar on ar.codigo =	m.codArticulo 
+
+		where p.iibb != 0 
+		and (f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is null or dateadd(dd,1,:fechaHasta) is null)) 
+		and (cl.cod_cliente_alfa between :clienteDesde and :clienteHasta or (:clienteDesde is null or :clienteHasta is null)) 
+    	and (pr.codigo = :codProvincia or :codProvincia = -1)    	
+
+		group by f.Cliente, cl.cod_cliente_alfa , cl.descripcion,
+		cl.CUIT, f.fecha, f.tipoComp, f.tipo, f.nroSucursal,
+		f.nroFactura, c.codPcia, pr.descripcion, cl.cod_inscripIB , 
+		cl.cod_actividad , ar.es_comb,ar.es_gasoil ,cl.cativa ,
+		f.netoFactura, f.ivabasico, f.ivaadicional, f.impuestoGr1,
+		f.impuestoGr2, f.impuestoGr3,f.impuestoGr4, f.impuestoGr5, f.iibb, f.piva,
+		m.codArticulo , m.descripcion, cl.nro_ib,f.descgastos1
+		
+		UNION 
+		
+/* Facturas anuladas */
+select
+		f.Cliente as cli, 
+		cl.cod_cliente_alfa as codCliAlfa,
+		cl.descripcion as razSoci, 
+		isnull(cl.CUIT,' ') as cuit, 
+		f.fecha	as fecha, 
+		f.tipoComp as tipoDoc, 
+		f.tipo as tipoComp,
+		f.nroSucursal as sucursal, 
+		f.nroFactura as nroFac,
+		sum(isnull(m.precioKilo * m.bultos1,0) + isnull(p.IvaBasico,0) +
+		isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+
+		isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0)+ isnull(p.impuestoGr5,0)+
+		isnull(p.iibb,0)+ isnull(p.piva,0)) as bruto,
+		sum(isnull(m.precioKilo * m.bultos1,0)) as neto,
+		sum(isnull(p.impuestoGr2,0) + isnull(p.impuestoGr3,0)) as itcTasa, 
+		sum(isnull(p.impuestoGr2,0)) as itc,
+		sum(isnull(p.impuestoGr3,0)) as tasa, 
+/*		sum(p.iibb) as percepcion,*/
+SUM(CASE WHEN  m.codlinea in (1) THEN p.iibb
+ELSE 0 END) AS percepcion,
+
+		c.codPcia as codProv, 
+		pr.descripcion as prov, 
+		cl.cod_inscripIB as	inscIb, 
+		cl.cod_actividad as activi, 
+		ar.es_comb as esCombustible,
+		ar.es_gasoil as esGasoil,
+		cl.cativa as inscrIVa, 
+
+		sum(isnull(p.mon_impo_piib,0)) as baseImponible, 		
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0)+isnull(f.iibb,0)+ isnull(f.piva,0) as importeFac ,
+		m.codArticulo as codArt ,
+		m.descripcion as artiDesc, 
+		cl.nro_ib as nroIIBBCliente,
+		f.descgastos1 as descrGastos,
+		sum(isnull(p.impuestoGr4,0)) as leyCba,
+		 sum(isnull(m.preciokilo,0)) as precioKiloSum,
+		 sum(isnull(p.impuestoGr5,0)) as co2
+
+		from mpedidos p inner join mPuntoVenta pv on p.nroSucursal=pv.sucursal 
+		inner join mCcss c on pv.ccss=c.cod_ccss 
+		inner join mprovincias pr on pr.codigo = c.codPcia 
+		inner join MRemitoFacturaAnulada r on (p.codRemito =	r.nroRemito and p.nrosucursal = r.suc_rto) 
+		inner join MFacturasV f on f.orden = r.ordenFactura and r.sucursal = f.nrosucursal
+		inner join Mclientes cl on (cl.codigo = f.cliente) 
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal =	p.nroSucursal 
+		inner join Marticulos ar on ar.codigo =	m.codArticulo 
+
+		where p.iibb != 0 
+		and (f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is null or dateadd(dd,1,:fechaHasta) is null)) 
+		and (cl.cod_cliente_alfa between :clienteDesde and :clienteHasta or (:clienteDesde is null or :clienteHasta is null)) 
+    	and (pr.codigo = :codProvincia or :codProvincia = -1)    	
+
+		group by f.Cliente, cl.cod_cliente_alfa , cl.descripcion,
+		cl.CUIT, f.fecha, f.tipoComp, f.tipo, f.nroSucursal,
+		f.nroFactura, c.codPcia, pr.descripcion, cl.cod_inscripIB , 
+		cl.cod_actividad , ar.es_comb,ar.es_gasoil ,cl.cativa ,
+		f.netoFactura, f.ivabasico, f.ivaadicional, f.impuestoGr1,
+		f.impuestoGr2, f.impuestoGr3, f.impuestoGr4, f.impuestoGr5,f.iibb, f.piva,
+		m.codArticulo , m.descripcion, cl.nro_ib,f.descgastos1		
+		
+		UNION
+		
+/* Facturas anuladas */		
+		select
+		f1.Cliente as cli, 
+		cl.cod_cliente_alfa as codCliAlfa,
+		cl.descripcion as razSoci, 
+		isnull(cl.CUIT,' ') as cuit, 
+		f1.fecha	as fecha, 
+		f1.tipoComp as tipoDoc, 
+		f1.tipo as tipoComp,
+		f1.nroSucursal as sucursal, 
+		f1.nroFactura as nroFac,
+		sum(isnull(m.precioKilo * m.bultos1,0) + isnull(p.IvaBasico,0) +
+		isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+
+		isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+isnull(p.impuestoGr4,0)+isnull(p.impuestoGr5,0)+
+		isnull(p.iibb,0)+ isnull(p.piva,0)) * -1 as bruto,
+		sum(isnull(m.precioKilo * m.bultos1,0)) * -1 as neto,
+		sum(isnull(p.impuestoGr2,0) + isnull(p.impuestoGr3,0)) * -1 as itcTasa, 
+		sum(isnull(p.impuestoGr2,0)) * -1 as itc,
+		sum(isnull(p.impuestoGr3,0)) * -1  as tasa, 
+		/*sum(isnull(p.iibb,0))* -1 as percepcion,*/
+		
+		
+SUM(CASE WHEN  m.codlinea in (1) THEN p.iibb
+ELSE 0 END) * -1 AS percepcion,
+
+		c.codPcia as codProv, 
+		pr.descripcion as prov, 
+		cl.cod_inscripIB as	inscIb, 
+		cl.cod_actividad as activi, 
+		ar.es_comb as esCombustible,
+		ar.es_gasoil as esGasoil,
+		cl.cativa as inscrIVa, 
+
+		sum(isnull(p.mon_impo_piib,0)) * -1 as baseImponible, 		
+		isnull(f1.netoFactura,0)+ isnull(f1.ivabasico,0) +isnull(f1.ivaadicional,0) + isnull(f1.impuestoGr1,0) +isnull(f1.impuestoGr2,0)+ isnull(f1.impuestoGr3,0)+ isnull(f1.impuestoGr4,0)+ isnull(f1.impuestoGr5,0)+isnull(f1.iibb,0)+ isnull(f1.piva,0) as importeFac ,
+		m.codArticulo as codArt ,
+		m.descripcion as artiDesc, 
+		cl.nro_ib as nroIIBBCliente,
+		f1.descgastos1 as descrGastos,
+		sum(isnull(p.impuestoGr4,0)) * -1  as leyCba,
+		 sum(isnull(m.preciokilo,0)) as precioKiloSum,
+		 sum(isnull(p.impuestoGr5,0)) as co2
+		
+		
+		from mpedidos p inner join mPuntoVenta pv on p.nroSucursal=pv.sucursal 
+		inner join mCcss c on pv.ccss=c.cod_ccss 
+		inner join mprovincias pr on pr.codigo = c.codPcia 
+		inner join MRemitoFacturaAnulada r on (p.codRemito =	r.nroRemito and p.nrosucursal = r.suc_rto) 
+		inner join MFacturasV f on f.orden = r.ordenFactura and r.sucursal = f.nrosucursal
+		inner join Mclientes cl on (cl.codigo = f.cliente) 
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal =	p.nroSucursal 
+		inner join Marticulos ar on ar.codigo =	m.codArticulo 
+		inner join MFacturasV f1 on f.orden = f1.orden_asoc and  f.nrosucursal = f1.nro_suc_asoc
+
+		where p.iibb != 0 
+		and (f1.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is null or dateadd(dd,1,:fechaHasta) is null)) 
+		and (cl.cod_cliente_alfa between :clienteDesde and :clienteHasta or (:clienteDesde is null or :clienteHasta is null)) 
+    	and (pr.codigo = :codProvincia or :codProvincia = -1) and    	
+f1.tipoComp like 'NC'
+	
+		group by f1.Cliente, cl.cod_cliente_alfa , cl.descripcion,
+		cl.CUIT, f1.fecha, f1.tipoComp, f1.tipo, f1.nroSucursal,
+		f1.nroFactura, c.codPcia, pr.descripcion, cl.cod_inscripIB , 
+		cl.cod_actividad , ar.es_comb,ar.es_gasoil ,cl.cativa ,
+		f1.netoFactura, f1.ivabasico, f1.ivaadicional, f1.impuestoGr1,
+		f1.impuestoGr2, f1.impuestoGr3,f1.impuestoGr4,f1.impuestoGr5, f1.iibb, f1.piva,
+		m.codArticulo , m.descripcion, cl.nro_ib,f1.descgastos1
+		
+		UNION
+		
+		
+/*Facturas de contado*/		
+		select
+		f.Cliente as cli, 
+		cl.cod_cliente_alfa as codCliAlfa,
+		cl.descripcion as razSoci, 
+		isnull(cl.CUIT,' ') as cuit, 
+		f.fecha	as fecha, 
+		f.tipoComp as tipoDoc, 
+		f.tipo as tipoComp,
+		f.nroSucursal as sucursal, 
+		f.nroFactura as nroFac,
+		sum(isnull(m.precioKilo * m.bultos1,0) + isnull(p.IvaBasico,0) +
+		isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+
+		isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+isnull(p.impuestoGr4,0)+isnull(p.impuestoGr5,0)+
+		isnull(p.iibb,0)+ isnull(p.piva,0)) as bruto,
+		sum(isnull(m.precioKilo * m.bultos1,0)) as neto,
+		sum(isnull(p.impuestoGr2,0) + isnull(p.impuestoGr3,0)) as itcTasa, 
+		sum(isnull(p.impuestoGr2,0)) as itc,
+		sum(isnull(p.impuestoGr3,0)) as tasa, 
+/*		sum(p.iibb) as percepcion,*/
+SUM(CASE WHEN  m.codlinea in (1) THEN p.iibb
+ELSE 0 END)  AS percepcion,
+
+		c.codPcia as codProv, 
+		pr.descripcion as prov, 
+		cl.cod_inscripIB as	inscIb, 
+		cl.cod_actividad as activi, 
+		ar.es_comb as esCombustible,
+		ar.es_gasoil as esGasoil,
+		cl.cativa as inscrIVa, 
+
+		sum(isnull(p.mon_impo_piib,0)) as baseImponible, 		
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+isnull(f.impuestoGr4,0)+isnull(f.impuestoGr5,0)+isnull(f.iibb,0)+ isnull(f.piva,0) as importeFac ,
+		m.codArticulo as codArt ,
+		m.descripcion as artiDesc, 
+		cl.nro_ib as nroIIBBCliente,
+		f.descgastos1 as descrGastos,
+		sum(isnull(p.impuestoGr4,0)) as leyCba 	,
+		 sum(isnull(m.preciokilo,0)) as precioKiloSum,
+		 sum(isnull(p.impuestoGr5,0)) as co2
+
+		from mpedidos p inner join mPuntoVenta pv on p.nroSucursal=pv.sucursal 
+		inner join mCcss c on pv.ccss=c.cod_ccss 
+		inner join mprovincias pr on pr.codigo = c.codPcia 
+				
+		inner join MFacturasV f on f.nroremito = p.codremito and f.nrosucursal = p.nrosucursal
+			
+		inner join Mclientes cl on (cl.codigo = f.cliente) 
+		inner join MpedidosLinea m on m.codPedido = p.codigo and m.sucursal =	p.nroSucursal 
+		inner join Marticulos ar on ar.codigo =	m.codArticulo 
+
+		where p.iibb != 0 
+		and (f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is null or dateadd(dd,1,:fechaHasta) is null)) 
+		and (cl.cod_cliente_alfa between :clienteDesde and :clienteHasta or (:clienteDesde is null or :clienteHasta is null)) 
+    	and (pr.codigo = :codProvincia or :codProvincia = -1)
+    	
+    		
+
+		group by f.Cliente, cl.cod_cliente_alfa , cl.descripcion,
+		cl.CUIT, f.fecha, f.tipoComp, f.tipo, f.nroSucursal,
+		f.nroFactura, c.codPcia, pr.descripcion, cl.cod_inscripIB , 
+		cl.cod_actividad , ar.es_comb,ar.es_gasoil ,cl.cativa ,
+		f.netoFactura, f.ivabasico, f.ivaadicional, f.impuestoGr1,
+		f.impuestoGr2, f.impuestoGr3,f.impuestoGr4,f.impuestoGr5, f.iibb, f.piva,
+		m.codArticulo , m.descripcion, cl.nro_ib,f.descgastos1
+		
+
+UNION
+/*ND*/		
+		select
+		f.Cliente as cli, 
+		cl.cod_cliente_alfa as codCliAlfa,
+		cl.descripcion as razSoci, 
+		isnull(cl.CUIT,' ') as cuit, 
+		f.fecha	as fecha, 
+		f.tipoComp as tipoDoc, 
+		f.tipo as tipoComp,
+		f.nroSucursal as sucursal, 
+		f.nroFactura as nroFac,
+		sum(isnull(f.IvaBasico,0) +
+		isnull(f.IvaAdicional,0)+ isnull(f.impuestoGr1,0)+
+		isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+isnull(f.impuestoGr4,0)+isnull(f.impuestoGr5,0)+
+		isnull(f.iibb,0)+ isnull(f.piva,0)+isnull(f.netofactura,0)) as bruto,
+		0 as neto,
+		0 as itcTasa, 
+		0 as itc,
+		0 as tasa, 
+
+ f.iibb AS percepcion,
+
+		c.codPcia as codProv, 
+		pr.descripcion as prov, 
+		cl.cod_inscripIB as	inscIb, 
+		cl.cod_actividad as activi, 
+		0 as esCombustible,
+		0 as esGasoil,
+		cl.cativa as inscrIVa, 
+
+		sum(isnull(f.mon_impo_piib,0)) as baseImponible, 		
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+ isnull(f.impuestoGr4,0)+ isnull(f.impuestoGr5,0)+isnull(f.iibb,0)+ isnull(f.piva,0) as importeFac ,
+		0 as codArt ,
+		' ' as artiDesc, 
+		cl.nro_ib as nroIIBBCliente,
+		f.descgastos1 as descrGastos,
+		0 as leyCba,
+		0 as precioKiloSum,
+		 0 as co2
+		
+
+		from  MFacturasV f inner join mPuntoVenta pv on f.nroSucursal=pv.sucursal 
+		inner join mCcss c on pv.ccss=c.cod_ccss 
+		inner join mprovincias pr on pr.codigo = c.codPcia 
+		inner join Mclientes cl on (cl.codigo = f.cliente) 
+		
+
+		where f.iibb != 0 
+		
+and f.tipocomp like 'ND'   	
+ and (f.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta) or (:fechaDesde is null or dateadd(dd,1,:fechaHasta) is null)) 
+		and (cl.cod_cliente_alfa between :clienteDesde and :clienteHasta or (:clienteDesde is null or :clienteHasta is null)) 
+    	and (pr.codigo = :codProvincia or :codProvincia = -1) 		
+
+		group by f.Cliente, cl.cod_cliente_alfa , cl.descripcion,
+		cl.CUIT, f.fecha, f.tipoComp, f.tipo, f.nroSucursal,
+		f.nroFactura, c.codPcia, pr.descripcion, cl.cod_inscripIB , 
+		cl.cod_actividad , cl.cativa ,
+		f.netoFactura, f.ivabasico, f.ivaadicional, f.impuestoGr1,
+		f.impuestoGr2, f.impuestoGr3,f.impuestoGr4, f.impuestoGr5, f.iibb, f.piva,
+		cl.nro_ib,f.descgastos1
+		
+
+	
+		
+
+		order by f.sucursal,f.nroFactura,artiDesc
+		
+
+	</sql-query>
+	
+	
+	<!-- 
+	<sql-query name="findPercepcionesIIBB">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="clienteDesde" type="string" />
+		<query-param name="clienteHasta" type="string" />
+		<query-param name="codProvincia" type="integer" />
+
+
+		select
+
+
+		f.Cliente as cli, cl.cod_cliente_alfa as codCliAlfa,
+		cl.descripcion as razSoci, isnull(cl.CUIT,' ') as cuit, f.fecha
+		as fecha, f.tipoComp as tipoDoc, f.tipo as tipoComp,
+		f.nroSucursal as sucursal, f.nroFactura as nroFac,
+		sum(isnull(m.precioKilo * m.bultos1,0) + isnull(p.IvaBasico,0) +
+		isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+
+		isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+
+		isnull(p.iibb,0)+ isnull(p.piva,0)) as bruto,
+		sum(isnull(m.precioKilo * m.bultos1,0)) as neto,
+		sum(isnull(p.impuestoGr2,0) + isnull(p.impuestoGr3,0)) as
+		itcTasa, sum(isnull(p.impuestoGr2,0)) as itc,
+		sum(isnull(p.impuestoGr3,0)) as tasa, sum(p.iibb) as percepcion,
+		c.codPcia as codPr, pr.descripcion as prod, i.inscrip_ib as
+		inscIb, i.actividad_cli as activi, i.tipo_prod as tipoProd,
+		i.inscrip_iva as inscrIVa, sum(isnull(p.mon_impo_piib,0)) as
+		baseImponible, isnull(i.porcentaje,0) as alicuota,
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +
+		isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +
+		isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+
+		isnull(f.iibb,0)+ isnull(f.piva,0) as importeFac ,m.codArticulo
+		as codArt , m.descripcion as artiDesc, cl.nro_ib as
+		nroIIBBCliente
+
+		from mpedidos p inner join mPuntoVenta pv on
+		p.nroSucursal=pv.sucursal inner join mCcss c on
+		pv.ccss=c.cod_ccss inner join mprovincias pr on pr.codigo =
+		c.codPcia inner join MRemitoFactura r on (p.codRemito =
+		r.nroRemito and p.nrosucursal = r.suc_rto) inner join MFacturasV f on f.orden = r.ordenFactura and r.sucursal = f.nrosucursal
+		inner join Mclientes cl on (cl.codigo = f.cliente) inner join
+		MpedidosLinea m on m.codPedido = p.codigo and m.sucursal =
+		p.nroSucursal inner join Marticulos ar on ar.codigo =
+		m.codArticulo left join mibimpuesto i on i.pcia_ccss = c.codPcia
+		and i.inscrip_iva =
+		dbo.obtenerInscripcionIVA(c.codPcia,cl.cod_inscripIB,cl.cod_actividad,
+		i.tipo_prod,cl.cativa) and i.inscrip_ib =
+		dbo.obtenerInscripcionIIBB(c.codPcia,cl.cod_inscripIB,cl.cod_actividad,
+		i.tipo_prod,i.inscrip_iva) and i.actividad_cli =
+		dbo.obtenerActividadCliente(c.codPcia,i.inscrip_ib,cl.cod_actividad,
+		i.tipo_prod,i.inscrip_iva) and i.tipo_prod =
+		dbo.obtenerTipoProducto (ar.es_comb,
+		ar.es_gasoil,c.codPcia,i.inscrip_ib,i.actividad_cli,i.inscrip_iva)
+
+		where p.iibb != 0 and (f.fecha between :fechaDesde and
+		dateadd(dd,1,:fechaHasta) or (:fechaDesde is null or
+		dateadd(dd,1,:fechaHasta) is null)) and (cl.cod_cliente_alfa
+		between :clienteDesde and :clienteHasta or (:clienteDesde is
+		null or :clienteHasta is null)) and (pr.codigo = :codProvincia
+		or :codProvincia = -1)
+
+		group by f.Cliente, cl.cod_cliente_alfa , cl.descripcion,
+		cl.CUIT, f.fecha, f.tipoComp, f.tipo, f.nroSucursal,
+		f.nroFactura, c.codPcia, pr.descripcion, i.inscrip_ib,
+		i.actividad_cli, i.tipo_prod, i.inscrip_iva, i.porcentaje,
+
+		f.netoFactura, f.ivabasico, f.ivaadicional, f.impuestoGr1,
+		f.impuestoGr2, f.impuestoGr3, f.iibb, f.piva,
+
+		m.codArticulo , m.descripcion, cl.nro_ib
+
+		
+		
+		UNION
+		
+		
+		
+
+		select
+
+
+		f.Cliente as cli, cl.cod_cliente_alfa as codCliAlfa,
+		cl.descripcion as razSoci, isnull(cl.CUIT,' ') as cuit, f.fecha
+		as fecha, f.tipoComp as tipoDoc, f.tipo as tipoComp,
+		f.nroSucursal as sucursal, f.nroFactura as nroFac,
+		sum(isnull(m.precioKilo * m.bultos1,0) + isnull(p.IvaBasico,0) +
+		isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+
+		isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+
+		isnull(p.iibb,0)+ isnull(p.piva,0)) as bruto,
+		sum(isnull(m.precioKilo * m.bultos1,0)) as neto,
+		sum(isnull(p.impuestoGr2,0) + isnull(p.impuestoGr3,0)) as
+		itcTasa, sum(isnull(p.impuestoGr2,0)) as itc,
+		sum(isnull(p.impuestoGr3,0)) as tasa, sum(p.iibb) as percepcion,
+		c.codPcia as codPr, pr.descripcion as prod, i.inscrip_ib as
+		inscIb, i.actividad_cli as activi, i.tipo_prod as tipoProd,
+		i.inscrip_iva as inscrIVa, sum(isnull(p.mon_impo_piib,0)) as
+		baseImponible, isnull(i.porcentaje,0) as alicuota,
+		isnull(f.netoFactura,0)+ isnull(f.ivabasico,0) +
+		isnull(f.ivaadicional,0) + isnull(f.impuestoGr1,0) +
+		isnull(f.impuestoGr2,0)+ isnull(f.impuestoGr3,0)+
+		isnull(f.iibb,0)+ isnull(f.piva,0) as importeFac ,m.codArticulo
+		as codArt , m.descripcion as artiDesc, cl.nro_ib as
+		nroIIBBCliente
+
+		from mpedidos p inner join mPuntoVenta pv on
+		p.nroSucursal=pv.sucursal inner join mCcss c on
+		pv.ccss=c.cod_ccss inner join mprovincias pr on pr.codigo =
+		c.codPcia 	
+		
+		inner join MFacturasV f on f.nroremito = p.codremito and f.nrosucursal = p.nrosucursal
+		
+		inner join Mclientes cl on (cl.codigo = f.cliente) inner join
+		MpedidosLinea m on m.codPedido = p.codigo and m.sucursal =
+		p.nroSucursal inner join Marticulos ar on ar.codigo =
+		m.codArticulo left join mibimpuesto i on i.pcia_ccss = c.codPcia
+		and i.inscrip_iva =
+		dbo.obtenerInscripcionIVA(c.codPcia,cl.cod_inscripIB,cl.cod_actividad,
+		i.tipo_prod,cl.cativa) and i.inscrip_ib =
+		dbo.obtenerInscripcionIIBB(c.codPcia,cl.cod_inscripIB,cl.cod_actividad,
+		i.tipo_prod,i.inscrip_iva) and i.actividad_cli =
+		dbo.obtenerActividadCliente(c.codPcia,i.inscrip_ib,cl.cod_actividad,
+		i.tipo_prod,i.inscrip_iva) and i.tipo_prod =
+		dbo.obtenerTipoProducto (ar.es_comb,
+		ar.es_gasoil,c.codPcia,i.inscrip_ib,i.actividad_cli,i.inscrip_iva)
+
+		where p.iibb != 0 and (f.fecha between :fechaDesde and
+		dateadd(dd,1,:fechaHasta) or (:fechaDesde is null or
+		dateadd(dd,1,:fechaHasta) is null)) and (cl.cod_cliente_alfa
+		between :clienteDesde and :clienteHasta or (:clienteDesde is
+		null or :clienteHasta is null)) and (pr.codigo = :codProvincia
+		or :codProvincia = -1)
+
+		group by f.Cliente, cl.cod_cliente_alfa , cl.descripcion,
+		cl.CUIT, f.fecha, f.tipoComp, f.tipo, f.nroSucursal,
+		f.nroFactura, c.codPcia, pr.descripcion, i.inscrip_ib,
+		i.actividad_cli, i.tipo_prod, i.inscrip_iva, i.porcentaje,
+
+		f.netoFactura, f.ivabasico, f.ivaadicional, f.impuestoGr1,
+		f.impuestoGr2, f.impuestoGr3, f.iibb, f.piva,
+
+		m.codArticulo , m.descripcion, cl.nro_ib
+
+
+		order by f.sucursal,f.nroFactura,m.codArticulo,c.codPcia
+
+
+
+	</sql-query> -->
+	
+
+	<sql-query name="findMovimientoStock">
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codProducto" type="integer" />
+		<query-param name="codCcss" type="integer" />
+		<query-param name="codCcssHeadOffice" type="integer" />
+<![CDATA[ 	
+
+		select 
+		cs.cod_ccss as codCS, 
+		cs.desc_ccss as ccss, 
+		a.codigo as	codPro, 
+		a.descripcion as prod, 
+		sum(isnull(fl.bultos,0)) as stock
+
+		from mfacturasv fv, mpuntoventa pv, mccss cs,mFacturasVLinea fl,
+		mArticulos a where (fv.nroSucursal = pv.sucursal and pv.ccss =
+		cs.cod_ccss) and (cs.cod_ccss != :codCcssHeadOffice) and
+		(cs.cod_ccss = :codCcss or :codCcss = -1) and (fl.ordenFactura =
+		fv.orden and fl.sucursal = fv.nroSucursal) and (fl.codArticulo =
+		a.codigo) and (a.codigo = :codProducto or :codProducto = -1 )
+		and (fv.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta)
+		or (:fechaDesde is null or dateadd(dd,1,:fechaHasta) is null))
+
+		group by cs.cod_ccss, cs.desc_ccss, a.codigo, a.descripcion
+
+		union
+
+		select 
+		cs.cod_ccss as codCS, 
+		cs.desc_ccss as ccss, 
+		a.codigo as	codPro, 
+		a.descripcion as prod, 
+		sum(isnull(pl.bultos1,0)) as stock
+
+		from mpuntoventa pv, mccss cs, mArticulos a, mpedidos p
+		,MpedidosLinea pl where (p.nroSucursal = pv.sucursal and pv.ccss
+		= cs.cod_ccss) and (cs.cod_ccss != :codCcssHeadOffice) and
+		(cs.cod_ccss = :codCcss or :codCcss = -1) and (pl.codArticulo =
+		a.codigo) and (a.codigo = :codProducto or :codProducto = -1 )
+		and (pl.codPedido = p.codigo and pl.sucursal = p.nroSucursal)
+		and (p.fecha between :fechaDesde and dateadd(dd,1,:fechaHasta)
+		or (:fechaDesde is null or dateadd(dd,1,:fechaHasta) is null))
+		and 
+p.codRemito not in (select nroRemito 
+				   from MFacturasV 
+				   where 
+				   nroRemito is not null and 
+				   nroRemito <> 0
+				   and nrosucursal = p.nroSucursal)
+
+		group by cs.cod_ccss, cs.desc_ccss, a.codigo, a.descripcion
+		]]>
+
+	</sql-query>
+
+	<sql-query name="findStockCombustible">
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codProducto" type="integer" />
+		<query-param name="codCcss" type="integer" />
+		<query-param name="codCcssHeadOffice" type="integer" />
+		<![CDATA[ 	
+		select 
+		cs.cod_ccss as codCS,
+		cs.desc_ccss as ccss, 
+		a.codigo as codProd,
+		a.descripcion as prod,
+		sum(isnull(fl.bultos,0)) as stock,
+		dbo.obtenerLitrosDespachados(cs.cod_ccss,a.codigo) as comDesp
+		
+		from mfacturasv fv, mpuntoventa pv, mccss cs,mFacturasVLinea fl, mArticulos a
+		where  
+		(fv.nroSucursal = pv.sucursal and pv.ccss = cs.cod_ccss) and
+		(cs.cod_ccss != :codCcssHeadOffice) and
+		(cs.cod_ccss = :codCcss or :codCcss = -1) and
+		(fl.ordenFactura = fv.orden and fl.sucursal = fv.nroSucursal) and
+		(fl.codArticulo = a.codigo) and
+		(a.codigo = :codProducto or :codProducto = -1 ) and
+		(fv.fecha < dateadd(dd,1,:fechaHasta) or  dateadd(dd,1,:fechaHasta) is null) 		
+		
+		group by  
+		cs.cod_ccss,
+		cs.desc_ccss,
+		a.codigo,
+		a.descripcion
+		
+		union
+		
+		select 
+		cs.cod_ccss as codCS,
+		cs.desc_ccss as ccss, 
+		a.codigo as codProd,
+		a.descripcion as prod,
+		sum(isnull(pl.bultos1,0)) as stock,
+		dbo.obtenerLitrosDespachados(cs.cod_ccss,a.codigo) as comDesp
+		
+		from mpuntoventa pv, mccss cs, mArticulos a,
+		mpedidos p ,MpedidosLinea pl
+		where  
+		(p.nroSucursal = pv.sucursal and pv.ccss = cs.cod_ccss) and
+		(cs.cod_ccss != :codCcssHeadOffice) and
+		(cs.cod_ccss = :codCcss or :codCcss = -1) and
+		(pl.codArticulo = a.codigo) and
+		(a.codigo = :codProducto or :codProducto = -1 ) and
+		(pl.codPedido = p.codigo and pl.sucursal = p.nroSucursal) and
+		(p.fecha < dateadd(dd,1,:fechaHasta) or  dateadd(dd,1,:fechaHasta) is null) 		
+		
+		group by  
+		cs.cod_ccss,
+		cs.desc_ccss,
+		a.codigo,
+		a.descripcion
+	 ]]>
+	</sql-query>
+	
+	
+	<sql-query name="findFacturasPendientesDeRendicion">		
+		<query-param name="codCcss" type="integer" />
+		SELECT
+		fv.orden as orden, 
+		fv.fecha as fecha, 
+		fv.tipo as tipo,
+		fv.nroSucursal as sucFact, 
+		fv.nroFactura as factura,
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +isnull(impuestoGr2,0)+isnull(fv.impuestoGr3,0)+isnull(fv.iibb,0)+isnull(fv.piva,0) as total,
+		fv.nroRemito as remito, 
+		cl.descripcion as descrCli,
+		cl.cod_cliente_alfa as codCliAlfa,
+		fv.tipocomp as tipoCom, 
+		isnull(fv.netoFactura,0)+ isnull(fv.ivabasico,0) +isnull(fv.ivaadicional,0) + isnull(impuestoGr1,0) +isnull(impuestoGr2,0)+isnull(fv.impuestoGr3,0)+isnull(fv.iibb,0)+isnull(fv.piva,0) as pagoAplicado,
+		0 as saldo,
+		isnull(fv.ivaBasico,0) as ivaBasico, 
+		isnull(fv.pIva,0) as piva,
+		isnull(fv.iibb,0) as iibb, 
+		isnull(fv.impuestoGr3,0) as tasaFondo, 
+		isnull(fv.impuestoGr2,0) as itc,
+		isnull(fv.nroAsientoContable,0) as asiento,
+		isnull(fv.netoFactura,0) as neto, 
+		fv.fevto as fevto,
+		cs.desc_ccss as ccss,
+		isnull(fv.nroejerciciocontable,0) as ejercicio
+
+		FROM
+		mfacturasv fv, Mclientes cl, mccss cs, mpuntoventa pv 
+		
+		WHERE
+		fv.cliente = cl.codigo and 
+		(cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) and 
+		(fv.nroRendicionRefipass = 0 or fv.nroRendicionRefipass is null or fv.fechaRendicion is null) and
+		(fv.nroFactura!=0 and fv.nroRemito!=0) and (cs.cod_ccss = :codCcss)	
+		ORDER BY fv.fecha
+	</sql-query>
+	
+	
+	<sql-query name="findTotalFacturadoCompleto">
+	<query-param name="codCliente" type="integer" />
+	Select (
+(
+		select  abs(sum(importe))  -- distinct(fv.orden), fv.tipo, fv.nrosucursal, fv.nrofactura --count(distinct orden)
+
+		from mfacturasv fv, Mclientes cl,mctasctes c, mccss cs,
+		mpuntoventa pv 
+		where 
+		fv.fhBaja is null and
+		fv.cliente = cl.codigo and
+		cl.codigo = :codCliente and 
+		(rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('Cobro Factura Cliente'))
+		or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente')) 
+		or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicNC Factura Cliente'))     )  and 
+		(c.nroOper = fv.orden and c.sucursal = fv.NroSucursal) and (
+		cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) and 
+		c.fhBaja is null 
+)
+
++
+
+(
+select isnull( sum(fv.netoFactura+fv.ivabasico+fv.ivaAdicional+fv.impuestoGr2+fv.impuestoGr3+fv.iibb+fv.piva) ,0) --fv.orden, fv.tipo, fv.nrosucursal, fv.nrofactura 
+		
+		from mfacturasv fv, Mclientes cl, mccss cs, mpuntoventa pv 
+
+		where
+		fv.fhBaja is null and
+		fv.cliente = cl.codigo and cl.codigo = :codCliente		 
+		and 	fv.orden not in ( select cta.nroOper 
+								from mctasctes cta where
+								cta.sucursal = fv.nrosucursal) 
+		and (cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) 
+		
+)		
++
+
+(
+select  isnull( sum(fv.netoFactura+fv.ivabasico+fv.ivaAdicional+fv.impuestoGr2+fv.impuestoGr3+fv.iibb+fv.piva) ,0)-- fv.orden, fv.tipo, fv.nrosucursal, fv.nrofactura -- count(orden) 
+
+		from mfacturasv fv, Mclientes cl, mccss cs, mpuntoventa pv 
+
+		where
+		fv.fhBaja is null and
+		fv.cliente = cl.codigo and 
+		cl.codigo = :codCliente and 
+		(cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) and 
+		fv.orden not in ( select fv.orden as orden
+				 from mfacturasv fv, Mclientes cl1,mccss cs1, mpuntoventa pv 
+				where
+				fv.cliente = cl.codigo and 
+				cl1.cod_cliente_alfa like cl.cod_cliente_alfa and 
+				fv.orden not in ( select cta.nroOper 
+						  from mctasctes cta 
+						  where
+						 cta.sucursal = fv.nrosucursal) and 
+				(cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal)				
+				)
+
+		and fv.orden not in ( select fv.orden as orden 
+				      from mfacturasv fv, Mclientes cl1,mctasctes c, mccss cs, mpuntoventa pv 
+				      where
+					fv.cliente = cl.codigo and 
+					cl1.cod_cliente_alfa like cl1.cod_cliente_alfa  and 
+				    (rtrim(Ltrim(c.TipoOper)) =	rtrim(ltrim('Cobro Factura Cliente')) 
+					or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicAdel Factura Cliente'))
+					or rtrim(Ltrim(c.TipoOper)) = rtrim(ltrim('AplicNC Factura Cliente')) ) 
+					and (c.nroOper = fv.orden and c.sucursal = fv.NroSucursal) and 
+					(cs.cod_ccss = pv.ccss and fv.nroSucursal = pv.sucursal) and
+					c.fhbaja is null
+					 )
+)
+)
+	</sql-query>
+	
+	
+	<sql-query name="findTotalFacturadoDeMfactura">
+	<query-param name="codCliente" type="integer" />
+		select  sum(netoFactura+ivabasico+ivaAdicional+impuestoGr2+impuestoGr3+iibb+piva)  --count(orden)
+		from mFacturasv 
+		where cliente=:codCliente and fhBaja is null	
+	</sql-query>
+	
+	<sql-query name="findTotalFacturadoDeMCtaCte">
+		<query-param name="codCliente" type="integer" />	
+		select sum(importe) 
+		from mctasctes 
+		where (tipoOper='FacturaTotProds' or tipoOper='NC' or tipoOper='ND') 
+		and clteProv = :codCliente 
+		and fhBaja is null
+	</sql-query>
+
+</hibernate-mapping>

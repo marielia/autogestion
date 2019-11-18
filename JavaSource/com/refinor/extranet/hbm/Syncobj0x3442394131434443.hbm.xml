@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-may-2008 14:13:11 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x3442394131434443" table="syncobj_0x3442394131434443" schema="dbo" catalog="RefinorNet3">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x3442394131434443Id">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="codImp" type="int">
+                <column name="cod_imp" />
+            </key-property>
+            <key-property name="impPor" type="char">
+                <column name="imp_por" length="1" />
+            </key-property>
+            <key-property name="artFliaGru" type="char">
+                <column name="art_fliaGru" length="1" />
+            </key-property>
+            <key-property name="codArtFlia" type="int">
+                <column name="cod_art_flia" />
+            </key-property>
+            <key-property name="codGru" type="int">
+                <column name="cod_gru" />
+            </key-property>
+            <key-property name="valor" type="big_decimal">
+                <column name="valor" precision="12" scale="4" />
+            </key-property>
+            <key-property name="FDesde" type="timestamp">
+                <column name="f_desde" length="16" />
+            </key-property>
+            <key-property name="FHasta" type="timestamp">
+                <column name="f_hasta" length="16" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Boolean">
+                <column name="activo" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

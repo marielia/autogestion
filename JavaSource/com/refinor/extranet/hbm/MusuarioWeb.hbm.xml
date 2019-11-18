@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MusuarioWeb" table="MUsuarioWeb" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.MusuarioWebId">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="cuit" type="string">
+                <column name="cuit" length="50" />
+            </key-property>
+            <key-property name="email" type="string">
+                <column name="email" length="50" />
+            </key-property>
+            <key-property name="clave" type="string">
+                <column name="clave" length="50" />
+            </key-property>
+            <key-property name="estado" type="char">
+                <column name="estado" length="1" />
+            </key-property>
+            <key-property name="cambioClave" type="int">
+                <column name="cambio_clave" />
+            </key-property>
+            <key-property name="intentosFallidos" type="int">
+                <column name="intentos_fallidos" />
+            </key-property>
+            <key-property name="ultimoIntentoFallido" type="timestamp">
+                <column name="ultimo_intento_fallido" length="23" />
+            </key-property>
+            <key-property name="fechaAlta" type="timestamp">
+                <column name="fecha_alta" length="23" />
+            </key-property>
+            <key-property name="tipo" type="int">
+                <column name="tipo" />
+            </key-property>
+            <key-property name="creadorId" type="java.lang.Integer">
+                <column name="creador_id" />
+            </key-property>
+            <key-property name="codClienteAlfa" type="string">
+                <column name="cod_cliente_alfa" length="20" />
+            </key-property>
+            <key-property name="codigoEmpleado" type="java.lang.Integer">
+                <column name="codigo_empleado" />
+            </key-property>
+            <key-property name="codigoCcssEmpleado" type="java.lang.Integer">
+                <column name="codigo_ccss_empleado" />
+            </key-property>
+            <key-property name="codigoRol" type="java.lang.Integer">
+                <column name="codigo_rol" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

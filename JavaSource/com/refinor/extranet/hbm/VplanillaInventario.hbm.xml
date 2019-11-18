@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VplanillaInventario" table="vPlanillaInventario" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VplanillaInventarioId">
+            <key-property name="articuloId" type="int">
+                <column name="ArticuloId" />
+            </key-property>
+            <key-property name="cantidadStock" type="big_decimal">
+                <column name="CantidadStock" precision="38" scale="4" />
+            </key-property>
+            <key-property name="descripcionBreve" type="string">
+                <column name="DescripcionBreve" length="20" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Boolean">
+                <column name="activo" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

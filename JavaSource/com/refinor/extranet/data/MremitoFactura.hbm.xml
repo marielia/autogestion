@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-feb-2008 16:20:42 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MremitoFactura" table="MRemitoFactura" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MremitoFacturaId">
+            <key-property name="sucursal" type="int">
+                <column name="sucursal" />
+            </key-property>
+            <key-property name="id" type="long">
+                <column name="id" precision="18" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="ordenFactura" type="java.lang.Long">
+            <column name="OrdenFactura" precision="18" scale="0" />
+        </property>
+        <property name="nroRemito" type="java.lang.Long">
+            <column name="NroRemito" precision="18" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

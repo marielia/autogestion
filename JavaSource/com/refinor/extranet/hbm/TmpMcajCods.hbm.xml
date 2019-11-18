@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.TmpMcajCods" table="TmpMCajCods" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.TmpMcajCodsId">
+            <key-property name="nroOper" type="int">
+                <column name="NroOper" />
+            </key-property>
+            <key-property name="nroMacroOper" type="int">
+                <column name="NroMacroOper" />
+            </key-property>
+            <key-property name="clteProv" type="java.lang.Integer">
+                <column name="ClteProv" />
+            </key-property>
+            <key-property name="codTrans" type="int">
+                <column name="CodTrans" />
+            </key-property>
+            <key-property name="fhTrans" type="timestamp">
+                <column name="FhTrans" length="16" />
+            </key-property>
+            <key-property name="importe" type="double">
+                <column name="Importe" precision="53" scale="0" />
+            </key-property>
+            <key-property name="pago" type="double">
+                <column name="Pago" precision="53" scale="0" />
+            </key-property>
+            <key-property name="descuento" type="java.lang.Double">
+                <column name="Descuento" precision="53" scale="0" />
+            </key-property>
+            <key-property name="retIva" type="double">
+                <column name="RetIva" precision="53" scale="0" />
+            </key-property>
+            <key-property name="retGcias" type="double">
+                <column name="RetGcias" precision="53" scale="0" />
+            </key-property>
+            <key-property name="retIngrBrt" type="double">
+                <column name="RetIngrBrt" precision="53" scale="0" />
+            </key-property>
+            <key-property name="retSijp" type="double">
+                <column name="RetSIJP" precision="53" scale="0" />
+            </key-property>
+            <key-property name="codIngrEgr" type="java.lang.Integer">
+                <column name="CodIngrEgr" />
+            </key-property>
+            <key-property name="ordenPago" type="java.lang.Integer">
+                <column name="OrdenPago" />
+            </key-property>
+            <key-property name="certGcias" type="java.lang.Integer">
+                <column name="CertGcias" />
+            </key-property>
+            <key-property name="certIngrBrt" type="java.lang.Integer">
+                <column name="CertIngrBrt" />
+            </key-property>
+            <key-property name="jurIngrBrt" type="java.lang.Integer">
+                <column name="JurIngrBrt" />
+            </key-property>
+            <key-property name="idCheque" type="java.lang.Integer">
+                <column name="IdCheque" />
+            </key-property>
+            <key-property name="fhProc" type="timestamp">
+                <column name="FhProc" length="16" />
+            </key-property>
+            <key-property name="tpoPago" type="string">
+                <column name="TpoPago" length="5" />
+            </key-property>
+            <key-property name="conformado" type="string">
+                <column name="Conformado" length="2" />
+            </key-property>
+            <key-property name="userConf" type="string">
+                <column name="UserConf" length="50" />
+            </key-property>
+            <key-property name="fhProcConf" type="timestamp">
+                <column name="FhProcConf" length="16" />
+            </key-property>
+            <key-property name="user" type="string">
+                <column name="User" length="50" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

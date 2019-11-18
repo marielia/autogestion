@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Sysarticleupdates" table="sysarticleupdates" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.SysarticleupdatesId">
+            <key-property name="artid" type="int">
+                <column name="artid" />
+            </key-property>
+            <key-property name="pubid" type="int">
+                <column name="pubid" />
+            </key-property>
+            <key-property name="syncInsProc" type="int">
+                <column name="sync_ins_proc" />
+            </key-property>
+            <key-property name="syncUpdProc" type="int">
+                <column name="sync_upd_proc" />
+            </key-property>
+            <key-property name="syncDelProc" type="int">
+                <column name="sync_del_proc" />
+            </key-property>
+            <key-property name="autogen" type="boolean">
+                <column name="autogen" />
+            </key-property>
+            <key-property name="syncUpdTrig" type="int">
+                <column name="sync_upd_trig" />
+            </key-property>
+            <key-property name="conflictTableid" type="java.lang.Integer">
+                <column name="conflict_tableid" />
+            </key-property>
+            <key-property name="insConflictProc" type="java.lang.Integer">
+                <column name="ins_conflict_proc" />
+            </key-property>
+            <key-property name="identitySupport" type="boolean">
+                <column name="identity_support" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

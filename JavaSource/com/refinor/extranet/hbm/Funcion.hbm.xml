@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Funcion" table="Funcion" schema="dbo" catalog="REFIPASS">
+        <id name="funcionId" type="int">
+            <column name="FuncionId" />
+            <generator class="assigned" />
+        </id>
+        <property name="subgrupoFuncionId" type="int">
+            <column name="SubgrupoFuncionId" not-null="true" />
+        </property>
+        <property name="funcionNombre" type="string">
+            <column name="FuncionNombre" length="100" not-null="true" />
+        </property>
+        <property name="funcionEsSistema" type="boolean">
+            <column name="FuncionEsSistema" not-null="true" />
+        </property>
+        <property name="activo" type="boolean">
+            <column name="Activo" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

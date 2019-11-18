@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mcomision" table="MComision" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.McomisionId">
+            <key-property name="ccss" type="int">
+                <column name="ccss" />
+            </key-property>
+            <key-property name="codArt" type="int">
+                <column name="cod_art" />
+            </key-property>
+        </composite-id>
+        <property name="idUserLock" type="java.lang.Boolean">
+            <column name="idUserLock" />
+        </property>
+        <property name="FAlta" type="timestamp">
+            <column name="f_alta" length="16" />
+        </property>
+        <property name="FBaja" type="timestamp">
+            <column name="f_baja" length="16" />
+        </property>
+        <property name="comCtaCte" type="big_decimal">
+            <column name="com_ctaCte" precision="11" scale="4" />
+        </property>
+        <property name="comContado" type="big_decimal">
+            <column name="com_contado" precision="11" scale="4" />
+        </property>
+        <property name="stockMin" type="big_decimal">
+            <column name="stock_min" precision="11" scale="4" />
+        </property>
+        <property name="stockMax" type="big_decimal">
+            <column name="stock_max" precision="11" scale="4" />
+        </property>
+        <property name="stockCritico" type="big_decimal">
+            <column name="stock_critico" precision="11" scale="4" />
+        </property>
+    </class>
+</hibernate-mapping>

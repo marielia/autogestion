@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-ago-2009 14:33:17 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.Mexclusion" table="MExclusion" schema="dbo" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="TExclusion" type="java.lang.Integer">
+            <column name="t_exclusion" />
+        </property>
+        <property name="codCli" type="java.lang.Integer">
+            <column name="cod_cli" />
+        </property>
+        <property name="codPcia" type="java.lang.Integer">
+            <column name="cod_pcia" />
+        </property>
+        <property name="porcExc" type="java.lang.Integer">
+            <column name="porc_exc" />
+        </property>
+        <property name="FDesde" type="timestamp">
+            <column name="f_desde" length="16" />
+        </property>
+        <property name="FHasta" type="timestamp">
+            <column name="f_hasta" length="16" />
+        </property>
+    </class>
+    
+    <sql-query name="findExclusionesPorFiltro">
+        <query-param name="codCliente" type="integer"/>
+	    <query-param name="fechaDesde" type="timestamp"/>
+	    <query-param name="fechaHasta" type="timestamp"/>
+        <query-param name="fechaAux" type="timestamp"/>
+        <query-param name="tipoExclusion" type="integer"/>
+        <query-param name="codProvincia" type="integer"/>  
+			<![CDATA[
+      SELECT  
+		e.f_desde as fechaDesde, 
+		e.f_hasta as fechaHasta,
+		e.cod_cli as codCliente,
+		c.descripcion as nomClient,
+		c.cod_cliente_alfa as codClienteAlfa,
+		t.codigo as codTipoExclu,
+		t.descripcion as descrTipoExcl, 
+		e.porc_exc as porcentaje,
+		e.cod_pcia as codProvincia,
+		isnull(p.descripcion,'TODAS LAS PCIAS.') as descrProv
+		
+	FROM 
+		mExclusion e inner join mExclusionTipo t on e.t_exclusion = t.codigo
+		inner join mClientes c on e.cod_cli = c.codigo
+		left join mProvincias p  on e.cod_pcia = p.codigo 
+
+	WHERE   
+		p.fhbaja is null and
+		(((isnull(dbo.fechasinhora(e.f_hasta),dbo.fechasinhora2(:fechaAux)) between :fechaDesde and :fechaHasta) and
+		  dbo.fechasinhora(e.f_desde) < :fechaHasta )
+		or (:fechaDesde is null or :fechaHasta is null)
+		or ( dbo.fechasinhora(e.f_hasta) > :fechaHasta and dbo.fechasinhora(e.f_desde) < :fechaHasta)
+		or (e.f_hasta is null and dbo.fechasinhora(e.f_desde) < :fechaHasta))
+		and (e.cod_cli = :codCliente or :codCliente = -1)
+		and (e.t_exclusion = :tipoExclusion or :tipoExclusion = -1)
+		and (e.cod_pcia = :codProvincia or :codProvincia = -1)
+		and (e.porc_exc = :porcentajeExclusion or :porcentajeExclusion = -1)		
+	ORDER BY e.f_desde,e.f_hasta,t.descripcion 
+	  ]]>   
+    </sql-query>
+</hibernate-mapping>

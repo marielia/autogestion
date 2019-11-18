@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-may-2008 14:13:11 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x3536323934393033" table="syncobj_0x3536323934393033" schema="dbo" catalog="RefinorNet3">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x3536323934393033Id">
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="codLista" type="java.lang.Integer">
+                <column name="CodLista" />
+            </key-property>
+            <key-property name="codEspVar" type="java.lang.Integer">
+                <column name="CodEspVar" />
+            </key-property>
+            <key-property name="fechaD" type="timestamp">
+                <column name="FechaD" length="16" />
+            </key-property>
+            <key-property name="fechaH" type="timestamp">
+                <column name="FechaH" length="16" />
+            </key-property>
+            <key-property name="precioK" type="big_decimal">
+                <column name="PrecioK" scale="4" />
+            </key-property>
+            <key-property name="fhAlta" type="timestamp">
+                <column name="FhAlta" length="16" />
+            </key-property>
+            <key-property name="codExt" type="string">
+                <column name="CodExt" length="15" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

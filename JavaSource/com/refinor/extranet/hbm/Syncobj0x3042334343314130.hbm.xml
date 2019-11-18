@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x3042334343314130" table="syncobj_0x3042334343314130" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x3042334343314130Id">
+            <key-property name="codigo" type="int">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="cliente" type="java.lang.Integer">
+                <column name="Cliente" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="fevto" type="timestamp">
+                <column name="Fevto" length="16" />
+            </key-property>
+            <key-property name="arrivo" type="long">
+                <column name="Arrivo" precision="10" scale="0" />
+            </key-property>
+            <key-property name="bultos1" type="java.lang.Integer">
+                <column name="Bultos1" />
+            </key-property>
+            <key-property name="bultos2" type="java.lang.Integer">
+                <column name="Bultos2" />
+            </key-property>
+            <key-property name="msg1" type="string">
+                <column name="Msg1" length="250" />
+            </key-property>
+            <key-property name="msg2" type="string">
+                <column name="Msg2" length="250" />
+            </key-property>
+            <key-property name="nroSucursal" type="int">
+                <column name="nroSucursal" />
+            </key-property>
+            <key-property name="codRemito" type="java.lang.Integer">
+                <column name="CodRemito" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="nroExtPedido" type="string">
+                <column name="NroExtPedido" length="12" />
+            </key-property>
+            <key-property name="nroAuto" type="java.lang.Integer">
+                <column name="nro_auto" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

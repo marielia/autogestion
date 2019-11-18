@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MctaCble" table="MCtaCble" schema="dbo" catalog="REFIPASS">
+        <id name="cuenta" type="string">
+            <column name="cuenta" length="7" />
+            <generator class="assigned" />
+        </id>
+        <property name="unidadNeg" type="string">
+            <column name="unidad_neg" length="18" />
+        </property>
+        <property name="ctaDesc" type="string">
+            <column name="cta_desc" length="35" />
+        </property>
+        <property name="ctaDetalle" type="string">
+            <column name="cta_detalle" length="35" />
+        </property>
+        <property name="imputable" type="java.lang.Boolean">
+            <column name="imputable" />
+        </property>
+        <property name="jerarquia" type="string">
+            <column name="jerarquia" length="13" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="fbaja" type="timestamp">
+            <column name="fbaja" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

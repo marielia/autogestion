@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mproveedores" table="MProveedores" schema="dbo" catalog="REFIPASS">
+        <id name="codigo" type="int">
+            <column name="Codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="50" />
+        </property>
+        <property name="nombreFantasia" type="string">
+            <column name="NombreFantasia" length="50" />
+        </property>
+        <property name="contacto" type="string">
+            <column name="Contacto" length="30" />
+        </property>
+        <property name="imail" type="string">
+            <column name="IMail" length="50" />
+        </property>
+        <property name="sucNro" type="string">
+            <column name="SucNro" length="5" />
+        </property>
+        <property name="te" type="string">
+            <column name="Te" length="20" />
+        </property>
+        <property name="domicilio" type="string">
+            <column name="Domicilio" length="30" />
+        </property>
+        <property name="codP" type="java.lang.Integer">
+            <column name="CodP" />
+        </property>
+        <property name="localidad" type="string">
+            <column name="Localidad" length="20" />
+        </property>
+        <property name="pcia" type="java.lang.Integer">
+            <column name="Pcia" />
+        </property>
+        <property name="pais" type="string">
+            <column name="Pais" length="15" />
+        </property>
+        <property name="domicilioPago" type="string">
+            <column name="DomicilioPago" length="30" />
+        </property>
+        <property name="codPostPago" type="java.lang.Integer">
+            <column name="CodPostPago" />
+        </property>
+        <property name="localidadPago" type="string">
+            <column name="LocalidadPago" length="20" />
+        </property>
+        <property name="pciaPago" type="java.lang.Integer">
+            <column name="PciaPago" />
+        </property>
+        <property name="paisPago" type="string">
+            <column name="PaisPago" length="15" />
+        </property>
+        <property name="catIva" type="java.lang.Integer">
+            <column name="CatIva" />
+        </property>
+        <property name="cuit" type="string">
+            <column name="CUIT" length="15" />
+        </property>
+        <property name="idUserLock" type="int">
+            <column name="IdUserLock" not-null="true" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+        <property name="catGan" type="java.lang.Integer">
+            <column name="CatGan" />
+        </property>
+        <property name="codJurDgi" type="java.lang.Integer">
+            <column name="CodJurDGI" />
+        </property>
+        <property name="codCtasConts" type="java.lang.Integer">
+            <column name="codCtasConts" />
+        </property>
+        <property name="codProvAlf" type="string">
+            <column name="codProvAlf" length="10" />
+        </property>
+        <property name="obs" type="string">
+            <column name="obs" />
+        </property>
+        <property name="exentoInfCai" type="java.lang.Boolean">
+            <column name="exentoInfCai" />
+        </property>
+        <property name="conRetIb" type="java.lang.Boolean">
+            <column name="conRetIB" />
+        </property>
+        <property name="nroIb" type="java.lang.Long">
+            <column name="nroIB" />
+        </property>
+        <property name="codLocProv" type="java.lang.Integer">
+            <column name="codLocProv" />
+        </property>
+        <property name="codLocPag" type="java.lang.Integer">
+            <column name="codLocPag" />
+        </property>
+    </class>
+</hibernate-mapping>

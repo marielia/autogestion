@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VpedidosClte" table="VPedidosClte" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VpedidosClteId">
+            <key-property name="codClte" type="int">
+                <column name="CodClte" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="50" />
+            </key-property>
+            <key-property name="codigo" type="java.lang.Integer">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="codRemito" type="java.lang.Integer">
+                <column name="CodRemito" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="fevto" type="timestamp">
+                <column name="Fevto" length="16" />
+            </key-property>
+            <key-property name="bultos2" type="java.lang.Integer">
+                <column name="Bultos2" />
+            </key-property>
+            <key-property name="clteAbrev" type="string">
+                <column name="ClteAbrev" length="50" />
+            </key-property>
+            <key-property name="arriboD" type="string">
+                <column name="ArriboD" length="15" />
+            </key-property>
+            <key-property name="nroExtPedido" type="string">
+                <column name="NroExtPedido" length="12" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

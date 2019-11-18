@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MejercicioContable" table="MEjercicioContable" schema="dbo" catalog="REFIPASS">
+        <id name="nroEjercicio" type="long">
+            <column name="NroEjercicio" precision="18" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="fechaInicio" type="timestamp">
+            <column name="FechaInicio" length="23" />
+        </property>
+        <property name="fechaCierre" type="timestamp">
+            <column name="FechaCierre" length="23" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="Activo" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.ConflictRefinorNetMergeNMovimientoStock" table="conflict_RefinorNetMergeN_MovimientoStock" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.ConflictRefinorNetMergeNMovimientoStockId">
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+            <key-property name="almacenId" type="int">
+                <column name="AlmacenId" />
+            </key-property>
+            <key-property name="movimientoStockId" type="int">
+                <column name="MovimientoStockId" />
+            </key-property>
+            <key-property name="articuloId" type="int">
+                <column name="ArticuloId" />
+            </key-property>
+            <key-property name="cantidad" type="big_decimal">
+                <column name="Cantidad" precision="10" scale="4" />
+            </key-property>
+            <key-property name="costo" type="big_decimal">
+                <column name="Costo" precision="14" scale="4" />
+            </key-property>
+            <key-property name="fechaMovimiento" type="timestamp">
+                <column name="FechaMovimiento" length="23" />
+            </key-property>
+            <key-property name="usuarioAlta" type="string">
+                <column name="UsuarioAlta" length="50" />
+            </key-property>
+            <key-property name="tipoComprobante" type="java.lang.Short">
+                <column name="TipoComprobante" />
+            </key-property>
+            <key-property name="letraComprobante" type="string">
+                <column name="LetraComprobante" length="1" />
+            </key-property>
+            <key-property name="sucursalComp" type="java.lang.Integer">
+                <column name="sucursalComp" />
+            </key-property>
+            <key-property name="numeroComprobante" type="java.lang.Integer">
+                <column name="NumeroComprobante" />
+            </key-property>
+            <key-property name="tipoMovimiento" type="java.lang.Integer">
+                <column name="TipoMovimiento" />
+            </key-property>
+            <key-property name="tipoComprobanteInterno" type="java.lang.Integer">
+                <column name="TipoComprobanteInterno" />
+            </key-property>
+            <key-property name="numeroComprobanteInterno" type="java.lang.Integer">
+                <column name="NumeroComprobanteInterno" />
+            </key-property>
+            <key-property name="codigoTurnoVigencia" type="java.lang.Long">
+                <column name="CodigoTurnoVigencia" precision="10" scale="0" />
+            </key-property>
+            <key-property name="codVeh" type="java.lang.Integer">
+                <column name="cod_veh" />
+            </key-property>
+            <key-property name="rowguid" type="string">
+                <column name="rowguid" length="36" />
+            </key-property>
+            <key-property name="originDatasource" type="string">
+                <column name="origin_datasource" />
+            </key-property>
+            <key-property name="conflictType" type="java.lang.Integer">
+                <column name="conflict_type" />
+            </key-property>
+            <key-property name="reasonCode" type="java.lang.Integer">
+                <column name="reason_code" />
+            </key-property>
+            <key-property name="reasonText" type="string">
+                <column name="reason_text" length="720" />
+            </key-property>
+            <key-property name="pubid" type="string">
+                <column name="pubid" length="36" />
+            </key-property>
+            <key-property name="msreplCreateTime" type="timestamp">
+                <column name="MSrepl_create_time" length="23" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

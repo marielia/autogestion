@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mccss" table="MCcss" schema="dbo" catalog="REFIPASS">
+        <id name="codCcss" type="int">
+            <column name="cod_ccss" />
+            <generator class="assigned" />
+        </id>
+        <property name="descCcss" type="string">
+            <column name="desc_ccss" length="50" />
+        </property>
+        <property name="ctaBca" type="string">
+            <column name="cta_bca" length="50" />
+        </property>
+        <property name="idUserLock" type="java.lang.Boolean">
+            <column name="idUserLock" />
+        </property>
+        <property name="FAlta" type="timestamp">
+            <column name="f_alta" length="16" />
+        </property>
+        <property name="FBaja" type="timestamp">
+            <column name="f_baja" length="16" />
+        </property>
+        <property name="codPcia" type="java.lang.Integer">
+            <column name="codPcia" />
+        </property>
+    </class>
+</hibernate-mapping>

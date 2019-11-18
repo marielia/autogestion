@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-sep-2008 13:15:54 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MovimientoStock" table="MovimientoStock" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MovimientoStockId">
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+            <key-property name="movimientoStockId" type="int">
+                <column name="MovimientoStockId" />
+            </key-property>
+        </composite-id>
+        <property name="almacenId" type="int">
+            <column name="AlmacenId" not-null="true" />
+        </property>
+        <property name="articuloId" type="int">
+            <column name="ArticuloId" not-null="true" />
+        </property>
+        <property name="cantidad" type="big_decimal">
+            <column name="Cantidad" precision="10" scale="4" not-null="true" />
+        </property>
+        <property name="costo" type="big_decimal">
+            <column name="Costo" precision="14" scale="4" />
+        </property>
+        <property name="fechaMovimiento" type="timestamp">
+            <column name="FechaMovimiento" length="23" not-null="true" />
+        </property>
+        <property name="usuarioAlta" type="string">
+            <column name="UsuarioAlta" length="50" />
+        </property>
+        <property name="tipoComprobante" type="java.lang.Short">
+            <column name="TipoComprobante" />
+        </property>
+        <property name="letraComprobante" type="string">
+            <column name="LetraComprobante" length="1" />
+        </property>
+        <property name="sucursalComp" type="java.lang.Integer">
+            <column name="sucursalComp" />
+        </property>
+        <property name="numeroComprobante" type="java.lang.Integer">
+            <column name="NumeroComprobante" />
+        </property>
+        <property name="tipoMovimiento" type="java.lang.Integer">
+            <column name="TipoMovimiento" />
+        </property>
+        <property name="tipoComprobanteInterno" type="java.lang.Integer">
+            <column name="TipoComprobanteInterno" />
+        </property>
+        <property name="numeroComprobanteInterno" type="java.lang.Integer">
+            <column name="NumeroComprobanteInterno" />
+        </property>
+        <property name="codigoTurnoVigencia" type="java.lang.Long">
+            <column name="CodigoTurnoVigencia" precision="10" scale="0" />
+        </property>
+        <property name="codVeh" type="java.lang.Integer">
+            <column name="cod_veh" />
+        </property>
+        <property name="rowguid" type="string">
+            <column name="rowguid" length="36" not-null="true" unique="true" />
+        </property>
+    </class>    
+		
+    <sql-query name="findMovimiento">
+    <query-param name="fechaDesde" type="timestamp" />
+		<query-param name="fechaHasta" type="timestamp" />
+		<query-param name="codProducto" type="integer" />
+		<query-param name="codCcss" type="integer" />
+		<query-param name="codCcssHeadOffice" type="integer" />
+		<![CDATA[ 	
+
+
+		
+		select 
+
+		cs.cod_ccss as codCS,
+		cs.desc_ccss as descCCSS, 
+		a.codigo as codProd,
+		a.descripcion as decrProd,
+		sum(l.bultos1)  as cantidad,
+		p.fecha as fechaMovimiento, 
+		0 as codTipoMov,
+		CASE WHEN (l.bultos1) > 0 THEN 'Egreso por Facturación'
+		ELSE 'Ingreso Combustible' END as descMov,
+		p.nroSucursal as sucursal,
+		p.codremito as nroCom,
+		2 as tipoCom,
+		'Remito' as decrComp,
+		'R' as letra,		
+		CASE WHEN (l.bultos1) > 0 THEN -1
+		ELSE 1 END as signo,
+		abs(sum(l.bultos1)) * (CASE WHEN (l.bultos1) > 0 THEN -1
+		ELSE 1 END ) as litros
+
+
+from mpedidos p inner join MpedidosLinea l 
+on (l.sucursal = p.nroSucursal and l.codPedido = p.codigo) inner join mPuntoVenta pv
+on pv.sucursal = p.nroSucursal inner join mccss cs
+on pv.ccss = cs.cod_ccss inner join marticulos a
+on a.codigo = l.codArticulo
+
+where
+(l.bultos1 < 0 or l.bultos1 >0 )
+and (cs.cod_ccss != :codCcssHeadOffice) and
+(cs.cod_ccss = :codCcss or :codCcss = -1) and
+(a.codigo = :codProducto or :codProducto = -1) and
+(p.fecha  between :fechaDesde and :fechaHasta
+or (:fechaDesde is null or :fechaHasta is null)) 
+and 
+p.codRemito not in (select nroRemito 
+				   from MFacturasV 
+				   where 
+				   nroRemito is not null and 
+				   nroRemito <> 0
+				   and nrosucursal = p.nroSucursal)
+
+group by cs.cod_ccss ,
+		cs.desc_ccss , 
+		a.codigo ,
+		a.descripcion ,		
+		p.fecha , 		
+		l.bultos1 ,
+		p.nroSucursal ,
+		p.codremito ,		
+		l.bultos1 
+		
+		
+
+UNION
+
+/*facturas y nc*/
+select 
+
+		cs.cod_ccss as codCS,
+		cs.desc_ccss as descCCSS, 
+		a.codigo as codProd,
+		a.descripcion as decrProd,
+		l.bultos  as cantidad,
+		p.fecha as fechaMovimiento, 
+		0 as codTipoMov,
+		CASE WHEN (l.bultos) > 0 THEN 'Egreso por Facturación'
+		ELSE 'Ingreso Combustible' END as descMov,
+		p.nroSucursal as sucursal,
+		p.nrofactura as nroCom,
+		1 as tipoCom,
+		CASE WHEN rtrim(ltrim(p.tipoComp)) = 'FC' THEN  'Factura'
+		WHEN rtrim(ltrim(p.tipoComp)) = 'NC' THEN  'Nota Crédito'
+		ELSE '' END as decrComp,
+		p.tipo as letra,
+		CASE WHEN (l.bultos) > 0 THEN -1 ELSE 1 END  as signo,  
+		abs(l.bultos) * (CASE WHEN (l.bultos) > 0 THEN -1	ELSE 1 END)  as litros
+		
+
+from mfacturasv p inner join mfacturasvLinea l 
+on (l.sucursal = p.nroSucursal and l.ordenFactura = p.orden) inner join mPuntoVenta pv
+on pv.sucursal = p.nroSucursal inner join mccss cs
+on pv.ccss = cs.cod_ccss inner join marticulos a
+on a.codigo = l.codArticulo
+
+where
+(cs.cod_ccss != :codCcssHeadOffice) and
+(l.bultos < 0 or l.bultos > 0) and
+(cs.cod_ccss = :codCcss or :codCcss = -1) and
+(a.codigo = :codProducto or :codProducto = -1) and
+(p.fecha  between :fechaDesde and :fechaHasta
+or (:fechaDesde is null or :fechaHasta is null)) 
+
+UNION
+
+/*mdespacho combustible*/
+
+select 
+
+		cs.cod_ccss as codCS,
+		cs.desc_ccss as descCCSS, 
+		a.codigo as codProd,
+		a.descripcion as decrProd,
+		p.litros  as cantidad,
+		p.fecha as fechaMovimiento, 
+		0 as codTipoMov,
+		CASE WHEN (p.estado) = 0 THEN 'Egreso por Facturación'
+		ELSE 'Ingreso Combustible' END as descMov,	
+		0 as sucursal,
+		p.nrocomprobante as nroCom,
+		p.tipoComprobante as tipoCom,
+		c.nombre as decrComp,
+		p.letraComprobante as letra,
+		CASE WHEN (p.estado) = 0 THEN -1
+		ELSE 1 END as signo,
+		abs(p.litros) *  (CASE WHEN (p.estado) = 0 THEN -1 ELSE 1 END) as litros
+ 
+from mcombustibleDespacho p inner join mccss cs
+on p.ccssid = cs.cod_ccss inner join marticulos a
+on a.codigo = p.codArticulo inner join tipoComprobante c
+on  c.id = p.tipoComprobante
+
+where 
+(cs.cod_ccss != :codCcssHeadOffice) and
+(cs.cod_ccss = :codCcss or :codCcss = -1) and
+(a.codigo = :codProducto or :codProducto = -1) and
+(p.fecha  between :fechaDesde and :fechaHasta
+or (:fechaDesde is null or :fechaHasta is null)) 
+
+order by cs.cod_ccss, a.codigo,p.fecha 
+
+ ]]>
+    </sql-query>
+    
+    <sql-query name="spGeneraArchivo22" callable="true">    		
+	    exec spGeneraArchivo ?,?,?,?,
+	</sql-query>
+	
+	<sql-query name="spGeneraArchivo" callable="true" >	  
+		   {call spGeneraArchivo(:producto,:fechaDesde,:fechaHasta,:codCCSS,:path)}
+	 </sql-query>
+	
+	<sql-query name="findLitrosAcumulados">        
+		<query-param name="fechaDesde" type="timestamp" />
+		<query-param name="codProducto" type="integer" />
+		<query-param name="codCcss" type="integer" />
+		<query-param name="codCcssHeadOffice" type="integer" />
+				    
+		
+    	<![CDATA[
+			SELECT 
+				sum( abs(l.bultos1) * (CASE WHEN (l.bultos1) > 0 THEN -1
+				ELSE 1 END ))as litros
+		
+			FROM
+			 mpedidos p inner join MpedidosLinea l 
+			on (l.sucursal = p.nroSucursal and l.codPedido = p.codigo) inner join mPuntoVenta pv
+			on pv.sucursal = p.nroSucursal inner join mccss cs
+			on pv.ccss = cs.cod_ccss inner join marticulos a
+			on a.codigo = l.codArticulo
+			
+			WHERE
+			(l.bultos1 < 0 or l.bultos1 >0 )
+			and (cs.cod_ccss != :codCcssHeadOffice) and
+			(cs.cod_ccss = :codCcss or :codCcss = -1) and
+			(a.codigo = :codProducto or :codProducto = -1) and
+			(dbo.fechasinhora(p.fecha)  < dbo.fechasinhora(fechaDesde) )and 
+			p.codRemito not in (select nroRemito 
+							   from MFacturasV 
+							   where 
+							   nroRemito is not null and 
+							   nroRemito <> 0
+							   and nrosucursal = p.nroSucursal)
+
+     ]]>  
+    
+    </sql-query>
+</hibernate-mapping>

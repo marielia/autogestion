@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.TipoMovimientoStock" table="TipoMovimientoStock" schema="dbo" catalog="REFIPASS">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="50" />
+        </property>
+        <property name="signo" type="java.lang.Short">
+            <column name="Signo" />
+        </property>
+        <property name="activo" type="java.lang.Short">
+            <column name="Activo" />
+        </property>
+        <property name="codigo" type="string">
+            <column name="Codigo" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

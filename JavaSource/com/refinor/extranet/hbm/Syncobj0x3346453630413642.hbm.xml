@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x3346453630413642" table="syncobj_0x3346453630413642" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x3346453630413642Id">
+            <key-property name="codigo" type="int">
+                <column name="codigo" />
+            </key-property>
+            <key-property name="codCli" type="java.lang.Integer">
+                <column name="cod_cli" />
+            </key-property>
+            <key-property name="nombre" type="string">
+                <column name="nombre" length="20" />
+            </key-property>
+            <key-property name="apellido" type="string">
+                <column name="apellido" length="20" />
+            </key-property>
+            <key-property name="pinChof" type="string">
+                <column name="pin_chof" length="20" />
+            </key-property>
+            <key-property name="dni" type="java.lang.Integer">
+                <column name="dni" />
+            </key-property>
+            <key-property name="inicializado" type="java.lang.Boolean">
+                <column name="inicializado" />
+            </key-property>
+            <key-property name="unidadNeg" type="java.lang.Integer">
+                <column name="unidad_neg" />
+            </key-property>
+            <key-property name="activo" type="java.lang.Boolean">
+                <column name="activo" />
+            </key-property>
+            <key-property name="FAlta" type="timestamp">
+                <column name="f_alta" length="16" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

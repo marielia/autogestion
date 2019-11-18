@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VcomprasLinea" table="VComprasLinea" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VcomprasLineaId">
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="codFacturaC" type="java.lang.Integer">
+                <column name="CodFacturaC" />
+            </key-property>
+            <key-property name="proveedorCodigo" type="java.lang.Integer">
+                <column name="ProveedorCodigo" />
+            </key-property>
+            <key-property name="proveedorDescripcion" type="string">
+                <column name="ProveedorDescripcion" length="50" />
+            </key-property>
+            <key-property name="especieCodigo" type="int">
+                <column name="EspecieCodigo" />
+            </key-property>
+            <key-property name="especieDescripcion" type="string">
+                <column name="EspecieDescripcion" length="50" />
+            </key-property>
+            <key-property name="feArrivo" type="timestamp">
+                <column name="FeArrivo" length="16" />
+            </key-property>
+            <key-property name="variedadCodigo" type="int">
+                <column name="VariedadCodigo" />
+            </key-property>
+            <key-property name="variedadDescripcion" type="string">
+                <column name="VariedadDescripcion" length="50" />
+            </key-property>
+            <key-property name="articuloCodigo" type="int">
+                <column name="ArticuloCodigo" />
+            </key-property>
+            <key-property name="articuloDescripcion" type="string">
+                <column name="ArticuloDescripcion" length="60" />
+            </key-property>
+            <key-property name="cantidad2" type="big_decimal">
+                <column name="Cantidad2" scale="4" />
+            </key-property>
+            <key-property name="precioK" type="big_decimal">
+                <column name="PrecioK" />
+            </key-property>
+            <key-property name="totalMerca" type="big_decimal">
+                <column name="TotalMerca" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

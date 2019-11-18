@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-mar-2008 17:00:34 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x3932363446424146" table="syncobj_0x3932363446424146" schema="dbo" catalog="RefinorNet2">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x3932363446424146Id">
+            <key-property name="ccssid" type="java.lang.Integer">
+                <column name="CCSSId" />
+            </key-property>
+            <key-property name="nroRendicion" type="long">
+                <column name="NroRendicion" precision="18" scale="0" />
+            </key-property>
+            <key-property name="nroOper" type="long">
+                <column name="NroOper" precision="18" scale="0" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="23" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

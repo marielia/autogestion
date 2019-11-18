@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Syncobj0x3341303137344234" table="syncobj_0x3341303137344234" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.Syncobj0x3341303137344234Id">
+            <key-property name="sucursal" type="int">
+                <column name="Sucursal" />
+            </key-property>
+            <key-property name="id" type="long">
+                <column name="id" precision="18" scale="0" />
+            </key-property>
+            <key-property name="ordenFactura" type="java.lang.Long">
+                <column name="OrdenFactura" precision="18" scale="0" />
+            </key-property>
+            <key-property name="nroRemito" type="java.lang.Long">
+                <column name="NroRemito" precision="18" scale="0" />
+            </key-property>
+            <key-property name="sucRto" type="java.lang.Integer">
+                <column name="Suc_rto" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

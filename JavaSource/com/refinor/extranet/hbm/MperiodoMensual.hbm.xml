@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MperiodoMensual" table="MPeriodoMensual" schema="dbo" catalog="REFIPASS">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="ccss" type="java.lang.Integer">
+            <column name="ccss" />
+        </property>
+        <property name="fechaInicio" type="timestamp">
+            <column name="fecha_inicio" length="16" />
+        </property>
+        <property name="fechaFin" type="timestamp">
+            <column name="fecha_fin" length="16" />
+        </property>
+        <property name="estado" type="java.lang.Integer">
+            <column name="estado" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="idUserLock" />
+        </property>
+    </class>
+</hibernate-mapping>

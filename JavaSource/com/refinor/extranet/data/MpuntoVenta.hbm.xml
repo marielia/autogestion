@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-mar-2008 18:34:29 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.MpuntoVenta" table="MPuntoVenta" schema="dbo" >
+        <composite-id name="id" class="com.refinor.extranet.data.MpuntoVentaId">
+            <key-property name="sucursal" type="java.lang.Integer">
+                <column name="Sucursal" />
+            </key-property>
+            <key-property name="ccss" type="java.lang.Integer">
+                <column name="ccss" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

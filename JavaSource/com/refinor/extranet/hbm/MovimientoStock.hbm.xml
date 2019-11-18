@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.MovimientoStock" table="MovimientoStock" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.MovimientoStockId">
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+            <key-property name="movimientoStockId" type="int">
+                <column name="MovimientoStockId" />
+            </key-property>
+        </composite-id>
+        <property name="almacenId" type="int">
+            <column name="AlmacenId" not-null="true" />
+        </property>
+        <property name="articuloId" type="int">
+            <column name="ArticuloId" not-null="true" />
+        </property>
+        <property name="cantidad" type="big_decimal">
+            <column name="Cantidad" precision="10" scale="4" not-null="true" />
+        </property>
+        <property name="costo" type="big_decimal">
+            <column name="Costo" precision="14" scale="4" />
+        </property>
+        <property name="fechaMovimiento" type="timestamp">
+            <column name="FechaMovimiento" length="23" not-null="true" />
+        </property>
+        <property name="usuarioAlta" type="string">
+            <column name="UsuarioAlta" length="50" />
+        </property>
+        <property name="tipoComprobante" type="java.lang.Short">
+            <column name="TipoComprobante" />
+        </property>
+        <property name="letraComprobante" type="string">
+            <column name="LetraComprobante" length="1" />
+        </property>
+        <property name="sucursalComp" type="java.lang.Integer">
+            <column name="sucursalComp" />
+        </property>
+        <property name="numeroComprobante" type="java.lang.Integer">
+            <column name="NumeroComprobante" />
+        </property>
+        <property name="tipoMovimiento" type="java.lang.Integer">
+            <column name="TipoMovimiento" />
+        </property>
+        <property name="tipoComprobanteInterno" type="java.lang.Integer">
+            <column name="TipoComprobanteInterno" />
+        </property>
+        <property name="numeroComprobanteInterno" type="java.lang.Integer">
+            <column name="NumeroComprobanteInterno" />
+        </property>
+        <property name="codigoTurnoVigencia" type="java.lang.Long">
+            <column name="CodigoTurnoVigencia" precision="10" scale="0" />
+        </property>
+        <property name="codVeh" type="java.lang.Integer">
+            <column name="cod_veh" />
+        </property>
+        <property name="rowguid" type="string">
+            <column name="rowguid" length="36" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

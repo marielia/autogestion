@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VarticulosComprados" table="vArticulosComprados" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VarticulosCompradosId">
+            <key-property name="lugar" type="string">
+                <column name="Lugar" length="1" />
+            </key-property>
+            <key-property name="codArticulo" type="java.lang.Integer">
+                <column name="CodArticulo" />
+            </key-property>
+            <key-property name="espVar" type="java.lang.Integer">
+                <column name="EspVar" />
+            </key-property>
+            <key-property name="codProv" type="java.lang.Integer">
+                <column name="CodProv" />
+            </key-property>
+            <key-property name="proveedor" type="string">
+                <column name="Proveedor" length="50" />
+            </key-property>
+            <key-property name="fhLlegada" type="timestamp">
+                <column name="FhLlegada" length="16" />
+            </key-property>
+            <key-property name="turno" type="string">
+                <column name="Turno" length="15" />
+            </key-property>
+            <key-property name="articulo" type="string">
+                <column name="Articulo" length="356" />
+            </key-property>
+            <key-property name="kilosBulto" type="java.lang.Double">
+                <column name="KilosBulto" precision="53" scale="0" />
+            </key-property>
+            <key-property name="saldoB" type="java.lang.Integer">
+                <column name="SaldoB" />
+            </key-property>
+            <key-property name="descrip" type="string">
+                <column name="Descrip" length="101" />
+            </key-property>
+            <key-property name="especie" type="java.lang.Integer">
+                <column name="Especie" />
+            </key-property>
+            <key-property name="variedad" type="java.lang.Integer">
+                <column name="Variedad" />
+            </key-property>
+            <key-property name="zona" type="java.lang.Integer">
+                <column name="Zona" />
+            </key-property>
+            <key-property name="calidad" type="java.lang.Integer">
+                <column name="Calidad" />
+            </key-property>
+            <key-property name="presentacion" type="java.lang.Integer">
+                <column name="Presentacion" />
+            </key-property>
+            <key-property name="tama&#241;o" type="java.lang.Integer">
+                <column name="Tama&#241;o" />
+            </key-property>
+            <key-property name="madurez" type="java.lang.Integer">
+                <column name="Madurez" />
+            </key-property>
+            <key-property name="kilosOrig" type="java.lang.Double">
+                <column name="KilosOrig" precision="53" scale="0" />
+            </key-property>
+            <key-property name="bultosOrig" type="java.lang.Integer">
+                <column name="BultosOrig" />
+            </key-property>
+            <key-property name="codigoEnv" type="java.lang.Integer">
+                <column name="CodigoEnv" />
+            </key-property>
+            <key-property name="arrivo" type="int">
+                <column name="Arrivo" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

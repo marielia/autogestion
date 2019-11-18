@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15-may-2008 18:13:56 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mcalidades" table="MCalidades" schema="dbo" catalog="RefinorNet">
+        <composite-id name="id" class="com.refinor.extranet.hbm.McalidadesId">
+            <key-property name="codigo" type="java.lang.Integer">
+                <column name="Codigo" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="50" />
+            </key-property>
+            <key-property name="fhAlta" type="timestamp">
+                <column name="FhAlta" length="16" />
+            </key-property>
+            <key-property name="fhBaja" type="timestamp">
+                <column name="FhBaja" length="16" />
+            </key-property>
+            <key-property name="idUserLock" type="java.lang.Integer">
+                <column name="IdUserLock" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

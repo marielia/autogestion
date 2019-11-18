@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.Mbancos" table="MBancos" schema="dbo" catalog="REFIPASS">
+        <id name="banco" type="int">
+            <column name="Banco" />
+            <generator class="assigned" />
+        </id>
+        <property name="bancoD" type="string">
+            <column name="BancoD" length="50" not-null="true" />
+        </property>
+        <property name="fhAlta" type="timestamp">
+            <column name="FhAlta" length="16" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="cuit" type="string">
+            <column name="Cuit" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

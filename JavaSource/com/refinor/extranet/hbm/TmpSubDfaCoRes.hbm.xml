@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.TmpSubDfaCoRes" table="tmpSubDFaCoRes" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.TmpSubDfaCoResId">
+            <key-property name="tipoGasto" type="java.lang.Integer">
+                <column name="TipoGasto" />
+            </key-property>
+            <key-property name="descripcion" type="string">
+                <column name="Descripcion" length="30" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="Fecha" length="16" />
+            </key-property>
+            <key-property name="netoGravado" type="big_decimal">
+                <column name="Neto_Gravado" scale="4" />
+            </key-property>
+            <key-property name="noGravado" type="big_decimal">
+                <column name="No_Gravado" scale="4" />
+            </key-property>
+            <key-property name="iva" type="big_decimal">
+                <column name="IVA" scale="4" />
+            </key-property>
+            <key-property name="retenciones" type="big_decimal">
+                <column name="Retenciones" scale="4" />
+            </key-property>
+            <key-property name="total" type="big_decimal">
+                <column name="TOTAL" scale="4" />
+            </key-property>
+            <key-property name="fd" type="timestamp">
+                <column name="Fd" length="16" />
+            </key-property>
+            <key-property name="fh" type="timestamp">
+                <column name="Fh" length="16" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

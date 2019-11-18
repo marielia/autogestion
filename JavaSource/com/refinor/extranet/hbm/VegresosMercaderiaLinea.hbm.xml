@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VegresosMercaderiaLinea" table="vEgresosMercaderiaLinea" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VegresosMercaderiaLineaId">
+            <key-property name="tipoComp" type="string">
+                <column name="tipoComp" length="53" />
+            </key-property>
+            <key-property name="nroSucursal" type="int">
+                <column name="nroSucursal" />
+            </key-property>
+            <key-property name="cliente" type="java.lang.Integer">
+                <column name="Cliente" />
+            </key-property>
+            <key-property name="descCliente" type="string">
+                <column name="Desc_Cliente" length="50" />
+            </key-property>
+            <key-property name="descrip" type="string">
+                <column name="Descrip" length="60" />
+            </key-property>
+            <key-property name="bultos" type="big_decimal">
+                <column name="Bultos" scale="4" />
+            </key-property>
+            <key-property name="kilosBulto" type="java.lang.Double">
+                <column name="KilosBulto" precision="53" scale="0" />
+            </key-property>
+            <key-property name="feArrivo" type="timestamp">
+                <column name="feArrivo" length="16" />
+            </key-property>
+            <key-property name="precioKilo" type="big_decimal">
+                <column name="PrecioKilo" scale="4" />
+            </key-property>
+            <key-property name="especieCodigo" type="int">
+                <column name="EspecieCodigo" />
+            </key-property>
+            <key-property name="especieDescripcion" type="string">
+                <column name="EspecieDescripcion" length="50" />
+            </key-property>
+            <key-property name="variedadCodigo" type="int">
+                <column name="VariedadCodigo" />
+            </key-property>
+            <key-property name="variedadDescripcion" type="string">
+                <column name="VariedadDescripcion" length="50" />
+            </key-property>
+            <key-property name="articuloCodigo" type="int">
+                <column name="ArticuloCodigo" />
+            </key-property>
+            <key-property name="articuloDescripcion" type="string">
+                <column name="ArticuloDescripcion" length="60" />
+            </key-property>
+            <key-property name="impuestoInterno" type="big_decimal">
+                <column name="ImpuestoInterno" scale="4" />
+            </key-property>
+            <key-property name="itc" type="big_decimal">
+                <column name="ITC" scale="4" />
+            </key-property>
+            <key-property name="tasaFondo" type="big_decimal">
+                <column name="TasaFondo" scale="4" />
+            </key-property>
+            <key-property name="nroComprobante" type="java.lang.Integer">
+                <column name="nro_comprobante" />
+            </key-property>
+            <key-property name="iva2" type="big_decimal">
+                <column name="IVA2" scale="4" />
+            </key-property>
+            <key-property name="iva" type="big_decimal">
+                <column name="IVA" scale="4" />
+            </key-property>
+            <key-property name="iibb" type="big_decimal">
+                <column name="iibb" scale="4" />
+            </key-property>
+            <key-property name="piva" type="big_decimal">
+                <column name="piva" scale="4" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

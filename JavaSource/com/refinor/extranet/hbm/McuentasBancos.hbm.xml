@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.McuentasBancos" table="MCuentasBancos" >
+        <composite-id name="id" class="com.refinor.extranet.hbm.McuentasBancosId">
+            <key-property name="nroOper" type="int">
+                <column name="NroOper" />
+            </key-property>
+            <key-property name="codOper" type="string">
+                <column name="CodOper" length="10" />
+            </key-property>
+            <key-property name="ccssid" type="int">
+                <column name="CCSSId" />
+            </key-property>
+        </composite-id>
+        <property name="bcoSucCtaSist" type="string">
+            <column name="BcoSucCtaSist" length="30" />
+        </property>
+        <property name="importe" type="java.lang.Double">
+            <column name="Importe" precision="53" scale="0" />
+        </property>
+        <property name="idCheque" type="java.lang.Integer">
+            <column name="IdCheque" />
+        </property>
+        <property name="fhOper" type="timestamp">
+            <column name="FhOper" length="16" />
+        </property>
+        <property name="fhAlta" type="timestamp">
+            <column name="FhAlta" length="16" />
+        </property>
+        <property name="fhBaja" type="timestamp">
+            <column name="FhBaja" length="16" />
+        </property>
+        <property name="idUserLock" type="java.lang.Integer">
+            <column name="IdUserLock" />
+        </property>
+        <property name="nroEjercicioContable" type="java.lang.Long">
+            <column name="NroEjercicioContable" precision="18" scale="0" />
+        </property>
+        <property name="nroAsientoContable" type="java.lang.Long">
+            <column name="NroAsientoContable" precision="18" scale="0" />
+        </property>
+        <property name="nroRendicionRefipass" type="java.lang.Long">
+            <column name="NroRendicionRefipass" precision="18" scale="0" />
+        </property>
+        <property name="rowguid" type="string">
+            <column name="rowguid" length="36" not-null="true" unique="true" />
+        </property>
+        <property name="nroOperCaja" type="java.lang.Integer">
+            <column name="NroOper_Caja" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-sep-2008 13:15:54 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.data.Msecuencias" table="MSecuencias" schema="dbo">    
+            <!-- NO CAMBIAR , si se genera de nuevo esta tabla, dejar como esta ahora-->
+        <id name="nombTabla" type="string">
+            <column name="NombTabla" />
+            <generator class="increment" />
+        </id>
+        <property name="secuencia" type="java.lang.Integer">
+            <column name="Secuencia" />
+        </property>
+       
+    </class>
+        
+    <sql-query name="findValorPorCodigo">
+    <![CDATA[
+		select Secuencia from Msecuencias	
+		where NombTabla like :nombTabla  	
+	]]></sql-query> 
+   
+</hibernate-mapping>

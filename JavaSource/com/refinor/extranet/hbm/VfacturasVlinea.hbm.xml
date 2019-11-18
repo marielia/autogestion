@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-dic-2009 16:48:24 by Hibernate Tools 3.2.0.beta7 -->
+<hibernate-mapping>
+    <class name="com.refinor.extranet.hbm.VfacturasVlinea" table="VFacturasVLinea" schema="dbo" catalog="REFIPASS">
+        <composite-id name="id" class="com.refinor.extranet.hbm.VfacturasVlineaId">
+            <key-property name="ordenFactura" type="java.lang.Integer">
+                <column name="OrdenFactura" />
+            </key-property>
+            <key-property name="orden" type="java.lang.Integer">
+                <column name="Orden" />
+            </key-property>
+            <key-property name="tipoLinea" type="string">
+                <column name="TipoLinea" length="50" />
+            </key-property>
+            <key-property name="codArticulo" type="java.lang.Integer">
+                <column name="CodArticulo" />
+            </key-property>
+            <key-property name="espVar" type="java.lang.Integer">
+                <column name="EspVar" />
+            </key-property>
+            <key-property name="descEspVar" type="string">
+                <column name="DescEspVar" length="50" />
+            </key-property>
+            <key-property name="bultos" type="java.lang.Integer">
+                <column name="Bultos" />
+            </key-property>
+            <key-property name="kilosBulto" type="java.lang.Double">
+                <column name="KilosBulto" precision="53" scale="0" />
+            </key-property>
+            <key-property name="precioKilo" type="big_decimal">
+                <column name="PrecioKilo" scale="4" />
+            </key-property>
+            <key-property name="kilos" type="java.lang.Double">
+                <column name="Kilos" precision="53" scale="0" />
+            </key-property>
+            <key-property name="pesosLinea" type="big_decimal">
+                <column name="PesosLinea" precision="30" scale="4" />
+            </key-property>
+            <key-property name="codExt" type="string">
+                <column name="CodExt" length="50" />
+            </key-property>
+            <key-property name="articuloCodigo" type="int">
+                <column name="ArticuloCodigo" />
+            </key-property>
+            <key-property name="articuloDescripcion" type="string">
+                <column name="ArticuloDescripcion" length="60" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
