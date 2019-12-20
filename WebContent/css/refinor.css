@@ -508,7 +508,7 @@ bordebeige {
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 }
 
@@ -559,7 +559,7 @@ bordebeige {
 	font-size: 9pt;
 	line-height: 13pt;	
 	text-align: left;	
-	background-color: #EEF4FD;	
+	background-color: #F3F5F7;	
 }
 
 
@@ -569,7 +569,7 @@ bordebeige {
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 }
 
@@ -580,7 +580,7 @@ bordebeige {
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 }
 
@@ -591,7 +591,7 @@ bordebeige {
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 	width: 20%;
 	
@@ -603,7 +603,7 @@ bordebeige {
 	line-height: 12pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 	width: 15%;
 	
@@ -615,7 +615,7 @@ bordebeige {
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 	width: 25%;
 	
@@ -627,7 +627,7 @@ bordebeige {
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 	width: 30%;
 	
@@ -636,7 +636,7 @@ bordebeige {
 .cpo7 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 7pt;
-	color: #004C98;
+	color: #000;
 }
 
 
@@ -653,7 +653,7 @@ bordebeige {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
 	color: #004C98;
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	line-height: 13pt;
 	text-align: left;
 	text-transform: uppercase;
@@ -665,7 +665,7 @@ bordebeige {
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: uppercase;
 }
 
@@ -680,16 +680,16 @@ a:link {
 	line-height: 12pt;
 	font-weight: bold;
 	text-align: left;	
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	
 }
 
 .campo {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #003366;
-	border: 1px solid #A5C7F7;
-	background-color: #E0ECFC;
+	color: #5D5D5D;
+	border: 1px solid #5D5D5D;
+	background-color: #fff;
 	font-weight: normal;
 
 }
@@ -702,13 +702,13 @@ a:link {
 	border: 0px solid #000000;
 	font-weight: normal;
 	text-transform: capitalize;
-	background-color: #EEF4FD;	
+	background-color: #F3F5F7;	
 }
 
 .campoNoEditableSinFondo {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #004C98;
+	color: #000000;
 	border: 0px solid #000000;
 	font-weight: normal;
 	text-transform: capitalize;
@@ -717,7 +717,7 @@ a:link {
 .campoSinFondoGrandeBold {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12pt;
-	color: #004C98;
+	color: #668535;
 	border: 0px solid #000000;
 	font-weight: bold;
 	text-transform: capitalize;
@@ -729,7 +729,7 @@ a:link {
 .campoSinFondoGrande {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12pt;
-	color: #003366;
+	color: #668535;
 	border: 0px solid #000000;
 	font-weight: normal;
 	text-transform: capitalize;
@@ -738,7 +738,7 @@ a:link {
 .campo10 {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #003366;
+	color: #000000;
 	border: 0px solid #000000;
 	font-weight: normal;	
 }
@@ -750,7 +750,7 @@ a:link {
 	height: 20px;
 	width: 117px;
 	text-align: center;
-	color: #003366;
+	color: #fff;
 	background-image: url(/refipass/img/boton_uno.png);
 	border: 0px none;
 	text-transform: uppercase;
@@ -763,7 +763,7 @@ a:link {
 	height: 20px;
 	width: 312px;
 	text-align: center;
-	color: #003366;
+	color: #fff;
 	background-image: url(/refipass/img/boton_dos.png);
 	border: 0px none;
 	text-transform: uppercase;
@@ -777,7 +777,7 @@ a:link {
 	font-size: 7pt;
 	height: 18px;
 	text-align: center;
-	color: #003366;
+	color: #fff;
 	background-color: #FFFFCC;
 	border: 1px solid #FFCC00;
 	text-transform: uppercase;
@@ -785,13 +785,18 @@ a:link {
 	
 
 }
+a{
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
 a:visited {
 	font-family: Arial, Helvetica, sans-serif;
 	text-decoration: none;
 }
 a:hover {
 	font-family: Arial, Helvetica, sans-serif;
-	text-decoration: underline;
+	text-decoration: none;
+	color: #A8CE38;
 }
 a:active {
 	font-family: Arial, Helvetica, sans-serif;
@@ -805,13 +810,13 @@ bordebeige {
 	border: 1px solid #b2bfd9;
 }
 .bordeblanco {
-	border: 1px solid #a5c7f7;
+	border: 1px solid #fff;
 }
 .titulos {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10pt;
 	font-weight: bold;
-	color: #004C98;
+	color: #668535;
 	text-transform: uppercase;
 }
 
@@ -830,7 +835,7 @@ bordebeige {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
 	color: #004C98;
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	text-transform: none;
 }
 
@@ -846,7 +851,7 @@ bordebeige {
 .fila1 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	color: #000000;
 
 }
@@ -870,7 +875,7 @@ bordebeige {
 	color: #000000;
 	font-weight: bold;
 	text-transform: uppercase;
-	background-color: #a5c7f7;
+	background-color: #A8CE38;
 }
 
 
@@ -923,7 +928,7 @@ bordebeige {
 }
 
 .fondo{
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 }
 
 
@@ -932,7 +937,7 @@ bordebeige {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 9pt;
 	font-weight: bold;
-	color: #002b7f;
+	color: #668535;
 	text-transform: uppercase;
 	text-align: left;	
 }
@@ -949,9 +954,9 @@ input.alinaerADerechoMonto{
 	text-align: right;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #003366;
-	border: 1px solid #A5C7F7;
-	background-color: #E0ECFC;
+	color: #5D5D5D;
+	border: 1px solid #5D5D5D;
+	background-color: #E7EBEF;
 	font-weight: normal;
 	
 }
@@ -963,7 +968,7 @@ input.alinaerADerechoMonto{
 	line-height: 13pt;
 	font-weight: bold;
 	text-align: left;	
-	color:  #002b7f;
+	color:  #668535;
 	vertical-align: top;
 }
 
@@ -972,7 +977,7 @@ input.alinaerADerechoMonto{
 	font-size: 8pt;
 	line-height: 13pt;	
 	text-align: left;	
-	color:  #002b7f;
+	color:  #668535;
 	vertical-align: top;
 }
 
@@ -990,7 +995,7 @@ input.alinaerADerechoMonto{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
 	color: #004C98;
-	background-color: #EEF4FD;
+	background-color: #F3F5F7;
 	line-height: 13pt;
 	text-align: right;
 	text-transform: uppercase;
