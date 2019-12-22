@@ -37,5 +37,6 @@
 	    { call get_CodigoAutorizacion() }
 	</sql-query>
 
+  
     
 </hibernate-mapping>
