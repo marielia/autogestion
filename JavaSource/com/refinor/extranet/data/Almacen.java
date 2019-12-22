@@ -10,6 +10,8 @@ public class Almacen extends BaseAlmacen {
 		super();
 	}
 
+	
+	
 	/**
 	 * Constructor for primary key
 	 */
