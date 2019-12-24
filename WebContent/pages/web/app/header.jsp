@@ -14,10 +14,13 @@
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	  <tr> 
 	    <td colspan="2" align="left" valign="top" > 
-	    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="250" height="80">
-	        <param name="movie" value="/refipass/img/logo.swf">
-	        <param name="quality" value="high">
-	        <embed src="/refipass/img/logo.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="250" height="80"></embed></object></td>
+<!-- 	    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="250" height="80"> -->
+<!-- 	        <param name="movie" value="/refipass/img/logo.png"> -->
+<!-- 	        <param name="quality" value="high"> -->
+<!-- 	        <embed src="/refipass/img/logo.png" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="250" height="80"></embed> -->
+<!-- 	    </object> -->
+			<img src="/refipass/img/logo.png">
+	    </td>
 	  </tr>
 	  <tr> 
 	  <td align="left" valign="middle">
