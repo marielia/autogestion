@@ -648,7 +648,19 @@
 										<h:outputText value="#{Message.procesa_archivo_autorizaciones}" styleClass="campoNoEditableSinFondo"/>
 									</h:outputLink>							
 								</t:outputLabel>
-								</h:column>					
+								</h:column>	
+								
+									
+								<h:column   >
+								<t:outputLabel styleClass="campoNoEditableSinFondo">			
+								<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>		
+								<t:graphicImage value="/img/icono_poliactiva.gif"/>
+								<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>																
+									<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/formularios/ref_procesa_archivo_remito_manual.jsf" >
+										<h:outputText value="Cargar Remitos Manuales desde Archivo" styleClass="campoNoEditableSinFondo"/>
+									</h:outputLink>							
+								</t:outputLabel>
+								</h:column>				
 								
 								
 								<h:column rendered="#{sessionScope.usuario.codigoRol==1}">

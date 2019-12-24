@@ -225,6 +225,11 @@
   <managed-bean-class>com.refinor.extranet.faces.reportes.RefReporteImpuestoLeyCordoba</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+ 	<managed-bean-name>subirArchivoRemitoManualBean</managed-bean-name>
+ 	<managed-bean-class>com.refinor.extranet.util.subirArchivoRemitoManualBean</managed-bean-class>
+ 	<managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
  <navigation-rule>
   <from-view-id>*</from-view-id>
   <navigation-case>
