@@ -12,7 +12,7 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import sun.management.snmp.util.MibLogger;
+//import sun.management.snmp.util.MibLogger;
 import com.refinor.extranet.data.MfacturasV;
 import com.refinor.extranet.data.MfacturasVId;
 import com.refinor.extranet.data.Mrecibo;
@@ -33,7 +33,7 @@ import com.refinor.extranet.util.DataUtil;
 import com.refinor.extranet.util.Messages;
 import com.refinor.extranet.util.exception.DataAccessErrorException;
 import com.refinor.extranet.util.exception.NoExistenItemsException;
-import com.sun.accessibility.internal.resources.accessibility;
+//import com.sun.accessibility.internal.resources.accessibility;
 
 
 public class MfacturasVDAO extends BaseMfacturasVDAO implements com.refinor.extranet.data.dao.iface.MfacturasVDAO {
