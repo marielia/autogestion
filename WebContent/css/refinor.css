@@ -1,6 +1,9 @@
 
-
-
+.logo {
+	width: 160px;
+	height: 26px;
+	padding: 10px;
+}
 
 .campoIzq {
 	font-family: Arial, Helvetica, sans-serif;
@@ -91,19 +94,29 @@ botonNuevo{
 .cpo8n {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;	
-	color: #003366;
+	color: #000;
 }
 
 .cpo8nVerde {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;	
-	color: #009900;
+	color: #668535;
 }
 
-
+a {
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	color: #000;
+}
 a:active {
 	font-family: Arial, Helvetica, sans-serif;
 	text-decoration: none;
+	color: #000;
+}
+a:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	color: #A7CB38;
 }
 bordebeige {
 	border: 1px solid #D6D7C8;
@@ -187,7 +200,7 @@ bordebeige {
 
 
 .dato {
-	color: #003366;
+	color: #000;
 	
 }
 
@@ -195,7 +208,7 @@ bordebeige {
 
 .datoNegrita {
 	font-family: Arial, Helvetica, sans-serif;
-	color: #003366;
+	color: #000;
 	font-weight: bold;
 	font-size: 8pt;
 }
@@ -294,7 +307,7 @@ bordebeige {
 
 .datoObligatorio {
 	font-family: Arial, Helvetica, sans-serif;
-	color: #006699;
+	color: #A8CE38;
 	font-size: 9px;
 }
 
@@ -317,7 +330,7 @@ bordebeige {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
 	line-height: 13pt;
-	color: #003366;
+	color: #668535;
 	vertical-align: middle;	
 }
 
@@ -366,7 +379,7 @@ bordebeige {
 .botonPaginado {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
-	color: #006699;	
+	color: #000;	
 	background-image: url(/refipass/img/fondo_boton_paginado.gif);	
 	text-align: center;	
 	width: 21px;
@@ -377,7 +390,7 @@ bordebeige {
 .botonPaginadoPrimero {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
-	color: #006699;	
+	color: #000;	
 	background-image: url(/refipass/img/boton_inicio.gif);	
 	text-align: center;	
 	width: 18px;
@@ -388,7 +401,7 @@ bordebeige {
 .botonPaginadoAnterior {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
-	color: #006699;	
+	color: #000;	
 	background-image: url(/refipass/img/boton_anterior.gif);	
 	text-align: center;	
 	width: 18px;
@@ -399,7 +412,7 @@ bordebeige {
 .botonPaginadoSiguiente {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
-	color: #006699;	
+	color: #000;	
 	background-image: url(/refipass/img/boton_siguiente.gif);	
 	text-align: center;	
 	width: 18px;
@@ -409,7 +422,7 @@ bordebeige {
 .botonPaginadoUltimo {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
-	color: #006699;	
+	color: #000;	
 	background-image: url(/refipass/img/boton_final.gif);	
 	text-align: center;	
 	width: 18px;
@@ -475,7 +488,7 @@ bordebeige {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 9pt;
 	line-height: 13pt;
-	color: #003366;
+	color: #000;
 	vertical-align: middle;
 }
 
@@ -498,7 +511,7 @@ bordebeige {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
 	line-height: 13pt;
-	color: #003366;
+	color: #000;
     text-align: left;	
 }
 
@@ -644,7 +657,7 @@ bordebeige {
 .cpo8-link {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #004C98;
+	color: #000;
 }
 
 
@@ -652,7 +665,7 @@ bordebeige {
 .cpo8Left {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #004C98;
+	color: #000;
 	background-color: #F3F5F7;
 	line-height: 13pt;
 	text-align: left;
@@ -672,6 +685,7 @@ bordebeige {
 a:link {
 	font-family: Arial, Helvetica, sans-serif;
 	text-decoration: none;
+	color: #000;
 }
 
 .cpo9 {
@@ -691,19 +705,6 @@ a:link {
 	border: 1px solid #5D5D5D;
 	background-color: #fff;
 	font-weight: normal;
-	 
-
-}
-
-
-.campoUpload {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 8pt;
-	color: #003366;
-	border: 1px solid #A5C7F7;
-	background-color: #E0ECFC;
-	font-weight: normal;
-	width: 550px;
 
 }
 
@@ -711,7 +712,7 @@ a:link {
 .campoNoEditable {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #003366;
+	color: #000;
 	border: 0px solid #000000;
 	font-weight: normal;
 	text-transform: capitalize;
@@ -791,12 +792,11 @@ a:link {
 	height: 18px;
 	text-align: center;
 	color: #fff;
-	background-color: #FFFFCC;
-	border: 1px solid #FFCC00;
+	background-color: #A8CE38;
+	border: 1px solid #A8CE38;
 	text-transform: uppercase;
 	font-weight: normal;
-	
-
+	border-radius: 5px;
 }
 a{
 	font-family: Arial, Helvetica, sans-serif;
@@ -809,7 +809,7 @@ a:visited {
 a:hover {
 	font-family: Arial, Helvetica, sans-serif;
 	text-decoration: none;
-	color: #A8CE38;
+	color: #A7CB38;
 }
 a:active {
 	font-family: Arial, Helvetica, sans-serif;
@@ -841,7 +841,7 @@ bordebeige {
 	color: white;	
 	letter-spacing: 1px;
 	text-align: left;
-	background-color: #A5C7F7;
+	background-color: #A8CE38;
 	
 }
 .datos {
@@ -952,7 +952,8 @@ bordebeige {
 	font-weight: bold;
 	color: #668535;
 	text-transform: uppercase;
-	text-align: left;	
+	text-align: left;
+	padding-left: 10px;	
 }
 
 .cpo11-20 {
@@ -997,7 +998,7 @@ input.alinaerADerechoMonto{
 .fila4 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	background-color: #E4E4EB;
+	background-color: #F3F5F7;
 	color: #000000;
 
 }
@@ -1007,7 +1008,7 @@ input.alinaerADerechoMonto{
 .cpo8Right {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
-	color: #004C98;
+	color: #000;
 	background-color: #F3F5F7;
 	line-height: 13pt;
 	text-align: right;

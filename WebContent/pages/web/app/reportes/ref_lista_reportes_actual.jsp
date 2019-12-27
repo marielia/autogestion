@@ -233,7 +233,8 @@
 						<h:column>	
 						<h:panelGrid columns="1" width="65%" columnClasses="cpo8SinFondo" styleClass="columnaTablaCentradaYArriba" cellspacing="0" cellpadding="0">						 
 							<h:column>					
-								<t:graphicImage   value="/img/fondo_sistema2.jpg"/>
+<%-- 								<t:graphicImage   value="/img/fondo_sistema2.jpg"/> --%>
+								<t:graphicImage   value=""/>
 							</h:column>
 						</h:panelGrid>
 						</h:column>
@@ -784,7 +785,8 @@
 						<h:column>	
 							<h:panelGrid columns="1" width="65%" columnClasses="cpo8SinFondo" styleClass="columnaTablaCentradaYArriba" cellspacing="0" cellpadding="0">						 
 								<h:column>					
-									<t:graphicImage   value="/img/fondo_sistema2.jpg"/>
+<%-- 									<t:graphicImage   value="/img/fondo_sistema2.jpg"/> --%>
+										<t:graphicImage   value=""/>
 								</h:column>
 							</h:panelGrid>
 						</h:column>

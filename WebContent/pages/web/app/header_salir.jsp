@@ -16,7 +16,7 @@
 <!-- 	        <param name="quality" value="high"> -->
 <!-- 	        <embed src="/refipass/img/logo.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="250" height="80"></embed> -->
 <!-- 	    </object> -->
-		<img src="/refipass/img/logo.png">
+		<img src="/refipass/img/logo.png" class="logo">
 	    </td>
 	  </tr>
 	  <tr> 
