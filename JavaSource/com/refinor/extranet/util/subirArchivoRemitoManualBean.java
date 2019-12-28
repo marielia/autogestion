@@ -125,7 +125,8 @@ public class subirArchivoRemitoManualBean extends AbstBackingBean {
 	public void subirArchivoE(String rutaAlmacenamientoArchivo){
 		try{
 			 //GUARDO EL ARCHIVO QUE ME SUBIO EL USUARIO
-			//hago una copìa del archivo que el usuario quiere procesar.
+			
+			//hago una copia del archivo que el usuario quiere procesar.
 	        //rutaAlmacenamientoArchivo: directorio a donde guardo el archivo que sube el usuario
 	        File descriptorEntrada = new File(rutaAlmacenamientoArchivo);	        
 	        FileOutputStream fileoutstream = new FileOutputStream(descriptorEntrada);
@@ -306,6 +307,13 @@ public class subirArchivoRemitoManualBean extends AbstBackingBean {
 		          celdaErrorCodigoAutorizacion="";
 		        }
 		      
+		      
+		     
+		      //verificar cual esta duplicado y cambiar el estado en la tabla y ponerle remito duplicado
+		        sessionHib = (new AlmacenDAO()).getSession();	
+		        mFacturaManual_tmpDAO =  new MFacturaManual_tmpDAO(sessionHib);
+		        mFacturaManual_tmpDAO.ProcesarDuplicadosFacturaManuales_tmp();
+		        
 		      
 		       //llamar al sp para que genere remito manual
 		        sessionHib = (new AlmacenDAO()).getSession();	

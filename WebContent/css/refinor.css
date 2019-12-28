@@ -698,6 +698,17 @@ a:link {
 	
 }
 
+
+.campoUpload {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #003366;
+	border: 1px solid #A5C7F7;
+	background-color: #E0ECFC;
+	font-weight: normal;
+	width: 550px;
+
+}
 .campo {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
@@ -939,6 +950,14 @@ bordebeige {
 	font-size: 7pt;
 	font-weight: bold;	
 }
+
+
+.cpo10b {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;	
+}
+
 
 .fondo{
 	background-color: #F3F5F7;

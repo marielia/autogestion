@@ -165,7 +165,7 @@
 			<h:panelGrid columns="1" width="95%" columnClasses="cpo8Minuscula" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>	
 					<h:outputText  value="&nbsp;&nbsp;" escape="false"/>												
-					<h:outputLink  rendered="#{subirArchivoRemitoManualBean.rutaArchivoABaja!=''}" target="_blank" styleClass="cpo7b" value="#{subirArchivoRemitoManualBean.rutaArchivoABaja}">
+					<h:outputLink  rendered="#{subirArchivoRemitoManualBean.rutaArchivoABaja!=''}" target="_blank" styleClass="cpo10b" value="#{subirArchivoRemitoManualBean.rutaArchivoABaja}">
 						<h:outputText value="Para ver el resultado del proceso y bajar el archivo, haga click aquí. " />
 					</h:outputLink>	
 				</t:column>				

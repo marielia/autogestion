@@ -5,24 +5,26 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List; 
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.mapping.Map;
+ 
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
 
 import com.refinor.extranet.data.MFacturaManual_tmp;
  
 import com.refinor.extranet.data.base.BaseMFacturaManual_tmpDAO;
 import com.refinor.extranet.to.AsientoContableTO;
+import com.refinor.extranet.util.Const;
 import com.refinor.extranet.util.exception.DataAccessErrorException;
 import com.refinor.extranet.util.exception.NoExistenItemsException;
 import com.refinor.extranet.util.exception.PersonaNoExisteException;
  
-
+import java.util.Map;
 
 public class MFacturaManual_tmpDAO extends BaseMFacturaManual_tmpDAO implements com.refinor.extranet.data.dao.iface.MFacturaManual_tmpDAO  {
 
@@ -127,6 +129,72 @@ public class MFacturaManual_tmpDAO extends BaseMFacturaManual_tmpDAO implements 
 	}
 
 	 
+	public List<MFacturaManual_tmp> ProcesarDuplicadosFacturaManuales_tmp() throws PersonaNoExisteException, DataAccessErrorException {
+		try {		
+			Query  query = this.getNamedQuery("findMFacturaManuales_tmp", session); 
+			List lst = query.list();
+			List<MFacturaManual_tmp> lstMFacturaManual_tmp = new ArrayList();
+		
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			if(lst.size()>0){
+				Iterator it = lst.iterator();
+				lst= new ArrayList();
+				MFacturaManual_tmp mFacturaManual_tmp= new MFacturaManual_tmp();
+				Object[] obj = null;		
+				
+				while(it.hasNext()){
+					obj = (Object[]) it.next(); 
+					 mFacturaManual_tmp= new MFacturaManual_tmp(); 
+					 mFacturaManual_tmp.setId(new Integer(obj[0].toString())); 
+					 mFacturaManual_tmp.setNroSucursal(new Integer(obj[2].toString()));
+					 mFacturaManual_tmp.setNroFactura(new Integer(obj[3].toString())); 
+					 
+					 //validar si existe el remito
+					 
+					 if(ExisteDuplicado(mFacturaManual_tmp.getNroSucursal(), mFacturaManual_tmp.getNroFactura())) 
+					 {   
+						 Query queryUp = session.createQuery("update MFacturaManual_tmp set estado = 'D' , errores = 'Remito Duplicado - No se proceso' where nroFactura = " + mFacturaManual_tmp.getNroFactura() + " and nroSucursal  = "+mFacturaManual_tmp.getNroSucursal() ); 
+						
+						 
+						int result = queryUp.executeUpdate();
+						 
+					 }
+					 
+					
+				}
+			}
+			
+			 
+			
+			return lstMFacturaManual_tmp;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+	}
  
+	
+	public boolean ExisteDuplicado(int nrosucursal, int nroRemito) throws PersonaNoExisteException, DataAccessErrorException {
+		try {		
+			
+			boolean existe=false;
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put(Const.PARAM_NRO_SUCURSAL, nrosucursal);
+			params.put(Const.PARAM_NRO_REMITO, nroRemito); 			
+			Query  query = this.getNamedQuery("findMFacturaManualesDuplicado_tmp", params, session); 
+			List lst = query.list();			 
+			 
+			if(lst.size()>0){
+				existe=true;				
+			}
+			
+			return existe;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+	}
+	
 	
 }
