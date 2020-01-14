@@ -44,7 +44,7 @@
 			<!--  TITULO  -->		
 			
 			<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-					 columns="1"  rowClasses="titulosGrande" width="100%">
+					 columns="1"  columnClasses="titulosGrande" width="100%">
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
 				<t:column>
 					<t:outputText value="#{Message.tit_alta_usu_web_empleado}"/>
@@ -148,7 +148,7 @@
 			<!--  TITULO  -->		
 			
 			<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-					 columns="1"  rowClasses="titulosGrande" width="100%">
+					 columns="1"  columnClasses="titulosGrande" width="100%">
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
 				<t:column>					
 					<t:outputText value="#{Message.alta_usu_web_empleado_label}" rendered="#{sessionScope.usuario.tipo==0}"/>
@@ -190,7 +190,7 @@
 			<!--  TITULO  -->		
 			
 			<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-					 columns="1"  rowClasses="titulosGrande" width="100%">
+					 columns="1"  columnClasses="titulosGrande" width="100%">
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
 				<t:column>					
 					<t:outputText value="#{Message.alta_usu_web_empleado_label}" rendered="#{sessionScope.usuario.tipo==0}"/>
