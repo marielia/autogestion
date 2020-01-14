@@ -72,9 +72,14 @@
                
     </sql-query>
     
-      <sql-query name="findMFacturaManualesDuplicado_tmp">
-      select codigo, nroSucursal, CodRemito from MPedidos where nroSucursal = :nroSucursal  and CodRemito = :nroRemito 
+      <sql-query name="findMFacturaManualesDuplicado_tmp">       
+	  select codigo, nroSucursal, CodRemito from MPedidos where nroSucursal = :nroSucursal  and CodRemito = :nroRemito 
+	  union
+	  select id, nroSucursal, nroFactura from MFacturaManual_tmp where nroSucursal = :nroSucursal   and nroFactura = :nroRemito 
       </sql-query>
+      
+      
+      
        
     	
 </hibernate-mapping>

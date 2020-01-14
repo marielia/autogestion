@@ -100,18 +100,18 @@ public class MFacturaManual_tmpDAO extends BaseMFacturaManual_tmpDAO implements 
 	public String procesaFacturaManual( ) throws DataAccessErrorException {
 		try{
 			  Transaction tx= null;
+			  String mensaje="";
 			try {
 				
 				  tx= session.beginTransaction();  
-				  Query query = session.getNamedQuery("spProcesaFacturaManual_tmp"); 
+				  Query query = session.getNamedQuery("spProcesaFacturaManual_tmp");  
 				  List<Object[]> list = (List<Object[]>) query.list();
-				  System.out.println( " rpta"  + list.get(0));
-				// lstChoferesPorFiltro = query.list();
-				 // System.out.println( " result " +result);
-				 // lstChoferesPorFiltro = query.list();
+				  mensaje = list.get(0) + "";
+				  System.out.println( " rpta"  + mensaje); 
 				  tx.commit();							
-				System.out.println( " se guardo el registro " );
-				//pantalla=2;
+				  System.out.println( " se procesaron los remitos manuales " );		
+				  
+				 
 			} catch(Exception excep) {
 				excep.printStackTrace();
 				  tx.rollback();
@@ -120,7 +120,7 @@ public class MFacturaManual_tmpDAO extends BaseMFacturaManual_tmpDAO implements 
 			
 			
 		        
-			return "OK";
+			return mensaje;
 		}
 		catch(Exception ex){
 			ex.printStackTrace();

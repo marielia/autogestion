@@ -310,63 +310,78 @@ public class subirArchivoRemitoManualBean extends AbstBackingBean {
 		      
 		     
 		      //verificar cual esta duplicado y cambiar el estado en la tabla y ponerle remito duplicado
-		        sessionHib = (new AlmacenDAO()).getSession();	
+		       /* sessionHib = (new AlmacenDAO()).getSession();	
 		        mFacturaManual_tmpDAO =  new MFacturaManual_tmpDAO(sessionHib);
-		        mFacturaManual_tmpDAO.ProcesarDuplicadosFacturaManuales_tmp();
+		        mFacturaManual_tmpDAO.ProcesarDuplicadosFacturaManuales_tmp();*/
 		        
-		      
-		       //llamar al sp para que genere remito manual
-		        sessionHib = (new AlmacenDAO()).getSession();	
-		        mFacturaManual_tmpDAO =  new MFacturaManual_tmpDAO(sessionHib);
-		        mFacturaManual_tmpDAO.procesaFacturaManual();
-		      
+		      String mensaje="";
+		        try
+		        {
+			       //llamar al sp para que genere remito manual
+			        sessionHib = (new AlmacenDAO()).getSession();	
+			        mFacturaManual_tmpDAO =  new MFacturaManual_tmpDAO(sessionHib);
+			        mensaje = mFacturaManual_tmpDAO.procesaFacturaManual();
+		        }catch(Exception x)
+		        {
+		        	 System.out.println( " Error al procesar los remitos manuales:  " + x.getMessage() );
+		        }
 		        
 		        //salida del archivo de rpta
 		        String nombreArchivoSalida="Remitos_Manuales_"+fechaCCSSVen+".xls";
 		        File descriptorSalida = new File(rutaArchivoEntrada+nombreArchivoSalida);
 			    FileOutputStream outFileStream  = new FileOutputStream(descriptorSalida);
 			   
-			    sessionHib = (new AlmacenDAO()).getSession();	
-			    mFacturaManual_tmpDAO =  new MFacturaManual_tmpDAO(sessionHib);
-		        List<MFacturaManual_tmp> lstMFN = mFacturaManual_tmpDAO.getMFacturaManuales_tmp();
-		        PrintWriter outStream = new PrintWriter(outFileStream);
-		     // el que formatea
-	        	SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy"); 
-	        	BigDecimal kilometros = null;
-	        	BigDecimal bultos = null;
-	        	String estado="";
-	        	String fecha="";
-	        	filaProcesada = "Fecha;Sucursal;Nro Remito;Cliente;DNI Chofer;Dominio;Cod Articulo;Litros;kilometros;Cod Autorizacion;Estado;Observaciones";
-	        	outStream.println(filaProcesada);
-	        	filaProcesada = "";	 
-		        for (MFacturaManual_tmp manual_tmp : lstMFN) { 
-		        	
-		        	 kilometros =   manual_tmp.getKilometros() == null ? new BigDecimal("0")  :  manual_tmp.getKilometros() ;
-		        	 bultos = manual_tmp.getBultosBig() == null ? new BigDecimal("0")  :  manual_tmp.getBultosBig() ;
-		        	 estado = manual_tmp.getEstado().equals("P") ? "Procesado OK" : "No se proceso";
-		        	 fecha = manual_tmp.getFechaStr(); //() !=null ? formateador.format(manual_tmp.getFecha()) : "");
-		        	 filaProcesada = fecha  +";" + 
-		        	 manual_tmp.getNroSucursal()+";" + 
-		        	 manual_tmp.getNroFactura()+";" + 
-		        	 manual_tmp.getClienteAlfa()+";" + 
-		        	 manual_tmp.getDni()+";" + 
-		        	 manual_tmp.getDominio()+";" + 
-		        	 
-		        	 manual_tmp.getCodArticulo()+";" + 
-		        	 bultos +";" + 
-		        	 kilometros +";" +
-		        	 manual_tmp.getNroAutorizacion()+";" +
-		        	 estado+";" +
-		        	 manual_tmp.getErrores() ;
-		        	 
+			    
+			    if(mensaje.equals("OK"))
+			    {
+				    sessionHib = (new AlmacenDAO()).getSession();	
+				    mFacturaManual_tmpDAO =  new MFacturaManual_tmpDAO(sessionHib);
+			        List<MFacturaManual_tmp> lstMFN = mFacturaManual_tmpDAO.getMFacturaManuales_tmp();
+			        PrintWriter outStream = new PrintWriter(outFileStream);
+			     // el que formatea
+		        	SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy"); 
+		        	BigDecimal kilometros = null;
+		        	BigDecimal bultos = null;
+		        	String estado="";
+		        	String fecha="";
+		        	String error="";
+		        	filaProcesada = "Fecha;Sucursal;Nro Remito;Cliente;DNI Chofer;Dominio;Cod Articulo;Litros;kilometros;Cod Autorizacion;Estado;Observaciones";
 		        	outStream.println(filaProcesada);
-		        	filaProcesada="";
-				}		        
-		        
-		       // filaProcesada= filaProcesada.substring(1, filaProcesada.length()); 
-		         
-			    outStream.close();		          
-			    rutaArchivoABaja=getRequest().getScheme()+"://"+getRequest().getServerName()+":"+getRequest().getServerPort()+props.getProperty("loadArchivosExcel")+nombreArchivoSalida;
+		        	filaProcesada = "";	 
+			        for (MFacturaManual_tmp manual_tmp : lstMFN) { 
+			        	
+			        	 kilometros =   manual_tmp.getKilometros() == null ? new BigDecimal("0")  :  manual_tmp.getKilometros() ;
+			        	 bultos = manual_tmp.getBultosBig() == null ? new BigDecimal("0")  :  manual_tmp.getBultosBig() ;
+			        	 estado =  "Procesado"  ;
+			        	 fecha = manual_tmp.getFechaStr(); //() !=null ? formateador.format(manual_tmp.getFecha()) : "");
+			        	 error = manual_tmp.getErrores().trim().equals("") ? "El remito se guardo correctamente." : manual_tmp.getErrores();
+			        	 filaProcesada = fecha  +";" + 
+			        	 manual_tmp.getNroSucursal()+";" + 
+			        	 manual_tmp.getNroFactura()+";" + 
+			        	 manual_tmp.getClienteAlfa()+";" + 
+			        	 manual_tmp.getDni()+";" + 
+			        	 manual_tmp.getDominio()+";" + 
+			        	 
+			        	 manual_tmp.getCodArticulo()+";" + 
+			        	 bultos +";" + 
+			        	 kilometros +";" +
+			        	 manual_tmp.getNroAutorizacion()+";" +
+			        	 estado+";" +
+			        	 error;
+			        	 
+			        	outStream.println(filaProcesada);
+			        	filaProcesada="";
+					}		        
+			        
+			       // filaProcesada= filaProcesada.substring(1, filaProcesada.length()); 
+			         
+				    outStream.close();		          
+				    rutaArchivoABaja=getRequest().getScheme()+"://"+getRequest().getServerName()+":"+getRequest().getServerPort()+props.getProperty("loadArchivosExcel")+nombreArchivoSalida;
+			    }else
+			    {
+					throw new DatosObligatoriosException(mensaje);								
+					
+			    }
 			    
 			    return null;
 		        
