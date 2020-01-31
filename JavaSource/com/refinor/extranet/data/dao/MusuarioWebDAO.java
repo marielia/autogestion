@@ -23,6 +23,7 @@ public class MusuarioWebDAO extends BaseMusuarioWebDAO implements com.refinor.ex
 	}
 	
 	public static String FIND_BY_COD_CLIENTE_ALFA_AND_PASS= "findByCodClienteAlfaAndPass";
+	public static String FIND_BY_EMAIL_AND_PASS= "findByEmailAndPass";
 	public static String FIND_BY_COD_CLIENTE_ALFA= "findByCodClienteAlfa";
 	public static String FIND_USUARIO_BY_DOCUMENTO= "findUsuarioByDocumento";
 	public static String FIND_USUARIO_BY_MAIL= "findUsuarioByEmail";
@@ -94,13 +95,15 @@ public class MusuarioWebDAO extends BaseMusuarioWebDAO implements com.refinor.ex
 	}
 	
 	
-	public MusuarioWeb getPorDocumentoYClave(String codClienteAlfa, String clave) throws UsuarioNoExisteException, DataAccessErrorException {
+	public MusuarioWeb getPorDocumentoYClave(/*String codClienteAlfa*/ String email, String clave) throws UsuarioNoExisteException, DataAccessErrorException {
 		try {			
 			Map<String, Object> params= new HashMap<String, Object>();
 			
-			params.put(Const.PARAM_COD_CLIENTE_ALFA, codClienteAlfa);
+//			params.put(Const.PARAM_COD_CLIENTE_ALFA, codClienteAlfa);
+			params.put(Const.EMAIL, email);
 			params.put(Const.PARAM_CLAVE, clave);
-			List result= this.getNamedQuery(FIND_BY_COD_CLIENTE_ALFA_AND_PASS, params, session).list();
+//			List result= this.getNamedQuery(FIND_BY_COD_CLIENTE_ALFA_AND_PASS, params, session).list();
+			List result= this.getNamedQuery(FIND_BY_EMAIL_AND_PASS, params, session).list();
 			if(result.size() == 1) 
 				return (MusuarioWeb)result.iterator().next();
 			else if(result.size() == 0)

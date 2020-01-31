@@ -118,6 +118,7 @@ public abstract class AbstListado extends AbstReporte {
 	protected BigDecimal remitosAfacturar;
 	protected BigDecimal saldoCliente;
 	protected int tipoUsuarioLogueado;
+	protected int codigoRol;
 	
 	protected Integer cliente;	
 	protected List<SelectItem> clientes;
@@ -930,6 +931,7 @@ public abstract class AbstListado extends AbstReporte {
 			MusuarioWeb usuario = (MusuarioWeb)getSession().getAttribute(Const.USUARIO);			
 			codCliente=usuario.getCodClienteAlfa();	
 			tipoUsuarioLogueado=usuario.getTipo();
+			codigoRol=usuario.getCodigoRol();
 			cargarOpciones();
 			
 			this.pagina= new Page();
