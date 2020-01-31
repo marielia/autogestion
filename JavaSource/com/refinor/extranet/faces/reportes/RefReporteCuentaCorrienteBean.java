@@ -39,8 +39,8 @@ public class RefReporteCuentaCorrienteBean extends AbstListado {
 			
 			String codClienteAlfa=null;			
 			if(getTipoUsuarioLogueado()==1){
-				//es cliente				
-				codClienteAlfa=codCliente;					
+				//es cliente
+				buscarPorCliente ();
 			}else if(getTipoUsuarioLogueado()==0){
 				//es refipass			
 				if(this.cliente!=null && !this.cliente.equals(new Integer(-1)))
@@ -615,4 +615,81 @@ public class RefReporteCuentaCorrienteBean extends AbstListado {
 	public void setNombreArchivoSimple(String nombreArchivoSimple) {
 		this.nombreArchivoSimple = nombreArchivoSimple;
 	}
+	
+	
+	//Listado de cta cte para clientes - 2020 01 30
+	public void buscarPorCliente () throws NoExistenItemsException, DataAccessErrorException ,Exception{
+		this.nombreArchivo="";
+		this.nombreArchivoSimple="";
+		try{	
+			     MctasCtesDAO mctacteDAO = new MctasCtesDAO(getSessionHib());			
+			     String codClienteAlfa=codCliente;  
+			     MclientesDAO mclienteDAO= new MclientesDAO(sessionHib);
+				 Mclientes mcliente= new Mclientes();
+			  	 mcliente= mclienteDAO.getClienteporCodClienteAlfa(codCliente);				 
+					
+			     this.cliente = mcliente.getCodigo();  
+				setItems(mctacteDAO.getFacturasNoAbonadas(codClienteAlfa,1));			
+			 
+			
+			 if(this.cliente!=null && !this.cliente.equals(new Integer(-1))){
+				//cuando tenga seleccionado un cliente determinado muestro su limite de crtedito.				
+				this.limiteCredito = obtenerTopeCredito( this.cliente );				
+			 }
+			
+			
+			setSubItemsNivel1(getItems());		
+			cargarPaginaCtaCte();					
+			mostrarLista=new Boolean(true);
+			mostrarFrmLista=new Boolean(true);
+			
+			setSaldoCtaCte(obtenerSaldosCtasCtes(getItems()));			
+			
+			MpedidosDAO mPedidoDAO = new MpedidosDAO(getSessionHib());	
+			try {
+				setRemitosAfacturar(mPedidoDAO.getTotalRemitosAFacturar(codClienteAlfa));
+			} catch (DataAccessErrorException e) {			
+				e.printStackTrace();			
+			} catch (NoExistenItemsException e) {			
+				e.printStackTrace();			
+			}
+			
+			try {			
+				setSaldoCliente(getSaldoCtaCte().add(getRemitosAfacturar()));
+			} catch (Exception e) {			
+					e.printStackTrace();
+					AddErrorMessage("Hubo errores al calcular el Saldo del Cliente.");
+			}
+		}
+		catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			AddErrorMessage(ex.getMessage());
+			setSaldoCliente(new BigDecimal(0.00));
+			setSaldoCtaCte(new BigDecimal(0.00));
+			setLimiteCredito(0.00);
+			limpiarLst();
+			setRemitosAfacturar(new BigDecimal(0.00));
+			noMostrarLista();			
+		}catch(DataAccessErrorException ex){
+			ex.printStackTrace();
+			setSaldoCliente(new BigDecimal(0.00));
+			setSaldoCtaCte(new BigDecimal(0.00));
+			setLimiteCredito(0.00);
+			setRemitosAfacturar(new BigDecimal(0.00));
+			limpiarLst();
+			AddErrorMessage(ex.getMessage());
+			noMostrarLista();
+		}catch(Exception ex){
+			ex.printStackTrace();
+			setSaldoCliente(new BigDecimal(0.00));
+			setSaldoCtaCte(new BigDecimal(0.00));
+			setLimiteCredito(0.00);
+			setRemitosAfacturar(new BigDecimal(0.00));
+			limpiarLst();
+			AddErrorMessage(ex.getMessage());
+			noMostrarLista();
+		}
+		}
+
+
 }

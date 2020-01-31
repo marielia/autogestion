@@ -143,7 +143,7 @@
 		 
 		 <h:column rendered="#{sessionScope.usuario.tipo==1}">
 		   		<h:outputLink  rendered="#{refReporteCuentaCorrienteBean.nombreArchivo!='' && refReporteCuentaCorrienteBean.mostrarLista}" target="_blank" styleClass="cpo7b" value="#{refReporteCuentaCorrienteBean.nombreArchivo}">
-					<h:outputText value=" #{Message.descargar_excel_cta_cte_simple_label}" />
+					probando<h:outputText value=" #{Message.descargar_excel_cta_cte_simple_label}" />
 				</h:outputLink>	
 		 </h:column>			 
 		 </h:panelGrid>
@@ -153,7 +153,7 @@
 		
 		<% /* LISTADO */ %>		
 		<t:div rendered="#{refReporteCuentaCorrienteBean.mostrarLista}">
-		<h:panelGrid width="95%" columns="1" columnClasses="bordeblanco"  cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco"  cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteCuentaCorrienteBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -259,7 +259,7 @@
 		</t:panelGrid>
 		
 		
-		<h:panelGrid columns="2" width="60%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="2">						 
+		<h:panelGrid columns="2" width="100%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="2">						 
 				<h:column>
 						<t:outputText value="&nbsp;&nbsp;#{Message.saldo_cta_cte_label}:" styleClass="cpo8" escape="false"/>
 				</h:column>
