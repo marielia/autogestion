@@ -30,7 +30,7 @@
 	<h:column>  		
 		
 		<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-					 columns="1" columnClasses="iconito" rowClasses="titulosGrande" width="80%">
+					 columns="1" columnClasses="iconito" columnClasses="titulosGrande" width="80%">
 			<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
 			<t:column>
 				<t:outputText value="#{Message.tit_informe_ingreso_usuarios}"/>

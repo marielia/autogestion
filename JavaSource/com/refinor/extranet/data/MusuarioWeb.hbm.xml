@@ -72,6 +72,13 @@
 		 		      and u.clave = :clave
 		 	]]>
 	</query>
+	<query name="findByEmailAndPass">
+		 	<![CDATA[
+		 		from MusuarioWeb u 
+		 		where u.email = :email
+		 		      and u.clave = :clave
+		 	]]>
+	</query>
 	
 	<query name="findByCodClienteAlfa">
 		 	<![CDATA[
