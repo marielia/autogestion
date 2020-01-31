@@ -330,8 +330,10 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 				        
 				        remitoTO.setFecha(sdf.format(objRemito[1]));	
 				        remitoTO.setHora(sdfHora.format(objRemito[1]));
-				        remitoTO.setNroSucursal(new Integer(objRemito[2].toString()));			        
-				        remitoTO.setNroRemito(new Integer(objRemito[3].toString()));			        
+				        remitoTO.setNroSucursal(new Integer(objRemito[2].toString()));
+				        if(objRemito[3]!=null)
+				        	remitoTO.setNroRemito(new Integer(objRemito[3].toString()));
+				        
 				        remitoTO.setCodProducto(new Integer(objRemito[4].toString()));			        
 				        remitoTO.setDescProducto(objRemito[5].toString());
 				        remitoTO.setLitros(new BigDecimal(objRemito[6].toString()));

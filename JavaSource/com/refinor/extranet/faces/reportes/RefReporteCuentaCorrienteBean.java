@@ -41,6 +41,7 @@ public class RefReporteCuentaCorrienteBean extends AbstListado {
 			if(getTipoUsuarioLogueado()==1){
 				//es cliente
 				buscarPorCliente ();
+				
 			}else if(getTipoUsuarioLogueado()==0){
 				//es refipass			
 				if(this.cliente!=null && !this.cliente.equals(new Integer(-1)))
@@ -257,7 +258,8 @@ public class RefReporteCuentaCorrienteBean extends AbstListado {
 				ExportarExcelBean exportarExcelBean =  new ExportarExcelBean();		
 				
 				if (getTipoUsuarioLogueado()==1) {
-					this.nombreArchivo = exportarExcelBean.generarExcelReporteCtasCtes(getItems(),getFechaActualStr(),getTipoUsuarioLogueado());	
+					//this.nombreArchivo = exportarExcelBean.generarExcelReporteCtasCtes(getItems(),getFechaActualStr(),getTipoUsuarioLogueado());	
+					this.nombreArchivoSimple = exportarExcelBean.generarExcelReporteCtasCtes(getItems(),getFechaActualStr(),getTipoUsuarioLogueado());	
 				}else if(getTipoUsuarioLogueado()==0){
 						this.nombreArchivoSimple = exportarExcelBean.generarExcelReporteCtasCtes(getItems(),getFechaActualStr(),getTipoUsuarioLogueado());	
 					
