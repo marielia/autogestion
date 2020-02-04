@@ -21,6 +21,7 @@ public class RefReporteFacturasBean extends AbstListado {
 
 	public RefReporteFacturasBean() {
 		// TODO Auto-generated constructor stub
+		 
 	}
 
 	public void cargcarListaPotFiltros() throws NoExistenItemsException, DataAccessErrorException ,Exception{

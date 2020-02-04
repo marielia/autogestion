@@ -4,17 +4,22 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<f:loadBundle basename="com.refinor.extranet.bundle.Messages" var="Message"/>
+ <f:loadBundle basename="com.refinor.extranet.bundle.Messages" var="Message"/>
+
+
 <html>
 <f:view>
 	<head>
         <meta http-equiv="Content-Type"
              content="text/html; charset=windows-1252"/>
-		<title><h:outputText value="#{Message.nombre_sistema}"/> </title>
+		<title>
+ 			<h:outputText value="#{Message.nombre_sistema}"/>   
+  		  
+		</title> 
 		<link rel="stylesheet" type="text/css" href="<h:outputText value="#{Message.contexto_sistema}"/>/css/refinor.css">		
 		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsutiles.js"></script>
 		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/cal2.js"></script>
-		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsfechas.js"></script>
+		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsfechas.js"></script>  
 		<script>
 		var ventanaCalendario = null;   
 		
@@ -149,7 +154,7 @@
 				
 		<%/*FILTROS*/%>
 		
-			<h:panelGrid columns="4" width="80%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<t:outputLabel for="consulte" styleClass="titulos">
 						<h:outputText  value="&nbsp;#{Message.consulte_por_label} " escape="false" styleClass="titulos"/>
@@ -160,9 +165,9 @@
 				<h:column></h:column>									
 			</h:panelGrid>
 			
-			<h:panelGrid columns="2" width="80%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
-					<h:outputLabel for="estado" styleClass="cpo8">
+					<h:outputLabel for="estado" styleClass="cpo8-Var">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.entre_fechas_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
@@ -201,11 +206,11 @@
 			</h:panelGrid>		
 				
 					<%/*  clientes  */%>
-			<h:panelGrid columns="2" width="80%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 			   <%/* CENTRO DE SERVICIO CCSS 
 				*/ %>
 				<t:column>
-					<h:outputLabel  styleClass="cpo8">
+					<h:outputLabel  styleClass="cpo8-Var">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.centro_servicio_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
@@ -224,7 +229,7 @@
 					</h:selectOneListbox>						
 				</t:column>	
 				<t:column>
-					<h:outputLabel for="condicion" styleClass="cpo8">
+					<h:outputLabel for="condicion" styleClass="cpo8-Var">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.condicion_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
@@ -238,7 +243,7 @@
 				<%/* nro sucursal
 				*/%>
 				<t:column>
-					<h:outputLabel for="estado" styleClass="cpo8">
+					<h:outputLabel for="estado" styleClass="cpo8-Var">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.nro_sucursal_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
@@ -253,7 +258,7 @@
 				<%/* nro factura
 				*/%>
 				<t:column>
-					<h:outputLabel for="nrofactura" styleClass="cpo8">
+					<h:outputLabel for="nrofactura" styleClass="cpo8-Var">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.nro_factura_largo_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
@@ -264,7 +269,7 @@
 				</t:column>								
 			</h:panelGrid>
 			
-			<h:panelGrid columns="1" width="80%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  columnClasses="fondo" styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>
@@ -323,7 +328,7 @@
 		<% /* LISTADO */ %>
 		<t:div  style="overflow:scroll; height:100%; width:900px;"  rendered="#{refReporteFacturasBean.mostrarLista}">  		
 		
-		<h:panelGrid width="98%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteFacturasBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -455,7 +460,7 @@
 				</t:div>
 		
 		
-			<h:panelGrid columns="1" width="80%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		
