@@ -1462,12 +1462,14 @@ ORDER BY p.Fecha
   	    <sql-query name="finMesesMPedidos">  	    
 			select distinct month(p.fecha) as mes,  ' ' as nombre
 			from mpedidos p
+				where month(p.fecha) is not null
 			order by month(p.fecha) asc
   	    </sql-query>
   	    
   	     <sql-query name="finAniosMPedidos">  				
 			select distinct year(p.fecha) as anio, year(p.fecha) as anioNombre
 			from mpedidos p
+			where year(p.fecha) is not null
 			order by year(p.fecha) desc
   	    </sql-query>
   	    
