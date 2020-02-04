@@ -97,6 +97,7 @@
 		 </h:column>
 		 
 		 
+		 
 		  <h:column rendered="#{sessionScope.usuario.tipo==0}">				
 		   		<t:commandButton value="#{Message.generar_excel_cta_cte_compuesto_label}" actionListener="#{refReporteCuentaCorrienteBean.generarExcelNuevo2}" styleClass="boton2"/>
 				
@@ -114,6 +115,16 @@
 				</h:outputLink>	
 				*/%>
 		 </h:column>
+		 
+		 	<h:column rendered="#{sessionScope.usuario.tipo==1}">				
+		   		<t:commandButton value="#{Message.generar_excel_cta_cte_simple_label}" actionListener="#{refReporteCuentaCorrienteBean.generarExcelNuevo}" styleClass="boton2"/>
+				
+				<h:outputLink  rendered="#{refReporteCuentaCorrienteBean.nombreArchivoSimple!='' && refReporteCuentaCorrienteBean.mostrarLista}" target="_blank" styleClass="cpo7b" value="#{refReporteCuentaCorrienteBean.nombreArchivoSimple}">
+					<h:outputText value=" #{Message.descargar_archivo_abel}" />
+				</h:outputLink>				
+		 </h:column>
+		 
+		 
 		</h:panelGrid> 
 		 
 		 <h:panelGrid width="100%" cellspacing="3" columns="1" cellpadding="5"
@@ -143,7 +154,7 @@
 		 
 		 <h:column rendered="#{sessionScope.usuario.tipo==1}">
 		   		<h:outputLink  rendered="#{refReporteCuentaCorrienteBean.nombreArchivo!='' && refReporteCuentaCorrienteBean.mostrarLista}" target="_blank" styleClass="cpo7b" value="#{refReporteCuentaCorrienteBean.nombreArchivo}">
-					<h:outputText value=" #{Message.descargar_excel_cta_cte_simple_label}" />
+					 <h:outputText value=" #{Message.descargar_excel_cta_cte_simple_label}" />
 				</h:outputLink>	
 		 </h:column>			 
 		 </h:panelGrid>
@@ -153,7 +164,7 @@
 		
 		<% /* LISTADO */ %>		
 		<t:div rendered="#{refReporteCuentaCorrienteBean.mostrarLista}">
-		<h:panelGrid width="95%" columns="1" columnClasses="bordeblanco"  cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco"  cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteCuentaCorrienteBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -259,7 +270,7 @@
 		</t:panelGrid>
 		
 		
-		<h:panelGrid columns="2" width="60%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="2">						 
+		<h:panelGrid columns="2" width="100%" columnClasses="cpo8Right,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="2">						 
 				<h:column>
 						<t:outputText value="&nbsp;&nbsp;#{Message.saldo_cta_cte_label}:" styleClass="cpo8" escape="false"/>
 				</h:column>
@@ -329,13 +340,13 @@
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>			
 			</t:panelGrid>
 			
-			<h:panelGrid columns="1" width="60%" columnClasses="campoNoEditable" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="2">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="campoNoEditable" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="2">						 
 					<h:column>
 							<t:outputText value="&nbsp;&nbsp;#{Message.composicion_ctas_ctes_label}" styleClass="campoNoEditable" escape="false"/>
 					</h:column>					
 			</h:panelGrid>
 			
-			<h:panelGrid width="60%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+			<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 				<h:column>		
 				<t:dataTable value="#{refReporteCuentaCorrienteBean.lstComposicionCtasCtes}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -395,7 +406,7 @@
 				</h:column>
 		</h:panelGrid>
 		</t:div>	
-			<h:panelGrid columns="1" width="80%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		
@@ -491,10 +502,10 @@
 		 
 		
 		<% /* LISTADO */ %>
-		<t:div  style="overflow:scroll; height:100%; width:700px;"  >  
+	 
 	
 		
-		<h:panelGrid width="90%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteCuentaCorrienteBean.subItemsNivel2}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -633,8 +644,8 @@
 				</h:column>
 				</h:panelGrid>
 		
-		</t:div>
-			<h:panelGrid columns="1" width="90%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+		 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		
