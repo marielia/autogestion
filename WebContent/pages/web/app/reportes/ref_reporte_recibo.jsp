@@ -150,7 +150,7 @@
 		</t:panelGrid>		
 				
 		<%/*FILTROS*/%>		
-			<h:panelGrid columns="4" width="80%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<t:outputLabel for="consulte" styleClass="titulos">
 						<h:outputText  value="&nbsp;#{Message.consulte_por_label} " escape="false" styleClass="titulos"/>
@@ -161,7 +161,7 @@
 				<h:column></h:column>									
 			</h:panelGrid>
 			
-			<h:panelGrid columns="2" width="80%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputLabel for="estado" styleClass="cpo8">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.entre_fechas_label}&nbsp;&nbsp;" escape="false"/>
@@ -202,7 +202,7 @@
 			</h:panelGrid>
 			
 			<%/*  clientes  */%>
-			<h:panelGrid columns="2" width="80%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 			
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
@@ -235,14 +235,14 @@
 			
 			
 			<%/*  anulado?  */%>
-			<h:panelGrid columns="2" width="80%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 			
 				<t:column >							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.estado_anulado_label}&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
 				</t:column>
 				<t:column >
 					<h:selectBooleanCheckbox id="cambiarEstado" 
-					    valueChangeListener="#{refReporteReciboBean.cambiarEstado}" 
+					   valueChangeListener="#{refReporteReciboBean.cambiarEstado}" 
 					   immediate="true" 
 					   onchange="submit()" /> 						
 				</t:column>								
@@ -253,7 +253,7 @@
 				
 				
 			
-			<h:panelGrid columns="4" width="80%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>	</h:column>
 				<h:column>	</h:column>
 				<h:column>	</h:column>				
@@ -312,7 +312,7 @@
 		
 		<% /* LISTADO */ %>
 		
-		<h:panelGrid width="80%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteReciboBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -373,13 +373,14 @@
 							<h:outputText value="#{Message.facturas_label}"/>
 						</f:facet>
 						
-					     <t:commandLink styleClass="linkOperacion" 
+					     <t:commandButton value="#{Message.ver_label}"
+					     			   styleClass="botonSm" 
 									   actionListener="#{refReporteReciboBean.verRemitos}" 								  
 									   title="#{Message.ver_facturas_label}" >
 									   <f:param name="nroOperCaja" id="nroOperCaja" value="#{item.nroOperCaja}"/>
 									   <f:param name="codCliente" id="codCliente" value="#{item.codCliente}"/>									   
-									   <h:outputText value="#{Message.ver_label}" /> 
-						</t:commandLink>					
+<%-- 									   <h:outputText value="#{Message.ver_label}" />  --%>
+						</t:commandButton>					
 					</h:column>	
 					
 							
@@ -387,7 +388,7 @@
 				</h:column>
 				</h:panelGrid>
 		
-			<h:panelGrid columns="1" width="80%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		

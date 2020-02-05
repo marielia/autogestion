@@ -85,22 +85,29 @@ public class AltaChoferesBean extends AbstBackingBean {
 		
 		MusuarioWeb usuario = (MusuarioWeb)getSessionValue("usuario");
 		
-		if(usuario.getTipo()==0){
+//		if(usuario.getTipo()==0){
 			//es refipass	
 			if(getSessionValue("nroChofer")!=null){
+				//entra por lista (es modificacion)
 				Integer nroChofer =Integer.parseInt(getSessionValue("nroChofer").toString());
 				System.out.println("CHOFER a modificar: "+nroChofer);
 				getSession().removeAttribute("nroChofer");				
 				inicializarValoresMod(nroChofer);
+			} else {
+				//no entra por lista (es alta)
+				getSession().removeAttribute("nroChofer");
+				inicializarValoresAlta();
+				generarPin();
+				cargarCombos();
 			}
 			
-		} else if(usuario.getTipo()==1){
-			//es cliente			
-			getSession().removeAttribute("nroChofer");
-			inicializarValoresAlta();
-			generarPin();
-			cargarCombos();
-		}			
+//		} else if(usuario.getTipo()==1){
+//			//es cliente			
+//			getSession().removeAttribute("nroChofer");
+//			inicializarValoresAlta();
+//			generarPin();
+//			cargarCombos();
+//		}			
 		
 		}catch(Exception ex){
 			ex.printStackTrace();

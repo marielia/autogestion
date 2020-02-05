@@ -43,7 +43,7 @@
 				
 		<%/*FILTROS*/%>
 		
-			<h:panelGrid columns="2" width="90%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<t:outputLabel for="consulte" styleClass="titulos">
 						<h:outputText  value="&nbsp;#{Message.consulte_por_label} " escape="false" styleClass="titulos"/>
@@ -54,7 +54,7 @@
 				
 				
 			
-			<h:panelGrid columns="4" width="90%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 			
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
@@ -108,7 +108,7 @@
 			
 			
 			
-			<h:panelGrid columns="2" width="90%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputLabel for="estado" styleClass="cpo8">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.estado_label}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false"/>
@@ -132,7 +132,7 @@
 				</t:column>						
 			</h:panelGrid>	
 			
-			<h:panelGrid columns="4" width="90%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>	</h:column>
 				<h:column>	</h:column>
 				<h:column>	</h:column>				
@@ -194,7 +194,7 @@
 		
 		<% /* LISTADO */ %>
 		
-		<h:panelGrid width="90%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteVehiculosBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -286,7 +286,7 @@
 				</h:panelGrid>
 		
 		
-			<h:panelGrid columns="1" width="90%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		

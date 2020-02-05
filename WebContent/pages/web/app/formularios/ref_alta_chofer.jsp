@@ -211,15 +211,25 @@
 		<t:panelGrid width="100%" border="0" cellpadding="0" cellspacing="0" columns="1" columnClasses="columnaTablaCentrada">
 			<!--  TITULO  -->		
 			
-			<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-					 columns="1"  columnClasses="titulosGrande" width="100%">
-				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-				<t:column>
-					<t:outputText value="#{Message.tit_alta_chofer}" rendered="#{sessionScope.usuario.tipo==1}"/>
-					<t:outputText value="#{Message.modificacion_chofer_msg}" rendered="#{sessionScope.usuario.tipo==0}"/>
-				</t:column>
-				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-			</t:panelGrid>
+<%-- 			<t:panelGrid border="0" cellpadding="0" cellspacing="0"  --%>
+<%-- 					 columns="1"  columnClasses="titulosGrande" width="100%"> --%>
+<%-- 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column> --%>
+<%-- 				<t:column> --%>
+<%-- 					<t:outputText value="#{Message.tit_alta_chofer}" rendered="#{sessionScope.usuario.tipo==1}"/> --%>
+<%-- 					<t:outputText value="#{Message.modificacion_chofer_msg}" rendered="#{sessionScope.usuario.tipo==0}"/> --%>
+<%-- 				</t:column> --%>
+<%-- 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column> --%>
+<%-- 			</t:panelGrid> --%>
+			
+				<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
+						 columns="1"  columnClasses="titulosGrande" width="100%">
+					<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
+					<%@ include file="../datosCliente.jsp" %>	
+					<t:column>
+						<t:outputText value="#{Message.modificacion_chofer_msg}"/>
+					</t:column>
+					<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
+				</t:panelGrid>
 	  	
 	 		<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
 					 columns="1"   width="100%">
@@ -260,6 +270,7 @@
 			<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
 					 columns="1"  columnClasses="titulosGrande" width="100%">
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
+				<%@ include file="../datosCliente.jsp" %>	
 				<t:column>
 					<t:outputText value="#{Message.modificacion_chofer_msg}"/>
 				</t:column>
