@@ -146,30 +146,28 @@
 		<%/*FILTROS*/%>
 			<h:messages styleClass="errorNegro"/>
 		
-			<h:panelGrid columns="2" width="60%" styleClass="bordeblanco" columnClasses="cpo8,cpo8" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" styleClass="bordeblanco" columnClasses="cpo8Right,cpo8" cellspacing="0" cellpadding="4">						 
 				<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
-				<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
-								
+				<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column> 
 				
 				<h:column>
 						<t:outputText value="&nbsp;.:&nbsp;#{Message.login_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
 				<h:column>
-						<t:inputText id="usuario" value="#{logonBean.codigoCliente}" size="20" maxlength="20" styleClass="campo" />
+						<t:inputText id="usuario" value="#{logonBean.codigoCliente}" size="30" maxlength="50" styleClass="campo" />
 				</h:column>			
 				<h:column>
 						<t:outputText value="&nbsp;.:&nbsp;#{Message.clave_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
 				<h:column>											
-						<h:inputSecret id="clave" value="#{logonBean.clave}" size="20" maxlength="25" styleClass="campo">
+						<h:inputSecret id="clave" value="#{logonBean.clave}" size="30" maxlength="25" styleClass="campo">
 						<f:validateLength minimum="1"/>
-						</h:inputSecret>
-					
+						</h:inputSecret> 
 				</h:column>				
 				
 				<h:column>	</h:column>					
 				<h:column>
-					<h:panelGrid columns="1" width="50%"  columnClasses="fondo" styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
+					<h:panelGrid columns="1" width="10%"  columnClasses="fondo" styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				    <h:column>	</h:column>				
 				     <h:column>
 				    	 <%/*t:commandButton value="#{Message.cancelar_label}" action="#{logonBean.cancelar}"

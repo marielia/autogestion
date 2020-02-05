@@ -134,7 +134,7 @@
 							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>
 							<t:graphicImage value="/img/icono_poliactiva.gif"/>
 							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>
-								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/reportes/ref_reporte_cupos.jsf" >
+								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/reportes/ref_reporte_cupos_vehiculos.jsf?vaPor=CUP" >
 									<h:outputText value="#{Message.listado_cupos_label}" styleClass="campoNoEditableSinFondo"/>
 								</h:outputLink>							
 							</t:outputLabel>

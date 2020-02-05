@@ -634,6 +634,18 @@ bordebeige {
 	
 }
 
+.cpo8-Var {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	line-height: 13pt;
+	font-weight: bold;
+	text-align: left;	
+	background-color: #F3F5F7;
+	text-transform: uppercase;
+	width: 15%;
+	
+}
+
 .cpo8-30b {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
