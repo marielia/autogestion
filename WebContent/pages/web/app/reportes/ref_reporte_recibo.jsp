@@ -161,9 +161,9 @@
 				<h:column></h:column>									
 			</h:panelGrid>
 			
-			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var20,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
-					<h:outputLabel for="estado" styleClass="cpo8">
+					<h:outputLabel for="estado" styleClass="cpo8-Var20">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.entre_fechas_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
@@ -202,7 +202,7 @@
 			</h:panelGrid>
 			
 			<%/*  clientes  */%>
-			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var20,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 			
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
@@ -214,7 +214,7 @@
 				</t:column>	
 				
 				<t:column>
-					<h:outputLabel for="estado" styleClass="cpo8">
+					<h:outputLabel for="estado" styleClass="cpo8-Var20">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.desde_nro_recibo_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
@@ -235,10 +235,10 @@
 			
 			
 			<%/*  anulado?  */%>
-			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var20,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 			
 				<t:column >							
-						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.estado_anulado_label}&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
+						<t:outputText styleClass="cpo8-Var20" value="&nbsp;&nbsp;#{Message.estado_anulado_label}&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
 				</t:column>
 				<t:column >
 					<h:selectBooleanCheckbox id="cambiarEstado" 
@@ -316,7 +316,7 @@
 		<h:column>		
 				<t:dataTable value="#{refReporteReciboBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
-							 columnClasses="columnaTablaTexto,  columnaTablaNumero,columnaTablaTexto, columnaTablaNumero,columnaTablaCentrada,columnaTablaCentrada, columnaTablaCentrada"
+							 columnClasses="columnaTablaTexto,  columnaTablaNumero,columnaTablaTexto, columnaTablaNumero,columnaTablaCentrada,columnaTablaCentrada, columnaTablaCentrada30"
 							 headerClass="subtitulos" footerClass="footerTabla" width="100%" cellpadding="2" 
 							 cellspacing="1" border="0"
 							 rendered="#{refReporteReciboBean.mostrarLista}" >
@@ -469,7 +469,7 @@
 		
 		<% /* LISTADO */ %>
 		
-		<h:panelGrid width="90%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteReciboBean.subItemsNivel2}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -548,7 +548,7 @@
 		</h:panelGrid>
 		
 		
-			<h:panelGrid columns="1" width="90%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		

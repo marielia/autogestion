@@ -297,6 +297,11 @@ bordebeige {
 	text-align: center;
 }
 
+.columnaTablaCentrada30 {
+	text-align: center;
+	width: 100px;
+}
+
 .columnaTablaCentradaYArriba{
 	text-align: center;
 	vertical-align: top;
@@ -643,6 +648,30 @@ bordebeige {
 	background-color: #F3F5F7;
 	text-transform: uppercase;
 	width: 15%;
+	
+}
+
+.cpo8-Var20 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	line-height: 13pt;
+	font-weight: bold;
+	text-align: left;	
+	background-color: #F3F5F7;
+	text-transform: uppercase;
+	width: 20%;
+	
+}
+
+.cpo8-Var10 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	line-height: 13pt;
+	font-weight: bold;
+	text-align: left;	
+	background-color: #F3F5F7;
+	text-transform: uppercase;
+	width: 10%;
 	
 }
 

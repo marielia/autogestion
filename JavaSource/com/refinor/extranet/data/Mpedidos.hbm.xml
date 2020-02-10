@@ -456,7 +456,7 @@
 
 		p.cliente as codCliente,
 		ch.codigo as codChofer,
-		cl.descripcion as descrCli
+		cl.descripcion as descrCli 
 		
 		from mpedidos p, MpedidosLinea l, mpedidosdtcarga c, MunidadN u,
 		mClientes cl, MgrupoUn g, mchofer ch
@@ -482,7 +482,9 @@
 		cl.cod_cliente_alfa like :codCliente) 
 		
 		
-		group by ch.dni,ch.apellido,ch.nombre,u.codigo, u.descripcion,g.codigo,g.descripcion,l.codArticulo, l.descripcion,p.cliente,ch.codigo,cl.descripcion
+		group by ch.dni,ch.apellido,ch.nombre,u.codigo, u.descripcion,g.codigo,g.descripcion,l.codArticulo, 
+		l.descripcion,p.cliente,ch.codigo,cl.descripcion 
+		
 		order by ch.apellido,ch.nombre
 		
 	</sql-query>
@@ -524,7 +526,9 @@
 		uC.descripcion as descUnidadNChofer,
 		uC.codGrupoUn as codGrupoUNChofer,
 		gC.descripcion as descGrupoUNChofer,
-		cs.desc_ccss
+		cs.desc_ccss,
+		cl.descripcion as descrCli ,
+		cl.cod_cliente_alfa as codalfa
 		
 		from mpedidos p inner join  MpedidosLinea l
 		on l.sucursal = p.nroSucursal and l.codPedido = p.codigo inner join  mpedidosdtcarga c
@@ -638,7 +642,9 @@
 		uC.descripcion as descUnidadNChofer,
 		uC.codGrupoUn as codGrupoUNChofer,
 		gC.descripcion as descGrupoUNChofer,
-		cs.desc_ccss
+		cs.desc_ccss,
+		cl.descripcion as descrCli ,
+		cl.cod_cliente_alfa as codalfa
 		
 		from mpedidos p inner join  MpedidosLinea l
 		on l.sucursal = p.nroSucursal and l.codPedido = p.codigo inner join  mpedidosdtcarga c

@@ -46,7 +46,7 @@
 				
 		<%/*FILTROS*/%>
 		
-			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-25,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-Var,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<t:outputLabel for="consulte" styleClass="titulos">
 						<h:outputText  value="&nbsp;#{Message.consulte_por_label} " escape="false" styleClass="titulos"/>
@@ -54,23 +54,22 @@
 				</h:column>	
 				<h:column></h:column>
 				<h:column></h:column>
-				<h:column></h:column>									
-				
+				<h:column></h:column> 
+			</h:panelGrid>
+			
+			<%/*  clientes  */%>
+			<h:panelGrid columns="3" width="100%" columnClasses="cpo8-Var10,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			
 				<h:column>
-					      <t:outputLabel for="patente" styleClass="cpo8-25">
+					      <t:outputLabel for="patente" styleClass="cpo8">
 							<t:outputText value="&nbsp;&nbsp;#{Message.patente_label}"  escape="false"/>
 						  </t:outputLabel>
 				</h:column>	
 				<h:column>				     
 						<t:inputText id="nombreChofer" value="#{refReporteCuposBean.fltPatente}" size="20" maxlength="50" styleClass="campo" />
 				</h:column>	
-				<h:column><t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" /></h:column>	
-				<h:column><t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" /></h:column>	
-			</h:panelGrid>
-			
-			<%/*  clientes  */%>
-			<h:panelGrid columns="3" width="100%" columnClasses="cpo8-25,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
-			
+			    <t:column><t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" /></t:column>
+					
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}" escape="false" />							
 				</t:column>
