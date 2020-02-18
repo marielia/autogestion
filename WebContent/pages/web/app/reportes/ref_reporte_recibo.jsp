@@ -316,7 +316,8 @@
 		<h:column>		
 				<t:dataTable value="#{refReporteReciboBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
-							 columnClasses="columnaTablaTexto,  columnaTablaNumero,columnaTablaTexto, columnaTablaNumero,columnaTablaCentrada,columnaTablaCentrada, columnaTablaCentrada"
+							 columnClasses="columnaTablaTexto, columnaTablaNumero,columnaTablaTexto, 
+							 columnaTablaNumero, columnaTablaCentrada,columnaTablaCentrada, columnaTablaCentradaFijo21"
 							 headerClass="subtitulos" footerClass="footerTabla" width="100%" cellpadding="2" 
 							 cellspacing="1" border="0"
 							 rendered="#{refReporteReciboBean.mostrarLista}" >

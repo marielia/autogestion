@@ -101,8 +101,9 @@
 		from Mchofer where dni = :dni
 	</query>
 	
-	
-	
+	<query name="findChoferPorCodigo">	
+		from Mchofer where codigo = :codChofer
+	</query>
 	
 	<query name="findChoferPorCliente">	
 		from Mchofer 

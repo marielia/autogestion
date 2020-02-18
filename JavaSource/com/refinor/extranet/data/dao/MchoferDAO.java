@@ -35,9 +35,7 @@ public class MchoferDAO extends BaseMchoferDAO implements com.refinor.extranet.d
 	public static String FIND_CHOFER_POR_DNI_CLIENTE= "findChoferDNIxCliente";
 	public static String FIND_CHOFER_POR_NRO_DOCUMENTO= "findChoferNroDocumento";
 	public static String FIND_CHOFER_POR_CLIENTE= "findChoferPorCliente";
-	
-	
-	
+	public static String FIND_CHOFER_POR_CODIGO = "findChoferPorCodigo";
 	
 	public Mchofer getChoferPorNroDocumento(Integer nroDocumento) throws NoExistenItemsException, VariosChoferesConIgualDNIException, IOException, DataAccessErrorException{
 		try{
@@ -69,6 +67,35 @@ public class MchoferDAO extends BaseMchoferDAO implements com.refinor.extranet.d
 		}
 		
 	}
+	
+	public Mchofer getChoferPorCodigo(Integer nroChofer) throws NoExistenItemsException, IOException, DataAccessErrorException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstChoferesPorFiltro= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>();			
+			params.put(Const.PARAM_COD_CHOFER, nroChofer);
+			
+			Query query = this.getNamedQuery(MchoferDAO.FIND_CHOFER_POR_CODIGO, params, session);
+			lstChoferesPorFiltro= query.list();
+			
+			if(lstChoferesPorFiltro.size()==1){
+				return (Mchofer)lstChoferesPorFiltro.get(0);				
+			}else if(lstChoferesPorFiltro.size()==0){
+				 throw new NoExistenItemsException(mensajeria.getMessage().getString("chofer_no_existe_msg"));
+			}else {
+				return (Mchofer)lstChoferesPorFiltro.get(0);
+			}			
+			
+		}catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();			
+			throw new DataAccessErrorException();
+		}
+		
+	}
+	
 	public int getCodigo() throws  DataAccessErrorException {
 		try {
 			int codigo=1;

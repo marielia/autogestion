@@ -78,36 +78,24 @@ public class AltaChoferesBean extends AbstBackingBean {
 
 	public AltaChoferesBean() {
 		try{
-		
-		
-		sessionHib = (new AlmacenDAO()).getSession();	
-		mensajeria = new Messages();
-		
-		MusuarioWeb usuario = (MusuarioWeb)getSessionValue("usuario");
-		
-//		if(usuario.getTipo()==0){
-			//es refipass	
+				
+			sessionHib = (new AlmacenDAO()).getSession();	
+			mensajeria = new Messages();
+			
+			MusuarioWeb usuario = (MusuarioWeb)getSessionValue("usuario");
+			int tipo = usuario.getTipo();
+			
 			if(getSessionValue("nroChofer")!=null){
-				//entra por lista (es modificacion)
-				Integer nroChofer =Integer.parseInt(getSessionValue("nroChofer").toString());
-				System.out.println("CHOFER a modificar: "+nroChofer);
-				getSession().removeAttribute("nroChofer");				
+				Integer nroChofer = Integer.parseInt(getSessionValue("nroChofer").toString());
+				System.out.println("CHOFER a modificar: "+nroChofer);	
 				inicializarValoresMod(nroChofer);
+				cargarCombos(nroChofer, tipo);
+				getSession().setAttribute("nroChofer", nroChofer);	
 			} else {
-				//no entra por lista (es alta)
-				getSession().removeAttribute("nroChofer");
 				inicializarValoresAlta();
 				generarPin();
-				cargarCombos();
-			}
-			
-//		} else if(usuario.getTipo()==1){
-//			//es cliente			
-//			getSession().removeAttribute("nroChofer");
-//			inicializarValoresAlta();
-//			generarPin();
-//			cargarCombos();
-//		}			
+				cargarCombos(null, tipo);
+			}		
 		
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -540,30 +528,79 @@ public class AltaChoferesBean extends AbstBackingBean {
 		}
 		
 	}
-	private void cargarCombos(){
-		 MgrupoUnDAO mgrupoUnDAO = new MgrupoUnDAO(sessionHib);
-		 gruposUnidadNegocio = new ArrayList<SelectItem>();
+	
+	private void cargarCombos(Integer nroChofer, int tipo){
+		 
+		MgrupoUnDAO mgrupoUnDAO = new MgrupoUnDAO(sessionHib);
+		MchoferDAO mChoferDAO = new MchoferDAO(sessionHib);
+		gruposUnidadNegocio = new ArrayList<SelectItem>();
 	
 		try {
+			
+			List lstDatos = null;
 			MgrupoUn mgrupoUn;
-			MusuarioWeb usuario = (MusuarioWeb)getSession().getAttribute(Const.USUARIO);	
-			List lstDatos = mgrupoUnDAO.getGruposUNPorCliente(usuario.getCuit());
+			
+			if(tipo==1) {
+				//es cliente
+				MusuarioWeb usuario = (MusuarioWeb)getSession().getAttribute(Const.USUARIO);
+				lstDatos = mgrupoUnDAO.getGruposUNPorCliente(usuario.getCuit());
+			} else {
+				//es refipass
+				MclientesDAO mClientesDAO = new MclientesDAO(sessionHib);
+				Mchofer mChofer = mChoferDAO.getChoferPorCodigo(nroChofer);
+				Mclientes mCliente = mClientesDAO.getClienteById(mChofer.getCodCli());	
+				lstDatos = mgrupoUnDAO.getGruposUNPorCliente(mCliente.getCuit());
+			}
+			
 			Iterator it = lstDatos.iterator();			
 			
 			while(it.hasNext()) {
 				mgrupoUn = (MgrupoUn)it.next();
 				gruposUnidadNegocio.add(new SelectItem(new Integer(mgrupoUn.getCodigo()),mgrupoUn.getDescripcion()));
 			}
-					
+			
 			unidadesNegocio = new ArrayList<SelectItem>();
-			unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+			
+			if(nroChofer!=null) {
+				
+				try {
+					
+					 MunidadNDAO munidadNDao = new MunidadNDAO(sessionHib);
+				
+					try {
+						
+						MunidadN munidadN;				
+						List lstDatos1 = munidadNDao.getUnidadesNegocioPorGrupo(grupoUnidadNegocio);				
+						
+						Iterator it1 = lstDatos1.iterator();			
+						while(it1.hasNext()) {
+							munidadN = (MunidadN)it1.next();
+							unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
+						}
+						
+					} catch(Exception ex) {
+						AddErrorMessage(ex.getMessage());
+						unidadesNegocio = new ArrayList<SelectItem>();
+						unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+						ex.printStackTrace();				
+						AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
+					}		
+							
+				} catch(Exception ex) {
+					ex.printStackTrace();
+					AddErrorMessage("No se recupero el Grupo.");
+				}
+				
+			} else {
+				unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+			}
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();			
 			AddErrorMessage("No se han podido recuperar los Grupos de Unidad de Negocio.");
 		}	
 		
 	}
-	
 	
 	public void cargarSusUnidadesDeNegocio(ActionEvent event){	
 		try {
@@ -584,6 +621,40 @@ public class AltaChoferesBean extends AbstBackingBean {
 			} catch(Exception ex) {
 				unidadesNegocio = new ArrayList<SelectItem>();
 				unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+				ex.printStackTrace();				
+				AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
+			}		
+					
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			AddErrorMessage("No se recupero el Grupo.");
+		}	
+	}
+	
+	public void cargarUnidadesNegocio(ValueChangeEvent event){
+		
+		 Integer nroGrupo = ((Integer)event.getNewValue()).intValue(); 
+		 try {
+				
+			 MunidadNDAO munidadNDao = new MunidadNDAO(sessionHib);
+			 unidadesNegocio = new ArrayList<SelectItem>();
+			 
+			try {
+				
+				MunidadN munidadN;				
+				List lstDatos = munidadNDao.getUnidadesNegocioPorGrupo(nroGrupo);				
+				
+				if(lstDatos!=null && lstDatos.size()>0){
+					Iterator it = lstDatos.iterator();			
+					while(it.hasNext()) {
+						munidadN = (MunidadN)it.next();
+						unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
+					}
+				}
+				
+			} catch(Exception ex) {
+				unidadesNegocio = new ArrayList<SelectItem>();
+				unidadesNegocio.add(new SelectItem(new Integer(-1),Const.SELECCIONE));
 				ex.printStackTrace();				
 				AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
 			}		
@@ -634,6 +705,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 			MgrupoUn mGrupoUn = new MgrupoUn();
 			mGrupoUn= mGrupoUnDAO.load(mUnidadN.getCodGrupoUn(), sessionHib);
 			this.grupoUnidadNegocioDesc= mGrupoUn.getDescripcion();
+			this.grupoUnidadNegocio = mGrupoUn.getCodigo();
 			
 			this.pantalla=  2;	
 			
@@ -652,6 +724,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 	 * @return String Pagina a donde vuelve
 	 */
 	public String volver() {		
+		getSession().removeAttribute("nroChofer");	
 		String goToPage = Const.ANCLA_LISTA_REPORTES_DISPONIBLES;			
 		return goToPage;
 			
@@ -662,7 +735,8 @@ public class AltaChoferesBean extends AbstBackingBean {
 	 * @author snieto
 	 * @return String Pagina a donde vuelve
 	 */
-	public String volverListaChoferes() {		
+	public String volverListaChoferes() {	
+		getSession().removeAttribute("nroChofer");	
 		String goToPage = Const.ANCLA_LISTA_CHOFERES;			
 		return goToPage;
 			
