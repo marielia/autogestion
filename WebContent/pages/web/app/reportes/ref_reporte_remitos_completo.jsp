@@ -270,20 +270,20 @@
 			</h:panelGrid>	
 			
 			<h:panelGrid columns="1" width="90%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
-				<t:column>
+				<t:column rendered="#{sessionScope.usuario.tipo==0">
 					<h:outputText styleClass="campoNoEditable" value="&nbsp;&nbsp;&nbsp;#{Message.comparando_codigo_cliente_label}" escape="false"/>
 				</t:column>				
 			</h:panelGrid>	
 			
 			<h:panelGrid columns="2" width="90%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 		
-				<t:column>
+				<t:column rendered="#{sessionScope.usuario.tipo==0" >
 					<h:outputLabel for="estado" styleClass="cpo8">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.desde_el_cliente_label}&nbsp;&nbsp;" escape="false"/>
 					</h:outputLabel>	
 				</t:column>						
 				
-				<t:column>	
+				<t:column rendered="#{sessionScope.usuario.tipo==0" >	
 					<h:inputText id="clientedesde" value="#{refReporteRemitosCompletoBean.fltClienteDesde}"  size="12" maxlength="10" styleClass="campo">						
 					</h:inputText>
 					

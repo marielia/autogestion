@@ -888,7 +888,13 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 			        if(objRemito[18]!=null)
 			        	remitoTO.setDescrGrupoUNC(objRemito[18].toString());
 			        remitoTO.setCcss(objRemito[19].toString());	
-					
+			        
+			        remitoTO.setCliDescripcion(objRemito[20].toString());	
+			        
+			        remitoTO.setCodClienteAlfa(objRemito[21].toString());	
+			      
+			        remitoTO.setPrecioConImpuestos(new BigDecimal(objRemito[22].toString()));
+			        
 			        lstRemitos.add(remitoTO);
 				}
 				
@@ -987,6 +993,7 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 			        
 			        remitoTO.setCliDescripcion(objRemito[20].toString());
 			        remitoTO.setCodClienteAlfa(objRemito[21].toString());
+			        remitoTO.setPrecioConImpuestos(new BigDecimal(objRemito[22].toString()));
 					
 			        lstRemitos.add(remitoTO);
 				}
