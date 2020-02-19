@@ -275,7 +275,7 @@
 				</t:column>				
 			</h:panelGrid>	
 			
-			<h:panelGrid columns="2" width="90%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 		
 				<t:column rendered="#{sessionScope.usuario.tipo==0" >
 					<h:outputLabel for="estado" styleClass="cpo8">
@@ -483,7 +483,7 @@
 		
 
 
-		<t:div  style="overflow:scroll; height:100%; width:900px;"  rendered="#{refReporteRemitosCompletoBean.mostrarLista}">  
+<%-- 		<t:div  style="overflow:scroll; height:100%; width:900px;"  rendered="#{refReporteRemitosCompletoBean.mostrarLista}">   --%>
 	
 		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>	
@@ -634,7 +634,7 @@
 				*/ %>
 				</h:column>
 				</h:panelGrid>
-			</t:div>
+<%-- 			</t:div> --%>
 			
 		
 		

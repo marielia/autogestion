@@ -95,8 +95,21 @@ public class RefReporteRemitosCompletoBean extends AbstListado {
 		try{			
 			System.out.println("Paso por generar excel !!");
 			if(getItems()!=null && getItems().size()!=0){
-				ExportarExcelBean exportarExcelBean =  new ExportarExcelBean();				
-				this.nombreArchivo = exportarExcelBean.generarExcelReporteRemitoCompletoVer1_01(getItems(),getFechaActualStr(),getTipoUsuarioLogueado(),getCodCliente(),"noref",getVerPrecioCimp());
+				ExportarExcelBean exportarExcelBean =  new ExportarExcelBean();	
+				
+				if(getTipoUsuarioLogueado()==1){
+					//es cliente
+					fltClienteDesde=codCliente;
+					fltClienteHasta=codCliente;
+					System.out.println("remitos todos por cliente ->" + fltClienteDesde +" "+ fltClienteHasta);
+					this.nombreArchivo = exportarExcelBean.generarExcelReporteRemitoCompletoVer1_01(getItems(),getFechaActualStr(),getTipoUsuarioLogueado(),getCodCliente(),"noref",false);
+					
+				}else if(getTipoUsuarioLogueado()==0){
+					//es refipass  
+					this.nombreArchivo = exportarExcelBean.generarExcelReporteRemitoCompletoVer1_01(getItems(),getFechaActualStr(),getTipoUsuarioLogueado(),getCodCliente(),"noref",getVerPrecioCimp());
+					
+	  			}
+				
 				exportarExcelBean=null;
 			}	
 		}catch(IOException ex){
@@ -195,7 +208,7 @@ public class RefReporteRemitosCompletoBean extends AbstListado {
 				fltClienteDesde=codCliente;
 				fltClienteHasta=codCliente;
 				System.out.println("remitos todos por cliente ->" + fltClienteDesde +" "+ fltClienteHasta);
-				setItems(mPedidoDAO.getRemitosFactutadosyNoFacturados(fltFechaDesde,fltFechaHasta,fltClienteDesde,fltClienteHasta,fltNroReciboDesde,fltNroReciboHasta,condicion,estadoRemito,fltNroSucursal,fltFechaDesdeDos,fltFechaHastaDos,ccss,optRefacturacion,getVerPrecioCimp()));
+				setItems(mPedidoDAO.getRemitosFactutadosyNoFacturados(fltFechaDesde,fltFechaHasta,fltClienteDesde,fltClienteHasta,fltNroReciboDesde,fltNroReciboHasta,condicion,estadoRemito,fltNroSucursal,fltFechaDesdeDos,fltFechaHastaDos,ccss,optRefacturacion,false));
 				
 			}else if(getTipoUsuarioLogueado()==0){
 				//es refipass  
