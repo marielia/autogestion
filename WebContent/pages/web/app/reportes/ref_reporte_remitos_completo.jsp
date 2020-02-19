@@ -166,7 +166,7 @@
 				
 		<%/*FILTROS
 		*/%>		
-			<h:panelGrid columns="4" width="90%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<t:outputLabel for="consulte" styleClass="titulos">
 						<h:outputText  value="&nbsp;#{Message.consulte_por_label} " escape="false" styleClass="titulos"/>
@@ -177,13 +177,13 @@
 				<h:column></h:column>									
 			</h:panelGrid>
 			
-			<h:panelGrid columns="1" width="90%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputText styleClass="campoNoEditable" value="&nbsp;&nbsp;&nbsp;#{Message.comparando_por_fecha_de_remito_label}" escape="false"/>
 				</t:column>				
 			</h:panelGrid>
 			
-			<h:panelGrid columns="2" width="90%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputLabel for="estado" styleClass="cpo8">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.entre_fechas_label}&nbsp;&nbsp;" escape="false"/>
@@ -224,13 +224,13 @@
 			
 			
 			
-			<h:panelGrid columns="1" width="90%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputText styleClass="campoNoEditable" value="&nbsp;&nbsp;&nbsp;#{Message.comparando_por_fecha_facturacion_label}" escape="false"/>
 				</t:column>				
 			</h:panelGrid>
 			
-			<h:panelGrid columns="2" width="90%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputLabel for="estado" styleClass="cpo8">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.entre_fechas_label}&nbsp;&nbsp;" escape="false"/>
@@ -269,8 +269,13 @@
 				</t:column>		
 			</h:panelGrid>	
 			
+<<<<<<< HEAD
 			<h:panelGrid columns="1" width="90%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
+=======
+			<h:panelGrid columns="1" width="100%" columnClasses="cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+				<t:column rendered="#{sessionScope.usuario.tipo==0">
+>>>>>>> 31213062b9a1c247776cc1e0a02d5397243ef430
 					<h:outputText styleClass="campoNoEditable" value="&nbsp;&nbsp;&nbsp;#{Message.comparando_codigo_cliente_label}" escape="false"/>
 				</t:column>				
 			</h:panelGrid>	
@@ -375,12 +380,12 @@
 									
 			</h:panelGrid>
 			
-			<h:panelGrid columns="2" width="90%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaTexto" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-30b,cpo8" styleClass="columnaTablaTexto" cellspacing="0" cellpadding="4">						 
 			
-				<t:column >							
+				<t:column  rendered="#{sessionScope.usuario.tipo==0">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;Ver error precio con impuesto&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
 				</t:column>
-				<t:column >
+				<t:column  rendered="#{sessionScope.usuario.tipo==0">
 					<h:selectBooleanCheckbox id="cambiarEstado" 
 					    valueChangeListener="#{refReporteRemitosCompletoBean.cambiarEstado}" 
 					   immediate="true" 
@@ -390,7 +395,7 @@
 			
 						
 			
-			<h:panelGrid columns="4" width="90%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>	</h:column>
 				<h:column>	</h:column>
 				<h:column>	</h:column>				
@@ -403,7 +408,7 @@
 			 	</h:column>				 	
 			</h:panelGrid>
 			
-		<t:panelGrid width="90%" columnClasses="columnaTablaTexto" columns="1" cellspacing="0" cellpadding="0">
+		<t:panelGrid width="100%" columnClasses="columnaTablaTexto" columns="1" cellspacing="0" cellpadding="0">
 		<t:column>
 		    <t:div styleClass="cpo7n">
 		     <t:graphicImage value="/img/info.ico" alt="#{Message.mensaje_mayor_contable_archivo}" width="10px" height="10px"/>
@@ -412,7 +417,7 @@
 		</t:column>		
 		</t:panelGrid>	
 			
-	<h:panelGrid width="90%" cellspacing="3" columns="1" cellpadding="5" 
+	<h:panelGrid width="100%" cellspacing="3" columns="1" cellpadding="5" 
 		rendered="#{refReporteRemitosCompletoBean.mostrarLista}" styleClass="columnaTablaTexto" >
 		<h:column>				
 		   		<t:commandButton value="#{Message.generar_archivo_Excel}" actionListener="#{refReporteRemitosCompletoBean.generarExcelNuevo}" styleClass="boton"/>
@@ -485,7 +490,7 @@
 
 		<t:div  style="overflow:scroll; height:100%; width:900px;"  rendered="#{refReporteRemitosCompletoBean.mostrarLista}">  
 	
-		<h:panelGrid width="95%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>	
 		<%/*
 		 <t:buffer into="#{refReporteRemitosCompletoBean.nombreArchivo}">	
@@ -640,7 +645,7 @@
 		
 		
 		
-			<h:panelGrid columns="1" width="90%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		
