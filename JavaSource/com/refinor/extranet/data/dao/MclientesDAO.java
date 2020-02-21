@@ -101,6 +101,24 @@ public class MclientesDAO extends BaseMclientesDAO implements com.refinor.extran
 		}
 	}
 	
+	public Mclientes getClienteById(Integer id) throws PersonaNoExisteException, DataAccessErrorException {
+		try {	
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put(Const.PARAM_COD_CLIENTE, id);	
+			Query personasQry = this.getNamedQuery(FIND_CLIENTE_POR_ID,params, session);
+			List personas= personasQry.list();
+			if(personas.size() == 1)
+				return (Mclientes)personas.iterator().next();
+			else if(personas.size() == 0)
+				return null;
+			else
+				throw new DataAccessErrorException();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+	}
+	
 	/**
 	 *  Recupera un Usuario por su correo electrónico.
 	 *  

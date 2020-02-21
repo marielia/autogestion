@@ -1,6 +1,5 @@
 package com.refinor.extranet.faces.reportes;
 
-import java.awt.SystemTray;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -201,7 +200,9 @@ public class RefReporteRemitosCompletoBean extends AbstListado {
 	public void buscar(ActionEvent event)throws NoExistenItemsException, DataAccessErrorException ,Exception{		
 		try{	
 			this.nombreArchivo="";
-			MpedidosDAO mPedidoDAO = new MpedidosDAO(getSessionHib()); 
+			MpedidosDAO mPedidoDAO = new MpedidosDAO(getSessionHib());		
+		
+			setItems(mPedidoDAO.getRemitosFactutadosyNoFacturados(fltFechaDesde,fltFechaHasta,fltClienteDesde,fltClienteHasta,fltNroReciboDesde,fltNroReciboHasta,condicion,estadoRemito,fltNroSucursal,fltFechaDesdeDos,fltFechaHastaDos,ccss,optRefacturacion,getVerPrecioCimp()));
 			
 			if(getTipoUsuarioLogueado()==1){
 				//es cliente

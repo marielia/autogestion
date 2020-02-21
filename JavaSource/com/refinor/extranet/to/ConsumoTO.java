@@ -24,16 +24,7 @@ public class ConsumoTO implements Serializable {
 	private String apellidoChofer;
 	private String nombreChofer;
 	private String cliDescripcion;
-	private String codClienteAlfa;
 	
-	public String getCodClienteAlfa() {
-		return codClienteAlfa;
-	}
-
-	public void setCodClienteAlfa(String codClienteAlfa) {
-		this.codClienteAlfa = codClienteAlfa;
-	}
-
 	public Integer getCodProducto() {
 		return codProducto;
 	}

@@ -97,16 +97,7 @@
 							</t:outputLabel>
 							</h:column>
 							
-								<h:column>
-							<t:outputLabel styleClass="campoNoEditableSinFondo">			
-							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>		
-							<t:graphicImage value="/img/icono_poliactiva.gif"/>
-							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>																
-								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/reportes/ref_reporte_remitos_completo.jsf" >
-									<h:outputText value="#{Message.remitos_completo_label}" styleClass="campoNoEditableSinFondo"/>
-								</h:outputLink>							
-							</t:outputLabel>
-							</h:column>
+							
 							
 							<h:column>
 								<t:outputLabel for="consulte" styleClass="titulos">

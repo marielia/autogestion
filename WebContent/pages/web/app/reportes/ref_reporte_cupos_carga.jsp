@@ -17,10 +17,10 @@
 	<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" rightmargin="0">
 		<%@ include file="../header.jsp" %>	
 	
-	<h:form id="frmFiltroCuenta" rendered="#{refReporteCuposBean.mostrarFrmLista}">	
-		<t:saveState value="#{refReporteCuposBean.pagina}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.fltPatente}"></t:saveState>
-		<c:if var="puedeIngresarS" test="${!refReporteCuposBean.puedeIngresar}">		
+	<h:form id="frmFiltroCuenta" rendered="#{RefReporteCuposCargaBean.mostrarFrmLista}">	
+		<t:saveState value="#{RefReporteCuposCargaBean.pagina}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.fltPatente}"></t:saveState>
+		<c:if var="puedeIngresarS" test="${!RefReporteCuposCargaBean.puedeIngresar}">		
 			    <c:redirect url="/pages/web/app/salir.jsf"></c:redirect>
 	   	</c:if> 
 	   	
@@ -46,7 +46,7 @@
 				
 		<%/*FILTROS*/%>
 		
-			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-25,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-Var,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<t:outputLabel for="consulte" styleClass="titulos">
 						<h:outputText  value="&nbsp;#{Message.consulte_por_label} " escape="false" styleClass="titulos"/>
@@ -54,29 +54,28 @@
 				</h:column>	
 				<h:column></h:column>
 				<h:column></h:column>
-				<h:column></h:column>									
-				
+				<h:column></h:column> 
+			</h:panelGrid>
+			
+			<%/*  clientes  */%>
+			<h:panelGrid columns="3" width="100%" columnClasses="cpo8-Var10,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			
 				<h:column>
-					      <t:outputLabel for="patente" styleClass="cpo8-25">
+					      <t:outputLabel for="patente" styleClass="cpo8">
 							<t:outputText value="&nbsp;&nbsp;#{Message.patente_label}"  escape="false"/>
 						  </t:outputLabel>
 				</h:column>	
 				<h:column>				     
-						<t:inputText id="nombreChofer" value="#{refReporteCuposBean.fltPatente}" size="20" maxlength="50" styleClass="campo" />
+						<t:inputText id="nombreChofer" value="#{RefReporteCuposCargaBean.fltPatente}" size="20" maxlength="50" styleClass="campo" />
 				</h:column>	
-				<h:column><t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" /></h:column>	
-				<h:column><t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" /></h:column>	
-			</h:panelGrid>
-			
-			<%/*  clientes  */%>
-			<h:panelGrid columns="3" width="100%" columnClasses="cpo8-25,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
-			
+			    <t:column><t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" /></t:column>
+					
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}" escape="false" />							
 				</t:column>
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">
-					<h:selectOneListbox id="cliente" size="1" value="#{refReporteCuposBean.cliente}" styleClass="campo"  >
-						<f:selectItems value="#{refReporteCuposBean.clientes}" />
+					<h:selectOneListbox id="cliente" size="1" value="#{RefReporteCuposCargaBean.cliente}" styleClass="campo"  >
+						<f:selectItems value="#{RefReporteCuposCargaBean.clientes}" />
 					</h:selectOneListbox>						
 				</t:column>	
 				<t:column><t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" /></t:column>
@@ -90,15 +89,15 @@
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.mes_label}" escape="false" />							
 				</t:column>
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">
-					<h:selectOneListbox  size="1" value="#{refReporteCuposBean.mes}" styleClass="campo"  >
-						<f:selectItems value="#{refReporteCuposBean.lstMeses}" />
+					<h:selectOneListbox  size="1" value="#{RefReporteCuposCargaBean.mes}" styleClass="campo"  >
+						<f:selectItems value="#{RefReporteCuposCargaBean.lstMeses}" />
 					</h:selectOneListbox>						
 					
 				
 				<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.anio_label}&nbsp;&nbsp;" escape="false" />							
 				
-					<h:selectOneListbox  size="1" value="#{refReporteCuposBean.anio}" styleClass="campo"  >
-						<f:selectItems value="#{refReporteCuposBean.lstAnios}" />
+					<h:selectOneListbox  size="1" value="#{RefReporteCuposCargaBean.anio}" styleClass="campo"  >
+						<f:selectItems value="#{RefReporteCuposCargaBean.lstAnios}" />
 					</h:selectOneListbox>						
 				</t:column>	
 				<t:column></t:column>
@@ -115,7 +114,7 @@
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  columnClasses="fondo" styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>
-				    		<t:commandButton value="#{Message.buscar_label}" actionListener="#{refReporteCuposBean.buscarCupos}" styleClass="boton"/>
+				    		<t:commandButton value="#{Message.buscar_label}" actionListener="#{RefReporteCuposCargaBean.buscarCupos}" styleClass="boton"/>
 				    	</h:column>
 				 	</h:panelGrid> 
 			 	</h:column>				 	
@@ -129,29 +128,29 @@
 		<h:messages styleClass="errorNegro"/>
 		
 		<%/* PAGINACION*/%>
-		<t:saveState value="#{refReporteCuposBean.pagina}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.subItemsNivel1}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.pagina}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.subItemsNivel1}"></t:saveState>
 		 <h:panelGrid width="100%" cellspacing="3" columns="1" cellpadding="5">
 		 <h:column>   		
 		 
 	   		
-		   		<h:commandButton rendered="#{refReporteCuposBean.pagina.lastPage!=1 && refReporteCuposBean.pagina.totalElements!=0 && refReporteCuposBean.pagina.numpage != 1 && refReporteCuposBean.mostrarLista}" actionListener="#{refReporteCuposBean.primera}" value="" styleClass="botonPaginadoPrimero" disabled="#{refReporteCuposBean.pagina.numpage == 1}"/>	
+		   		<h:commandButton rendered="#{RefReporteCuposCargaBean.pagina.lastPage!=1 && RefReporteCuposCargaBean.pagina.totalElements!=0 && RefReporteCuposCargaBean.pagina.numpage != 1 && RefReporteCuposCargaBean.mostrarLista}" actionListener="#{RefReporteCuposCargaBean.primera}" value="" styleClass="botonPaginadoPrimero" disabled="#{RefReporteCuposCargaBean.pagina.numpage == 1}"/>	
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
-		   		<h:commandButton actionListener="#{refReporteCuposBean.anterior}" value=""  styleClass="botonPaginadoAnterior" disabled="#{refReporteCuposBean.pagina.numpage == 1}" rendered="#{refReporteCuposBean.pagina.lastPage!=1 && refReporteCuposBean.pagina.totalElements!=0  && refReporteCuposBean.pagina.numpage != 1 && refReporteCuposBean.mostrarLista}"/>	
+		   		<h:commandButton actionListener="#{RefReporteCuposCargaBean.anterior}" value=""  styleClass="botonPaginadoAnterior" disabled="#{RefReporteCuposCargaBean.pagina.numpage == 1}" rendered="#{RefReporteCuposCargaBean.pagina.lastPage!=1 && RefReporteCuposCargaBean.pagina.totalElements!=0  && RefReporteCuposCargaBean.pagina.numpage != 1 && RefReporteCuposCargaBean.mostrarLista}"/>	
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
    
-		  		<t:outputText styleClass="cpo7" rendered="#{refReporteCuposBean.mostrarLista}" value="#{refReporteCuposBean.pagina.nroRegistroDesde}&nbsp;&nbsp;#{Message.a_label}&nbsp;&nbsp;#{refReporteCuposBean.pagina.nroRegistroHasta}" escape="false" />
-		   		<t:outputText styleClass="cpo7" rendered="#{refReporteCuposBean.mostrarLista}" value="&nbsp;&nbsp;#{Message.de_label}&nbsp;&nbsp;" escape="false" />
-		  		<h:outputText styleClass="cpo7" rendered="#{refReporteCuposBean.mostrarLista}" value="#{refReporteCuposBean.pagina.totalElements}&nbsp;&nbsp;-&nbsp;&nbsp;" escape="false"/>	
+		  		<t:outputText styleClass="cpo7" rendered="#{RefReporteCuposCargaBean.mostrarLista}" value="#{RefReporteCuposCargaBean.pagina.nroRegistroDesde}&nbsp;&nbsp;#{Message.a_label}&nbsp;&nbsp;#{RefReporteCuposCargaBean.pagina.nroRegistroHasta}" escape="false" />
+		   		<t:outputText styleClass="cpo7" rendered="#{RefReporteCuposCargaBean.mostrarLista}" value="&nbsp;&nbsp;#{Message.de_label}&nbsp;&nbsp;" escape="false" />
+		  		<h:outputText styleClass="cpo7" rendered="#{RefReporteCuposCargaBean.mostrarLista}" value="#{RefReporteCuposCargaBean.pagina.totalElements}&nbsp;&nbsp;-&nbsp;&nbsp;" escape="false"/>	
 		   		
-		   		<h:outputLink  rendered="#{refReporteCuposBean.nombreArchivo!='' && refReporteCuposBean.mostrarLista}" target="_blank" styleClass="cpo7b" value="#{refReporteCuposBean.nombreArchivo}">
+		   		<h:outputLink  rendered="#{RefReporteCuposCargaBean.nombreArchivo!='' && RefReporteCuposCargaBean.mostrarLista}" target="_blank" styleClass="cpo7b" value="#{RefReporteCuposCargaBean.nombreArchivo}">
 					<h:outputText value=" #{Message.descargar_label}" />
 				</h:outputLink>	
 		   		
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
-		   		<h:commandButton rendered="#{refReporteCuposBean.pagina.lastPage!=1 && refReporteCuposBean.pagina.totalElements!=0 && refReporteCuposBean.pagina.numpage != refReporteCuposBean.pagina.lastPage && refReporteCuposBean.mostrarLista}" actionListener="#{refReporteCuposBean.siguiente}" value="" styleClass="botonPaginadoSiguiente" disabled="#{refReporteCuposBean.pagina.numpage == refReporteCuposBean.pagina.lastPage}" />	
+		   		<h:commandButton rendered="#{RefReporteCuposCargaBean.pagina.lastPage!=1 && RefReporteCuposCargaBean.pagina.totalElements!=0 && RefReporteCuposCargaBean.pagina.numpage != RefReporteCuposCargaBean.pagina.lastPage && RefReporteCuposCargaBean.mostrarLista}" actionListener="#{RefReporteCuposCargaBean.siguiente}" value="" styleClass="botonPaginadoSiguiente" disabled="#{RefReporteCuposCargaBean.pagina.numpage == RefReporteCuposCargaBean.pagina.lastPage}" />	
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
-		   		<h:commandButton rendered="#{refReporteCuposBean.pagina.lastPage!=1 && refReporteCuposBean.pagina.totalElements!=0 && refReporteCuposBean.pagina.numpage != refReporteCuposBean.pagina.lastPage && refReporteCuposBean.mostrarLista}" actionListener="#{refReporteCuposBean.ultima}" value="" styleClass="botonPaginadoUltimo" disabled="#{refReporteCuposBean.pagina.numpage == refReporteCuposBean.pagina.lastPage}"/>			   		
+		   		<h:commandButton rendered="#{RefReporteCuposCargaBean.pagina.lastPage!=1 && RefReporteCuposCargaBean.pagina.totalElements!=0 && RefReporteCuposCargaBean.pagina.numpage != RefReporteCuposCargaBean.pagina.lastPage && RefReporteCuposCargaBean.mostrarLista}" actionListener="#{RefReporteCuposCargaBean.ultima}" value="" styleClass="botonPaginadoUltimo" disabled="#{RefReporteCuposCargaBean.pagina.numpage == RefReporteCuposCargaBean.pagina.lastPage}"/>			   		
 		  
 		 </h:column>		 
 		 </h:panelGrid>
@@ -162,12 +161,12 @@
 		
 		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
-				<t:dataTable value="#{refReporteCuposBean.subItemsNivel1}" var="item" 
+				<t:dataTable value="#{RefReporteCuposCargaBean.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
 							 columnClasses="columnaTablaTexto,  columnaTablaTexto, columnaTablaTexto,  columnaTablaTexto,columnaTablaTexto,columnaTablaTexto,columnaTablaNumero,columnaTablaCentrada"
 							 headerClass="subtitulos" footerClass="footerTabla" width="100%" cellpadding="2" 
 							 cellspacing="1" border="0"
-							 rendered="#{refReporteCuposBean.mostrarLista}" >				
+							 rendered="#{RefReporteCuposCargaBean.mostrarLista}" >				
 					
 					<h:column>
 						<f:facet name="header">
@@ -240,7 +239,7 @@
 						</f:facet>					
 						
 						<t:commandLink styleClass="linkOperacion" 
-									   actionListener="#{refReporteCuposBean.verRemitosCupos}" 								  
+									   actionListener="#{RefReporteCuposCargaBean.verRemitosCupos}" 								  
 									   title="#{Message.ver_remitos_label}" >
 									   <f:param name="nroPatente" id="nroPatente" value="#{item.codVehiculo}"/>
 									   <f:param name="nroCliente" id="nroCliente" value="#{item.codCliente}"/>
@@ -259,22 +258,22 @@
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		
-				    		<t:commandButton value="#{Message.volver_label}" action="#{refReporteCuposBean.volver}" styleClass="boton"/>	
+				    		<t:commandButton value="#{Message.volver_label}" action="#{RefReporteCuposCargaBean.volver}" styleClass="boton"/>	
 				    	</h:column>
 				 	</h:panelGrid> 
 			 	</h:column>				 	
 			</h:panelGrid>
 			
 			
-		<t:saveState value="#{refReporteCuposBean.vieneDe}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.mes}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.anio}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.cliente}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.clientes}"></t:saveState>		
-		<t:saveState value="#{refReporteCuposBean.subItemsNivel1}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.mostrarLista}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.mostrarFrmLista}"></t:saveState>
-		<t:saveState value="#{refReporteCuposBean.nombreArchivo}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.vieneDe}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.mes}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.anio}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.cliente}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.clientes}"></t:saveState>		
+		<t:saveState value="#{RefReporteCuposCargaBean.subItemsNivel1}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.mostrarLista}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.mostrarFrmLista}"></t:saveState>
+		<t:saveState value="#{RefReporteCuposCargaBean.nombreArchivo}"></t:saveState>
 				
 		</h:column>
 	</h:panelGrid>
@@ -285,9 +284,9 @@
 	
 	
 	<% /*LISTADO DE REMITOS*/ %>
-	<h:form id="frmFiltroCuentaSecundario" rendered="#{refReporteCuposBean.mostrarFrmListaSecundaria}">	
+	<h:form id="frmFiltroCuentaSecundario" rendered="#{RefReporteCuposCargaBean.mostrarFrmListaSecundaria}">	
 	
-	<c:if var="puedeIngresarS" test="${!refReporteCuposBean.puedeIngresar}">		
+	<c:if var="puedeIngresarS" test="${!RefReporteCuposCargaBean.puedeIngresar}">		
 		    <c:redirect url="/pages/web/app/salir.jsf"></c:redirect>
 	</c:if> 	   	
 	   	
@@ -310,35 +309,35 @@
 		<%/* PAGINACION 	 */%>
 		
 		 
-		 <t:saveState value="#{refReporteCuposBean.pagina}"></t:saveState>
-		 <t:saveState value="#{refReporteCuposBean.paginaSecundaria}"></t:saveState>
-		 <t:saveState value="#{refReporteCuposBean.mostrarLista}"></t:saveState>
-		 <t:saveState value="#{refReporteCuposBean.mostrarListaSecundaria}"></t:saveState>
-		 <t:saveState value="#{refReporteCuposBean.mostrarFrmLista}"></t:saveState>
-		 <t:saveState value="#{refReporteCuposBean.mostrarFrmListaSecundaria}"></t:saveState>
-		 <t:saveState value="#{refReporteCuposBean.nombreArchivoSecundario}"></t:saveState>
+		 <t:saveState value="#{RefReporteCuposCargaBean.pagina}"></t:saveState>
+		 <t:saveState value="#{RefReporteCuposCargaBean.paginaSecundaria}"></t:saveState>
+		 <t:saveState value="#{RefReporteCuposCargaBean.mostrarLista}"></t:saveState>
+		 <t:saveState value="#{RefReporteCuposCargaBean.mostrarListaSecundaria}"></t:saveState>
+		 <t:saveState value="#{RefReporteCuposCargaBean.mostrarFrmLista}"></t:saveState>
+		 <t:saveState value="#{RefReporteCuposCargaBean.mostrarFrmListaSecundaria}"></t:saveState>
+		 <t:saveState value="#{RefReporteCuposCargaBean.nombreArchivoSecundario}"></t:saveState>
 		 
 		 <h:panelGrid width="100%" cellspacing="3" columns="1" cellpadding="5">
 		 <h:column>   		
 		 
 	   		
-		   		<h:commandButton rendered="#{refReporteCuposBean.paginaSecundaria.lastPage!=1 && refReporteCuposBean.paginaSecundaria.totalElements!=0 && refReporteCuposBean.paginaSecundaria.numpage != 1 && refReporteCuposBean.mostrarListaSecundaria}" actionListener="#{refReporteCuposBean.primeraSecundaria}" value="" styleClass="botonPaginadoPrimero" disabled="#{refReporteCuposBean.paginaSecundaria.numpage == 1}"/>	
+		   		<h:commandButton rendered="#{RefReporteCuposCargaBean.paginaSecundaria.lastPage!=1 && RefReporteCuposCargaBean.paginaSecundaria.totalElements!=0 && RefReporteCuposCargaBean.paginaSecundaria.numpage != 1 && RefReporteCuposCargaBean.mostrarListaSecundaria}" actionListener="#{RefReporteCuposCargaBean.primeraSecundaria}" value="" styleClass="botonPaginadoPrimero" disabled="#{RefReporteCuposCargaBean.paginaSecundaria.numpage == 1}"/>	
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
-		   		<h:commandButton actionListener="#{refReporteCuposBean.anteriorSecundaria}" value=""  styleClass="botonPaginadoAnterior" disabled="#{refReporteCuposBean.paginaSecundaria.numpage == 1}" rendered="#{refReporteCuposBean.paginaSecundaria.lastPage!=1 && refReporteCuposBean.paginaSecundaria.totalElements!=0  && refReporteCuposBean.paginaSecundaria.numpage != 1 && refReporteCuposBean.mostrarListaSecundaria}"/>	
+		   		<h:commandButton actionListener="#{RefReporteCuposCargaBean.anteriorSecundaria}" value=""  styleClass="botonPaginadoAnterior" disabled="#{RefReporteCuposCargaBean.paginaSecundaria.numpage == 1}" rendered="#{RefReporteCuposCargaBean.paginaSecundaria.lastPage!=1 && RefReporteCuposCargaBean.paginaSecundaria.totalElements!=0  && RefReporteCuposCargaBean.paginaSecundaria.numpage != 1 && RefReporteCuposCargaBean.mostrarListaSecundaria}"/>	
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
    
-		  		<t:outputText styleClass="cpo7" rendered="#{refReporteCuposBean.mostrarListaSecundaria}" value="#{refReporteCuposBean.paginaSecundaria.nroRegistroDesde}&nbsp;&nbsp;#{Message.a_label}&nbsp;&nbsp;#{refReporteCuposBean.paginaSecundaria.nroRegistroHasta}" escape="false" />
-		   		<t:outputText styleClass="cpo7" rendered="#{refReporteCuposBean.mostrarListaSecundaria}" value="&nbsp;&nbsp;#{Message.de_label}&nbsp;&nbsp;" escape="false" />
-		  		<h:outputText styleClass="cpo7" rendered="#{refReporteCuposBean.mostrarListaSecundaria}" value="#{refReporteCuposBean.paginaSecundaria.totalElements}&nbsp;&nbsp;-&nbsp;&nbsp;" escape="false"/>	
+		  		<t:outputText styleClass="cpo7" rendered="#{RefReporteCuposCargaBean.mostrarListaSecundaria}" value="#{RefReporteCuposCargaBean.paginaSecundaria.nroRegistroDesde}&nbsp;&nbsp;#{Message.a_label}&nbsp;&nbsp;#{RefReporteCuposCargaBean.paginaSecundaria.nroRegistroHasta}" escape="false" />
+		   		<t:outputText styleClass="cpo7" rendered="#{RefReporteCuposCargaBean.mostrarListaSecundaria}" value="&nbsp;&nbsp;#{Message.de_label}&nbsp;&nbsp;" escape="false" />
+		  		<h:outputText styleClass="cpo7" rendered="#{RefReporteCuposCargaBean.mostrarListaSecundaria}" value="#{RefReporteCuposCargaBean.paginaSecundaria.totalElements}&nbsp;&nbsp;-&nbsp;&nbsp;" escape="false"/>	
 		   		
-		   		<h:outputLink  rendered="#{refReporteCuposBean.nombreArchivoSecundario!='' && refReporteCuposBean.mostrarListaSecundaria}" target="_blank" styleClass="cpo7b" value="#{refReporteCuposBean.nombreArchivoSecundario}">
+		   		<h:outputLink  rendered="#{RefReporteCuposCargaBean.nombreArchivoSecundario!='' && RefReporteCuposCargaBean.mostrarListaSecundaria}" target="_blank" styleClass="cpo7b" value="#{RefReporteCuposCargaBean.nombreArchivoSecundario}">
 					<h:outputText value=" #{Message.descargar_label}" />
 				</h:outputLink>	
 		   		
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
-		   		<h:commandButton rendered="#{refReporteCuposBean.paginaSecundaria.lastPage!=1 && refReporteCuposBean.paginaSecundaria.totalElements!=0 && refReporteCuposBean.paginaSecundaria.numpage != refReporteCuposBean.paginaSecundaria.lastPage && refReporteCuposBean.mostrarListaSecundaria}" actionListener="#{refReporteCuposBean.siguienteSecundaria}" value="" styleClass="botonPaginadoSiguiente" disabled="#{refReporteCuposBean.paginaSecundaria.numpage == refReporteCuposBean.paginaSecundaria.lastPage}" />	
+		   		<h:commandButton rendered="#{RefReporteCuposCargaBean.paginaSecundaria.lastPage!=1 && RefReporteCuposCargaBean.paginaSecundaria.totalElements!=0 && RefReporteCuposCargaBean.paginaSecundaria.numpage != RefReporteCuposCargaBean.paginaSecundaria.lastPage && RefReporteCuposCargaBean.mostrarListaSecundaria}" actionListener="#{RefReporteCuposCargaBean.siguienteSecundaria}" value="" styleClass="botonPaginadoSiguiente" disabled="#{RefReporteCuposCargaBean.paginaSecundaria.numpage == RefReporteCuposCargaBean.paginaSecundaria.lastPage}" />	
 		   		<t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />
-		   		<h:commandButton rendered="#{refReporteCuposBean.paginaSecundaria.lastPage!=1 && refReporteCuposBean.paginaSecundaria.totalElements!=0 && refReporteCuposBean.paginaSecundaria.numpage != refReporteCuposBean.paginaSecundaria.lastPage && refReporteCuposBean.mostrarListaSecundaria}" actionListener="#{refReporteCuposBean.ultimaSecundaria}" value="" styleClass="botonPaginadoUltimo" disabled="#{refReporteCuposBean.paginaSecundaria.numpage == refReporteCuposBean.paginaSecundaria.lastPage}"/>			   		
+		   		<h:commandButton rendered="#{RefReporteCuposCargaBean.paginaSecundaria.lastPage!=1 && RefReporteCuposCargaBean.paginaSecundaria.totalElements!=0 && RefReporteCuposCargaBean.paginaSecundaria.numpage != RefReporteCuposCargaBean.paginaSecundaria.lastPage && RefReporteCuposCargaBean.mostrarListaSecundaria}" actionListener="#{RefReporteCuposCargaBean.ultimaSecundaria}" value="" styleClass="botonPaginadoUltimo" disabled="#{RefReporteCuposCargaBean.paginaSecundaria.numpage == RefReporteCuposCargaBean.paginaSecundaria.lastPage}"/>			   		
 		  
 		 </h:column>		 
 		 </h:panelGrid>
@@ -349,12 +348,12 @@
 		
 		<h:panelGrid width="80%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
-				<t:dataTable value="#{refReporteCuposBean.subItemsNivel2}" var="item" 
+				<t:dataTable value="#{RefReporteCuposCargaBean.subItemsNivel2}" var="item" 
 							 rowClasses="fila1, fila2" 
 							 columnClasses="columnaTablaTexto, columnaTablaTexto,  columnaTablaNumero,columnaTablaNumero, columnaTablaTexto, columnaTablaNumero,columnaTablaNumero,columnaTablaTexto,columnaTablaTexto"
 							 headerClass="subtitulos" footerClass="footerTabla" width="100%" cellpadding="2" 
 							 cellspacing="1" border="0"
-							 rendered="#{refReporteCuposBean.mostrarListaSecundaria}" >				
+							 rendered="#{RefReporteCuposCargaBean.mostrarListaSecundaria}" >				
 					
 					<h:column>
 						<f:facet name="header">
@@ -438,7 +437,7 @@
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		
-				    		<t:commandButton value="#{Message.volver_label}" actionListener="#{refReporteCuposBean.volverPrincipal}" styleClass="boton"/>	
+				    		<t:commandButton value="#{Message.volver_label}" actionListener="#{RefReporteCuposCargaBean.volverPrincipal}" styleClass="boton"/>	
 				    	</h:column>
 				 	</h:panelGrid> 
 			 	</h:column>				 	

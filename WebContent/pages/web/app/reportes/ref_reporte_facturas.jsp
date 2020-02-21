@@ -442,7 +442,7 @@
 						<f:facet name="header">
 							<h:outputText value="#{Message.remitos_label}"/>
 						</f:facet>
-					     <t:commandButton styleClass="botonSm" 
+					     <t:commandButton styleClass="botonsm" 
 					     				value="#{Message.ver_label}"
 									   actionListener="#{refReporteFacturasBean.verRemitos}" 								  
 									   title="#{Message.ver_remitos_label}" >

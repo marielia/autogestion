@@ -245,10 +245,10 @@
 				<h:column></h:column>				
 				<h:column>					
 					<t:commandButton value="#{Message.volver_label}" 
-		                 action="#{altaChoferesBean.volver}" styleClass="boton" rendered="#{sessionScope.usuario.tipo==1}"/>	
+		                 action="#{altaChoferesBean.volver}" styleClass="boton" rendered="#{sessionScope.nroChofer==null}"/>	
 		                 
 	                 <t:commandButton value="#{Message.volver_label}" 
-		                 action="#{altaChoferesBean.volverListaChoferes}" styleClass="boton" rendered="#{sessionScope.usuario.tipo==0}"/>	
+		                 action="#{altaChoferesBean.volverListaChoferes}" styleClass="boton" rendered="#{sessionScope.nroChofer!=null}"/>	
 						                 
 				</h:column>
 				<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
@@ -382,7 +382,14 @@
 					<t:outputText  value="&nbsp;&nbsp;" escape="false" />
 					<t:commandButton value="#{Message.buscar_u_n_label}" actionListener="#{altaChoferesBean.cargarSusUnidadesDeNegocio}" styleClass="boton"/>	
 					*/%>	
+					<%/*
 					<t:outputText value ="#{altaChoferesBean.grupoUnidadNegocioDesc}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" styleClass="campo" />										
+					*/%>
+					<h:selectOneListbox id="gruposUnidadNegocio" size="1" value="#{altaChoferesBean.grupoUnidadNegocio}" styleClass="campo" 
+									   	onchange="submit();" immediate="true" 
+										valueChangeListener="#{altaChoferesBean.cargarUnidadesNegocio}" >					
+						<f:selectItems value="#{altaChoferesBean.gruposUnidadNegocio}" />
+					</h:selectOneListbox>
 				</t:column>
 				
 				<%/*  unidad de negocio  */%>
@@ -392,14 +399,15 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<%/*
-					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaChoferesBean.unidadNegocio}"  styleClass="campo">
+					
+					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaChoferesBean.unidadNegocio}"  styleClass="campo"
+					immediate="true" >
 						<f:selectItems value="#{altaChoferesBean.unidadesNegocio}"/>
 					</h:selectOneListbox>	
-					 */%>
-					
+					 
+					<%/*
 					<t:outputText value ="#{altaChoferesBean.unidadNegocioDesc}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" styleClass="campo" />										
-									
+					*/%>			
 				</t:column>		
 				
 				
@@ -437,7 +445,7 @@
 			<t:saveState value="#{altaChoferesBean.apellido}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.pinChofer}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.numeroDocumento}"></t:saveState>	
-			
+			<t:saveState value="#{altaChoferesBean.nroChofer}"></t:saveState>	
 			<t:saveState value="#{altaChoferesBean.grupoUnidadNegocioDesc}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.unidadNegocioDesc}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.mchofer}"></t:saveState>

@@ -274,9 +274,9 @@
 							<h:outputText value="#{Message.vehiculo_label}"/>
 						</f:facet>	
 					     						
-						<h:outputLink styleClass="linkOperacion" rendered="#{item.codigo!=0}"			 
+						<h:outputLink rendered="#{item.codigo!=0}"			 
 							value="/refipass/pages/web/app/formularios/ref_alta_vehiculo.jsf?nroVehiculo=#{item.codigo}" title="#{Message.ver_datos_vehiculo_label}">
-							 <h:outputText value=" #{Message.ver_label}" />
+							 <h:outputText value=" #{Message.ver_label}" styleClass="botonSm" />
 						</h:outputLink>
 						
 					</h:column>		
