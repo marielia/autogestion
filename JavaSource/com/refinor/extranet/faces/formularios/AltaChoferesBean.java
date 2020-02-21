@@ -74,7 +74,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 	private Mclientes cliente;	
 	private Mchofer mchofer;	
 	
-	
+	private Integer nroChofer;
 
 	public AltaChoferesBean() {
 		try{
@@ -86,11 +86,13 @@ public class AltaChoferesBean extends AbstBackingBean {
 			int tipo = usuario.getTipo();
 			
 			if(getSessionValue("nroChofer")!=null){
-				Integer nroChofer = Integer.parseInt(getSessionValue("nroChofer").toString());
+				this.nroChofer = Integer.parseInt(getSessionValue("nroChofer").toString());
+			}
+				
+			if (this.nroChofer != null) {
 				System.out.println("CHOFER a modificar: "+nroChofer);	
 				inicializarValoresMod(nroChofer);
-				cargarCombos(nroChofer, tipo);
-				getSession().setAttribute("nroChofer", nroChofer);	
+				cargarCombos(nroChofer, tipo);	
 			} else {
 				inicializarValoresAlta();
 				generarPin();
@@ -794,6 +796,14 @@ public class AltaChoferesBean extends AbstBackingBean {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public Integer getNroChofer() {
+		return nroChofer;
+	}
+
+	public void setNroChofer(Integer nroChofer) {
+		this.nroChofer = nroChofer;
 	}
 
 	public void setNombre(String nombre) {

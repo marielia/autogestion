@@ -400,7 +400,8 @@
 				</t:column>
 				<t:column>
 					
-					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaChoferesBean.unidadNegocio}"  styleClass="campo">
+					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaChoferesBean.unidadNegocio}"  styleClass="campo"
+					immediate="true" >
 						<f:selectItems value="#{altaChoferesBean.unidadesNegocio}"/>
 					</h:selectOneListbox>	
 					 
@@ -444,7 +445,7 @@
 			<t:saveState value="#{altaChoferesBean.apellido}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.pinChofer}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.numeroDocumento}"></t:saveState>	
-			
+			<t:saveState value="#{altaChoferesBean.nroChofer}"></t:saveState>	
 			<t:saveState value="#{altaChoferesBean.grupoUnidadNegocioDesc}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.unidadNegocioDesc}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.mchofer}"></t:saveState>
