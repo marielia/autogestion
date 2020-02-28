@@ -266,7 +266,7 @@
     
     </sql-query>
     
-    <sql-query name="findConsumosVehiculos">
+   <sql-query name="findConsumosVehiculos">
 	    <query-param name="codCliente" type="string"/>
 	    <query-param name="fechaDesde" type="timestamp"/>
 	    <query-param name="fechaHasta" type="timestamp"/>    
@@ -285,7 +285,9 @@
 		g.descripcion as descGrupoUN,
 		sum(l.bultos1)as cantidadLitros,
 		
-		sum(isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0) + isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0)) as  total$,
+		--sum(isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0) + isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0)) as  total$,
+	    SUM(ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) * l.Bultos1) as  total$,
+				
 				
 		l.codArticulo as codProducto,
 		l.descripcion as producto,
@@ -293,8 +295,9 @@
 		cl.descripcion as descrCli
 		
 		from mpedidos p, MpedidosLinea l, mpedidosdtcarga c, MunidadN u,
-		mClientes cl, MgrupoUn g
+		mClientes cl, MgrupoUn g, mpuntoventa pv
 		where
+		pv.sucursal = p.nrosucursal and 
 		(p.fecha between  :fechaDesde and :fechaHasta) and
 		(l.sucursal = p.nroSucursal and
 		l.codPedido = p.codigo) and
@@ -322,7 +325,7 @@
 	    <query-param name="fechaHasta" type="timestamp"/>  
      	<query-param name="codUnidadNegocio" type="integer"/> 
       	<query-param name="codGrupoUN" type="integer"/> 
-   <![CDATA[
+    <![CDATA[
     	
 		select 
 		
@@ -334,7 +337,7 @@
 		l.descripcion as producto,
 		l.bultos1 as cantidadLitros,
 				
-		isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0) + isnull(p.iibb,0)+ isnull(p.piva,0) as  total$,
+		ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) * l.Bultos1 as  total$,
 	
 		
 		c.patente as patente, 
@@ -350,7 +353,10 @@
 		uC.descripcion as descUnidadNChofer,
 		uC.codGrupoUn as codGrupoUNChofer,
 		gC.descripcion as descGrupoUNChofer,
-		cs.desc_ccss
+		cs.desc_ccss,
+		cl.descripcion as descrCli,
+		cl.cod_cliente_alfa as codalfa,
+		dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente) as PrecioCImp
 		
 		from mpedidos p inner join MpedidosLinea l
 		on l.sucursal = p.nroSucursal and l.codPedido = p.codigo inner join mpedidosdtcarga c
@@ -384,8 +390,7 @@
 		<query-param name="descripcionGrupoUN" type="string"/>	
 		<query-param name="descripcionUnidadNegocio" type="string"/>	
 		<query-param name="codUnidadNegocio" type="integer"/> 
-      	<query-param name="codGrupoUN" type="integer"/> 
-		
+      	<query-param name="codGrupoUN" type="integer"/>  
 		
 		select 
 	
@@ -395,16 +400,18 @@
 		u.descripcion as descUnidadN,
 		
 		sum(l.bultos1)as cantidadLitros,		
-	    sum(isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0) + isnull(p.iibb,0)+ isnull(p.piva,0)) as  total$,
+	    SUM(ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) * l.Bultos1) as  total$,
 	
 		l.codArticulo as codProducto,
 		l.descripcion as producto,
 		p.cliente as codCliente,
-		cl.descripcion as descrCli
+		cl.descripcion as descrCli 
+		
 		
 		from mpedidos p, MpedidosLinea l, mpedidosdtcarga c, MunidadN u,
-		mClientes cl, MgrupoUn g
+		mClientes cl, MgrupoUn g, mpuntoventa pv
 		where
+		pv.sucursal = p.nrosucursal and 
 		(p.fecha between  :fechaDesde and :fechaHasta) and
 		(l.sucursal = p.nroSucursal and
 		l.codPedido = p.codigo) and
@@ -419,7 +426,7 @@
 		(g.codigo = :codGrupoUN or :codGrupoUN = -1) and 
 		(u.codigo = :codUnidadNegocio or :codUnidadNegocio = -1)
 	
-		group by g.codigo,g.descripcion,u.codigo,u.descripcion,l.codArticulo, l.descripcion,p.cliente,cl.descripcion
+		group by g.codigo,g.descripcion,u.codigo,u.descripcion,l.codArticulo, l.descripcion,p.cliente,cl.descripcion,pv.ccss 
 		order by g.descripcion			
     
     </sql-query>
@@ -449,18 +456,22 @@
 		g.descripcion as descGrupoUN,
 
 		sum(l.bultos1)as cantidadLitros,
-		sum(isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0)) as  total$,
+		--sum(isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0)) as  total$,
+		 SUM(ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) * l.Bultos1) as  total$,
+	
 
 		l.codArticulo as codProducto,
 		l.descripcion as producto,
 
 		p.cliente as codCliente,
 		ch.codigo as codChofer,
-		cl.descripcion as descrCli
+		cl.descripcion as descrCli 
 		
 		from mpedidos p, MpedidosLinea l, mpedidosdtcarga c, MunidadN u,
-		mClientes cl, MgrupoUn g, mchofer ch
+		mClientes cl, MgrupoUn g, mchofer ch, MPuntoVenta pv
 		where
+		pv.Sucursal = p.nroSucursal and
+		
 		(p.fecha between  :fechaDesde and :fechaHasta) and
 
 		(l.sucursal = p.nroSucursal and
@@ -482,7 +493,9 @@
 		cl.cod_cliente_alfa like :codCliente) 
 		
 		
-		group by ch.dni,ch.apellido,ch.nombre,u.codigo, u.descripcion,g.codigo,g.descripcion,l.codArticulo, l.descripcion,p.cliente,ch.codigo,cl.descripcion
+		group by ch.dni,ch.apellido,ch.nombre,u.codigo, u.descripcion,g.codigo,g.descripcion,l.codArticulo, 
+		l.descripcion,p.cliente,ch.codigo,cl.descripcion 
+		
 		order by ch.apellido,ch.nombre
 		
 	</sql-query>
@@ -509,8 +522,9 @@
 		l.descripcion as producto,
 		l.bultos1 as cantidadLitros,
 		
-		isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0) as  total$,
-		
+		--isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0) as  total$,
+		 ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) * l.Bultos1  as  total$,
+				
 		c.patente as patente, 
 		ch.apellido as apellido,
 		ch.nombre as nombre,
@@ -524,7 +538,10 @@
 		uC.descripcion as descUnidadNChofer,
 		uC.codGrupoUn as codGrupoUNChofer,
 		gC.descripcion as descGrupoUNChofer,
-		cs.desc_ccss
+		cs.desc_ccss,
+		cl.descripcion as descrCli ,
+		cl.cod_cliente_alfa as codalfa,
+		ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) as PrecioCimp
 		
 		from mpedidos p inner join  MpedidosLinea l
 		on l.sucursal = p.nroSucursal and l.codPedido = p.codigo inner join  mpedidosdtcarga c
@@ -554,6 +571,7 @@
     
     
     
+    
    
     <sql-query name="findConsumosPorGrupoChoferes">
 	    <query-param name="codCliente" type="string"/>
@@ -564,7 +582,7 @@
 		<query-param name="codUnidadNegocio" type="integer"/> 
       	<query-param name="codGrupoUN" type="integer"/> 		
 		
-		select 
+			select 
 	
 		g.codigo as codGrupoUN,
 		g.descripcion as descGrupoUN,
@@ -572,8 +590,8 @@
 		u.descripcion as descUnidadN,
 		
 		sum(l.bultos1)as cantidadLitros,		
-		sum(isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0)) as  total$,
-		
+	--	sum(isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0)+ isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0)) as  total$,
+		 SUM(ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) * l.Bultos1) as  total$,
 
 		l.codArticulo as codProducto,
 		l.descripcion as producto,
@@ -581,8 +599,9 @@
 		cl.descripcion as descrCli
 		
 		from mpedidos p, MpedidosLinea l, mpedidosdtcarga c, MunidadN u,
-		mClientes cl, MgrupoUn g
+		mClientes cl, MgrupoUn g, mpuntoventa pv
 		where
+		pv.Sucursal = p.nroSucursal and
 		(p.fecha between  :fechaDesde and :fechaHasta) and
 		(l.sucursal = p.nroSucursal and
 		l.codPedido = p.codigo) and
@@ -598,13 +617,13 @@
 		cl.cod_cliente_alfa like :codCliente ) 
 	
 		group by g.codigo,g.descripcion,u.codigo,u.descripcion,l.codArticulo, l.descripcion,p.cliente,cl.descripcion
-		order by g.descripcion			
+		order by g.descripcion				
     	
     
     </sql-query>
     
     
-    <sql-query name="findRemitosByClienteProductoFechas">        
+   <sql-query name="findRemitosByClienteProductoFechas">        
 		<query-param name="codClienteInt" type="integer"/>
 		<query-param name="codProducto" type="integer"/>
 		<query-param name="fechaDesde" type="timestamp"/>
@@ -623,8 +642,9 @@
 		l.codArticulo as codProducto,
 		l.descripcion as producto,
 		l.bultos1 as cantidadLitros,
-		isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0) + isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0) as  total$,
-	
+		--isnull(l.bultos1 * l.precioKilo,0) + isnull(p.IvaBasico,0) + isnull(p.IvaAdicional,0)+ isnull(p.impuestoGr1,0)+ isnull(p.impuestoGr2,0)+ isnull(p.impuestoGr3,0) + isnull(p.impuestoGr4,0)+ isnull(p.iibb,0)+ isnull(p.piva,0) as  total$,
+	    ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) * l.Bultos1  as  total$,
+		
 		c.patente as patente, 
 		ch.apellido as apellido,
 		ch.nombre as nombre,
@@ -638,7 +658,10 @@
 		uC.descripcion as descUnidadNChofer,
 		uC.codGrupoUn as codGrupoUNChofer,
 		gC.descripcion as descGrupoUNChofer,
-		cs.desc_ccss
+		cs.desc_ccss,
+		cl.descripcion as descrCli ,
+		cl.cod_cliente_alfa as codalfa, 
+		ISNULL(dbo.obtenerPrecioCImpDeListaPrecio(pv.ccss, l.CodArticulo, p.Fecha,p.cliente), 0) as PrecioCimp
 		
 		from mpedidos p inner join  MpedidosLinea l
 		on l.sucursal = p.nroSucursal and l.codPedido = p.codigo inner join  mpedidosdtcarga c
@@ -661,7 +684,6 @@
     ]]>  
     
     </sql-query>
-    
     
     
     <sql-query name="findRemitosByCliente">        

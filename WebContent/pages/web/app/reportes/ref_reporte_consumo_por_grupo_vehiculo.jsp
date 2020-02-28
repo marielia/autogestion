@@ -161,7 +161,7 @@
 				
 		<%/*FILTROS*/%>
 		
-			<h:panelGrid columns="4" width="80%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<t:outputLabel for="consulte" styleClass="titulos">
 						<h:outputText  value="&nbsp;#{Message.consulte_por_label} " escape="false" styleClass="titulos"/>
@@ -172,7 +172,7 @@
 				<h:column></h:column>									
 			</h:panelGrid>
 			
-			<h:panelGrid columns="2" width="80%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputLabel for="estado" styleClass="cpo8">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.entre_fechas_label}&nbsp;&nbsp;" escape="false"/>
@@ -213,7 +213,7 @@
 			</h:panelGrid>	
 			
 			<%/*  clientes  */%>
-			<h:panelGrid columns="2" width="80%" columnClasses="cpo8-25b,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 			
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
@@ -227,7 +227,7 @@
 				</t:column>	
 							
 			</h:panelGrid>
-			<h:panelGrid columns="4" width="80%" columnClasses="cpo8-25b,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-Var,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 						<t:outputText value="&nbsp;&nbsp;#{Message.grupo_unidad_negocio_abreviado_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
@@ -240,28 +240,32 @@
 										valueChangeListener="#{refReporteConsumosPorGrupoVehiculos.cargarUnidadesNegocio}" >					
 						<f:selectItems value="#{refReporteConsumosPorGrupoVehiculos.gruposUnidadNegocio}" />
 						</h:selectOneListbox>
+						 &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+						<t:outputText value="&nbsp;&nbsp;#{Message.unidad_negocio_label}" styleClass="cpo8" escape="false"/>
+						 &nbsp;&nbsp;&nbsp;&nbsp;
+						<h:selectOneListbox id="unidadesNegocio" size="1" value="#{refReporteConsumosPorGrupoVehiculos.unidadNegocio}"  styleClass="campo"
+						immediate="true" >
+							<f:selectItems value="#{refReporteConsumosPorGrupoVehiculos.unidadesNegocio}"/>
+						</h:selectOneListbox>
 	
 				</h:column>		
 				
 				<h:column>
-						<t:outputText value="&nbsp;&nbsp;#{Message.unidad_negocio_label}" styleClass="cpo8" escape="false"/>
+				
 				</h:column>
 				<h:column>	
 				<%/*				
 						<t:inputText id="descripcionUnidadNegocio" value="#{refReporteConsumosPorGrupoVehiculos.fltDescripcionUnidadNegocio}" size="20" maxlength="20" styleClass="campo" />
 						*/ %>
 						
-						<h:selectOneListbox id="unidadesNegocio" size="1" value="#{refReporteConsumosPorGrupoVehiculos.unidadNegocio}"  styleClass="campo"
-						immediate="true" >
-							<f:selectItems value="#{refReporteConsumosPorGrupoVehiculos.unidadesNegocio}"/>
-						</h:selectOneListbox>
+						
 				</h:column>
 						
 			</h:panelGrid>
 			
 			
 			
-			<h:panelGrid columns="4" width="80%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>				
 				<t:panelGrid border="0" cellpadding="" cellspacing="0" styleClass="columnaTablaTexto" 
 						columns="1" columnClasses="cpo11-20" width="100%" >							
@@ -334,7 +338,7 @@
 		
 		<% /* LISTADO */ %>
 		
-		<h:panelGrid width="80%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteConsumosPorGrupoVehiculos.subItemsNivel1}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -394,15 +398,16 @@
 						<f:facet name="header">
 							<h:outputText value="#{Message.remitos_label}"/>
 						</f:facet>
-					     <t:commandLink styleClass="linkOperacion" 
+					     <t:commandButton styleClass="botonSm" 
 									   actionListener="#{refReporteConsumosPorGrupoVehiculos.verRemitos}" 								  
-									   title="#{Message.ver_remitos_label}" >
+									   title="#{Message.ver_remitos_label}"
+									   value="#{Message.ver_label}" >
 									   <f:param name="nroCliente" id="nroCliente" value="#{item.codClienteInt}"/>									   
 									   <f:param name="nroProducto" id="nroProducto" value="#{item.codProducto}"/>
 									   <f:param name="nroUnidNeg" id="nroUnidNeg" value="#{item.codUnidadNegocio}"/>
 									   <f:param name="nroGrupoUnidNeg" id="nroGrupoUnidNeg" value="#{item.codGrupoUN}"/>									   
-									   <h:outputText value="#{Message.ver_label}" /> 
-						</t:commandLink>
+									   
+						</t:commandButton>
 						</h:column>	
 								
 				</t:dataTable>	
@@ -422,7 +427,7 @@
 	<h:panelGrid width="100%" border="0" cellpadding="0" cellspacing="0" columns="1" styleClass="columnaTablaCentrada">
 	<h:column>	
 		
-			<h:panelGrid columns="1" width="80%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		
@@ -504,7 +509,7 @@
 		
 		<% /* LISTADO */ %>
 		
-		<h:panelGrid width="90%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
+		<h:panelGrid width="100%" columns="1" columnClasses="bordeblanco" cellspacing="1" cellpadding="1" >						 
 		<h:column>		
 				<t:dataTable value="#{refReporteConsumosPorGrupoVehiculos.subItemsNivel2}" var="item" 
 							 rowClasses="fila1, fila2" 
@@ -615,7 +620,7 @@
 				</h:panelGrid>
 		
 		
-			<h:panelGrid columns="1" width="90%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="nada" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<h:column>
 					<h:panelGrid columns="1" width="100%"  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				     	<h:column>				    		

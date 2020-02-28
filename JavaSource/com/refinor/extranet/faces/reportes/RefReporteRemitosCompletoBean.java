@@ -202,8 +202,7 @@ public class RefReporteRemitosCompletoBean extends AbstListado {
 			this.nombreArchivo="";
 			MpedidosDAO mPedidoDAO = new MpedidosDAO(getSessionHib());		
 		
-			setItems(mPedidoDAO.getRemitosFactutadosyNoFacturados(fltFechaDesde,fltFechaHasta,fltClienteDesde,fltClienteHasta,fltNroReciboDesde,fltNroReciboHasta,condicion,estadoRemito,fltNroSucursal,fltFechaDesdeDos,fltFechaHastaDos,ccss,optRefacturacion,getVerPrecioCimp()));
-			
+		 	
 			if(getTipoUsuarioLogueado()==1){
 				//es cliente
 				fltClienteDesde=codCliente;

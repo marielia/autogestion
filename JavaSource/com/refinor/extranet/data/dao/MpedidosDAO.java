@@ -674,7 +674,10 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 				        consumoTO.setConsumoLitros(new BigDecimal(objRemito[7].toString()));
 				        consumoTO.setMontoTotal(new BigDecimal(objRemito[8].toString())); 
 				        consumoTO.setCodProducto(new Integer(objRemito[9].toString()));
-				        consumoTO.setDescProducto(objRemito[10].toString());
+				        if(objRemito[10]!=null)
+				        {
+				        	consumoTO.setDescProducto(objRemito[10].toString());
+				        }
 				        consumoTO.setCodClienteInt(new Integer(objRemito[11].toString()));
 				        consumoTO.setCodChofer(new Integer(objRemito[12].toString()));
 				        consumoTO.setCliDescripcion(objRemito[13].toString());
@@ -884,7 +887,13 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 			        if(objRemito[18]!=null)
 			        	remitoTO.setDescrGrupoUNC(objRemito[18].toString());
 			        remitoTO.setCcss(objRemito[19].toString());	
-					
+			        
+			        remitoTO.setCliDescripcion(objRemito[20].toString());	
+			        
+			        remitoTO.setCodClienteAlfa(objRemito[21].toString());	
+			      
+			        remitoTO.setPrecioConImpuestos(new BigDecimal(objRemito[22].toString()));
+			        
 			        lstRemitos.add(remitoTO);
 				}
 				
@@ -980,6 +989,10 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 			        	remitoTO.setDescrGrupoUNC(objRemito[18].toString());
 			        
 			        remitoTO.setCcss(objRemito[19].toString());
+			        
+			        remitoTO.setCliDescripcion(objRemito[20].toString());
+			        remitoTO.setCodClienteAlfa(objRemito[21].toString());
+			        remitoTO.setPrecioConImpuestos(new BigDecimal(objRemito[22].toString()));
 					
 			        lstRemitos.add(remitoTO);
 				}
@@ -1000,7 +1013,6 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 			throw new DataAccessErrorException();
 		}
 	}
-	
 	
 
 	
