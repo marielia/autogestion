@@ -134,6 +134,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 			mChoferInt.setApellido(apellido);
 			mChoferInt.setDni(numeroDocumento);
 			mChoferInt.setPinChof(this.pinChofer.trim());
+			mChoferInt.setUnidadNeg(this.unidadNegocio);
 			
 			String email="";
 			String mensajeMail="";
@@ -148,26 +149,26 @@ public class AltaChoferesBean extends AbstBackingBean {
 					//envio mail al cliente avidandole que su chofer esta ok por refipass
 					if((activoBol.equals(new Boolean(false)) && mChoferInt.isActivo().equals(new Boolean(true))) 
 							&& (inicializadoBol.equals(new Boolean(false)) && mChoferInt.isInicializado().equals(new Boolean(true)))){
-						enviarMailCliente(email);
+						//enviarMailCliente(email);
 						mensajeMail = mensajeria.getMessage().getString("chofer_ok_por_administracion_msg_2");
 					}
 				tx.commit();								
 					mensajeGuardado=mensajeria.getMessage().getString("chofer_ok_por_administracion_msg")+" " + mensajeMail;
 					pantalla=3;
-			}catch(NoSePudeEnviarMailException excep) {
-				excep.printStackTrace();
-				tx.rollback();
-				AddErrorMessage(excep.getMessage());
+//			}catch(NoSePudeEnviarMailException excep) {
+//				excep.printStackTrace();
+//				tx.rollback();
+//				AddErrorMessage(excep.getMessage());
 			} catch(Exception excep) {
 				excep.printStackTrace();
 				tx.rollback();
 				throw new DataAccessErrorException();
 			}
 			
-		}catch(NoSePudeEnviarMailException ex){
-			ex.printStackTrace();			
-			pantalla=2;
-			AddErrorMessage(ex.getMessage());
+//		}catch(NoSePudeEnviarMailException ex){
+//			ex.printStackTrace();			
+//			pantalla=2;
+//			AddErrorMessage(ex.getMessage());
 		}catch(ChoferYaExisteException ex){
 			ex.printStackTrace();	
 			pantalla=2;

@@ -16,7 +16,9 @@
 		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsutiles.js"></script>				
 		<script>		
 		<%   
-			    session.setAttribute("nroChofer",request.getParameter("nroChofer"));		
+			if (request.getParameter("nroChofer")!=null) {
+			    session.setAttribute("nroChofer",request.getParameter("nroChofer"));	
+			}
 		%>
 					
 		function validarCamposAlta(){		
