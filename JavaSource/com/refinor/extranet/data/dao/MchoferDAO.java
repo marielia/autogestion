@@ -85,7 +85,6 @@ public class MchoferDAO extends BaseMchoferDAO implements com.refinor.extranet.d
 			}else {
 				return (Mchofer)lstChoferesPorFiltro.get(0);
 			}			
-			
 		}catch(NoExistenItemsException ex){
 			ex.printStackTrace();
 			throw ex;

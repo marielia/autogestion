@@ -31,12 +31,11 @@ public class MvehiculoDAO extends BaseMvehiculoDAO implements com.refinor.extran
 	public MvehiculoDAO (Session session) {
 		super(session);
 	}
-	
-	
 	public static String FIND_VEHICULO_BY_CLIENTE_UNIDAD_NEGOCIO_PATENTE_ESTADO= "findVehiculoByClienteUnidadNegocioPatenteEstado";
 	public static String FIND_VEHICULOS_POR_CLIENTE= "findVehiculoByCliente";
 	public static String FIND_CODIGO_VEHICULO= "findCodVehiculo";
 	private static String FIND_VEHICULO_POR_DOMINIO_CLIENTE= "findVehiculoPorDominioCliente";
+	public static String FIND_VEHICULO_POR_CODIGO= "findVehiculoPorCodigo";
 	
 	public Mvehiculo getVehiculoPorDominioYClienteEstado(String dominio, Integer codCliente,int estado) throws NoExistenItemsException, VariosVehiculosPorPatenteYClienteException, IOException, DataAccessErrorException{
 		try{
@@ -102,7 +101,6 @@ public class MvehiculoDAO extends BaseMvehiculoDAO implements com.refinor.extran
 			throw new DataAccessErrorException("Hubo problemas al intentar registrar el Chofer. Espere unos segundos y vuelva a intentarlo. Si el problema sigue Consulte con el Administrador.");
 		}
 	}
-	
 	
 	public List getVehiculoPorClienteUnidadNegocioPatenteEstado(String codCliente,Integer unidadNegocio, String descripcionUnidadNegocio, Integer grupo,String patente,Boolean vehiculoActivo,Boolean vehiculoBaja,Boolean vehiculoInicializado,Boolean vehiculoNoInicializado) throws DataAccessErrorException,NoExistenItemsException{
 		try{
@@ -196,6 +194,33 @@ public class MvehiculoDAO extends BaseMvehiculoDAO implements com.refinor.extran
 			lstVehiculoPorFiltro= query.list();			
 			return lstVehiculoPorFiltro;					
 			
+		}catch(Exception ex){
+			ex.printStackTrace();			
+			throw new DataAccessErrorException();
+		}
+		
+	}
+	
+	public Mvehiculo getVehiculoPorCodigo(Integer nroVehiculo) throws NoExistenItemsException, IOException, DataAccessErrorException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstVehiculosPorFiltro= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>();			
+			params.put(Const.PARAM_COD_VEHICULO, nroVehiculo);
+			
+			Query query = this.getNamedQuery(MvehiculoDAO.FIND_VEHICULO_POR_CODIGO, params, session);
+			lstVehiculosPorFiltro= query.list();
+			
+			if(lstVehiculosPorFiltro.size()==1){
+				return (Mvehiculo)lstVehiculosPorFiltro.get(0);				
+			}else if(lstVehiculosPorFiltro.size()==0){
+				 throw new NoExistenItemsException(mensajeria.getMessage().getString("vehiculo_no_existe_msg"));
+			}else {
+				return (Mvehiculo)lstVehiculosPorFiltro.get(0);
+			}			
+		}catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
 		}catch(Exception ex){
 			ex.printStackTrace();			
 			throw new DataAccessErrorException();

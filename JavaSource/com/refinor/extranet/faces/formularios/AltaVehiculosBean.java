@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.mail.Message;
 import javax.mail.Transport;
@@ -77,31 +78,29 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	
 	public AltaVehiculosBean() {
 		try{
+			
 			sessionHib = (new AlmacenDAO()).getSession();	
 			mensajeria = new Messages();
 			
 			MusuarioWeb usuario = (MusuarioWeb)getSessionValue("usuario");
+			int tipo = usuario.getTipo();
 			
-			if(usuario.getTipo()==0){
-				//es refipass	
-				if(getSessionValue("nroVehiculo")!=null){
-					Integer nroVehiculo =Integer.parseInt(getSessionValue("nroVehiculo").toString());
-					System.out.println("nroVehiculo a modificar: "+nroVehiculo);
-					getSession().removeAttribute("nroVehiculo");
-					inicializarValoresMod(nroVehiculo);
-				}
-				
-			} else if(usuario.getTipo()==1){
-				//es cliente			
-				getSession().removeAttribute("nroVehiculo");
+			if (getSessionValue("nroVehiculo")!=null) {
+				//es modificacion
+				Integer nroVehiculo =Integer.parseInt(getSessionValue("nroVehiculo").toString());
+				System.out.println("nroVehiculo a modificar: "+nroVehiculo);
+				inicializarValoresMod(nroVehiculo);
+				cargarCombos(nroVehiculo, tipo);	
+			} else {
+				//es alta			
 				inicializarValoresAlta();				
-				cargarCombos();
+				cargarCombos(null, tipo);
 			}			
 			
-			}catch(Exception ex){
-				ex.printStackTrace();
-				AddErrorMessage(ex.getMessage());
-			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+			AddErrorMessage(ex.getMessage());
+		}
 	}
 	/**
 	 * Metodo:obtenerMailCliente
@@ -189,21 +188,21 @@ public class AltaVehiculosBean extends AbstBackingBean {
 			mVehiculo = mVehDAO.get(vehiculo.getCodigo(), sessionHib);	
 			mVehiculo.setCodBarra(this.codBarra);
 			mVehiculo.setInicializado(this.inicializado);			
-			mVehiculo.setActivo(this.activo);			
+			mVehiculo.setActivo(this.activo);
+			mVehiculo.setCodUnidadN(this.unidadNegocio);
 			String email = obtenerMailCliente(mVehiculo.getCodCliente());
 			try {
-				
-					tx= sessionHib.beginTransaction();				
-					mVehDAO.update(mVehiculo,sessionHib);
-					//envio mail al cliente avidandole que su veh esta ok por refipass
-					enviarMailCliente(email);
-					tx.commit();								
-					mensajeGuardado=mensajeria.getMessage().getString("vehiculo_ok_por_administracion_msg");
-					pantalla=3;
-			}catch(NoSePudeEnviarMailException excep) {
-				excep.printStackTrace();
-				tx.rollback();
-				AddErrorMessage(excep.getMessage());
+				tx= sessionHib.beginTransaction();				
+				mVehDAO.update(mVehiculo,sessionHib);
+				//envio mail al cliente avidandole que su veh esta ok por refipass
+				//enviarMailCliente(email);
+				tx.commit();								
+				mensajeGuardado=mensajeria.getMessage().getString("vehiculo_ok_por_administracion_msg");
+				pantalla=3;
+//			}catch(NoSePudeEnviarMailException excep) {
+//				excep.printStackTrace();
+//				tx.rollback();
+//				AddErrorMessage(excep.getMessage());
 			} catch(Exception excep) {
 				excep.printStackTrace();
 				tx.rollback();
@@ -236,18 +235,17 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 * @param codigoVehiculo
 	 */
 	private void inicializarValoresMod(int codigoVehiculo){
-		//buscar los datos del chofer a mostrar
+		//buscar los datos del vehiculo a mostrar
 		try{
 			MvehiculoDAO mVehiculoDAO =  new MvehiculoDAO(sessionHib);
 			vehiculo =  new Mvehiculo();
 			//vehiculo= mVehiculoDAO.get(codigoVehiculo,sessionHib);
 			vehiculo= mVehiculoDAO.load(codigoVehiculo,sessionHib);
-			
 			this.dominio=vehiculo.getDominio();
+			this.codBarra= vehiculo.getCodBarra();
 			
-			this.codBarra= vehiculo.getCodBarra();			
-			this.inicializado =  vehiculo.isInicializado();
-			this.activo =  vehiculo.isActivo();	
+			this.inicializado = vehiculo.isInicializado();
+			this.activo = vehiculo.isActivo();	
 			
 			//unidad de negocio
 			this.unidadNegocio=vehiculo.getCodUnidadN();
@@ -262,6 +260,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 			MgrupoUn mGrupoUn = new MgrupoUn();
 			mGrupoUn= mGrupoUnDAO.load(mUnidadN.getCodGrupoUn(), sessionHib);
 			this.grupoUnidadNegocioDesc= mGrupoUn.getDescripcion();
+			this.grupoUnidadNegocio = mGrupoUn.getCodigo();
 			
 			this.pantalla=  2;	
 			
@@ -307,21 +306,69 @@ public class AltaVehiculosBean extends AbstBackingBean {
 		}	
 	}
 	
+	public void cargarUnidadesNegocio(ValueChangeEvent event){
+		
+		 Integer nroGrupo = ((Integer)event.getNewValue()).intValue(); 
+		 try {
+				
+			 MunidadNDAO munidadNDao = new MunidadNDAO(sessionHib);
+			 unidadesNegocio = new ArrayList<SelectItem>();
+			 
+			try {
+				
+				MunidadN munidadN;				
+				List lstDatos = munidadNDao.getUnidadesNegocioPorGrupo(nroGrupo);				
+				
+				if(lstDatos!=null && lstDatos.size()>0){
+					Iterator it = lstDatos.iterator();			
+					while(it.hasNext()) {
+						munidadN = (MunidadN)it.next();
+						unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
+					}
+				}
+				
+			} catch(Exception ex) {
+				unidadesNegocio = new ArrayList<SelectItem>();
+				unidadesNegocio.add(new SelectItem(new Integer(-1),Const.SELECCIONE));
+				ex.printStackTrace();				
+				AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
+			}		
+					
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			AddErrorMessage("No se recupero el Grupo.");
+		}	
+	}
+	
 	/**
 	 * Metodo:cargarCombos
 	 * Funcion: Cargar los combos necesarios 
 	 * 1 - Carga el combo de grupo - Por el alta de vehiculo
 	 *
 	 */
-	private void cargarCombos(){
-		 MgrupoUnDAO mgrupoUnDAO = new MgrupoUnDAO(sessionHib);
-		 gruposUnidadNegocio = new ArrayList<SelectItem>();
+	private void cargarCombos(Integer nroVehiculo, int tipo){
+		
+		MgrupoUnDAO mgrupoUnDAO = new MgrupoUnDAO(sessionHib);
+		MvehiculoDAO mVehiculoDAO = new MvehiculoDAO(sessionHib);
+		gruposUnidadNegocio = new ArrayList<SelectItem>();
 	
 		try {
+			List lstDatos = null;
 			MgrupoUn mgrupoUn;
-			MusuarioWeb usuario = (MusuarioWeb)getSession().getAttribute(Const.USUARIO);	
-			List lstDatos = mgrupoUnDAO.getGruposUNPorCliente(usuario.getCuit());
-			Iterator it = lstDatos.iterator();			
+			
+			if(tipo==1) {
+				//es cliente
+				MusuarioWeb usuario = (MusuarioWeb)getSession().getAttribute(Const.USUARIO);	
+				lstDatos = mgrupoUnDAO.getGruposUNPorCliente(usuario.getCuit());
+			} else {
+				//es refipass
+				MclientesDAO mClientesDAO = new MclientesDAO(sessionHib);
+				Mvehiculo mVehiculo = mVehiculoDAO.getVehiculoPorCodigo(nroVehiculo);
+				Mclientes mCliente = mClientesDAO.getClienteById(mVehiculo.getCodCliente());	
+				lstDatos = mgrupoUnDAO.getGruposUNPorCliente(mCliente.getCuit());
+			}
+			
+			Iterator it = lstDatos.iterator();
 			
 			while(it.hasNext()) {
 				mgrupoUn = (MgrupoUn)it.next();
@@ -329,7 +376,28 @@ public class AltaVehiculosBean extends AbstBackingBean {
 			}
 					
 			unidadesNegocio = new ArrayList<SelectItem>();
-			unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+			
+			if(nroVehiculo!=null) {
+				MunidadNDAO munidadNDao = new MunidadNDAO(sessionHib);
+				try {
+					MunidadN munidadN;				
+					List lstDatos1 = munidadNDao.getUnidadesNegocioPorGrupo(grupoUnidadNegocio);				
+					
+					Iterator it1 = lstDatos1.iterator();			
+					while(it1.hasNext()) {
+						munidadN = (MunidadN)it1.next();
+						unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
+					}
+				} catch(Exception ex) {
+					AddErrorMessage(ex.getMessage());
+					unidadesNegocio = new ArrayList<SelectItem>();
+					unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+					ex.printStackTrace();				
+					AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
+				}		
+			} else {
+				unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+			}
 		} catch(Exception ex) {
 			ex.printStackTrace();			
 			AddErrorMessage("No se han podido recuperar los Grupos de Unidad de Negocio.");
@@ -584,6 +652,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 * @return String Pagina a donde vuelve
 	 */
 	public String volver() {		
+		getSession().removeAttribute("nroVehiculo");	
 		String goToPage = Const.ANCLA_LISTA_REPORTES_DISPONIBLES;			
 		return goToPage;
 			
@@ -595,6 +664,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 * @return String Pagina a donde vuelve
 	 */
 	public String volverListaVehiculos() {		
+		getSession().removeAttribute("nroChofer");	
 		String goToPage = Const.ANCLA_LISTA_VEHICULOS;			
 		return goToPage;
 			

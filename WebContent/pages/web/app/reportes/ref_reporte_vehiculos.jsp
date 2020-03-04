@@ -55,7 +55,6 @@
 				
 			
 			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
-			
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
 				</t:column>
@@ -66,9 +65,9 @@
 						<f:selectItems value="#{refReporteVehiculosBean.clientes}" />
 					</h:selectOneListbox>						
 				</t:column>	
+				<t:column rendered="#{sessionScope.usuario.tipo==0}"/>
+				<t:column rendered="#{sessionScope.usuario.tipo==0}"/>
 				
-				<t:column/>
-				<t:column/>
 				<h:column>
 						<t:outputText value="&nbsp;&nbsp;#{Message.grupo_unidad_negocio_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
@@ -82,9 +81,8 @@
 						<f:selectItems value="#{refReporteVehiculosBean.gruposUnidadNegocio}" />
 					</h:selectOneListbox>	
 				</h:column>								
-				
 				<h:column>
-						<t:outputText value="&nbsp;&nbsp;#{Message.unidad_negocio_label}" styleClass="cpo8" escape="false"/>
+						<t:outputText value="&nbsp;#{Message.unidad_negocio_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
 				<h:column>	
 							<%/* 	
@@ -202,13 +200,11 @@
 							 headerClass="subtitulos" footerClass="footerTabla" width="100%" cellpadding="2" 
 							 cellspacing="1" border="0"
 							 rendered="#{refReporteVehiculosBean.mostrarLista}" >
-					
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="#{Message.patente_label}"/>
 						</f:facet>
 						<h:outputText value="#{item.dominio} " />
-						
 					</h:column>
 					
 					<%/*
@@ -269,7 +265,8 @@
 					</h:column>
 					
 					<%/* modificar */%>
-					<h:column rendered="#{sessionScope.usuario.tipo == 0}">
+					<h:column> 
+						<%/*rendered="#{sessionScope.usuario.tipo == 0}"*/%> 
 						<f:facet name="header">
 							<h:outputText value="#{Message.vehiculo_label}"/>
 						</f:facet>	

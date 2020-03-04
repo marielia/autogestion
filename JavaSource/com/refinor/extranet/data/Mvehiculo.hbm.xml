@@ -105,7 +105,8 @@
 		AND	(activo=:ACTIVO or activo=:ANULADO)
 	</query>
 	
-	
-    
+	<query name="findVehiculoPorCodigo">	
+		from Mchofer where codigo = :codVehiculo
+	</query>
     
 </hibernate-mapping>
