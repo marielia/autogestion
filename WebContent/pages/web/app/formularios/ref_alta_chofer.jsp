@@ -16,7 +16,9 @@
 		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsutiles.js"></script>				
 		<script>		
 		<%   
-			    session.setAttribute("nroChofer",request.getParameter("nroChofer"));		
+			if (request.getParameter("nroChofer")!=null) {
+			    session.setAttribute("nroChofer",request.getParameter("nroChofer"));	
+			}
 		%>
 					
 		function validarCamposAlta(){		
@@ -300,8 +302,6 @@
 					<t:inputText id="nombreC" value ="#{altaChoferesBean.nombre}" maxlength="20"  size="30" styleClass="campo" ></t:inputText>		
 					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>
 					
-					<%/* <t:outputText value ="#{altaChoferesBean.nombre}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" styleClass="campo" />					
-					*/%>
 				</t:column>
 										
 				<%/*  apellido  */%>
@@ -446,7 +446,6 @@
 			<t:saveState value="#{altaChoferesBean.apellido}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.pinChofer}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.numeroDocumento}"></t:saveState>	
-			<t:saveState value="#{altaChoferesBean.nroChofer}"></t:saveState>	
 			<t:saveState value="#{altaChoferesBean.grupoUnidadNegocioDesc}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.unidadNegocioDesc}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.mchofer}"></t:saveState>

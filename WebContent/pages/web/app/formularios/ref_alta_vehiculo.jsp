@@ -16,7 +16,9 @@
 		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsutiles.js"></script>				
 		<script>		
 		<%   
-			    session.setAttribute("nroVehiculo",request.getParameter("nroVehiculo"));		
+			if(request.getParameter("nroVehiculo")!=null) {
+			    session.setAttribute("nroVehiculo",request.getParameter("nroVehiculo"));
+			}
 		%>	
 		</script>
 	</head>
@@ -63,9 +65,6 @@
 					<t:inputText id="dominioV" value ="#{altaVehiculosBean.dominio}" maxlength="20"  size="30" styleClass="campo" ></t:inputText>		
 					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>
 				</t:column>
-										
-							
-				
 				
 				<%/*  inicializado  
 				<t:column>
@@ -208,6 +207,7 @@
 			<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
 					 columns="1"  columnClasses="titulosGrande" width="100%">
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
+				<%@ include file="../datosCliente.jsp" %>	
 				<t:column>
 					<t:outputText value="#{Message.modificacion_vehiculo_msg}"/>
 				</t:column>
@@ -226,7 +226,7 @@
 				
 				<t:column/>
 				<t:column/>
-				<%/*  nombre  */%>
+				<%/*  patente  */%>
 				<t:column>							
 					<t:outputLabel  styleClass="datoNegrita">
 						<t:outputText value="&nbsp;&nbsp;&nbsp;#{Message.patente_label}&nbsp;&nbsp;" escape="false" />							
@@ -235,7 +235,7 @@
 				<t:column>
 					
 					<t:outputText value ="#{altaVehiculosBean.dominio}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" styleClass="campo" />					
-					
+			
 				</t:column>	
 				
 				<%/*  codigo de barra  */%>
@@ -286,7 +286,14 @@
 					<t:outputText  value="&nbsp;&nbsp;" escape="false" />
 					<t:commandButton value="#{Message.buscar_u_n_label}" actionListener="#{altaVehiculosBean.cargarSusUnidadesDeNegocio}" styleClass="boton"/>	
 					*/%>	
+					<%/*
 					<t:outputText value ="#{altaVehiculosBean.grupoUnidadNegocioDesc}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" styleClass="campo" />										
+					*/%>
+					<h:selectOneListbox id="gruposUnidadNegocio" size="1" value="#{altaVehiculosBean.grupoUnidadNegocio}" styleClass="campo" 
+									   	onchange="submit();" immediate="true" 
+										valueChangeListener="#{altaVehiculosBean.cargarUnidadesNegocio}" >					
+						<f:selectItems value="#{altaVehiculosBean.gruposUnidadNegocio}" />
+					</h:selectOneListbox>
 				</t:column>
 				
 				<%/*  unidad de negocio  */%>
@@ -296,14 +303,15 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<%/*
-					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaVehiculosBean.unidadNegocio}"  styleClass="campo">
+					
+					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaVehiculosBean.unidadNegocio}"  styleClass="campo"
+					immediate="true" >
 						<f:selectItems value="#{altaVehiculosBean.unidadesNegocio}"/>
 					</h:selectOneListbox>	
-					 */%>
-					
+					 
+					<%/*
 					<t:outputText value ="#{altaVehiculosBean.unidadNegocioDesc}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" styleClass="campo" />										
-									
+					*/%>				
 				</t:column>		
 				
 				
@@ -341,7 +349,7 @@
 			<t:saveState value="#{altaVehiculosBean.dominio}"></t:saveState>		
 			<t:saveState value="#{altaVehiculosBean.grupoUnidadNegocioDesc}"></t:saveState>
 			<t:saveState value="#{altaVehiculosBean.unidadNegocioDesc}"></t:saveState>
-				<t:saveState value="#{altaVehiculosBean.vehiculo}"></t:saveState>
+			<t:saveState value="#{altaVehiculosBean.vehiculo}"></t:saveState>
 			
 			
 		</t:panelGrid>	

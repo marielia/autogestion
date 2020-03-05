@@ -73,8 +73,6 @@ public class AltaChoferesBean extends AbstBackingBean {
 	private String mensajeGuardado;
 	private Mclientes cliente;	
 	private Mchofer mchofer;	
-	
-	private Integer nroChofer;
 
 	public AltaChoferesBean() {
 		try{
@@ -85,15 +83,14 @@ public class AltaChoferesBean extends AbstBackingBean {
 			MusuarioWeb usuario = (MusuarioWeb)getSessionValue("usuario");
 			int tipo = usuario.getTipo();
 			
-			if(getSessionValue("nroChofer")!=null){
-				this.nroChofer = Integer.parseInt(getSessionValue("nroChofer").toString());
-			}
-				
-			if (this.nroChofer != null) {
+			if (getSessionValue("nroChofer")!=null) {
+				//es modificacion
+				Integer nroChofer = Integer.parseInt(getSessionValue("nroChofer").toString());
 				System.out.println("CHOFER a modificar: "+nroChofer);	
 				inicializarValoresMod(nroChofer);
 				cargarCombos(nroChofer, tipo);	
 			} else {
+				//es alta
 				inicializarValoresAlta();
 				generarPin();
 				cargarCombos(null, tipo);
@@ -109,7 +106,6 @@ public class AltaChoferesBean extends AbstBackingBean {
 	public void guardarModificacion(ActionEvent event){
 		Transaction tx= null;
 		try{	
-			
 			if(this.nombre==null || this.nombre.trim().equals("") 
 					|| this.apellido==null || this.apellido.trim().equals("") 
 					|| this.pinChofer==null || this.pinChofer.trim().equals("") 
@@ -134,6 +130,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 			mChoferInt.setApellido(apellido);
 			mChoferInt.setDni(numeroDocumento);
 			mChoferInt.setPinChof(this.pinChofer.trim());
+			mChoferInt.setUnidadNeg(this.unidadNegocio);
 			
 			String email="";
 			String mensajeMail="";
@@ -148,26 +145,26 @@ public class AltaChoferesBean extends AbstBackingBean {
 					//envio mail al cliente avidandole que su chofer esta ok por refipass
 					if((activoBol.equals(new Boolean(false)) && mChoferInt.isActivo().equals(new Boolean(true))) 
 							&& (inicializadoBol.equals(new Boolean(false)) && mChoferInt.isInicializado().equals(new Boolean(true)))){
-						enviarMailCliente(email);
+						//enviarMailCliente(email);
 						mensajeMail = mensajeria.getMessage().getString("chofer_ok_por_administracion_msg_2");
 					}
 				tx.commit();								
 					mensajeGuardado=mensajeria.getMessage().getString("chofer_ok_por_administracion_msg")+" " + mensajeMail;
 					pantalla=3;
-			}catch(NoSePudeEnviarMailException excep) {
-				excep.printStackTrace();
-				tx.rollback();
-				AddErrorMessage(excep.getMessage());
+//			}catch(NoSePudeEnviarMailException excep) {
+//				excep.printStackTrace();
+//				tx.rollback();
+//				AddErrorMessage(excep.getMessage());
 			} catch(Exception excep) {
 				excep.printStackTrace();
 				tx.rollback();
 				throw new DataAccessErrorException();
 			}
 			
-		}catch(NoSePudeEnviarMailException ex){
-			ex.printStackTrace();			
-			pantalla=2;
-			AddErrorMessage(ex.getMessage());
+//		}catch(NoSePudeEnviarMailException ex){
+//			ex.printStackTrace();			
+//			pantalla=2;
+//			AddErrorMessage(ex.getMessage());
 		}catch(ChoferYaExisteException ex){
 			ex.printStackTrace();	
 			pantalla=2;
@@ -538,7 +535,6 @@ public class AltaChoferesBean extends AbstBackingBean {
 		gruposUnidadNegocio = new ArrayList<SelectItem>();
 	
 		try {
-			
 			List lstDatos = null;
 			MgrupoUn mgrupoUn;
 			
@@ -564,44 +560,31 @@ public class AltaChoferesBean extends AbstBackingBean {
 			unidadesNegocio = new ArrayList<SelectItem>();
 			
 			if(nroChofer!=null) {
-				
+				MunidadNDAO munidadNDao = new MunidadNDAO(sessionHib);
 				try {
+					MunidadN munidadN;				
+					List lstDatos1 = munidadNDao.getUnidadesNegocioPorGrupo(grupoUnidadNegocio);				
 					
-					 MunidadNDAO munidadNDao = new MunidadNDAO(sessionHib);
-				
-					try {
-						
-						MunidadN munidadN;				
-						List lstDatos1 = munidadNDao.getUnidadesNegocioPorGrupo(grupoUnidadNegocio);				
-						
-						Iterator it1 = lstDatos1.iterator();			
-						while(it1.hasNext()) {
-							munidadN = (MunidadN)it1.next();
-							unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
-						}
-						
-					} catch(Exception ex) {
-						AddErrorMessage(ex.getMessage());
-						unidadesNegocio = new ArrayList<SelectItem>();
-						unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
-						ex.printStackTrace();				
-						AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
-					}		
-							
+					Iterator it1 = lstDatos1.iterator();			
+					while(it1.hasNext()) {
+						munidadN = (MunidadN)it1.next();
+						unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
+					}
 				} catch(Exception ex) {
-					ex.printStackTrace();
-					AddErrorMessage("No se recupero el Grupo.");
-				}
-				
+					AddErrorMessage(ex.getMessage());
+					unidadesNegocio = new ArrayList<SelectItem>();
+					unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
+					ex.printStackTrace();				
+					AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
+				}		
 			} else {
 				unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
 			}
-			
 		} catch(Exception ex) {
 			ex.printStackTrace();			
 			AddErrorMessage("No se han podido recuperar los Grupos de Unidad de Negocio.");
 		}	
-		
+	
 	}
 	
 	public void cargarSusUnidadesDeNegocio(ActionEvent event){	
@@ -683,8 +666,8 @@ public class AltaChoferesBean extends AbstBackingBean {
 		//buscar los datos del chofer a mostrar
 		try{
 			MchoferDAO mchoferDAO =  new MchoferDAO(sessionHib);
-			mchofer =  new Mchofer();
-			mchofer= mchoferDAO.get(nroChofer, sessionHib);
+			mchofer = new Mchofer();
+			mchofer = mchoferDAO.get(nroChofer, sessionHib);
 			mchoferDAO.refresh(mchofer, sessionHib);
 			this.numeroDocumento = mchofer.getDni();
 			this.nombre=mchofer.getNombre();
@@ -798,13 +781,13 @@ public class AltaChoferesBean extends AbstBackingBean {
 		return nombre;
 	}
 
-	public Integer getNroChofer() {
-		return nroChofer;
-	}
-
-	public void setNroChofer(Integer nroChofer) {
-		this.nroChofer = nroChofer;
-	}
+//	public Integer getNroChofer() {
+//		return nroChofer;
+//	}
+//
+//	public void setNroChofer(Integer nroChofer) {
+//		this.nroChofer = nroChofer;
+//	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
