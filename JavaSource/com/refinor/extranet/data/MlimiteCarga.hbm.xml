@@ -27,11 +27,31 @@
          <property name="obs" type="string">
             <column name="obs" length="128" />
         </property>
-         <property name="fliaGruArt" type="string">
-            <column name="fliaGruArt" length="1"/>
+         <property name="fliaGrupArt" type="string">
+            <column name="fliaGrupArt" length="1"/>
         </property>
        
     </class>
+    
+    
+     <sql-query name="findLimiteCargaByCodVehiculo"> 
+		<query-param name="codVehiculo" type="integer"/>
+			<![CDATA[
+				SELECT 
+					cod_art,
+					cod_veh,
+					ilimitado,
+					litros_pcarga,
+					litros_pdia,
+					litros_pmes,
+					obs,
+					fliaGrupArt
+			   FROM MlimiteCarga 
+			   WHERE  cod_veh = :codVehiculo
+		    ]]> 
+       </sql-query>
+       
+       
   <!--  <sql-query name="findCuposByPatenteYcliente">
     	<query-param name="patente" type="string"/>
 		<query-param name="codCliente" type="string"/>
@@ -771,4 +791,97 @@ select
     </sql-query>
 
 -->
+
+
+  <sql-query name="findCuposByPatenteClienteFamiliaGrupoArticulo">
+    	<query-param name="patente" type="string"/>
+		<query-param name="codCliente" type="string"/>  
+		<query-param name="codArt" type="integer"/>
+			<query-param name="letraArt" type="string"/>
+			
+		<![CDATA[ 
+	 
+		
+		    SELECT  
+			v.codCliente as codCliente,  
+			c.Descripcion as descCli,
+			l.cod_veh  as codVehi,
+			v.dominio  as patente,
+			l.fliaGrupArt,  
+				CASE l.fliaGrupArt WHEN 'F' THEN 'Familia'  
+				WHEN 'G' THEN 'Grupo' 
+				WHEN 'A' THEN 'Artículo' 
+			END  as DescfliaGrupArt,
+			l.cod_art, 
+			CASE l.fliaGrupArt WHEN 'F' THEN (SELECT Descripcion FROM mespecies WHERE FhBaja is null AND Codigo= l.cod_art )  
+			WHEN 'G' THEN (SELECT VariedadD FROM mvariedades WHERE FhBaja is null AND variedad=l.cod_art)  
+			WHEN 'A' THEN (SELECT descripcion FROM marticulos WHERE FhBaja is null AND codigo=l.cod_art) 
+			END as producto,   
+			
+			l.ilimitado, 
+			 l.litros_pcarga   as ltsPorCarga,  
+			 l.litros_pdia  as ltsPorDia, 
+			 l.litros_pmes    as ltsPorMes,
+			v.activo as activo
+			
+			FROM MLimiteCarga l INNER JOIN mVehiculo v ON l.cod_veh = v.codigo   
+			INNER JOIN MClientes c ON v.codCliente = c.Codigo 
+			 
+			WHERE 
+			v.dominio like :patente
+			and c.cod_cliente_alfa like :codCliente
+			and (l.fliaGrupArt like :letraArt) and 
+			( l.cod_art = :codArt or :codArt = -1 )
+			 
+		
+		
+		    ORDER BY v.codCliente, l.cod_veh, l.cod_art
+		   ]]>  
+    </sql-query>
+    
+     <sql-query name="findCuposByCodVehiculo"> 
+		<query-param name="codVehiculo" type="integer"/>
+		 
+			
+		<![CDATA[ 
+	 
+		
+		    SELECT  
+			v.codCliente as codCliente,  
+			c.Descripcion as descCli,
+			l.cod_veh  as codVehi,
+			v.dominio  as patente,
+			l.fliaGrupArt,  
+				CASE l.fliaGrupArt WHEN 'F' THEN 'Familia'  
+				WHEN 'G' THEN 'Grupo' 
+				WHEN 'A' THEN 'Artículo' 
+			END  as DescfliaGrupArt,
+			l.cod_art, 
+			CASE l.fliaGrupArt WHEN 'F' THEN (SELECT Descripcion FROM mespecies WHERE FhBaja is null AND Codigo= l.cod_art )  
+			WHEN 'G' THEN (SELECT VariedadD FROM mvariedades WHERE FhBaja is null AND variedad=l.cod_art)  
+			WHEN 'A' THEN (SELECT descripcion FROM marticulos WHERE FhBaja is null AND codigo=l.cod_art) 
+			END as producto,   
+			
+			l.ilimitado, 
+			 l.litros_pcarga   as ltsPorCarga,  
+			 l.litros_pdia  as ltsPorDia, 
+			 l.litros_pmes    as ltsPorMes,
+			v.activo as activo
+			
+			FROM MLimiteCarga l INNER JOIN mVehiculo v ON l.cod_veh = v.codigo   
+			INNER JOIN MClientes c ON v.codCliente = c.Codigo 
+			 
+			WHERE 
+			l.cod_veh =  :codVehiculo 
+		
+		  
+		   ]]>  
+    </sql-query>
+    
+    
+    
+    
+    
+	   
+    
 </hibernate-mapping>

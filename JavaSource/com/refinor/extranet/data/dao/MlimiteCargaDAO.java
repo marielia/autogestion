@@ -12,6 +12,8 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.refinor.extranet.data.MlimiteCarga;
+import com.refinor.extranet.data.MlimiteCargaId;
 import com.refinor.extranet.data.base.BaseMlimiteCargaDAO;
 import com.refinor.extranet.to.CuposTO;
 import com.refinor.extranet.to.MChoferTO;
@@ -34,6 +36,10 @@ public class MlimiteCargaDAO extends BaseMlimiteCargaDAO implements com.refinor.
 	public static String FIND_CONSUMO_BY_PATENTE_Y_CLIENTE= "findCuposConsumidoByPatenteYcliente";
 	public static String FIND_CUPOS_BY_PATENTE_Y_CLIENTE= "findCuposPorVehiculosCliente";
 	public static String FIND_PRODUCTOS_POR_VEHICULO_CCSS= "findProductosPorVehiculoCCSS";
+	public static String FIND_CUPO_BY_PATENTE_CLIENTE_ART_FAMILIA_GRUPO= "findCuposByPatenteClienteFamiliaGrupoArticulo";
+	
+	public static String FIND_CUPO_BY_COD_VEHICULO= "findCuposByCodVehiculo";
+	public static String FIND_LIMITE_CARGA_BY_COD_VEHICULO= "findLimiteCargaByCodVehiculo";
 	
 	public List getCuposConsumoPorClientePatente(String codCliente, String patente, Integer mes, Integer anio) throws DataAccessErrorException,NoExistenItemsException{
 		try{
@@ -244,6 +250,203 @@ public class MlimiteCargaDAO extends BaseMlimiteCargaDAO implements com.refinor.
 			throw new DataAccessErrorException();
 		}
 	}
+	
+	public List getCuposPorClientePatenteFliaGrupoArt(String codCliente, String patente, Integer familia, Integer grupo ,Integer articulo) throws DataAccessErrorException,NoExistenItemsException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstCupos= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>();
+			String letraArt = "%";
+			Integer codAr= -1;
+			
+			if(patente==null) patente="";	
+			if(codCliente==null) codCliente="%";	
+			
+			params.put(Const.PARAM_COD_CLIENTE, codCliente.trim());
+			params.put(Const.PARAM_PATENTE, patente.trim()+"%");
+			
+			 if(articulo != -1)
+			{ 
+				letraArt = "A";
+			    codAr= articulo;
+			}else if(grupo != -1)
+			{ 
+				letraArt = "G";
+			    codAr= grupo;
+			}else if(familia != -1)
+			{ 
+				letraArt = "F";
+			    codAr= familia;
+			}
+			
+			
+			params.put(Const.PARAM_COD_ART, codAr);
+			params.put(Const.PARAM_LETRA_ART, letraArt); 
+			
+			Query tiposDocumentoQry = this.getNamedQuery(MlimiteCargaDAO.FIND_CUPO_BY_PATENTE_CLIENTE_ART_FAMILIA_GRUPO, params, session);
+			lstCupos= tiposDocumentoQry.list();
+			
+			if(lstCupos.size()>0){
+				Iterator itCupos = lstCupos.iterator();
+				lstCupos= new ArrayList();
+				CuposTO cuposTO= new CuposTO();
+				Object[] objCupon= null;			
+								
+				while(itCupos.hasNext()){
+					objCupon=(Object[]) itCupos.next();	
+					cuposTO= new CuposTO();
+					
+					cuposTO.setCodCliente(new Integer(objCupon[0].toString())); 
+					cuposTO.setCliDescripcion(objCupon[1].toString()); 
+					cuposTO.setCodVehiculo(new Integer(objCupon[2].toString()));
+					cuposTO.setPatente(objCupon[3].toString());	
+					cuposTO.setFamiliaGrupoArticulo(objCupon[4].toString());
+					cuposTO.setFamiliaGrupoArticuloDesc(objCupon[5].toString());	
+					cuposTO.setCodProducto(new Integer(objCupon[6].toString()));
+					cuposTO.setDescripcion(objCupon[7].toString());  
+					cuposTO.setIlimitado(new Boolean(objCupon[8].toString()));
+					cuposTO.setIlimitadoStr(cuposTO.getIlimitado()? mensajeria.getMessage().getString("si_label") : mensajeria.getMessage().getString("no_label")); 
+					
+					cuposTO.setLtrCarga(new BigDecimal(objCupon[9].toString()));	
+					cuposTO.setLtrDia(new BigDecimal(objCupon[10].toString()));	
+					cuposTO.setLtrMes(new BigDecimal(objCupon[11].toString()));	
+					 
+					cuposTO.setActivo(new Boolean(objCupon[12].toString()));
+					cuposTO.setActivoStr(cuposTO.getActivo()? mensajeria.getMessage().getString("si_label") : mensajeria.getMessage().getString("no_label"));  
+				
+			        lstCupos.add(cuposTO);
+				}	
+				
+				
+			}else if(lstCupos.size()==0){
+				throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+			}	
+			
+			
+	        
+			return lstCupos;
+		}
+		catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+	}	
 
+	
+	public CuposTO getCuposPorCodVehiculo( Integer codVehiculo ) throws DataAccessErrorException,NoExistenItemsException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstCupos= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>(); 
+		 
+			params.put(Const.PARAM_COD_VEHICULO, codVehiculo ); 
+			
+			Query tiposDocumentoQry = this.getNamedQuery(MlimiteCargaDAO.FIND_CUPO_BY_COD_VEHICULO, params, session);
+			lstCupos= tiposDocumentoQry.list();
+			
+			if(lstCupos.size()>0){
+				Iterator itCupos = lstCupos.iterator();
+				lstCupos= new ArrayList();
+				CuposTO cuposTO= new CuposTO();
+				Object[] objCupon= null;			
+								
+				while(itCupos.hasNext()){
+					objCupon=(Object[]) itCupos.next();	
+					cuposTO= new CuposTO();
+					
+					cuposTO.setCodCliente(new Integer(objCupon[0].toString())); 
+					cuposTO.setCliDescripcion(objCupon[1].toString()); 
+					cuposTO.setCodVehiculo(new Integer(objCupon[2].toString()));
+					cuposTO.setPatente(objCupon[3].toString());	
+					cuposTO.setFamiliaGrupoArticulo(objCupon[4].toString());
+					cuposTO.setFamiliaGrupoArticuloDesc(objCupon[5].toString());	
+					cuposTO.setCodProducto(new Integer(objCupon[6].toString()));
+					cuposTO.setDescripcion(objCupon[7].toString());  
+					cuposTO.setIlimitado(new Boolean(objCupon[8].toString()));
+					cuposTO.setIlimitadoStr(cuposTO.getIlimitado()? mensajeria.getMessage().getString("si_label") : mensajeria.getMessage().getString("no_label")); 
+					
+					cuposTO.setLtrCarga(new BigDecimal(objCupon[9].toString()));	
+					cuposTO.setLtrDia(new BigDecimal(objCupon[10].toString()));	
+					cuposTO.setLtrMes(new BigDecimal(objCupon[11].toString()));	
+					 
+					cuposTO.setActivo(new Boolean(objCupon[12].toString()));
+					cuposTO.setActivoStr(cuposTO.getActivo()? mensajeria.getMessage().getString("si_label") : mensajeria.getMessage().getString("no_label"));  
+				
+			        lstCupos.add(cuposTO);
+				}	
+				
+				
+			}else if(lstCupos.size()==0){
+				throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+			}	
+			
+			
+	        
+			return (CuposTO)lstCupos.get(0);
+		}
+		catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+	}	
+	 
+  public MlimiteCarga getLimiteCargaPorCodVehiculo( Integer codVehiculo ) throws DataAccessErrorException,NoExistenItemsException{
+			try{
+				Messages mensajeria = new Messages();
+				List lstCupos= new ArrayList();
+				Map<String, Object> params = new HashMap<String, Object>();  
+				params.put(Const.PARAM_COD_VEHICULO, codVehiculo ); 
+				Query tiposDocumentoQry = this.getNamedQuery(MlimiteCargaDAO.FIND_LIMITE_CARGA_BY_COD_VEHICULO, params, session);
+				lstCupos= tiposDocumentoQry.list();
+				
+				if(lstCupos.size()>0){
+					Iterator itCupos = lstCupos.iterator();
+					lstCupos= new ArrayList();
+					MlimiteCarga mlimiteCarga= new MlimiteCarga();
+					MlimiteCargaId mlimiteCargaID= new MlimiteCargaId();
+					Object[] objCupon= null;			
+									
+					while(itCupos.hasNext()){
+						objCupon=(Object[]) itCupos.next();	
+						mlimiteCarga= new MlimiteCarga();
+						
+						mlimiteCargaID = new MlimiteCargaId();
+						mlimiteCargaID.setCodArt(new Integer(objCupon[0].toString())); 
+						mlimiteCargaID.setCodVeh(new Integer(objCupon[1].toString())); 
+						mlimiteCarga.setId(mlimiteCargaID);
+						
+						mlimiteCarga.setIlimitado(new Boolean(objCupon[2].toString()));
+						mlimiteCarga.setLitrosPcarga(new BigDecimal(objCupon[3].toString()));	
+						mlimiteCarga.setLitrosPdia(new BigDecimal(objCupon[4].toString()));	
+						mlimiteCarga.setLitrosPmes(new BigDecimal(objCupon[5].toString()));	
+					 
+						mlimiteCarga.setFliaGrupArt(objCupon[7].toString());  
+					
+				        lstCupos.add(mlimiteCarga);
+					}	
+					
+					
+				}else if(lstCupos.size()==0){
+					throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+				}	
+				
+				
+		        
+				return (MlimiteCarga)lstCupos.get(0);
+			}
+			catch(NoExistenItemsException ex){
+				ex.printStackTrace();
+				throw ex;
+			}catch(Exception ex){
+				ex.printStackTrace();
+				throw new DataAccessErrorException();
+			}
+		}
 
 }

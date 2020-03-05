@@ -5,6 +5,10 @@ import java.math.BigDecimal;
 
 public class CuposTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer codProducto;
 	private String descripcion; 
 	private String patente;
@@ -31,6 +35,44 @@ public class CuposTO implements Serializable {
 	private Integer codVehiculo;
 	private String familiaGrupoArticulo;
 	private String familiaGrupoArticuloDesc;
+	
+	private BigDecimal ltrDia;
+	private BigDecimal ltrCarga;
+	private BigDecimal ltrMes;
+
+	private String ilimitadoStr;
+
+	public String getIlimitadoStr() {
+		return ilimitadoStr;
+	}
+
+	public void setIlimitadoStr(String ilimitadoStr) {
+		this.ilimitadoStr = ilimitadoStr;
+	}
+
+	public BigDecimal getLtrDia() {
+		return ltrDia;
+	}
+
+	public void setLtrDia(BigDecimal ltrDia) {
+		this.ltrDia = ltrDia;
+	}
+
+	public BigDecimal getLtrCarga() {
+		return ltrCarga;
+	}
+
+	public void setLtrCarga(BigDecimal ltrCarga) {
+		this.ltrCarga = ltrCarga;
+	}
+
+	public BigDecimal getLtrMes() {
+		return ltrMes;
+	}
+
+	public void setLtrMes(BigDecimal ltrMes) {
+		this.ltrMes = ltrMes;
+	}
 
 	public String getActivoStr() {
 		return activoStr;

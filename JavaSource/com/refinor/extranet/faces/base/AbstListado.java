@@ -40,6 +40,8 @@ import com.refinor.extranet.data.dao.MunidadNDAO;
 import com.refinor.extranet.data.dao.TipoComprobanteDAO;
 import com.refinor.extranet.to.AnioTO;
 import com.refinor.extranet.to.ArchivoTO;
+import com.refinor.extranet.to.FamiliaTO;
+import com.refinor.extranet.to.GrupoTO;
 import com.refinor.extranet.to.MEmpleadosTO;
 import com.refinor.extranet.to.MProductoTO;
 import com.refinor.extranet.to.MesTO;
@@ -78,6 +80,7 @@ public abstract class AbstListado extends AbstReporte {
 	protected String fltCuentaDesde;
 	protected String fltCuentaHasta;
 	protected Integer fltNroSucursal;
+	protected Integer codVehiculo;
 	
 	protected String codCliente;
 	protected String nomdCliente;
@@ -89,7 +92,12 @@ public abstract class AbstListado extends AbstReporte {
 	protected Boolean vehiculoBaja;	
 	protected Boolean vehiculoInicializado;	
 	protected Boolean vehiculoNoInicializado;
+	protected Boolean ilimitado;
+	protected String artFamGrupoLetra;
+	protected Integer codProducto;
 	
+	
+
 	protected Integer provincia;	
 	protected List<SelectItem> provincias;		
 	
@@ -105,6 +113,9 @@ public abstract class AbstListado extends AbstReporte {
 	protected Boolean mostrarListaSecundaria;
 	
 	protected Boolean mostrarFrmListaSecundaria;
+	
+	protected Boolean mostrarFrmModificar;
+	 protected Boolean mostrarFrmBaja;
 	
 	protected String nombreArchivo;
 	protected String nombreArchivoSecundario;
@@ -140,6 +151,12 @@ public abstract class AbstListado extends AbstReporte {
 	
 	protected Integer producto;
 	protected List<SelectItem> productos;
+	
+	protected Integer familia;
+	protected List<SelectItem> familias;
+	
+	protected Integer grupo;
+	protected List<SelectItem> grupos;
 	
 	protected Integer tipoComprobante;	
 	protected List<SelectItem> tiposComprobante;
@@ -197,6 +214,8 @@ public abstract class AbstListado extends AbstReporte {
 			cargarComboGrupo(null);
 			cargarComboCCSS();
 			cargarProductos();
+			cargarFamilias();
+			cargarGrupos();
 			cargarComprobantes();
 			cargarEstadosCombustible();
 			cargarEstadosRemitos();
@@ -351,6 +370,58 @@ public abstract class AbstListado extends AbstReporte {
 		}catch(Exception ex) {
 				ex.printStackTrace();			
 				AddErrorMessage("No se han podido recuperar los prodcutos.");
+	    }	
+	}
+	
+	
+	/**
+	 * Metodo: cargarFamilias
+	 * Funcion: Cargar los familias disponibles  
+	 */
+	public void cargarFamilias(){
+		try {	
+			 MarticulosDAO mArticulosDAO= new MarticulosDAO(sessionHib);
+			 familias = new ArrayList<SelectItem>();
+			 familias.add(new SelectItem(new Integer(-1),Const.SELECCIONE));		
+	     	 
+			 FamiliaTO familiaTO;
+			 List lstDatos = mArticulosDAO.getFamilias();		
+			  Iterator it = lstDatos.iterator();			
+				
+				while(it.hasNext()) {
+					familiaTO = (FamiliaTO)it.next();
+					familias.add(new SelectItem(new Integer(familiaTO.getCodigo()),familiaTO.getDescripcion()));
+				}					
+				
+		}catch(Exception ex) {
+				ex.printStackTrace();			
+				AddErrorMessage("No se han podido recuperar las familias.");
+	    }	
+	}
+	
+	
+	/**
+	 * Metodo: cargarGrupo
+	 * Funcion: Cargar los grupos disponibles  
+	 */
+	public void cargarGrupos(){
+		try {	
+			 MarticulosDAO mArticulosDAO= new MarticulosDAO(sessionHib);
+			 grupos = new ArrayList<SelectItem>();
+			 grupos.add(new SelectItem(new Integer(-1),Const.SELECCIONE));		
+	     	 
+			 GrupoTO grupoTO;
+			 List lstDatos = mArticulosDAO.getGrupo();		
+			  Iterator it = lstDatos.iterator();			
+				
+				while(it.hasNext()) {
+					grupoTO = (GrupoTO)it.next();
+					grupos.add(new SelectItem(new Integer(grupoTO.getCodigo()),grupoTO.getDescripcion()));
+				}					
+				
+		}catch(Exception ex) {
+				ex.printStackTrace();			
+				AddErrorMessage("No se han podido recuperar los grupos.");
 	    }	
 	}
 	
@@ -671,6 +742,8 @@ public abstract class AbstListado extends AbstReporte {
 		  ccss 	=null;
 		  lstccss 	=null;
 		  producto 	=null;
+		  grupo=null;
+		  familia=null;
 		  productos 	=null;
 		  tipoComprobante 	=null;
 		  tiposComprobante 	=null;
@@ -718,6 +791,16 @@ public abstract class AbstListado extends AbstReporte {
 			
 	}
 	
+	public void setFamilia(Integer familia) {
+		this.familia = familia;
+	}
+
+
+	public void setGrupo(Integer grupo) {
+		this.grupo = grupo;
+	}
+
+
 	/**
 	 * 
 	 *
@@ -922,6 +1005,8 @@ public abstract class AbstListado extends AbstReporte {
 			mostrarFrmLista=new Boolean(true);
 			mostrarListaSecundaria=new Boolean(false);
 			mostrarFrmListaSecundaria=new Boolean(false);
+			mostrarFrmModificar =new Boolean(false);			
+			mostrarFrmBaja =new Boolean(false);
 			
 			Properties properties= (new FileUtil()).getPropertiesFile();		
 			this.tamanioPaginacion= Integer.parseInt((String)properties.get(Const.TAMANIO_PAGINA_ARCHIVO));		
@@ -942,6 +1027,9 @@ public abstract class AbstListado extends AbstReporte {
 		}
 	} 
 	
+	
+
+
 	/**
 	 * 
 	 *
@@ -1515,6 +1603,36 @@ public abstract class AbstListado extends AbstReporte {
 		return ccss;
 	}
 
+	public List<SelectItem> getFamilias() {
+		return familias;
+	}
+
+
+	public void setFamilias(List<SelectItem> familias) {
+		this.familias = familias;
+	}
+
+
+	public List<SelectItem> getGrupos() {
+		return grupos;
+	}
+
+
+	public void setGrupos(List<SelectItem> grupos) {
+		this.grupos = grupos;
+	}
+
+
+	public Integer getFamilia() {
+		return familia;
+	}
+
+
+	public Integer getGrupo() {
+		return grupo;
+	}
+
+
 	public void setCcss(Integer ccss) {
 		this.ccss = ccss;
 	}
@@ -1668,5 +1786,62 @@ public abstract class AbstListado extends AbstReporte {
 	}
 	
 	
+	public Integer getCodProducto() {
+		return codProducto;
+	}
+
+
+	public void setCodProducto(Integer codProducto) {
+		this.codProducto = codProducto;
+	}
+
+
+	public String getArtFamGrupoLetra() {
+		return artFamGrupoLetra;
+	}
+
+
+	public void setArtFamGrupoLetra(String artFamGrupoLetra) {
+		this.artFamGrupoLetra = artFamGrupoLetra;
+	}
+
+
+	public Integer getCodVehiculo() {
+		return codVehiculo;
+	}
+
+
+	public void setCodVehiculo(Integer codVehiculo) {
+		this.codVehiculo = codVehiculo;
+	}
+
+
+	public Boolean getIlimitado() {
+		return ilimitado;
+	}
+
+
+	public void setIlimitado(Boolean ilimitado) {
+		this.ilimitado = ilimitado;
+	}
 	
+	public Boolean getMostrarFrmModificar() {
+		return mostrarFrmModificar;
+	}
+
+
+	public void setMostrarFrmModificar(Boolean mostrarFrmModificar) {
+		this.mostrarFrmModificar = mostrarFrmModificar;
+	}
+
+
+	public Boolean getMostrarFrmBaja() {
+		return mostrarFrmBaja;
+	}
+
+
+	public void setMostrarFrmBaja(Boolean mostrarFrmBaja) {
+		this.mostrarFrmBaja = mostrarFrmBaja;
+	}
+
 }

@@ -20,7 +20,7 @@ public abstract class BaseMlimiteCarga  implements Serializable {
 	public static String PROP_LITROS_PCARGA = "litrosPcarga";
 	public static String PROP_ID = "id";
 	public static String PROP_OBS = "obs";
-	public static String PROP_FLIAGRUART = "fliaGruArt";
+	public static String PROP_FLIAGRUPART = "fliaGrupArt";
 	public static String PROP_LITROS_PMES = "litrosPmes";
 	
 
@@ -52,7 +52,7 @@ public abstract class BaseMlimiteCarga  implements Serializable {
 	private java.math.BigDecimal litrosPdia;
 	private java.math.BigDecimal litrosPmes;
 	private java.lang.String obs;
-	private java.lang.String fliaGruArt;
+	private java.lang.String fliaGrupArt;
 
 	/**
 	 * Return the unique identifier of this class
@@ -169,12 +169,14 @@ public abstract class BaseMlimiteCarga  implements Serializable {
 		return super.toString();
 	}
 
-	public java.lang.String getFliaGruArt() {
-		return fliaGruArt;
+	 
+
+	public java.lang.String getFliaGrupArt() {
+		return fliaGrupArt;
 	}
 
-	public void setFliaGruArt(java.lang.String fliaGruArt) {
-		this.fliaGruArt = fliaGruArt;
+	public void setFliaGrupArt(java.lang.String fliaGrupArt) {
+		this.fliaGrupArt = fliaGrupArt;
 	}
 
 	public java.lang.String getObs() {

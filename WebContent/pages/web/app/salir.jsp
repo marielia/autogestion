@@ -36,7 +36,7 @@
 		
 		
 		<t:panelGrid border="0" cellpadding="0" cellspacing="0" styleClass="bordeblanco" 
-					 columns="1" columnClasses="fondo" width="50%" rowClasses="columnaTablaCentrada">
+					 columns="1" columnClasses="fondo" width="100%" rowClasses="columnaTablaCentrada">
 					 <t:column><h:outputText value="&nbsp;&nbsp;" escape="false"/></t:column>
 					
 					 

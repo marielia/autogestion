@@ -1021,6 +1021,8 @@ bordebeige {
 	width: 20%
 }
 
+ 
+
 input.alinaerADerechoMonto{
 	text-align: right;
 	font-family: Arial, Helvetica, sans-serif;
@@ -1070,4 +1072,16 @@ input.alinaerADerechoMonto{
 	line-height: 13pt;
 	text-align: right;
 	text-transform: uppercase;
+}
+
+.cpo8-Var10 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	line-height: 13pt;
+	font-weight: bold;
+	text-align: left;	
+	background-color: #F3F5F7;
+	text-transform: uppercase;
+	width: 10%;
+	
 }

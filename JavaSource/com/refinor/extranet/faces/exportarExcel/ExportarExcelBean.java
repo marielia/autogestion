@@ -11988,5 +11988,271 @@ public class ExportarExcelBean extends AbstBackingBean {
 	    //System.out.println("url -->"+getRequest().getScheme()+"://"+getRequest().getServerName()+":"+getRequest().getServerPort()+props.getProperty("loadArchivosExcel")+nombArch);
 		return getRequest().getScheme()+"://"+getRequest().getServerName()+":"+getRequest().getServerPort()+props.getProperty("loadArchivosExcel")+nombArch;
 	}
+	
+	
+	public String generarExcelReporteCargaCupos(List lstAManipular,String fecha,int tipoUsu) throws IOException,FileNotFoundException,Exception{
+		String nombArch="";
+		short rownum;
+		FileUtil fileUtil= new FileUtil();
+		Messages mensajeria = new Messages();
+		SimpleDateFormat sdf= new SimpleDateFormat("yyMMdd");
+		Properties props= fileUtil.getPropertiesFile();		
+		try{		
+			
+			
+			nombArch = mensajeria.getMessage().getString("archivo_cupos")+"_"+fecha+".xls";			
+			//System.out.println("url -->"+props.getProperty("saveArchivosExcel")+nombArch);	
+			FileOutputStream out = new FileOutputStream(props.getProperty("saveArchivosExcel")+nombArch);		
+			HSSFWorkbook wb = new HSSFWorkbook();
+			HSSFSheet s = wb.createSheet();		
+			HSSFRow r = null;
+			HSSFCell c = null;	
+			
+			sdf= new SimpleDateFormat("dd/MM/yyyy");
+			
+			HSSFCellStyle estiloEtiquetas = wb.createCellStyle();
+			HSSFCellStyle estiloEtiquetasTitulo = wb.createCellStyle();
+			HSSFCellStyle estiloEtiquetasEncabezado = wb.createCellStyle();
+			HSSFCellStyle estiloEtiquetasEncabezado2 = wb.createCellStyle();			
+			HSSFCellStyle estiloTitulo = wb.createCellStyle();
+			HSSFCellStyle estiloTitulo2 = wb.createCellStyle();
+			HSSFCellStyle estilofilas = wb.createCellStyle();
+			HSSFCellStyle estiloMonto = wb.createCellStyle();
+				
+			String etiqueta="";
+			etiqueta=mensajeria.getMessage().getString("archivo_cupos");		
+			
+			wb.setSheetName(0, etiqueta, 
+			                HSSFWorkbook.ENCODING_UTF_16 );
+			
+			HSSFFont fuenteTitulos =  wb.createFont();  
+	        HSSFFont fuenteEtiquetas =  wb.createFont();		
+			HSSFFont fuenteEtiquetasTitulo =  wb.createFont();
+			HSSFFont fuenteEtiquetasEncabezado =  wb.createFont();
+			HSSFFont fuenteEtiquetasEncabezado2 =  wb.createFont();	
+			
+			//para formate de datos
+			HSSFDataFormat df = wb.createDataFormat();
+			
+			//estilo encabezado 
+			fuenteEtiquetasEncabezado.setColor((short)0x12);
+			fuenteEtiquetasEncabezado.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);	
+			fuenteEtiquetasEncabezado.setFontHeightInPoints((short) 12);
+			estiloEtiquetasEncabezado.setFont(fuenteEtiquetasEncabezado);        
+			
+		    //Ancho de columnas	 
+			int i=0;
+	       	s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 22)));
+	       	i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 10)));
+	       	i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 10)));
+			i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 13)));			
+			 
+			i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 10)));
+			
+			i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 13)));
+			
+			i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 13)));
+			 
+			i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 13)));
+			
+			i=i+1;
+			s.setColumnWidth((short)i, (short)((50 * 8) / ((double) 1 / 10)));
+			
+		         
+	         //titulos               
+	         fuenteTitulos.setColor((short)0x9);
+	         fuenteTitulos.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);        
+	         estiloTitulo.setFont(fuenteTitulos);
+	         estiloTitulo.setFillForegroundColor((short) 0x36);	
+	         estiloTitulo.setFillPattern((short) HSSFCellStyle.SOLID_FOREGROUND);
+	         
+	         estiloTitulo2.setFont(fuenteTitulos);        
+		     estiloTitulo2.setFillForegroundColor((short) 0x36);	
+		     estiloTitulo2.setFillPattern((short) HSSFCellStyle.SOLID_FOREGROUND);
+	         
+			 r = s.createRow(0);        
+	         estiloTitulo.setAlignment((short) HSSFCellStyle.ALIGN_CENTER);
+	         
+	         i=0; 
+	         c = r.createCell((short)i);
+		     c.setCellStyle(estiloTitulo);
+		     c.setCellValue(mensajeria.getMessage().getString("cliente_label").toUpperCase());
+		     
+		     i=i+1; 
+		     c = r.createCell((short)i);
+		     c.setCellStyle(estiloTitulo);
+		     c.setCellValue(mensajeria.getMessage().getString("patente_label").toUpperCase());
+		     
+		     i=i+1;
+	         c = r.createCell((short)i);
+	         c.setCellStyle(estiloTitulo);
+	         c.setCellValue("Agrupado");
+	         
+	       
+	        	 i=i+1;
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloTitulo);
+		         c.setCellValue(mensajeria.getMessage().getString("descripcion_label").toUpperCase()); 
+		         
+		         i=i+1;
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloTitulo);
+		         c.setCellValue( "Ilimitado" .toUpperCase()); 
+		         
+		         i=i+1;
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloTitulo);
+		         c.setCellValue("Litros Por Carga".toUpperCase()); 
+	         
+		         i=i+1;
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloTitulo);
+		         c.setCellValue("Litros Por Día".toUpperCase()); 
+		         
+		         i=i+1;
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloTitulo);
+		         c.setCellValue("Litros Por Mes".toUpperCase()); 
+		         
+		         
+		         i=i+1;
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloTitulo);
+		         c.setCellValue(mensajeria.getMessage().getString("activo_label").toUpperCase()); 
+	           
+	          
+	  		 
+	         estiloMonto.setDataFormat(df.getFormat("#,##0.00"));	
+	         estiloMonto.setBorderBottom(estiloMonto.BORDER_THIN);
+	         estiloMonto.setBorderRight(estiloMonto.BORDER_THIN);
+	         
+	         estilofilas.setBorderBottom(estilofilas.BORDER_THIN);
+	 		 estilofilas.setBorderRight(estilofilas.BORDER_THIN);
+	 		 estilofilas.setBorderLeft(estilofilas.BORDER_THIN);
+	 		 estilofilas.setBorderTop(estilofilas.BORDER_THIN);	 		 
+	 		 
+	 		 HSSFFont fuenteEstado =  wb.createFont();
+		     fuenteEstado.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
+		         
+			 //fila en la empieza la lista de datos 
+			Integer cantFilas = 1+ lstAManipular.size();			
+			CuposTO cuposTO = new CuposTO();
+			int index =0;
+					i=0;	
+			for (rownum = (short) 1; rownum < cantFilas; rownum++)
+			{
+				 r = s.createRow(rownum);
+				 cuposTO = (CuposTO)lstAManipular.get(index);
+				 index++;	
+				 				 
+				
+//		        	cliente descripcion
+			         c = r.createCell((short)i);
+			         c.setCellStyle(estilofilas);
+			         if(cuposTO.getCliDescripcion()==null )
+			        	 c.setCellValue("");
+			         else
+			        	 c.setCellValue(cuposTO.getCliDescripcion());
+			         
+			         i=i+1; 
+			         c = r.createCell((short)i);	
+				     c.setCellStyle(estilofilas);	        
+				     if(cuposTO.getPatente()==null)
+			        	 c.setCellValue("");
+			         else
+			        	 c.setCellValue(cuposTO.getPatente());
+			         
+				     i=i+1; 
+				 c  = r.createCell((short)i);	
+			     c.setCellStyle(estilofilas);	        
+			     if(cuposTO.getFamiliaGrupoArticuloDesc()==null)
+		        	 c.setCellValue("");
+		         else
+		        	 c.setCellValue(cuposTO.getFamiliaGrupoArticuloDesc());
+		         
+			     i=i+1; 
+			     c = r.createCell((short)i);	
+			     c.setCellStyle(estilofilas);	        
+			     if(cuposTO.getDescripcion()==null)
+		        	 c.setCellValue("");
+		         else
+		        	 c.setCellValue(cuposTO.getDescripcion());
+		         
+			     i=i+1; 
+			    
+			     c = r.createCell((short)i);	
+			     c.setCellStyle(estilofilas);	        
+			     if(cuposTO.getIlimitadoStr()==null)
+		        	 c.setCellValue("");
+		         else
+		        	 c.setCellValue(cuposTO.getIlimitadoStr()); 
+		         
+		         
+		         i=i+1;		        
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloMonto); 
+		         if(cuposTO.getLtrCarga()==null)
+		        	 c.setCellValue("");
+		         else
+		        	 c.setCellValue(cuposTO.getLtrCarga().doubleValue()); 
+		         
+		         i=i+1;		        
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloMonto); 
+		         if(cuposTO.getLtrDia() ==null)
+		        	 c.setCellValue("");
+		         else
+		        	 c.setCellValue(cuposTO.getLtrDia().doubleValue()); 
+		         
+		         i=i+1;		          
+		         c = r.createCell((short)i);
+		         c.setCellStyle(estiloMonto); 
+		         if(cuposTO.getLtrMes() ==null)
+		        	 c.setCellValue("");
+		         else
+		        	 c.setCellValue(cuposTO.getLtrMes().doubleValue());
+		         
+		         i=i+1;			        
+//		         activo
+			     c = r.createCell((short)i);
+			     c.setCellStyle(estilofilas);
+			     if(cuposTO.getActivo()==null )
+			       	 c.setCellValue("");
+			     else
+			       	 c.setCellValue(cuposTO.getActivo()? mensajeria.getMessage().getString("si_label") : mensajeria.getMessage().getString("no_label"));  
+			     
+			     
+		         
+		         i=0;
+		       }
+		
+	         
+			s = wb.createSheet();
+			wb.setSheetName(1, "DeletedSheet");
+			wb.removeSheetAt(1);
+			
+			wb.write(out);
+			out.close();
+		}catch(FileNotFoundException ex){
+			ex.printStackTrace();
+			throw new FileNotFoundException();
+		}catch(IOException ex){
+			ex.printStackTrace();
+			throw new IOException();		
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new Exception();		
+		}
+	   // //System.out.println("url -->"+getRequest().getScheme()+"://"+getRequest().getServerName()+":"+getRequest().getServerPort()+props.getProperty("loadArchivosExcel")+nombArch);
+		return getRequest().getScheme()+"://"+getRequest().getServerName()+":"+getRequest().getServerPort()+props.getProperty("loadArchivosExcel")+nombArch;
+	}
+	
 }
 

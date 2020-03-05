@@ -328,6 +328,9 @@ public class Const {
 	public static String PARAM_DNI="dni";
 	public static String PARAM_PATENTE= "patente";
 	public static String PARAM_COD_PRODUCTO= "codProducto";
+	public static String PARAM_COD_ART= "codArt";
+	public static String PARAM_LETRA_ART= "letraArt";
+	
 	public static String PARAM_COD_LISTA_PRECIO= "codListaPrecio";
 	public static String PARAM_TIPO_COMPROBANTE_MANUAL= "tipoCompManual";
 	public static String PARAM_TIPO_COMPROBANTE= "tipoComprobante";

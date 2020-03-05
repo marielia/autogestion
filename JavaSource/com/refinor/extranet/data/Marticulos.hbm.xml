@@ -122,7 +122,19 @@
          WHERE  LTRIM(RTRIM(UPPER(descripcion))) like LTRIM(RTRIM(UPPER(:descripcion))) 
      </query>
      
-     
+      <sql-query name="findFamilias">
+        SELECT codigo, descripcion FROM MEspecies WHERE FhBaja is null
+      </sql-query>
+      
+      <sql-query name="findGrupos">
+        SELECT variedad, variedadD FROM MVariedades WHERE FhBaja is null
+      </sql-query>
+      
+        <query name="findArticulosEsCombo">
+         from Marticulos 
+         where fhbaja is null and es_comb = 1
+         order by descripcion
+     </query>
      
      
 </hibernate-mapping>

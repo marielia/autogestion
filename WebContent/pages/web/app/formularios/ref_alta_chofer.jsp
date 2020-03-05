@@ -42,9 +42,10 @@
 		
 		
 		<h:form id="frmAlta" rendered="#{altaChoferesBean.pantalla==1}"  >
-		<c:if test="${!altaChoferesBean.puedeIngresar}">
+		
+	  	<c:if test="${!altaChoferesBean.puedeIngresar}">
 			<c:redirect url="/pages/web/app/salir.jsf"></c:redirect>
-		</c:if>	
+		</c:if>	  
 		
 		
 				
@@ -204,9 +205,9 @@
 		
 		
 		<h:form id="mostrarFinal" rendered="#{altaChoferesBean.pantalla==3}">
-		<c:if test="${!altaChoferesBean.puedeIngresar}">
+		  <c:if test="${!altaChoferesBean.puedeIngresar}">
 			 <c:redirect url="/pages/web/app/salir.jsf"></c:redirect>
-		</c:if>
+		</c:if>  
 		
 		<t:panelGrid width="100%" border="0" cellpadding="0" cellspacing="0" columns="1" columnClasses="columnaTablaCentrada">
 			<!--  TITULO  -->		
@@ -260,9 +261,9 @@
 		
 		
 		<h:form id="frmModificacion" rendered="#{altaChoferesBean.pantalla==2}"  >
-		<c:if test="${!altaChoferesBean.puedeIngresar}">
+	 <c:if test="${!altaChoferesBean.puedeIngresar}">
 			<c:redirect url="/pages/web/app/salir.jsf"></c:redirect>
-		</c:if>	
+		</c:if>	  
 				
 		<t:panelGrid width="100%" border="0" cellpadding="0" cellspacing="0" columns="1" columnClasses="columnaTablaCentrada">
 			<!--  TITULO  -->		
