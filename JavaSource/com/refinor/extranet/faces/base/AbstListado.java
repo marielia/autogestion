@@ -116,6 +116,7 @@ public abstract class AbstListado extends AbstReporte {
 	
 	protected Boolean mostrarFrmModificar;
 	 protected Boolean mostrarFrmBaja;
+	 protected Boolean mostrarFrmAlta;
 	
 	protected String nombreArchivo;
 	protected String nombreArchivoSecundario;
@@ -1007,6 +1008,7 @@ public abstract class AbstListado extends AbstReporte {
 			mostrarFrmListaSecundaria=new Boolean(false);
 			mostrarFrmModificar =new Boolean(false);			
 			mostrarFrmBaja =new Boolean(false);
+			mostrarFrmAlta =new Boolean(false);
 			
 			Properties properties= (new FileUtil()).getPropertiesFile();		
 			this.tamanioPaginacion= Integer.parseInt((String)properties.get(Const.TAMANIO_PAGINA_ARCHIVO));		
@@ -1843,5 +1845,17 @@ public abstract class AbstListado extends AbstReporte {
 	public void setMostrarFrmBaja(Boolean mostrarFrmBaja) {
 		this.mostrarFrmBaja = mostrarFrmBaja;
 	}
+
+
+	public Boolean getMostrarFrmAlta() {
+		return mostrarFrmAlta;
+	}
+
+
+	public void setMostrarFrmAlta(Boolean mostrarFrmAlta) {
+		this.mostrarFrmAlta = mostrarFrmAlta;
+	}
+	
+	
 
 }

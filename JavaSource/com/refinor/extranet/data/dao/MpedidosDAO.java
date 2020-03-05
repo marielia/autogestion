@@ -1248,149 +1248,155 @@ public class MpedidosDAO extends BaseMpedidosDAO implements com.refinor.extranet
 			while(itRemitos.hasNext()){
 		        objRemito = (Object[]) itRemitos.next(); 
 		        remitoTO=new RemitoTO();
-		        		        
-		        remitoTO.setFecha(sdf.format(objRemito[1]));	
-		        remitoTO.setHora(sdfHora.format(objRemito[1]));
-		        remitoTO.setNroSucursal(new Integer(objRemito[2].toString()));			        
-		        remitoTO.setNroRemito(new Integer(objRemito[3].toString()));			        
-		        remitoTO.setCodProducto(new Integer(objRemito[4].toString()));			        
-		        remitoTO.setDescProducto(objRemito[5].toString());
-		        remitoTO.setLitros(new BigDecimal(objRemito[6].toString()).setScale(2, BigDecimal.ROUND_HALF_UP));
-		       		
-		       System.out.println("remito "+remitoTO.getNroSucursal()+" "+remitoTO.getNroRemito()); 
-		        remitoTO.setMontoTotal(new BigDecimal(objRemito[7].toString()));
-		        
-		        remitoTO.setPatente(objRemito[8].toString());
-		        
-		        remitoTO.setCodClienteAlfa(objRemito[20].toString());
-		        
-		        if(objRemito[9]!=null){
-		        	 remitoTO.setApellidoChofer(objRemito[9].toString());					    
-		        }
-		        
-		        if(objRemito[10]!=null){
-		        	 remitoTO.setNombreChofer(objRemito[10].toString());			    
-		        }
+		        	
+		        if(objRemito[3]!=null){
+		        	
 		       
-		        remitoTO.setCodUnidadNegocioV(new Integer(objRemito[11].toString()));
-		        remitoTO.setDescrUnidadNegocioV(objRemito[12].toString());
-		        remitoTO.setCodGrupoUNV(new Integer(objRemito[13].toString()));
-		        remitoTO.setDescrGrupoUNV(objRemito[14].toString());
-				
-		        if(objRemito[15]!=null){
-		        	remitoTO.setCodUnidadNegocioC(new Integer(objRemito[15].toString()));
-		        }
-		        
-		        if(objRemito[16]!=null){
-		        	 remitoTO.setDescrUnidadNegocioC(objRemito[16].toString());
-		        }
-		        
-		        if(objRemito[17]!=null){
-		        	remitoTO.setCodGrupoUNC(new Integer(objRemito[17].toString()));
-		        }
-		        
-		        if(objRemito[18]!=null){
-		        	 remitoTO.setDescrGrupoUNC(objRemito[18].toString());
-		        }	        
-		       
-		        remitoTO.setCcss(objRemito[19].toString());		        
-		        
-		        remitoTO.setCliDescripcion(objRemito[21].toString());
-		        remitoTO.setPrecioKilo(new BigDecimal(objRemito[22].toString()).setScale(4));
-		        remitoTO.setItc(new BigDecimal(objRemito[23].toString()));
-		        remitoTO.setTasaFondo(new BigDecimal(objRemito[24].toString()));
-		        
-			    remitoTO.setCO2(new BigDecimal(objRemito[46].toString()));
+			        remitoTO.setFecha(sdf.format(objRemito[1]));	
+			        remitoTO.setHora(sdfHora.format(objRemito[1]));
+			        remitoTO.setNroSucursal(new Integer(objRemito[2].toString()));	
+			        if(objRemito[3]!=null){
+			           remitoTO.setNroRemito(new Integer(objRemito[3].toString()));	
+			        }
+			        remitoTO.setCodProducto(new Integer(objRemito[4].toString()));			        
+			        remitoTO.setDescProducto(objRemito[5].toString());
+			        remitoTO.setLitros(new BigDecimal(objRemito[6].toString()).setScale(2, BigDecimal.ROUND_HALF_UP));
+			       		
+			       System.out.println("remito "+remitoTO.getNroSucursal()+" "+remitoTO.getNroRemito()); 
+			        remitoTO.setMontoTotal(new BigDecimal(objRemito[7].toString()));
+			        
+			        remitoTO.setPatente(objRemito[8].toString());
+			        
+			        remitoTO.setCodClienteAlfa(objRemito[20].toString());
+			        
+			        if(objRemito[9]!=null){
+			        	 remitoTO.setApellidoChofer(objRemito[9].toString());					    
+			        }
+			        
+			        if(objRemito[10]!=null){
+			        	 remitoTO.setNombreChofer(objRemito[10].toString());			    
+			        }
+			       
+			        remitoTO.setCodUnidadNegocioV(new Integer(objRemito[11].toString()));
+			        remitoTO.setDescrUnidadNegocioV(objRemito[12].toString());
+			        remitoTO.setCodGrupoUNV(new Integer(objRemito[13].toString()));
+			        remitoTO.setDescrGrupoUNV(objRemito[14].toString());
+					
+			        if(objRemito[15]!=null){
+			        	remitoTO.setCodUnidadNegocioC(new Integer(objRemito[15].toString()));
+			        }
+			        
+			        if(objRemito[16]!=null){
+			        	 remitoTO.setDescrUnidadNegocioC(objRemito[16].toString());
+			        }
+			        
+			        if(objRemito[17]!=null){
+			        	remitoTO.setCodGrupoUNC(new Integer(objRemito[17].toString()));
+			        }
+			        
+			        if(objRemito[18]!=null){
+			        	 remitoTO.setDescrGrupoUNC(objRemito[18].toString());
+			        }	        
+			       
+			        remitoTO.setCcss(objRemito[19].toString());		        
+			        
+			        remitoTO.setCliDescripcion(objRemito[21].toString());
+			        remitoTO.setPrecioKilo(new BigDecimal(objRemito[22].toString()).setScale(4));
+			        remitoTO.setItc(new BigDecimal(objRemito[23].toString()));
+			        remitoTO.setTasaFondo(new BigDecimal(objRemito[24].toString()));
+			        
+				    remitoTO.setCO2(new BigDecimal(objRemito[46].toString()));
+				      
+			       // remitoTO.setIva(new BigDecimal(objRemito[25].toString()));
+			        remitoTO.setIva(obtenerIva(remitoTO.getMontoTotal(),remitoTO.getItc(),remitoTO.getTasaFondo(),remitoTO.getLitros(),remitoTO.getCO2()));
+			        remitoTO.setKilometraje(new BigDecimal(objRemito[26].toString()));
+			        
+			        if(objRemito[27]!=null){
+			        	remitoTO.setNroLiquidacion(new Integer(objRemito[27].toString()));
+			        }
+			        remitoTO.setCodBarra(objRemito[28].toString());
+			        if(objRemito[29]!=null){
+			        	remitoTO.setNroAutorizacion(objRemito[29].toString());
+			        }
+			        remitoTO.setNroSucursalFactura(new Integer(objRemito[30].toString()));
+			        remitoTO.setNroFactura(new Integer(objRemito[31].toString()));
+			        
 			      
-		       // remitoTO.setIva(new BigDecimal(objRemito[25].toString()));
-		        remitoTO.setIva(obtenerIva(remitoTO.getMontoTotal(),remitoTO.getItc(),remitoTO.getTasaFondo(),remitoTO.getLitros(),remitoTO.getCO2()));
-		        remitoTO.setKilometraje(new BigDecimal(objRemito[26].toString()));
-		        
-		        if(objRemito[27]!=null){
-		        	remitoTO.setNroLiquidacion(new Integer(objRemito[27].toString()));
-		        }
-		        remitoTO.setCodBarra(objRemito[28].toString());
-		        if(objRemito[29]!=null){
-		        	remitoTO.setNroAutorizacion(objRemito[29].toString());
-		        }
-		        remitoTO.setNroSucursalFactura(new Integer(objRemito[30].toString()));
-		        remitoTO.setNroFactura(new Integer(objRemito[31].toString()));
-		        
-		      
-		       
-		        if(objRemito[32]!=null){				        
-			        if(objRemito[32].toString().trim().equals("FC") || objRemito[32].toString().trim().equals("F")){
-			        	remitoTO.setTipoComprobante(Const.FACTURA+" "+objRemito[33].toString());
-			        }else if(objRemito[32].toString().equals("NC")){
-			        	remitoTO.setTipoComprobante(Const.NOTA_CREDITO);
-			        }else if(objRemito[32].toString().equals("ND")){
-			        	remitoTO.setTipoComprobante(Const.NOTA_DEBITO);
-			        }		
-		        }
-		       
-		        remitoTO.setFacturado(estado);
-		        
-		        if(estado==0){
-		        	//Facturado
-		        	remitoTO.setFacturadoString(Const.ESTADO_FACTURADO);		        	
-		        }else if(estado==1){
-//		        	NO Facturado
-		        	remitoTO.setFacturadoString(Const.ESTADO_NO_FACTURADO);
-		        }
-		        remitoTO.setCondicion(new Integer(objRemito[34].toString())); 
-		        if(remitoTO.getCondicion()==Const.CONDICION_COD_CTA_CTE){
-		        	remitoTO.setCondicionDesc(mensajeria.getMessage().getString("cta_cte_abreviado_label"));
-		        }else if(remitoTO.getCondicion()==Const.CONDICION_COD_CONTADO){
-		        	remitoTO.setCondicionDesc(mensajeria.getMessage().getString("contado_abreviado_label"));
-		        }
-		        
-		        // yapa
-		        ////System.out.println("suc ->"+remitoTO.getNroSucursal().toString()+ " rem-> "+remitoTO.getNroRemito().toString());
-		        if(suc == remitoTO.getNroSucursal().intValue() && rem==remitoTO.getNroRemito().intValue()){
-		        	 remitoTO.setMontoTotal(new BigDecimal(objRemito[7].toString()));	
-		        	////System.out.println("suc ->"+ remitoTO.getMontoTotal());
-		        }
-		       
-		        suc=remitoTO.getNroSucursal().intValue();
-		        rem=remitoTO.getNroRemito().intValue();
-		        
-		       // //System.out.println("suc ->"+suc.toString()+ " rem-> "+rem.toString() );
-		        //yapa
-		        
-		        if(objRemito[36]!=null){
-		           remitoTO.setIibb(new BigDecimal(objRemito[36].toString()));
-		        }
-		        
-		        if(objRemito[44]!=null){
-			           remitoTO.setLeyCba(new BigDecimal(objRemito[44].toString()));
+			       
+			        if(objRemito[32]!=null){				        
+				        if(objRemito[32].toString().trim().equals("FC") || objRemito[32].toString().trim().equals("F")){
+				        	remitoTO.setTipoComprobante(Const.FACTURA+" "+objRemito[33].toString());
+				        }else if(objRemito[32].toString().equals("NC")){
+				        	remitoTO.setTipoComprobante(Const.NOTA_CREDITO);
+				        }else if(objRemito[32].toString().equals("ND")){
+				        	remitoTO.setTipoComprobante(Const.NOTA_DEBITO);
+				        }		
 			        }
-		        
-		        if(objRemito[45]!=null){
-			           remitoTO.setPiva(new BigDecimal(objRemito[45].toString()));
+			       
+			        remitoTO.setFacturado(estado);
+			        
+			        if(estado==0){
+			        	//Facturado
+			        	remitoTO.setFacturadoString(Const.ESTADO_FACTURADO);		        	
+			        }else if(estado==1){
+	//		        	NO Facturado
+			        	remitoTO.setFacturadoString(Const.ESTADO_NO_FACTURADO);
 			        }
-		        
-		      
-		        	    	
-		    	remitoTO.setNroAsientoContable(new BigDecimal(objRemito[37].toString()));
-		    	remitoTO.setNroEjercicioContable(new BigDecimal(objRemito[38].toString()));
-		    	remitoTO.setPrecioListaPorCCSSArticuloFecha(new BigDecimal(objRemito[39].toString()));
-		        remitoTO.setComparacionPrecioCImp(remitoTO.getPrecioKilo().equals(remitoTO.getPrecioListaPorCCSSArticuloFecha())?"":"Error Precio");
-		        
-		        if(objRemito[40]!=null)
-		         remitoTO.setFechaFacturacion(sdf.format(objRemito[40]));
-		        else
-		          remitoTO.setFechaFacturacion("----");	
-		        
-		        if(objRemito[41]!=null)
-			         remitoTO.setReFacturacion(objRemito[41].toString());
+			        remitoTO.setCondicion(new Integer(objRemito[34].toString())); 
+			        if(remitoTO.getCondicion()==Const.CONDICION_COD_CTA_CTE){
+			        	remitoTO.setCondicionDesc(mensajeria.getMessage().getString("cta_cte_abreviado_label"));
+			        }else if(remitoTO.getCondicion()==Const.CONDICION_COD_CONTADO){
+			        	remitoTO.setCondicionDesc(mensajeria.getMessage().getString("contado_abreviado_label"));
+			        }
+			        
+			        // yapa
+			        ////System.out.println("suc ->"+remitoTO.getNroSucursal().toString()+ " rem-> "+remitoTO.getNroRemito().toString());
+			        if(suc == remitoTO.getNroSucursal().intValue() && rem==remitoTO.getNroRemito().intValue()){
+			        	 remitoTO.setMontoTotal(new BigDecimal(objRemito[7].toString()));	
+			        	////System.out.println("suc ->"+ remitoTO.getMontoTotal());
+			        }
+			       
+			        suc=remitoTO.getNroSucursal().intValue();
+			        rem=remitoTO.getNroRemito().intValue();
+			        
+			       // //System.out.println("suc ->"+suc.toString()+ " rem-> "+rem.toString() );
+			        //yapa
+			        
+			        if(objRemito[36]!=null){
+			           remitoTO.setIibb(new BigDecimal(objRemito[36].toString()));
+			        }
+			        
+			        if(objRemito[44]!=null){
+				           remitoTO.setLeyCba(new BigDecimal(objRemito[44].toString()));
+				        }
+			        
+			        if(objRemito[45]!=null){
+				           remitoTO.setPiva(new BigDecimal(objRemito[45].toString()));
+				        }
+			        
+			      
+			        	    	
+			    	remitoTO.setNroAsientoContable(new BigDecimal(objRemito[37].toString()));
+			    	remitoTO.setNroEjercicioContable(new BigDecimal(objRemito[38].toString()));
+			    	remitoTO.setPrecioListaPorCCSSArticuloFecha(new BigDecimal(objRemito[39].toString()));
+			        remitoTO.setComparacionPrecioCImp(remitoTO.getPrecioKilo().equals(remitoTO.getPrecioListaPorCCSSArticuloFecha())?"":"Error Precio");
+			        
+			        if(objRemito[40]!=null)
+			         remitoTO.setFechaFacturacion(sdf.format(objRemito[40]));
 			        else
-			          remitoTO.setReFacturacion("----");	
-		        
-		        if(condicion==-1 || remitoTO.getCondicion()==condicion){
-		        	 if(facturado==-1 || remitoTO.getFacturado()==facturado){
-		        		 lstRemitosCompleta.add(remitoTO);
-		        	 }
-				}
+			          remitoTO.setFechaFacturacion("----");	
+			        
+			        if(objRemito[41]!=null)
+				         remitoTO.setReFacturacion(objRemito[41].toString());
+				        else
+				          remitoTO.setReFacturacion("----");	
+			        
+			        if(condicion==-1 || remitoTO.getCondicion()==condicion){
+			        	 if(facturado==-1 || remitoTO.getFacturado()==facturado){
+			        		 lstRemitosCompleta.add(remitoTO);
+			        	 }
+					}
+		        }
 			}
 		
 		

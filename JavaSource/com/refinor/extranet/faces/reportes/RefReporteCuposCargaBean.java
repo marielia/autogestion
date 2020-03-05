@@ -418,21 +418,29 @@ public class RefReporteCuposCargaBean extends AbstListado {
 				mostrarListaSecundaria= new Boolean(false);
 				mostrarFrmLista= new Boolean(false);
 				mostrarLista= new Boolean(false);
-				mostrarFrmBaja= new Boolean(false);
+				mostrarFrmBaja= new Boolean(false); 
 				
+				if(this.ltrCarga==null || this.ltrCarga.trim().equals("") )
+					ltrCarga = "0"; 
+				
+				if(this.ltrDia==null || this.ltrDia.trim().equals(""))
+					ltrDia = "0"; 
+				
+				if(this.ltrMes==null || this.ltrMes.trim().equals(""))
+					ltrMes = "0";
 				 
 			
-			if(ilimitado==false && (this.ltrCarga==null  || this.ltrCarga.trim().equals("")  || new BigDecimal(this.ltrCarga).equals(new BigDecimal("0")))
-					&& (this.ltrDia==null || this.ltrDia.trim().equals("")  || new BigDecimal(this.ltrDia).equals(new BigDecimal("0")))
-					&& (this.ltrMes==null || this.ltrMes.trim().equals("") || new BigDecimal(this.ltrMes).equals(new BigDecimal("0"))
-					 )){
+			if(ilimitado==false && 
+				  new BigDecimal(this.ltrCarga).compareTo(new BigDecimal("0")) == 0  && 
+				  new BigDecimal(this.ltrDia).compareTo(new BigDecimal("0"))  == 0  && 
+				  new BigDecimal(this.ltrMes).compareTo(new BigDecimal("0")) == 0){
 				throw new DatosObligatoriosException("Debe completar los datos.");
 			}
 			
 			if( ilimitado==true && 
-					(this.ltrCarga != null && !this.ltrCarga.trim().equals("") && new BigDecimal(this.ltrCarga).compareTo(new BigDecimal("0")) > 0  
-					&& this.ltrDia != null && !this.ltrDia.trim().equals("")   && new BigDecimal(this.ltrDia).compareTo(new BigDecimal("0")) > 0
-					&& this.ltrMes != null && !this.ltrMes.trim().equals("")  && new BigDecimal(this.ltrMes).compareTo(new BigDecimal("0")) > 0
+					 (   new BigDecimal(this.ltrCarga).compareTo(new BigDecimal("0")) > 0  
+					||   new BigDecimal(this.ltrDia).compareTo(new BigDecimal("0")) > 0
+					||   new BigDecimal(this.ltrMes).compareTo(new BigDecimal("0")) > 0
 					 )){
 				throw new DatosObligatoriosException("Si es ilimitado no debe tener datos en litros.");
 			}
@@ -595,6 +603,41 @@ public class RefReporteCuposCargaBean extends AbstListado {
 		}
 	}
 	
+	
+	public void alta(ActionEvent event){
+ 		//try{
+			
+		    mostrarFrmModificar= new Boolean(false);
+			mostrarFrmListaSecundaria= new Boolean(false);
+			mostrarListaSecundaria= new Boolean(false);
+			mostrarFrmLista= new Boolean(false);
+			mostrarLista= new Boolean(false);	
+			mostrarFrmBaja = new Boolean(false);
+			mostrarFrmAlta = new Boolean(true); 
+			inicializar(); 
+			
+		/*
+		 * }catch(DataAccessErrorException ex){ mostrarListaSecundaria= new
+		 * Boolean(false); ex.printStackTrace(); AddErrorMessage(ex.getMessage());
+		 * }catch(NoExistenItemsException ex){ mostrarListaSecundaria= new
+		 * Boolean(false); ex.printStackTrace(); AddErrorMessage(ex.getMessage()); }
+		 */	
+	}
+	
+	
+	private void inicializar()
+	{
+		dominio = "";
+		artFamGrupo = "";
+		articulo = "";
+		ltrCarga = "";
+		ltrDia = "";
+		ltrMes =  "";
+		ilimitado = false;
+		codVehiculo = 0;
+		artFamGrupoLetra = "";
+		codProducto = 0;
+	}
 	
 	public String getDominio() {
 		return dominio;
