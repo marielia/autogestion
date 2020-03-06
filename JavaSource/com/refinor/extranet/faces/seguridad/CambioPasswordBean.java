@@ -12,9 +12,12 @@ import com.itsolver.util.seguridad.PasswordService;
 import com.refinor.extranet.data.MusuarioWeb;
 import com.refinor.extranet.data.dao.MusuarioWebDAO;
 import com.refinor.extranet.faces.base.AbstBackingBean;
+import com.refinor.extranet.to.ArchivoTO;
 import com.refinor.extranet.util.Const;
 import com.refinor.extranet.util.Messages;
 import com.refinor.extranet.util.exception.DataAccessErrorException;
+
+import java.io.File;
 
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
@@ -363,6 +366,14 @@ public class CambioPasswordBean extends AbstBackingBean {
 			this.usuario = usuario;
 		}
 
+		
+		
+		public String volver(ActionEvent event) {		
+			String goToPage = Const.ANCLA_LISTA_REPORTES_DISPONIBLES;  
+			Runtime.getRuntime().gc(); 
+			return goToPage; 
+		}
+		
 	}
 
 

@@ -108,5 +108,34 @@
 	<query name="findVehiculoPorCodigo">	
 		from Mchofer where codigo = :codVehiculo
 	</query>
+	
+	  <sql-query name="findVehiculoPorCliente">
+    	<query-param name="codCliente" type="string"/>
+		 
+		
+  		SELECT 
+  			b.codigo,
+  			b.dominio,
+  		b.codCliente,
+  		
+  		b.codBarra,
+  		b.inicializado,
+  		b.codUnidadN,
+  		b.activo,
+  		b.OBS,
+  		b.orden_en_cliente,
+  		b.verifica_lim_carga,
+  		b.IdUserLock,
+  		b.f_alta,
+  		b.f_baja  
+		FROM   
+				Mvehiculo as b,  
+				Mclientes d
+		WHERE  
+		     b.codCliente= d.codigo and 
+		     d.cod_cliente_alfa like :codCliente and 
+		     b.activo = 1 
+		 ORDER BY b.dominio
+    </sql-query>
     
 </hibernate-mapping>

@@ -47,15 +47,15 @@
 	                if (vieneDe == 3) {
 	                    sueldo = document.getElementById('frmFrmModificar:ltrMesC'); 
 	                }
-// 	                 if (vieneDe == 4) {
-// 	                    sueldo = document.getElementById('frmFrmModificar:ltrCargaA'); 
-// 	                }
-// 	                if (vieneDe == 5) {
-// 	                    sueldo = document.getElementById('frmFrmModificar:ltrDiaA'); 
-// 	                }
-// 	                if (vieneDe == 6) {
-// 	                    sueldo = document.getElementById('frmFrmModificar:ltrMesA'); 
-// 	                }  
+	                 if (vieneDe == 4) {
+	                    sueldo = document.getElementById('frmAlta:ltrCargaA'); 
+	                }
+	                if (vieneDe == 5) {
+	                    sueldo = document.getElementById('frmAlta:ltrDiaA'); 
+	                }
+	                if (vieneDe == 6) {
+	                    sueldo = document.getElementById('frmAlta:ltrMesA'); 
+	                }  
 	                
 
 	                //ya hay una coma? 
@@ -100,15 +100,16 @@
 	                if (vieneDe == 3) {
 	                    sueldo = document.getElementById('frmFrmModificar:ltrMesC'); 
 	                }
-	               /*  if (vieneDe == 4) {
-	                    sueldo = document.getElementById('frmFrmModificar:ltrCargaA'); 
+	                if (vieneDe == 4) {
+	                    sueldo = document.getElementById('frmAlta:ltrCargaA'); 
 	                }
 	                if (vieneDe == 5) {
-	                    sueldo = document.getElementById('frmFrmModificar:ltrDiaA'); 
+	                    sueldo = document.getElementById('frmAlta:ltrDiaA'); 
 	                }
 	                if (vieneDe == 6) {
-	                    sueldo = document.getElementById('frmFrmModificar:ltrMesA'); 
-	                } */            
+	                    sueldo = document.getElementById('frmAlta:ltrMesA'); 
+	                }  
+	                          
 
 
 	                var c = sueldo.value.indexOf(".", 0);
@@ -319,7 +320,7 @@
 			
 						
 			
-			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
 				<h:column>	</h:column>
 				<h:column>	</h:column>
 				<h:column>   </h:column>				
@@ -327,8 +328,7 @@
 					<h:panelGrid columns="2" width="100%"  columnClasses="fondo" styleClass="columnaTablaNumero, columnaTablaNumero " cellspacing="0" cellpadding="4">
 						<h:column>
 			    		    <t:commandButton value="Nuevo" actionListener="#{refReporteCuposCargaBean.alta}" styleClass="boton"/>
-			    	    </h:column>						 
-				     	<h:column>
+			    	    &nbsp;&nbsp;&nbsp;&nbsp;
 				    		<t:commandButton value="#{Message.buscar_label}" actionListener="#{refReporteCuposCargaBean.buscar}" styleClass="boton"/>
 				    	</h:column>
 				 	</h:panelGrid> 
@@ -460,7 +460,7 @@
  
 						<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{Message.activo_label}"/>
+							<h:outputText value="Vehículo #{Message.activo_label}"/>
 						</f:facet>
 						<h:outputText value="#{item.activoStr}"/>
 					</h:column>		
@@ -672,7 +672,12 @@
 				<t:saveState value="#{refReporteCuposCargaBean.ilimitado}"></t:saveState>
 				<t:saveState value="#{refReporteCuposCargaBean.codVehiculo}"></t:saveState> 
 				<t:saveState value="#{refReporteCuposCargaBean.codProducto}"></t:saveState>
-		
+				<t:saveState value="#{refReporteCuposCargaBean.producto}"></t:saveState>
+				<t:saveState value="#{refReporteCuposCargaBean.productos}"></t:saveState>
+				<t:saveState value="#{refReporteCuposCargaBean.fltPatente}"></t:saveState>
+				<t:saveState value="#{refReporteCuposCargaBean.familia}"></t:saveState>
+				<t:saveState value="#{refReporteCuposCargaBean.grupo}"></t:saveState>
+		        <t:saveState value="#{refReporteCuposCargaBean.codCliente}"></t:saveState>
 		
 		</h:column>
 	</h:panelGrid>
@@ -858,7 +863,10 @@
 					</t:outputLabel>		
 				</t:column>
 				<t:column>
-					<t:inputText id="dominioC" value ="#{refReporteCuposCargaBean.dominio}" maxlength="20" readonly="true" size="20" styleClass="campo" ></t:inputText>		
+					<h:selectOneListbox  size="1" value="#{refReporteCuposCargaBean.patente}" styleClass="campo"  >
+						<f:selectItems value="#{refReporteCuposCargaBean.patentes}" />
+					</h:selectOneListbox>
+						<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/> 
 	 			</t:column>
 										
 				 
@@ -868,8 +876,15 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<t:inputText id="artFamGrupoC" value ="#{refReporteCuposCargaBean.artFamGrupo}" maxlength="20"  size="20" readonly="true" styleClass="campo" ></t:inputText>		
-	 			</t:column> 
+					<h:selectOneListbox  size="1" value="#{refReporteCuposCargaBean.agrupado}" styleClass="campo" 
+										onchange="submit();" immediate="true" 
+										valueChangeListener="#{refReporteCuposCargaBean.cargarTipoAgrupado}" >
+										 
+						<f:selectItems value="#{refReporteCuposCargaBean.agrupados}" />
+					</h:selectOneListbox>
+						<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/> 
+				
+			 	</t:column> 
 			
 				 
 				<t:column>
@@ -878,8 +893,11 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<t:inputText  id="articuloC" value ="#{refReporteCuposCargaBean.articulo}" maxlength="20"  size="30" readonly="true" styleClass="campo"   /> 
-				</t:column> 
+		            <h:selectOneListbox  size="1" value="#{refReporteCuposCargaBean.tipoAgrupado}" styleClass="campo"  >
+						<f:selectItems value="#{refReporteCuposCargaBean.tipoAgrupados}" />
+					</h:selectOneListbox>
+						<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/> 
+		 		</t:column> 
 				
 				
 				<t:column>
@@ -888,7 +906,7 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					 <h:selectBooleanCheckbox id="ilimitadoC" value ="#{refReporteCuposCargaBean.ilimitado}"  /> 
+					 <h:selectBooleanCheckbox id="ilimitadoA" value ="#{refReporteCuposCargaBean.ilimitado}"  /> 
 				</t:column> 
 			 
 				
@@ -899,7 +917,7 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<t:inputText  id="ltrCargaC" value ="#{refReporteCuposCargaBean.ltrCarga}" maxlength="20"  size="20" styleClass="campo" onkeyup="mascaraVolumen(this)" onkeypress="return formatoDecimalesComision(event,1);"  />
+					<t:inputText  id="ltrCargaA" value ="#{refReporteCuposCargaBean.ltrCarga}" maxlength="20"  size="20" styleClass="campo" onkeyup="mascaraVolumen(this)" onkeypress="return formatoDecimalesComision(event,1);"  />
 					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/> 
 				    <h:outputText value="&nbsp;[*]" styleClass="datoObligatorio" escape="false"/> 
 			    </t:column>
@@ -911,7 +929,7 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<t:inputText  id="ltrDiaC" value ="#{refReporteCuposCargaBean.ltrDia}" maxlength="20"  size="20" styleClass="campo" onkeyup="mascaraVolumen(this)" onkeypress="return formatoDecimalesComision(event,2);"   />
+					<t:inputText  id="ltrDiaA" value ="#{refReporteCuposCargaBean.ltrDia}" maxlength="20"  size="20" styleClass="campo" onkeyup="mascaraVolumen(this)" onkeypress="return formatoDecimalesComision(event,2);"   />
 					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/> 
 					<h:outputText value="&nbsp;[*]" styleClass="datoObligatorio" escape="false"/> 	
 				</t:column>	
@@ -922,7 +940,7 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<t:inputText  id="ltrMesC" value ="#{refReporteCuposCargaBean.ltrMes}" maxlength="20"  size="20" styleClass="campo"  onkeyup="mascaraVolumen(this)" onkeypress="return formatoDecimalesComision(event,3);"  />
+					<t:inputText  id="ltrMesA" value ="#{refReporteCuposCargaBean.ltrMes}" maxlength="20"  size="20" styleClass="campo"  onkeyup="mascaraVolumen(this)" onkeypress="return formatoDecimalesComision(event,3);"  />
 					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/> 	
 					<h:outputText value="&nbsp;[*]" styleClass="datoObligatorio" escape="false"/> 			
 				</t:column>	
@@ -954,18 +972,18 @@
 				</t:panelGrid>
 				</t:column>	
 				 
-			</t:panelGrid>		
-			
-				<t:saveState value="#{refReporteCuposCargaBean.dominio}"></t:saveState>
-				<t:saveState value="#{refReporteCuposCargaBean.articulo}"></t:saveState>	
-				<t:saveState value="#{refReporteCuposCargaBean.artFamGrupo}"></t:saveState>
-				<t:saveState value="#{refReporteCuposCargaBean.artFamGrupoLetra}"></t:saveState>	
+			</t:panelGrid> 
+				 	 	
 				<t:saveState value="#{refReporteCuposCargaBean.ltrMes}"></t:saveState>	
 				<t:saveState value="#{refReporteCuposCargaBean.ltrDia}"></t:saveState>	
 				<t:saveState value="#{refReporteCuposCargaBean.ltrCarga}"></t:saveState> 
 				<t:saveState value="#{refReporteCuposCargaBean.ilimitado}"></t:saveState>
-				<t:saveState value="#{refReporteCuposCargaBean.codVehiculo}"></t:saveState> 
-				<t:saveState value="#{refReporteCuposCargaBean.codProducto}"></t:saveState>
+				 
+				
+				<t:saveState value="#{refReporteCuposCargaBean.agrupado}"></t:saveState>
+				<t:saveState value="#{refReporteCuposCargaBean.agrupados}"></t:saveState>
+				<t:saveState value="#{refReporteCuposCargaBean.tipoAgrupados}"></t:saveState>
+				<t:saveState value="#{refReporteCuposCargaBean.tipoAgrupado}"></t:saveState>
 		
 		
 		</h:column>
@@ -976,7 +994,7 @@
 			    		<t:commandButton value="#{Message.volver_label}" actionListener="#{refReporteCuposCargaBean.volverPrincipal}" styleClass="boton"/>	
 			    	</h:column>
 			    	<h:column>	
-			    	 <h:commandButton  actionListener="#{refReporteCuposCargaBean.guardarModificacion}" 
+			    	 <h:commandButton  actionListener="#{refReporteCuposCargaBean.guardarAlta}" 
 						value="#{Message.guardar_label}" styleClass="boton" />
 					 </h:column>
 			 	</h:panelGrid> 

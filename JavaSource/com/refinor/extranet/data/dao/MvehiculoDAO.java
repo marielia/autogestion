@@ -36,6 +36,7 @@ public class MvehiculoDAO extends BaseMvehiculoDAO implements com.refinor.extran
 	public static String FIND_CODIGO_VEHICULO= "findCodVehiculo";
 	private static String FIND_VEHICULO_POR_DOMINIO_CLIENTE= "findVehiculoPorDominioCliente";
 	public static String FIND_VEHICULO_POR_CODIGO= "findVehiculoPorCodigo";
+	public static String FIND_VEHICULO_POR_CLIENTE= "findVehiculoPorCliente";
 	
 	public Mvehiculo getVehiculoPorDominioYClienteEstado(String dominio, Integer codCliente,int estado) throws NoExistenItemsException, VariosVehiculosPorPatenteYClienteException, IOException, DataAccessErrorException{
 		try{
@@ -225,6 +226,53 @@ public class MvehiculoDAO extends BaseMvehiculoDAO implements com.refinor.extran
 			ex.printStackTrace();			
 			throw new DataAccessErrorException();
 		}
+		
+	}
+	
+	
+	public List getVehiculoPorCliente( String CodCliente ) throws NoExistenItemsException,    DataAccessErrorException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstVehiculosPorFiltro= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>(); 
+			 
+			if(CodCliente==null) CodCliente="%";
+						
+			params.put(Const.PARAM_COD_CLIENTE, CodCliente.trim());		
+			 
+			
+			Query queryListadoQry = this.getNamedQuery(MvehiculoDAO.FIND_VEHICULO_POR_CLIENTE, params, session);
+			lstVehiculosPorFiltro= queryListadoQry.list();
+			
+			if(lstVehiculosPorFiltro.size()>0){
+				Iterator itVehiculos = lstVehiculosPorFiltro.iterator();
+				lstVehiculosPorFiltro= new ArrayList();
+				Mvehiculo  mVehiculo = new Mvehiculo ();
+			 
+				Object[] objVehiculo= null;
+				while(itVehiculos.hasNext()){
+					objVehiculo = (Object[]) itVehiculos.next(); 
+					mVehiculo=new Mvehiculo ();
+					mVehiculo.setCodigo(new Integer(objVehiculo[0].toString()));		
+					mVehiculo.setDominio(objVehiculo[1].toString()); 
+			        lstVehiculosPorFiltro.add(mVehiculo);
+				}				
+				
+			}else if(lstVehiculosPorFiltro.size()==0){
+				throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+			}				
+		
+			return lstVehiculosPorFiltro;
+		}
+		catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+			 
+			 
 		
 	}
 

@@ -99,7 +99,14 @@ public abstract class AbstListado extends AbstReporte {
 	
 
 	protected Integer provincia;	
-	protected List<SelectItem> provincias;		
+	protected List<SelectItem> provincias;
+	
+	
+	protected Integer agrupado;	
+	protected List<SelectItem> agrupados;
+	
+	protected Integer patente;	
+	protected List<SelectItem> patentes;
 	
 	/*Mi paginacion*/	
 	protected Page paginaSecundaria;	
@@ -155,6 +162,29 @@ public abstract class AbstListado extends AbstReporte {
 	
 	protected Integer familia;
 	protected List<SelectItem> familias;
+	
+	protected Integer tipoAgrupado;
+	public Integer getTipoAgrupado() {
+		return tipoAgrupado;
+	}
+
+
+	public void setTipoAgrupado(Integer tipoAgrupado) {
+		this.tipoAgrupado = tipoAgrupado;
+	}
+
+
+	public List<SelectItem> getTipoAgrupados() {
+		return tipoAgrupados;
+	}
+
+
+	public void setTipoAgrupados(List<SelectItem> tipoAgrupados) {
+		this.tipoAgrupados = tipoAgrupados;
+	}
+
+
+	protected List<SelectItem> tipoAgrupados; 
 	
 	protected Integer grupo;
 	protected List<SelectItem> grupos;
@@ -220,7 +250,8 @@ public abstract class AbstListado extends AbstReporte {
 			cargarComprobantes();
 			cargarEstadosCombustible();
 			cargarEstadosRemitos();
-			cargarComboJurisdicciones();			
+			cargarComboJurisdicciones();
+			cargarTipoAgrupado();
 			////System.out.println("Paso por el AbstListado()");
 		}/*catch(NoExistenItemsException ex){
 			noMostrarLista();
@@ -309,6 +340,16 @@ public abstract class AbstListado extends AbstReporte {
 		 estadosEntregaCombustible.add(new SelectItem(new Integer(-1),Const.SELECCIONE));
 		 estadosEntregaCombustible.add(new SelectItem(new Integer(0),Const.ESTADO_ENVIADO));
 		 estadosEntregaCombustible.add(new SelectItem(new Integer(1),Const.ESTADO_RECIBIDO));
+		
+		
+	}
+	
+	public void cargarTipoAgrupado(){		 
+		agrupados = new ArrayList<SelectItem>(); 
+		agrupados.add(new SelectItem(new Integer(-1),Const.SELECCIONE));
+		agrupados.add(new SelectItem("1","Familia"));
+		agrupados.add(new SelectItem("2","Grupo"));
+		agrupados.add(new SelectItem("3","Articulo"));
 		
 		
 	}
@@ -713,6 +754,10 @@ public abstract class AbstListado extends AbstReporte {
 		  vehiculoNoInicializado 	=null;
 		  provincia 	=null;
 		  provincias 	=null;
+		  agrupados =null;
+		  agrupado=null;
+		  patente=null;
+		  patentes = null;
 		  paginaSecundaria 	=null;
 		  pagina 	=null;
 		  tamanioPaginacion 	=null;
@@ -763,6 +808,8 @@ public abstract class AbstListado extends AbstReporte {
 		  optRefacturaciones 	=null;
 		  lstArchivos 	=null;
 		  mensaje2000Registros 	=null;	
+		  tipoAgrupado=null;
+		  tipoAgrupados = null;
 		
 		  Runtime.getRuntime().gc();
 		
@@ -1854,6 +1901,46 @@ public abstract class AbstListado extends AbstReporte {
 
 	public void setMostrarFrmAlta(Boolean mostrarFrmAlta) {
 		this.mostrarFrmAlta = mostrarFrmAlta;
+	}
+
+
+	public Integer getPatente() {
+		return patente;
+	}
+
+
+	public void setPatente(Integer patente) {
+		this.patente = patente;
+	}
+
+
+	public List<SelectItem> getPatentes() {
+		return patentes;
+	}
+
+
+	public void setPatentes(List<SelectItem> patentes) {
+		this.patentes = patentes;
+	}
+
+
+	public Integer getAgrupado() {
+		return agrupado;
+	}
+
+
+	public void setAgrupado(Integer agrupado) {
+		this.agrupado = agrupado;
+	}
+
+
+	public List<SelectItem> getAgrupados() {
+		return agrupados;
+	}
+
+
+	public void setAgrupados(List<SelectItem> agrupados) {
+		this.agrupados = agrupados;
 	}
 	
 	

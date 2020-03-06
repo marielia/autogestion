@@ -9,8 +9,9 @@
 
 <html>
 	<head>
-        <meta http-equiv="Content-Type"
-             content="text/html; charset=windows-1252"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
+        
+        
 		<title><h:outputText value="#{Message.nombre_sistema}"/> </title>
 		<link rel="stylesheet" type="text/css" href="<h:outputText value="#{Message.contexto_sistema}"/>/css/refinor.css">		
 	</head>
