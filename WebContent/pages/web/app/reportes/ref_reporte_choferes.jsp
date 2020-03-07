@@ -53,11 +53,8 @@
 			</h:column>	
 			<h:column></h:column>			
 			</h:panelGrid>
-			
-			
-			
-			
-			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+						
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="9">						 
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}" escape="false" />							
 				</t:column>
@@ -68,11 +65,9 @@
 						<f:selectItems value="#{refReporteChoferesBean.clientes}" />
 					</h:selectOneListbox>						
 				</t:column>
-				<t:column rendered="#{sessionScope.usuario.tipo==0}"/>
-				<t:column rendered="#{sessionScope.usuario.tipo==0}"/>
 				
 				<h:column>
-						<t:outputText value="&nbsp;&nbsp;#{Message.grupo_unidad_negocio_label}" styleClass="cpo8" escape="false"/>
+						<t:outputText value="#{Message.grupo_unidad_negocio_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
 				<h:column>
 					<%/* 
@@ -85,7 +80,7 @@
 					</h:selectOneListbox>	
 				</h:column>
 				<h:column>
-						<t:outputText value="&nbsp;#{Message.unidad_negocio_label}" styleClass="cpo8" escape="false"/>
+						<t:outputText value="#{Message.unidad_negocio_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
 				<h:column>	
 						<%/* 		
@@ -99,7 +94,7 @@
 				
 				<h:column>
 					      <t:outputLabel for="nombre" styleClass="cpo8">
-							<t:outputText value="&nbsp;&nbsp;#{Message.nombre_label}"  escape="false"/>
+							<t:outputText value="#{Message.nombre_label}"  escape="false"/>
 						  </t:outputLabel>
 				</h:column>	
 				<h:column>				     
@@ -107,7 +102,7 @@
 				</h:column>	
 				<h:column>
 					      <t:outputLabel for="dni" styleClass="cpo8">
-							<t:outputText value="&nbsp;#{Message.dni_label}"  escape="false"/>
+							<t:outputText value="#{Message.dni_label}"  escape="false"/>
 						  </t:outputLabel>
 				</h:column>	
 				<h:column>				     
@@ -115,25 +110,20 @@
 				</h:column>	
 			</h:panelGrid>
 			
-				
-			
-			<h:panelGrid columns="2" width="100%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="5">						 
 				<t:column>
 					<h:outputLabel for="estado" styleClass="cpo8">
-						<h:outputText  value="&nbsp;&nbsp;#{Message.estado_label}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false"/>
+						<h:outputText  value="&nbsp;#{Message.estado_label}" escape="false"/>
 					</h:outputLabel>
 				</t:column>
-				<t:column> 
-					<h:outputText  value="&nbsp;&nbsp;&nbsp;&nbsp;" escape="false"/>		
+				<t:column> 	
 					<h:selectOneRadio  value="#{refReporteChoferesBean.estado}" styleClass="campoNoEditable">
 					     <f:selectItems  value="#{refReporteChoferesBean.estados}"/>
 					</h:selectOneRadio>								
 				</t:column>	
 				
 				<t:column>
-					<h:outputLabel for="estado" styleClass="cpo8">
-						<h:outputText  value="&nbsp;" escape="false"/>
-					</h:outputLabel>
+					<h:outputLabel for="estado" styleClass="cpo8"></h:outputLabel>
 				</t:column>
 				<t:column> 
 					<h:selectOneRadio  value="#{refReporteChoferesBean.estadoIni}" styleClass="campoNoEditable">

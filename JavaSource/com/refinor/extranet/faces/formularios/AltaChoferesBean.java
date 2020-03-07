@@ -165,6 +165,10 @@ public class AltaChoferesBean extends AbstBackingBean {
 //			ex.printStackTrace();			
 //			pantalla=2;
 //			AddErrorMessage(ex.getMessage());
+		}catch(DatosObligatoriosException excep) {
+			excep.printStackTrace();
+			pantalla=2;
+			AddErrorMessage(excep.getMessage());
 		}catch(ChoferYaExisteException ex){
 			ex.printStackTrace();	
 			pantalla=2;
@@ -201,7 +205,9 @@ public class AltaChoferesBean extends AbstBackingBean {
 	public void guardar(ActionEvent event){
 		Transaction tx= null;
 		try{
-			if(this.nombre==null || this.nombre.trim().equals("") || this.apellido==null || this.apellido.trim().equals("") || this.numeroDocumento==null){
+			if(this.nombre==null || this.nombre.trim().equals("") || this.apellido==null || 
+				this.apellido.trim().equals("") || this.numeroDocumento==null || 
+				this.grupoUnidadNegocio==0 || this.unidadNegocio==0){
 				throw new DatosObligatoriosException(mensajeria.getMessage().getString("datos_onligatorios_label"));
 			}	
 			
@@ -237,15 +243,15 @@ public class AltaChoferesBean extends AbstBackingBean {
 					mSecuencia.setSecuencia(mChofer.getCodigo()+1);				
 					mSecuenciaDAO.update(mSecuencia,sessionHib);
 					
-					enviarMailAdministrador();
+//					enviarMailAdministrador();
 				tx.commit();
 				//envio de mail a refipass para hacerle saber que hay un chofer esperando el ok				
 				mensajeGuardado=mensajeria.getMessage().getString("registro_ok_chofer_mag");
 				pantalla=3;
-			}catch(NoSePudeEnviarMailException excep) {
-				excep.printStackTrace();
-				tx.rollback();
-				AddErrorMessage(excep.getMessage());
+//			}catch(NoSePudeEnviarMailException excep) {
+//				excep.printStackTrace();
+//				tx.rollback();
+//				AddErrorMessage(excep.getMessage());
 			} catch(Exception excep) {
 				excep.printStackTrace();
 				tx.rollback();
@@ -277,34 +283,34 @@ public class AltaChoferesBean extends AbstBackingBean {
 
 	private void enviarMailCliente(String email) throws NoSePudeEnviarMailException {
 		try{
-		InitialContext ic = new InitialContext();
-		Context envCtx = (Context) ic.lookup("java:comp/env");
-		javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
-		Properties props = session.getProperties();
-		if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
-		{
-			session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
-		}
-		
-		System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoChoferModificacion"));
-		String subject = GetMensaje(props.getProperty("asuntoChoferModificacion"));
-		
-		System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoChoferModificacion"));
-		String body = GetMensaje(props.getProperty("cuerpoChoferModificacion"));
-		System.out.println("se enviara a: "+email);
-				
-		MimeMessage msg = new MimeMessage(session);
-		msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
-		msg.setContentLanguage(new String[] {"es-ar"});
-		msg.addHeader("Content-Transfer-Encoding", "base64");		
-		msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
-		msg.setSentDate(new java.util.Date());
-		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
-		msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-		msg.setHeader("X-Mailer", "sendhtml");		
-		msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
-		
-		Transport.send(msg);
+			InitialContext ic = new InitialContext();
+			Context envCtx = (Context) ic.lookup("java:comp/env");
+			javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
+			Properties props = session.getProperties();
+			if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
+			{
+				session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
+			}
+			
+			System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoChoferModificacion"));
+			String subject = GetMensaje(props.getProperty("asuntoChoferModificacion"));
+			
+			System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoChoferModificacion"));
+			String body = GetMensaje(props.getProperty("cuerpoChoferModificacion"));
+			System.out.println("se enviara a: "+email);
+					
+			MimeMessage msg = new MimeMessage(session);
+			msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
+			msg.setContentLanguage(new String[] {"es-ar"});
+			msg.addHeader("Content-Transfer-Encoding", "base64");		
+			msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
+			msg.setSentDate(new java.util.Date());
+			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
+			msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+			msg.setHeader("X-Mailer", "sendhtml");		
+			msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
+			
+			Transport.send(msg);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new NoSePudeEnviarMailException(mensajeria.getMessage().getString("no_se_envio_mail_msg"));
@@ -313,34 +319,34 @@ public class AltaChoferesBean extends AbstBackingBean {
 	
 	private void enviarMailAdministrador() throws NoSePudeEnviarMailException {
 		try{
-		InitialContext ic = new InitialContext();
-		Context envCtx = (Context) ic.lookup("java:comp/env");
-		javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
-		Properties props = session.getProperties();
-		if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
-		{
-			session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
-		}
-		
-		System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoChoferAlta"));
-		String subject = GetMensaje(props.getProperty("asuntoChoferAlta"));
-		
-		System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoChoferAlta"));
-		String body = GetMensaje(props.getProperty("cuerpoChoferAlta"));
-		System.out.println("se enviara a: "+props.getProperty("emailRefipass"));
-		String email=props.getProperty("emailRefipass");		
-		MimeMessage msg = new MimeMessage(session);
-		msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
-		msg.setContentLanguage(new String[] {"es-ar"});
-		msg.addHeader("Content-Transfer-Encoding", "base64");		
-		msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
-		msg.setSentDate(new java.util.Date());
-		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
-		msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-		msg.setHeader("X-Mailer", "sendhtml");		
-		msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
-		
-		Transport.send(msg);
+			InitialContext ic = new InitialContext();
+			Context envCtx = (Context) ic.lookup("java:comp/env");
+			javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
+			Properties props = session.getProperties();
+			if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
+			{
+				session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
+			}
+			
+			System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoChoferAlta"));
+			String subject = GetMensaje(props.getProperty("asuntoChoferAlta"));
+			
+			System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoChoferAlta"));
+			String body = GetMensaje(props.getProperty("cuerpoChoferAlta"));
+			System.out.println("se enviara a: "+props.getProperty("emailRefipass"));
+			String email=props.getProperty("emailRefipass");		
+			MimeMessage msg = new MimeMessage(session);
+			msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
+			msg.setContentLanguage(new String[] {"es-ar"});
+			msg.addHeader("Content-Transfer-Encoding", "base64");		
+			msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
+			msg.setSentDate(new java.util.Date());
+			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
+			msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+			msg.setHeader("X-Mailer", "sendhtml");		
+			msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
+			
+			Transport.send(msg);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new NoSePudeEnviarMailException(mensajeria.getMessage().getString("no_se_envio_mail_msg"));
@@ -550,13 +556,6 @@ public class AltaChoferesBean extends AbstBackingBean {
 				lstDatos = mgrupoUnDAO.getGruposUNPorCliente(mCliente.getCuit());
 			}
 			
-			Iterator it = lstDatos.iterator();			
-			
-			while(it.hasNext()) {
-				mgrupoUn = (MgrupoUn)it.next();
-				gruposUnidadNegocio.add(new SelectItem(new Integer(mgrupoUn.getCodigo()),mgrupoUn.getDescripcion()));
-			}
-			
 			unidadesNegocio = new ArrayList<SelectItem>();
 			
 			if(nroChofer!=null) {
@@ -578,8 +577,18 @@ public class AltaChoferesBean extends AbstBackingBean {
 					AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
 				}		
 			} else {
+				gruposUnidadNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
 				unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
 			}
+			
+			Iterator it = lstDatos.iterator();			
+			
+			while(it.hasNext()) {
+				mgrupoUn = (MgrupoUn)it.next();
+				gruposUnidadNegocio.add(new SelectItem(new Integer(mgrupoUn.getCodigo()),mgrupoUn.getDescripcion()));
+			}
+			
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();			
 			AddErrorMessage("No se han podido recuperar los Grupos de Unidad de Negocio.");
@@ -627,7 +636,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 			try {
 				
 				MunidadN munidadN;				
-				List lstDatos = munidadNDao.getUnidadesNegocioPorGrupo(nroGrupo);				
+				List lstDatos = munidadNDao.getUnidadesNegocioPorGrupo(nroGrupo);	
 				
 				if(lstDatos!=null && lstDatos.size()>0){
 					Iterator it = lstDatos.iterator();			
@@ -635,6 +644,8 @@ public class AltaChoferesBean extends AbstBackingBean {
 						munidadN = (MunidadN)it.next();
 						unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
 					}
+				} else {
+					unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
 				}
 				
 			} catch(Exception ex) {

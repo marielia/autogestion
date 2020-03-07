@@ -149,11 +149,12 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<h:selectOneListbox id="gruposUnidadNegocio" size="1" value="#{altaChoferesBean.grupoUnidadNegocio}" styleClass="campo" >
+					<h:selectOneListbox id="gruposUnidadNegocio" size="1" value="#{altaChoferesBean.grupoUnidadNegocio}" styleClass="campo" 
+							onchange="submit();" immediate="true" 
+							valueChangeListener="#{altaChoferesBean.cargarUnidadesNegocio}" >	
 						<f:selectItems value="#{altaChoferesBean.gruposUnidadNegocio}" />
 					</h:selectOneListbox>	
-					<t:outputText  value="&nbsp;&nbsp;" escape="false" />
-					<t:commandButton value="#{Message.buscar_u_n_label}" actionListener="#{altaChoferesBean.cargarSusUnidadesDeNegocio}" styleClass="boton"/>	
+					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>
 				</t:column>
 				
 				<%/*  unidad de negocio  */%>
@@ -163,9 +164,11 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaChoferesBean.unidadNegocio}"  styleClass="campo">
+					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaChoferesBean.unidadNegocio}"  styleClass="campo"
+					immediate="true" >	
 						<f:selectItems value="#{altaChoferesBean.unidadesNegocio}"/>
-					</h:selectOneListbox>					
+					</h:selectOneListbox>	
+					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>				
 				</t:column>		
 				
 				
@@ -391,6 +394,7 @@
 										valueChangeListener="#{altaChoferesBean.cargarUnidadesNegocio}" >					
 						<f:selectItems value="#{altaChoferesBean.gruposUnidadNegocio}" />
 					</h:selectOneListbox>
+					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>
 				</t:column>
 				
 				<%/*  unidad de negocio  */%>
@@ -405,7 +409,7 @@
 					immediate="true" >
 						<f:selectItems value="#{altaChoferesBean.unidadesNegocio}"/>
 					</h:selectOneListbox>	
-					 
+					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>
 					<%/*
 					<t:outputText value ="#{altaChoferesBean.unidadNegocioDesc}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" styleClass="campo" />										
 					*/%>			

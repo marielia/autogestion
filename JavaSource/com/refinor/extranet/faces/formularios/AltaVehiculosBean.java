@@ -24,7 +24,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.itsolver.util.seguridad.Autenticador;
-import com.refinor.extranet.data.Mchofer;
 import com.refinor.extranet.data.Mclientes;
 import com.refinor.extranet.data.MgrupoUn;
 import com.refinor.extranet.data.Msecuencias;
@@ -32,7 +31,6 @@ import com.refinor.extranet.data.MunidadN;
 import com.refinor.extranet.data.MusuarioWeb;
 import com.refinor.extranet.data.Mvehiculo;
 import com.refinor.extranet.data.dao.AlmacenDAO;
-import com.refinor.extranet.data.dao.MchoferDAO;
 import com.refinor.extranet.data.dao.MclientesDAO;
 import com.refinor.extranet.data.dao.MgrupoUnDAO;
 import com.refinor.extranet.data.dao.MsecuenciasDAO;
@@ -42,13 +40,11 @@ import com.refinor.extranet.faces.base.AbstBackingBean;
 import com.refinor.extranet.seguridad.SeguridadAdmin;
 import com.refinor.extranet.util.Const;
 import com.refinor.extranet.util.Messages;
-import com.refinor.extranet.util.exception.ChoferYaExisteException;
 import com.refinor.extranet.util.exception.DataAccessErrorException;
 import com.refinor.extranet.util.exception.DatosObligatoriosException;
 import com.refinor.extranet.util.exception.NoExistenItemsException;
 import com.refinor.extranet.util.exception.NoSePudeEnviarMailException;
 import com.refinor.extranet.util.exception.PersonaNoExisteException;
-import com.refinor.extranet.util.exception.VariosChoferesConIgualDNIException;
 import com.refinor.extranet.util.exception.VariosVehiculosPorPatenteYClienteException;
 import com.refinor.extranet.util.exception.VehiculoYaExisteException;
 
@@ -136,34 +132,34 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 */
 	private void enviarMailCliente(String email) throws NoSePudeEnviarMailException {
 		try{
-		InitialContext ic = new InitialContext();
-		Context envCtx = (Context) ic.lookup("java:comp/env");
-		javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
-		Properties props = session.getProperties();
-		if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
-		{
-			session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
-		}
+			InitialContext ic = new InitialContext();
+			Context envCtx = (Context) ic.lookup("java:comp/env");
+			javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
+			Properties props = session.getProperties();
+			if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
+			{
+				session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
+			}
 		
-		System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoVehiculoModificacion"));
-		String subject = GetMensaje(props.getProperty("asuntoVehiculoModificacion"));
-		
-		System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoVehiculoModificacion"));
-		String body = GetMensaje(props.getProperty("cuerpoVehiculoModificacion"));
-		System.out.println("se enviara a: "+email);
-				
-		MimeMessage msg = new MimeMessage(session);
-		msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
-		msg.setContentLanguage(new String[] {"es-ar"});
-		msg.addHeader("Content-Transfer-Encoding", "base64");		
-		msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
-		msg.setSentDate(new java.util.Date());
-		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
-		msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-		msg.setHeader("X-Mailer", "sendhtml");		
-		msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
-		
-		Transport.send(msg);
+			System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoVehiculoModificacion"));
+			String subject = GetMensaje(props.getProperty("asuntoVehiculoModificacion"));
+			
+			System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoVehiculoModificacion"));
+			String body = GetMensaje(props.getProperty("cuerpoVehiculoModificacion"));
+			System.out.println("se enviara a: "+email);
+					
+			MimeMessage msg = new MimeMessage(session);
+			msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
+			msg.setContentLanguage(new String[] {"es-ar"});
+			msg.addHeader("Content-Transfer-Encoding", "base64");		
+			msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
+			msg.setSentDate(new java.util.Date());
+			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
+			msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+			msg.setHeader("X-Mailer", "sendhtml");		
+			msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
+			
+			Transport.send(msg);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new NoSePudeEnviarMailException(mensajeria.getMessage().getString("no_se_envio_mail_msg"));
@@ -195,7 +191,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 				tx= sessionHib.beginTransaction();				
 				mVehDAO.update(mVehiculo,sessionHib);
 				//envio mail al cliente avidandole que su veh esta ok por refipass
-				//enviarMailCliente(email);
+//				enviarMailCliente(email);
 				tx.commit();								
 				mensajeGuardado=mensajeria.getMessage().getString("vehiculo_ok_por_administracion_msg");
 				pantalla=3;
@@ -325,6 +321,8 @@ public class AltaVehiculosBean extends AbstBackingBean {
 						munidadN = (MunidadN)it.next();
 						unidadesNegocio.add(new SelectItem(new Integer(munidadN.getCodigo()),munidadN.getDescripcion()));
 					}
+				} else {
+					unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
 				}
 				
 			} catch(Exception ex) {
@@ -367,13 +365,6 @@ public class AltaVehiculosBean extends AbstBackingBean {
 				Mclientes mCliente = mClientesDAO.getClienteById(mVehiculo.getCodCliente());	
 				lstDatos = mgrupoUnDAO.getGruposUNPorCliente(mCliente.getCuit());
 			}
-			
-			Iterator it = lstDatos.iterator();
-			
-			while(it.hasNext()) {
-				mgrupoUn = (MgrupoUn)it.next();
-				gruposUnidadNegocio.add(new SelectItem(new Integer(mgrupoUn.getCodigo()),mgrupoUn.getDescripcion()));
-			}
 					
 			unidadesNegocio = new ArrayList<SelectItem>();
 			
@@ -396,8 +387,17 @@ public class AltaVehiculosBean extends AbstBackingBean {
 					AddErrorMessage(mensajeria.getMessage().getString("grupo_no_tiene_unidades_negocio"));
 				}		
 			} else {
+				gruposUnidadNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
 				unidadesNegocio.add(new SelectItem(new Integer(0),"- Seleccione un Grupo -"));
 			}
+			
+			Iterator it = lstDatos.iterator();
+			
+			while(it.hasNext()) {
+				mgrupoUn = (MgrupoUn)it.next();
+				gruposUnidadNegocio.add(new SelectItem(new Integer(mgrupoUn.getCodigo()),mgrupoUn.getDescripcion()));
+			}
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();			
 			AddErrorMessage("No se han podido recuperar los Grupos de Unidad de Negocio.");
@@ -413,7 +413,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	public void guardar(ActionEvent event){
 		Transaction tx= null;
 		try{
-			if(this.dominio==null || this.dominio.trim().equals("")){
+			if(this.dominio==null || this.dominio.trim().equals("") || this.grupoUnidadNegocio==0 || this.unidadNegocio==0){
 				throw new DatosObligatoriosException(mensajeria.getMessage().getString("datos_onligatorios_label"));
 			}	
 			
@@ -426,13 +426,11 @@ public class AltaVehiculosBean extends AbstBackingBean {
 			mvehiculo.setCodigo(obtenerCodigoVehiculo());
 			mvehiculo.setCodCliente(obtenerCodCliente().getCodigo());
 			mvehiculo.setDominio(this.dominio);
-			
 			System.out.println("inicializado->"+inicializado+ " activo->"+activo);
 			mvehiculo.setInicializado(this.inicializado);			
 			mvehiculo.setActivo(this.activo);
 			mvehiculo.setCodUnidadN(this.unidadNegocio);
 			mvehiculo.setIdUserLock(new Boolean(false));
-			
 			
 			try {
 				tx= sessionHib.beginTransaction();
@@ -440,15 +438,15 @@ public class AltaVehiculosBean extends AbstBackingBean {
 					mVDAO.save(mvehiculo, sessionHib);
 					//agregado el 22/06/2009 - marcela
 					
-					enviarMailAdministrador();
+//					enviarMailAdministrador();
 				tx.commit();
 				//envio de mail a refipass para hacerle saber que hay un chofer esperando el ok				
 				mensajeGuardado=mensajeria.getMessage().getString("registro_ok_vehiculo_msg");
 				pantalla=3;
-			}catch(NoSePudeEnviarMailException excep) {
-				excep.printStackTrace();
-				tx.rollback();
-				AddErrorMessage(excep.getMessage());
+//			}catch(NoSePudeEnviarMailException excep) {
+//				excep.printStackTrace();
+//				tx.rollback();
+//				AddErrorMessage(excep.getMessage());
 			} catch(Exception excep) {
 				excep.printStackTrace();
 				tx.rollback();
@@ -510,34 +508,34 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 */
 	private void enviarMailAdministrador() throws NoSePudeEnviarMailException {
 		try{
-		InitialContext ic = new InitialContext();
-		Context envCtx = (Context) ic.lookup("java:comp/env");
-		javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
-		Properties props = session.getProperties();
-		if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
-		{
-			session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
-		}
-		
-		System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoVehiculoAlta"));
-		String subject = GetMensaje(props.getProperty("asuntoVehiculoAlta"));
-		
-		System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoVehiculoAlta"));
-		String body = GetMensaje(props.getProperty("cuerpoVehiculoAlta"));
-		System.out.println("se enviara a: "+props.getProperty("emailRefipass"));
-		String email=props.getProperty("emailRefipass");		
-		MimeMessage msg = new MimeMessage(session);
-		msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
-		msg.setContentLanguage(new String[] {"es-ar"});
-		msg.addHeader("Content-Transfer-Encoding", "base64");		
-		msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
-		msg.setSentDate(new java.util.Date());
-		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
-		msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-		msg.setHeader("X-Mailer", "sendhtml");		
-		msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
-		
-		Transport.send(msg);
+			InitialContext ic = new InitialContext();
+			Context envCtx = (Context) ic.lookup("java:comp/env");
+			javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
+			Properties props = session.getProperties();
+			if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
+			{
+				session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
+			}
+			
+			System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoVehiculoAlta"));
+			String subject = GetMensaje(props.getProperty("asuntoVehiculoAlta"));
+			
+			System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoVehiculoAlta"));
+			String body = GetMensaje(props.getProperty("cuerpoVehiculoAlta"));
+			System.out.println("se enviara a: "+props.getProperty("emailRefipass"));
+			String email=props.getProperty("emailRefipass");		
+			MimeMessage msg = new MimeMessage(session);
+			msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
+			msg.setContentLanguage(new String[] {"es-ar"});
+			msg.addHeader("Content-Transfer-Encoding", "base64");		
+			msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
+			msg.setSentDate(new java.util.Date());
+			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
+			msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+			msg.setHeader("X-Mailer", "sendhtml");		
+			msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
+			
+			Transport.send(msg);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new NoSePudeEnviarMailException(mensajeria.getMessage().getString("no_se_envio_mail_msg"));
@@ -664,7 +662,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 * @return String Pagina a donde vuelve
 	 */
 	public String volverListaVehiculos() {		
-		getSession().removeAttribute("nroChofer");	
+		getSession().removeAttribute("nroVehiculo");	
 		String goToPage = Const.ANCLA_LISTA_VEHICULOS;			
 		return goToPage;
 			

@@ -95,11 +95,12 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<h:selectOneListbox id="gruposUnidadNegocio" size="1" value="#{altaVehiculosBean.grupoUnidadNegocio}" styleClass="campo" >
+					<h:selectOneListbox id="gruposUnidadNegocio" size="1" value="#{altaVehiculosBean.grupoUnidadNegocio}" styleClass="campo" 
+							onchange="submit();" immediate="true" 
+							valueChangeListener="#{altaVehiculosBean.cargarUnidadesNegocio}" >	
 						<f:selectItems value="#{altaVehiculosBean.gruposUnidadNegocio}" />
 					</h:selectOneListbox>	
-					<t:outputText  value="&nbsp;&nbsp;" escape="false" />
-					<t:commandButton value="#{Message.buscar_u_n_label}" actionListener="#{altaVehiculosBean.cargarSusUnidadesDeNegocio}" styleClass="boton"/>	
+					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>
 				</t:column>
 				
 				<%/*  unidad de negocio  */%>
@@ -109,9 +110,11 @@
 					</t:outputLabel>
 				</t:column>
 				<t:column>
-					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaVehiculosBean.unidadNegocio}"  styleClass="campo">
+					<h:selectOneListbox id="unidadesNegocio" size="1" value="#{altaVehiculosBean.unidadNegocio}"  styleClass="campo"
+					immediate="true" >	
 						<f:selectItems value="#{altaVehiculosBean.unidadesNegocio}"/>
-					</h:selectOneListbox>					
+					</h:selectOneListbox>	
+					<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>				
 				</t:column>		
 				
 				
