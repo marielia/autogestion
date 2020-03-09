@@ -7,7 +7,7 @@
     <!-- SI no se puede guardar un vehiculo nuevo es porque en la tabla de mvehiculo tiene identidad=si en el diseño y deberia tener NO -->
         <id name="codigo" type="int">
             <column name="codigo" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="codCliente" type="java.lang.Integer">
             <column name="codCliente" />

@@ -235,8 +235,8 @@ public class AltaVehiculosBean extends AbstBackingBean {
 		try{
 			MvehiculoDAO mVehiculoDAO =  new MvehiculoDAO(sessionHib);
 			vehiculo =  new Mvehiculo();
-			//vehiculo= mVehiculoDAO.get(codigoVehiculo,sessionHib);
-			vehiculo= mVehiculoDAO.load(codigoVehiculo,sessionHib);
+			vehiculo = mVehiculoDAO.get(codigoVehiculo,sessionHib);
+			mVehiculoDAO.refresh(vehiculo,sessionHib);
 			this.dominio=vehiculo.getDominio();
 			this.codBarra= vehiculo.getCodBarra();
 			
@@ -423,7 +423,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 			}
 			
 			Mvehiculo mvehiculo = new Mvehiculo();			
-			mvehiculo.setCodigo(obtenerCodigoVehiculo());
+			//mvehiculo.setCodigo(obtenerCodigoVehiculo());
 			mvehiculo.setCodCliente(obtenerCodCliente().getCodigo());
 			mvehiculo.setDominio(this.dominio);
 			System.out.println("inicializado->"+inicializado+ " activo->"+activo);
@@ -431,6 +431,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 			mvehiculo.setActivo(this.activo);
 			mvehiculo.setCodUnidadN(this.unidadNegocio);
 			mvehiculo.setIdUserLock(new Boolean(false));
+			mvehiculo.setFAlta(new Date());
 			
 			try {
 				tx= sessionHib.beginTransaction();
