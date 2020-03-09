@@ -1018,7 +1018,7 @@
 									
 				<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>					
 				<h:column>
-						<h:outputText value="#{mesaDeAyudaBean.mensajeGuardado}" style="color: #3A25A2; font-size: 11px;" styleClass="campo10"/>
+						<h:outputText value="#{mesaDeAyudaBean.mensajeGuardado}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
 				</h:column>								
 				<h:column></h:column>				
 				<h:column>	

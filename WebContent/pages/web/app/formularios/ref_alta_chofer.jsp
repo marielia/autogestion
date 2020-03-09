@@ -71,7 +71,7 @@
 			<h:messages styleClass="errorNegro"/>
 			
 			<t:panelGrid border="0" cellpadding="4" cellspacing="0" styleClass="bordeblanco" 
-				columns="2" columnClasses="cpo8, cpo8" width="70%" rowClasses="filaTablaCabecera">									
+				columns="2" columnClasses="cpo8-Var20, cpo8" width="100%" rowClasses="filaTablaCabecera">									
 				
 				<t:column/>
 				<t:column/>
@@ -185,15 +185,7 @@
 						</t:column>										
 				</t:panelGrid>
 				</h:column>	
-				<t:column>
-				 <h:commandButton  actionListener="#{altaChoferesBean.guardar}" 
-						value="#{Message.guardar_label}" styleClass="boton" />	
-				 <t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;"  escape="false"/>	
-				 <t:commandButton value="#{Message.volver_label}" 
-					action="#{altaChoferesBean.volver}" styleClass="boton"/>
-					                 
-				
-				</t:column>	
+			 
 			</t:panelGrid>		
 			
 			<t:saveState value="#{altaChoferesBean.unidadNegocio}"></t:saveState>
@@ -204,7 +196,19 @@
 			<t:saveState value="#{altaChoferesBean.apellido}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.pinChofer}"></t:saveState>
 			<t:saveState value="#{altaChoferesBean.numeroDocumento}"></t:saveState>	
-		</t:panelGrid>	
+		</t:panelGrid>
+		
+		
+		<h:panelGrid columns="2" width="30%" columnClasses="columnaTablaNumero,columnaTablaNumero "  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
+			     	<h:column>				    		
+			    	 <t:commandButton value="#{Message.volver_label}" 
+					action="#{altaChoferesBean.volver}" styleClass="boton"/>
+			    	</h:column>
+			    	<h:column>	
+			    	 <h:commandButton  actionListener="#{altaChoferesBean.guardar}" 
+						value="#{Message.guardar_label}" styleClass="boton" />	
+					 </h:column>
+			 	</h:panelGrid> 	
 		
 		</h:form>		
 		
@@ -242,11 +246,11 @@
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>				
 			</t:panelGrid>		
 			
-			<h:panelGrid columns="1" width="50%" columnClasses="campo10" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="campo10" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 									
 				<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>					
 				<h:column>
-						<h:outputText value="#{altaChoferesBean.mensajeGuardado}" style="color: #3A25A2; font-size: 11px;" styleClass="campo10"/>
+						<h:outputText value="#{altaChoferesBean.mensajeGuardado}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
 				</h:column>								
 				<h:column></h:column>				
 				<h:column>					
@@ -291,7 +295,7 @@
 			<h:messages styleClass="errorNegro"/>
 			
 			<t:panelGrid border="0" cellpadding="4" cellspacing="0" styleClass="bordeblanco" 
-				columns="2" columnClasses="cpo8, cpo8" width="55%" rowClasses="filaTablaCabecera">									
+				columns="2" columnClasses="cpo8-Var20, cpo8" width="100%" rowClasses="filaTablaCabecera">									
 				
 				<t:column/>
 				<t:column/>
@@ -420,7 +424,7 @@
 				<t:column/>
 				
 				<h:column>	
-				<%/*
+				 
 				<t:panelGrid border="0" cellpadding="" cellspacing="0" styleClass="columnaTablaTexto" 
 						columns="1" columnClasses="cpo11-20" width="100%" >							
 						<t:column>
@@ -429,17 +433,9 @@
 							</t:div>
 						</t:column>										
 				</t:panelGrid>
-				*/%>
+			 
 				</h:column>	
-				<t:column>
-				 <h:commandButton  actionListener="#{altaChoferesBean.guardarModificacion}" 
-						value="#{Message.guardar_label}" styleClass="boton" />	
-				 <t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;"  escape="false"/>	
-				 <t:commandButton value="#{Message.volver_label}" 
-					action="#{altaChoferesBean.volverListaChoferes}" styleClass="boton"/>
-					                 
-				
-				</t:column>	
+				 
 			</t:panelGrid>		
 			
 			<t:saveState value="#{altaChoferesBean.unidadNegocio}"></t:saveState>			
@@ -455,7 +451,19 @@
 			<t:saveState value="#{altaChoferesBean.mchofer}"></t:saveState>
 			
 			
-		</t:panelGrid>	
+		</t:panelGrid> 
+	 
+	 
+		<h:panelGrid columns="2" width="30%" columnClasses="columnaTablaNumero,columnaTablaNumero "  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
+	     	<h:column>	
+	     	 <t:commandButton value="#{Message.volver_label}" 
+					action="#{altaChoferesBean.volverListaChoferes}" styleClass="boton"/>			    		
+	     	</h:column>
+	    	<h:column>	
+	    	 	 <h:commandButton  actionListener="#{altaChoferesBean.guardarModificacion}" 
+						value="#{Message.guardar_label}" styleClass="boton" />	
+			 </h:column>
+	 	</h:panelGrid> 
 		
 		</h:form>
 

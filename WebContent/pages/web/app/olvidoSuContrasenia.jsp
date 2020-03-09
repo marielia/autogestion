@@ -200,16 +200,16 @@
 						<h:outputText value="&nbsp;" escape="false"/>
 					</h:column>		
 					<h:column>
-						<h:outputText value="#{Message.texto_registracion_resultado_linea5}" style="color: #3A25A2; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
+						<h:outputText value="#{Message.texto_registracion_resultado_linea5}" style="color: #000000; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
 					</h:column>	
 					<h:column>
-						<h:outputText value="#{Message.texto_registracion_resultado_linea3}" style="color: #3A25A2; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
+						<h:outputText value="#{Message.texto_registracion_resultado_linea3}" style="color: #000000; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
 					</h:column>	
 					<h:column>
-						<h:outputText value="#{Message.texto_registracion_resultado_linea4}" style="color: #3A25A2; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
+						<h:outputText value="#{Message.texto_registracion_resultado_linea4}" style="color: #000000; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
 					</h:column>						
 					<h:column>
-						<h:outputText value="#{Message.texto_registracion_resultado_linea2}" style="vertical-align: middle; color: #3A25A2; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
+						<h:outputText value="#{Message.texto_registracion_resultado_linea2}" style="vertical-align: middle; color: #000000; font-size: 11px; line-height: 13pt;" styleClass="cpo7"/>
 						<h:outputLink value="#{Message.contexto_sistema}/pages/web/index.jsf"><h:outputText id="txtClickAqui" value="#{Message.click_aqui_text}" styleClass="linkhome" /></h:outputLink>
 					</h:column>
 					<h:column>

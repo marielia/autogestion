@@ -13,12 +13,12 @@ import java.util.Properties;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-import javax.mail.Message;
+/*import javax.mail.Message;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
-import javax.naming.InitialContext;
+import javax.naming.InitialContext;*/
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -130,41 +130,40 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 * @param email
 	 * @throws NoSePudeEnviarMailException
 	 */
-	private void enviarMailCliente(String email) throws NoSePudeEnviarMailException {
-		try{
-			InitialContext ic = new InitialContext();
-			Context envCtx = (Context) ic.lookup("java:comp/env");
-			javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
-			Properties props = session.getProperties();
-			if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
-			{
-				session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
-			}
-		
-			System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoVehiculoModificacion"));
-			String subject = GetMensaje(props.getProperty("asuntoVehiculoModificacion"));
-			
-			System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoVehiculoModificacion"));
-			String body = GetMensaje(props.getProperty("cuerpoVehiculoModificacion"));
-			System.out.println("se enviara a: "+email);
-					
-			MimeMessage msg = new MimeMessage(session);
-			msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
-			msg.setContentLanguage(new String[] {"es-ar"});
-			msg.addHeader("Content-Transfer-Encoding", "base64");		
-			msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
-			msg.setSentDate(new java.util.Date());
-			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
-			msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-			msg.setHeader("X-Mailer", "sendhtml");		
-			msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
-			
-			Transport.send(msg);
-		}catch (Exception e) {
-			e.printStackTrace();
-			throw new NoSePudeEnviarMailException(mensajeria.getMessage().getString("no_se_envio_mail_msg"));
-		}
-	}
+	/*
+	 * private void enviarMailCliente(String email) throws
+	 * NoSePudeEnviarMailException { try{ InitialContext ic = new InitialContext();
+	 * Context envCtx = (Context) ic.lookup("java:comp/env"); javax.mail.Session
+	 * session = (javax.mail.Session) envCtx.lookup("mail/Session"); Properties
+	 * props = session.getProperties(); if (props.containsKey("mail.smtp.auth") &&
+	 * props.getProperty("mail.smtp.auth").equals("true")) { session =
+	 * javax.mail.Session.getDefaultInstance(session.getProperties(), new
+	 * Autenticador(props.getProperty("mail.smtp.user"),
+	 * props.getProperty("mail.smtp.password"))); }
+	 * 
+	 * System.out.println("Va a utilizar como archivo de Subject: "+props.
+	 * getProperty("asuntoVehiculoModificacion")); String subject =
+	 * GetMensaje(props.getProperty("asuntoVehiculoModificacion"));
+	 * 
+	 * System.out.println("Va a utilizar como archivo de Body: "+props.getProperty(
+	 * "cuerpoVehiculoModificacion")); String body =
+	 * GetMensaje(props.getProperty("cuerpoVehiculoModificacion"));
+	 * System.out.println("se enviara a: "+email);
+	 * 
+	 * MimeMessage msg = new MimeMessage(session); msg.setHeader("Content-Type",
+	 * "text/html; charset=ISO-8859-2"); msg.setContentLanguage(new String[]
+	 * {"es-ar"}); msg.addHeader("Content-Transfer-Encoding", "base64");
+	 * msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");
+	 * msg.setSentDate(new java.util.Date());
+	 * msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email,
+	 * false)); msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+	 * msg.setHeader("X-Mailer", "sendhtml"); msg.setText(reemplazarEtiquetas(body),
+	 * "ISO-8859-2");
+	 * 
+	 * Transport.send(msg); }catch (Exception e) { e.printStackTrace(); throw new
+	 * NoSePudeEnviarMailException(mensajeria.getMessage().getString(
+	 * "no_se_envio_mail_msg")); } }
+	 */
 	
 	/**
 	 * Metodo:guardarModificacion
@@ -507,41 +506,40 @@ public class AltaVehiculosBean extends AbstBackingBean {
 	 * Se envia el alta de vehiculo por parte del cliente.
 	 * @throws NoSePudeEnviarMailException
 	 */
-	private void enviarMailAdministrador() throws NoSePudeEnviarMailException {
-		try{
-			InitialContext ic = new InitialContext();
-			Context envCtx = (Context) ic.lookup("java:comp/env");
-			javax.mail.Session session = (javax.mail.Session) envCtx.lookup("mail/Session");
-			Properties props = session.getProperties();
-			if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true"))
-			{
-				session = javax.mail.Session.getDefaultInstance(session.getProperties(), new Autenticador(props.getProperty("mail.smtp.user"), props.getProperty("mail.smtp.password")));
-			}
-			
-			System.out.println("Va a utilizar como archivo de Subject: "+props.getProperty("asuntoVehiculoAlta"));
-			String subject = GetMensaje(props.getProperty("asuntoVehiculoAlta"));
-			
-			System.out.println("Va a utilizar como archivo de Body: "+props.getProperty("cuerpoVehiculoAlta"));
-			String body = GetMensaje(props.getProperty("cuerpoVehiculoAlta"));
-			System.out.println("se enviara a: "+props.getProperty("emailRefipass"));
-			String email=props.getProperty("emailRefipass");		
-			MimeMessage msg = new MimeMessage(session);
-			msg.setHeader("Content-Type", "text/html; charset=ISO-8859-2");		
-			msg.setContentLanguage(new String[] {"es-ar"});
-			msg.addHeader("Content-Transfer-Encoding", "base64");		
-			msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");	
-			msg.setSentDate(new java.util.Date());
-			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
-			msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-			msg.setHeader("X-Mailer", "sendhtml");		
-			msg.setText(reemplazarEtiquetas(body), "ISO-8859-2");
-			
-			Transport.send(msg);
-		}catch (Exception e) {
-			e.printStackTrace();
-			throw new NoSePudeEnviarMailException(mensajeria.getMessage().getString("no_se_envio_mail_msg"));
-		}
-	}
+	/*
+	 * private void enviarMailAdministrador() throws NoSePudeEnviarMailException {
+	 * try{ InitialContext ic = new InitialContext(); Context envCtx = (Context)
+	 * ic.lookup("java:comp/env"); javax.mail.Session session = (javax.mail.Session)
+	 * envCtx.lookup("mail/Session"); Properties props = session.getProperties(); if
+	 * (props.containsKey("mail.smtp.auth") &&
+	 * props.getProperty("mail.smtp.auth").equals("true")) { session =
+	 * javax.mail.Session.getDefaultInstance(session.getProperties(), new
+	 * Autenticador(props.getProperty("mail.smtp.user"),
+	 * props.getProperty("mail.smtp.password"))); }
+	 * 
+	 * System.out.println("Va a utilizar como archivo de Subject: "+props.
+	 * getProperty("asuntoVehiculoAlta")); String subject =
+	 * GetMensaje(props.getProperty("asuntoVehiculoAlta"));
+	 * 
+	 * System.out.println("Va a utilizar como archivo de Body: "+props.getProperty(
+	 * "cuerpoVehiculoAlta")); String body =
+	 * GetMensaje(props.getProperty("cuerpoVehiculoAlta"));
+	 * System.out.println("se enviara a: "+props.getProperty("emailRefipass"));
+	 * String email=props.getProperty("emailRefipass"); MimeMessage msg = new
+	 * MimeMessage(session); msg.setHeader("Content-Type",
+	 * "text/html; charset=ISO-8859-2"); msg.setContentLanguage(new String[]
+	 * {"es-ar"}); msg.addHeader("Content-Transfer-Encoding", "base64");
+	 * msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");
+	 * msg.setSentDate(new java.util.Date());
+	 * msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email,
+	 * false)); msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+	 * msg.setHeader("X-Mailer", "sendhtml"); msg.setText(reemplazarEtiquetas(body),
+	 * "ISO-8859-2");
+	 * 
+	 * Transport.send(msg); }catch (Exception e) { e.printStackTrace(); throw new
+	 * NoSePudeEnviarMailException(mensajeria.getMessage().getString(
+	 * "no_se_envio_mail_msg")); } }
+	 */
 	
 	/**
 	 * 

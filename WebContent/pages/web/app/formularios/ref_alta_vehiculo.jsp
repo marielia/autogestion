@@ -7,6 +7,8 @@
 <f:loadBundle basename="com.refinor.extranet.bundle.Messages" var="Message"/>
 <f:view>
 
+
+
 <html>
 	<head>
         <meta http-equiv="Content-Type"
@@ -51,7 +53,7 @@
 			<h:messages styleClass="errorNegro"/>
 			
 			<t:panelGrid border="0" cellpadding="4" cellspacing="0" styleClass="bordeblanco" 
-				columns="2" columnClasses="cpo8, cpo8" width="70%" rowClasses="filaTablaCabecera">									
+				columns="2" columnClasses="cpo8-Var20, cpo8" width="100%" rowClasses="filaTablaCabecera">									
 				
 				<t:column/>
 				<t:column/>
@@ -131,15 +133,7 @@
 						</t:column>										
 				</t:panelGrid>
 				</h:column>	
-				<t:column>
-				 <h:commandButton  actionListener="#{altaVehiculosBean.guardar}" 
-						value="#{Message.guardar_label}" styleClass="boton" />	
-				 <t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;"  escape="false"/>	
-				 <t:commandButton value="#{Message.volver_label}" 
-					action="#{altaVehiculosBean.volver}" styleClass="boton"/>
-					                 
-				
-				</t:column>	
+			 
 			</t:panelGrid>		
 			
 			<t:saveState value="#{altaVehiculosBean.unidadNegocio}"></t:saveState>
@@ -149,6 +143,18 @@
 			<t:saveState value="#{altaVehiculosBean.dominio}"></t:saveState>	
 
 		</t:panelGrid>	
+		
+		
+			<h:panelGrid columns="2" width="30%" columnClasses="columnaTablaNumero,columnaTablaNumero "  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
+			     	<h:column>				    		
+			    	 <t:commandButton value="#{Message.volver_label}" 
+					action="#{altaVehiculosBean.volver}" styleClass="boton"/>
+			    	</h:column>
+			    	<h:column>	
+			    		 <h:commandButton  actionListener="#{altaVehiculosBean.guardar}" 
+						value="#{Message.guardar_label}" styleClass="boton" />	
+					 </h:column>
+			 	</h:panelGrid> 
 		
 		</h:form>		
 		
@@ -176,11 +182,11 @@
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>				
 			</t:panelGrid>		
 			
-			<h:panelGrid columns="1" width="50%" columnClasses="campo10" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="1" width="100%" columnClasses="campo10" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 									
 				<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>					
 				<h:column>
-						<h:outputText value="#{altaVehiculosBean.mensajeGuardado}" style="color: #3A25A2; font-size: 11px;" styleClass="campo10"/>
+						<h:outputText value="#{altaVehiculosBean.mensajeGuardado}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
 				</h:column>								
 				<h:column></h:column>				
 				<h:column>					
@@ -225,7 +231,7 @@
 			<h:messages styleClass="errorNegro"/>
 			
 			<t:panelGrid border="0" cellpadding="4" cellspacing="0" styleClass="bordeblanco" 
-				columns="2" columnClasses="cpo8, cpo8" width="55%" rowClasses="filaTablaCabecera">									
+				columns="2" columnClasses="cpo8-Var20, cpo8" width="100%" rowClasses="filaTablaCabecera">									
 				
 				<t:column/>
 				<t:column/>
@@ -332,17 +338,8 @@
 						</t:column>										
 				</t:panelGrid>
 				*/%>
-				</h:column>	
-				
-				<t:column>
-				 <h:commandButton  actionListener="#{altaVehiculosBean.guardarModificacion}" 
-						value="#{Message.guardar_label}" styleClass="boton" />	
-				 <t:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;"  escape="false"/>	
-				 <t:commandButton value="#{Message.volver_label}" 
-					action="#{altaVehiculosBean.volverListaVehiculos}" styleClass="boton"/>
-					                 
-				
-				</t:column>	
+				</h:column>	 
+			 	
 			</t:panelGrid>		
 			
 			<t:saveState value="#{altaVehiculosBean.unidadNegocio}"></t:saveState>			
@@ -356,6 +353,19 @@
 			
 			
 		</t:panelGrid>	
+		
+		
+			<h:panelGrid columns="2" width="30%" columnClasses="columnaTablaNumero,columnaTablaNumero "  styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
+			     	<h:column>				    		
+			    		 <t:commandButton value="#{Message.volver_label}" 
+					action="#{altaVehiculosBean.volverListaVehiculos}" styleClass="boton"/>
+			    	</h:column>
+			    	<h:column>	
+			    	 <h:commandButton  actionListener="#{altaVehiculosBean.guardarModificacion}" 
+						value="#{Message.guardar_label}" styleClass="boton" />	
+					 </h:column>
+			 	</h:panelGrid> 
+			 	
 		
 		</h:form>
 

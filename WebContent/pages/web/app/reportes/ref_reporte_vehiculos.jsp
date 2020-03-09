@@ -54,7 +54,7 @@
 				
 				
 			
-			<h:panelGrid columns="4" width="100%" columnClasses="cpo8,cpo8,cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-Var17,cpo8-Var20,cpo8-Var13,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false" />							
 				</t:column>
@@ -106,7 +106,7 @@
 			
 			
 			
-			<h:panelGrid columns="2" width="100%" columnClasses="cpo8,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
+			<h:panelGrid columns="2" width="100%" columnClasses="cpo8-Var10,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column>
 					<h:outputLabel for="estado" styleClass="cpo8">
 						<h:outputText  value="&nbsp;&nbsp;#{Message.estado_label}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false"/>

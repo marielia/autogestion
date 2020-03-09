@@ -460,7 +460,7 @@ public class RefReporteCuposCargaBean extends AbstListado {
 				  new BigDecimal(this.ltrCarga).compareTo(new BigDecimal("0")) == 0  && 
 				  new BigDecimal(this.ltrDia).compareTo(new BigDecimal("0"))  == 0  && 
 				  new BigDecimal(this.ltrMes).compareTo(new BigDecimal("0")) == 0){
-				throw new DatosObligatoriosException("Debe completar los datos.");
+				throw new DatosObligatoriosException("Ingrese los datos obligatorios [x].");
 			}
 			
 			if( ilimitado==true && 
@@ -595,7 +595,7 @@ public class RefReporteCuposCargaBean extends AbstListado {
 				  new BigDecimal(this.ltrCarga).compareTo(new BigDecimal("0")) == 0  && 
 				  new BigDecimal(this.ltrDia).compareTo(new BigDecimal("0"))  == 0  && 
 				  new BigDecimal(this.ltrMes).compareTo(new BigDecimal("0")) == 0){
-				throw new DatosObligatoriosException("Debe completar los datos.");
+				throw new DatosObligatoriosException("Ingrese los datos obligatorios [x].");
 			}
 			
 			if( ilimitado==true && 

@@ -212,22 +212,22 @@
 								<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>						
 								
 								<h:column>
-										<h:outputText value="#{Message.texto_registracion_resultado_linea1}" style="color: #3A25A2; font-size: 11px;" styleClass="campo10"/>
+										<h:outputText value="#{Message.texto_registracion_resultado_linea1}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
 								</h:column>								
 								<h:column></h:column>
 								
 								<h:column>	
-									<h:outputText value="#{Message.texto_registracion_resultado_linea3}" style="color: #3A25A2; font-size: 11px;" styleClass="campo10"/>
+									<h:outputText value="#{Message.texto_registracion_resultado_linea3}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
 								</h:column>
 								<h:column>	</h:column>
 								
 								<h:column>
-										<h:outputText value="#{Message.texto_registracion_resultado_linea4}" style="color: #3A25A2; font-size: 11px;" styleClass="campo10"/>
+										<h:outputText value="#{Message.texto_registracion_resultado_linea4}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
 								</h:column>										
 								<h:column>	</h:column>
 								
 								<h:column>
-										<h:outputText value="#{Message.texto_registracion_resultado_linea2}" style="color: #3A25A2; font-size: 11px;" styleClass="campo10"/>
+										<h:outputText value="#{Message.texto_registracion_resultado_linea2}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
 										<h:outputLink value="#{Message.contexto_sistema}/pages/web/index.jsf"><h:outputText id="txtClickAqui" value="#{Message.click_aqui_text}" styleClass="linkhome" /></h:outputLink>
 								</h:column>											
 								
