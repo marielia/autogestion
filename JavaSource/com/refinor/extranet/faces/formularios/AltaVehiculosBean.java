@@ -19,10 +19,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;*/
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.itsolver.util.io.FileUtil;
 import com.itsolver.util.seguridad.Autenticador;
 import com.refinor.extranet.data.Mclientes;
 import com.refinor.extranet.data.MgrupoUn;
@@ -190,7 +195,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 				tx= sessionHib.beginTransaction();				
 				mVehDAO.update(mVehiculo,sessionHib);
 				//envio mail al cliente avidandole que su veh esta ok por refipass
-//				enviarMailCliente(email);
+ 				enviarMailCliente(email);
 				tx.commit();								
 				mensajeGuardado=mensajeria.getMessage().getString("vehiculo_ok_por_administracion_msg");
 				pantalla=3;
@@ -223,6 +228,134 @@ public class AltaVehiculosBean extends AbstBackingBean {
 		}
 	}
 	
+private  void enviarMailAdministrador() throws Exception {
+		
+		FileUtil fileUtil= new FileUtil();
+   		Properties property= fileUtil.getPropertiesFile();
+   		String mail_smtp_password= property.getProperty("mail_smtp_password");
+   		String mail_smtp_host= property.getProperty("mail_smtp_host");
+   		String mail_smtp_ssl_trust= property.getProperty("mail_smtp_ssl_trust");
+   		String mail_smtp_starttls_enable= property.getProperty("mail_smtp_starttls_enable");
+   		String mail_smtp_port = property.getProperty("mail_smtp_port");
+   		String mail_smtp_user = property.getProperty("mail_smtp_user");
+   		String mail_smtp_auth = property.getProperty("mail_smtp_auth");
+   		String mail_from = property.getProperty("mail_from");
+   		String mail_to = property.getProperty("mail_to");
+   	    String subject =  GetMensaje(property.getProperty("asuntoVehiculoAlta"));
+   	    String body =   GetMensaje(property.getProperty("cuerpoVehiculoAlta"));
+   	 
+		Properties props = new Properties();
+
+		// Nombre del host de correo, es smtp.gmail.com
+		props.setProperty("mail.smtp.host", mail_smtp_host);  
+		props.put("mail.smtp.ssl.trust", mail_smtp_ssl_trust );
+
+		// TLS si está disponible
+		props.setProperty("mail.smtp.starttls.enable", mail_smtp_starttls_enable);
+
+		// Puerto de gmail para envio de correos
+		props.setProperty("mail.smtp.port",mail_smtp_port);
+
+		// Nombre del usuario
+		props.setProperty("mail.smtp.user", mail_smtp_user);
+
+		// Si requiere o no usuario y password para conectarse.
+		props.setProperty("mail.smtp.auth", mail_smtp_auth);
+
+		javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+
+		// Para obtener un log de salida más extenso
+		session.setDebug(true);
+		
+		MimeMessage message = new MimeMessage(session);
+
+		// Quien envia el correo
+		message.setFrom(new InternetAddress(mail_from));
+
+		// A quien va dirigido
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(  mail_to ));
+
+		message.setSubject(reemplazarEtiquetas(subject));
+		message.setText(reemplazarEtiquetas(body));
+		
+		Transport t = session.getTransport("smtp");
+
+		// Aqui usuario y password de gmail
+		t.connect(mail_from , mail_smtp_password );
+		t.sendMessage(message,message.getAllRecipients());
+		t.close();
+		
+		
+	}
+
+	 private void enviarMailCliente(String email) throws  NoSePudeEnviarMailException { 
+		  try{ 
+  			  
+			    FileUtil fileUtil= new FileUtil();
+		   		Properties property= fileUtil.getPropertiesFile();
+		   		String mail_smtp_password= property.getProperty("mail_smtp_password");
+		   		String mail_smtp_host= property.getProperty("mail_smtp_host");
+		   		String mail_smtp_ssl_trust= property.getProperty("mail_smtp_ssl_trust");
+		   		String mail_smtp_starttls_enable= property.getProperty("mail_smtp_starttls_enable");
+		   		String mail_smtp_port = property.getProperty("mail_smtp_port");
+		   		String mail_smtp_user = property.getProperty("mail_smtp_user");
+		   		String mail_smtp_auth = property.getProperty("mail_smtp_auth");
+		   		String mail_from = property.getProperty("mail_from");
+		   		 
+		   	    String subject =  GetMensaje(property.getProperty("asuntoVehiculoModificacion"));
+		   	    String body =   GetMensaje(property.getProperty("cuerpoVehiculoModificacion"));
+		   	 
+				Properties props = new Properties();
+
+				// Nombre del host de correo, es smtp.gmail.com
+				props.setProperty("mail.smtp.host", mail_smtp_host);  
+				props.put("mail.smtp.ssl.trust", mail_smtp_ssl_trust );
+
+				// TLS si está disponible
+				props.setProperty("mail.smtp.starttls.enable", mail_smtp_starttls_enable);
+
+				// Puerto de gmail para envio de correos
+				props.setProperty("mail.smtp.port",mail_smtp_port);
+
+				// Nombre del usuario
+				props.setProperty("mail.smtp.user", mail_smtp_user);
+
+				// Si requiere o no usuario y password para conectarse.
+				props.setProperty("mail.smtp.auth", mail_smtp_auth);
+
+				javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+
+				// Para obtener un log de salida más extenso
+				session.setDebug(true);
+				
+				MimeMessage message = new MimeMessage(session);
+
+				// Quien envia el correo
+				message.setFrom(new InternetAddress(mail_from));
+
+				// A quien va dirigido
+				System.out.println("email "+ email);
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(  email ));
+
+				message.setSubject(reemplazarEtiquetas(subject));
+				message.setText(reemplazarEtiquetas(body));
+				
+				Transport t = session.getTransport("smtp");
+
+				// Aqui usuario y password de gmail
+				t.connect(mail_from , mail_smtp_password );
+				t.sendMessage(message,message.getAllRecipients());
+				t.close();
+			  
+			  
+			  
+	  }catch (Exception e) { 
+		  e.printStackTrace(); 
+		  throw new  NoSePudeEnviarMailException(mensajeria.getMessage().getString(  "no_se_envio_mail_msg")); 
+		  } 
+    }
+	 
+	 
 	/**
 	 * Metodo:inicializarValoresMod
 	 * Funcion: Inicializar los atributos por la modificacion. Recibe el codigo de Vehiculo 
@@ -438,7 +571,7 @@ public class AltaVehiculosBean extends AbstBackingBean {
 					mVDAO.save(mvehiculo, sessionHib);
 					//agregado el 22/06/2009 - marcela
 					
-//					enviarMailAdministrador();
+ 					enviarMailAdministrador();
 				tx.commit();
 				//envio de mail a refipass para hacerle saber que hay un chofer esperando el ok				
 				mensajeGuardado=mensajeria.getMessage().getString("registro_ok_vehiculo_msg");

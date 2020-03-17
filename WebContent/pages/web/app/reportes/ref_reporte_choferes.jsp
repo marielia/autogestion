@@ -54,7 +54,7 @@
 			<h:column></h:column>			
 			</h:panelGrid>
 						
-			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-Var17,cpo8-Var20,cpo8-Var13,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="9">						 
+			<h:panelGrid columns="4" width="100%" columnClasses="cpo8-Var17,cpo8-Var20,cpo8-Var13,cpo8" styleClass="columnaTablaCentrada" cellspacing="0" cellpadding="4">						 
 				<t:column rendered="#{sessionScope.usuario.tipo==0}">							
 						<t:outputText styleClass="cpo8" value="&nbsp;&nbsp;#{Message.cliente_label}" escape="false" />							
 				</t:column>
@@ -66,8 +66,13 @@
 					</h:selectOneListbox>						
 				</t:column>
 				
+				<t:column rendered="#{sessionScope.usuario.tipo==0}"> 
+				</t:column>
+				<t:column rendered="#{sessionScope.usuario.tipo==0}"> 
+				</t:column>
+				
 				<h:column>
-						<t:outputText value="#{Message.grupo_unidad_negocio_label}" styleClass="cpo8" escape="false"/>
+						<t:outputText value="&nbsp;&nbsp;#{Message.grupo_unidad_negocio_label}" styleClass="cpo8" escape="false"/>
 				</h:column>
 				<h:column>
 					<%/* 
@@ -94,7 +99,7 @@
 				
 				<h:column>
 					      <t:outputLabel for="nombre" styleClass="cpo8">
-							<t:outputText value="#{Message.nombre_label}"  escape="false"/>
+							<t:outputText value="&nbsp;&nbsp;Apellido"  escape="false"/>
 						  </t:outputLabel>
 				</h:column>	
 				<h:column>				     
@@ -273,7 +278,7 @@
 					
 					<%/* modificar */%>
 					<h:column> 
-						<%/*rendered="#{sessionScope.usuario.tipo == 0}"*/%> 
+					 <%/*  rendered="#{sessionScope.usuario.tipo == 0}" */%>
 						<f:facet name="header">
 							<h:outputText value="#{Message.chofer_label}"/>
 						</f:facet>	

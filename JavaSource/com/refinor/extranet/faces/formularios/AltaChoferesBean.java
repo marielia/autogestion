@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -18,13 +19,19 @@ import javax.faces.model.SelectItem;
 /*import javax.mail.Message;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;*/
+import javax.mail.internet.MimeMessage; */
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.itsolver.util.io.FileUtil;
 import com.itsolver.util.seguridad.Autenticador;
 import com.refinor.extranet.data.Mchofer;
 import com.refinor.extranet.data.Mclientes;
@@ -42,6 +49,7 @@ import com.refinor.extranet.faces.base.AbstBackingBean;
 import com.refinor.extranet.seguridad.SeguridadAdmin;
 import com.refinor.extranet.util.Const;
 import com.refinor.extranet.util.Messages;
+import com.refinor.extranet.util.SendMail;
 import com.refinor.extranet.util.exception.ChoferYaExisteException;
 import com.refinor.extranet.util.exception.DataAccessErrorException;
 import com.refinor.extranet.util.exception.DatosObligatoriosException;
@@ -136,6 +144,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 			String mensajeMail="";
 			if((activoBol.equals(new Boolean(false)) && mChoferInt.isActivo().equals(new Boolean(true))) 
 				&& (inicializadoBol.equals(new Boolean(false)) && mChoferInt.isInicializado().equals(new Boolean(true)))){
+				System.out.println("mChoferInt.getCodCli() "+mChoferInt.getCodCli());
 				email = obtenerMailCliente(mChoferInt.getCodCli());
 			}
 			try {
@@ -145,7 +154,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 					//envio mail al cliente avidandole que su chofer esta ok por refipass
 					if((activoBol.equals(new Boolean(false)) && mChoferInt.isActivo().equals(new Boolean(true))) 
 							&& (inicializadoBol.equals(new Boolean(false)) && mChoferInt.isInicializado().equals(new Boolean(true)))){
-						//enviarMailCliente(email);
+						enviarMailCliente(email);
 						mensajeMail = mensajeria.getMessage().getString("chofer_ok_por_administracion_msg_2");
 					}
 				tx.commit();								
@@ -188,7 +197,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 		try{
 			MclientesDAO MclienteDAO = new MclientesDAO(sessionHib);
 			Mclientes Mcliente = new Mclientes();
-			Mcliente = MclienteDAO.load(codCliente, sessionHib);
+			Mcliente = MclienteDAO.get(codCliente, sessionHib);
 			
 			if(Mcliente.getImail()==null){
 				throw new NoSePudeEnviarMailException(mensajeria.getMessage().getString("no_se_envio_mail_msg"));
@@ -202,6 +211,8 @@ public class AltaChoferesBean extends AbstBackingBean {
 			throw new DataAccessErrorException();
 		}
 	}
+	
+	
 	public void guardar(ActionEvent event){
 		Transaction tx= null;
 		try{
@@ -243,7 +254,21 @@ public class AltaChoferesBean extends AbstBackingBean {
 					mSecuencia.setSecuencia(mChofer.getCodigo()+1);				
 					mSecuenciaDAO.update(mSecuencia,sessionHib);
 					
-//					enviarMailAdministrador();
+ 				//enviarMailAdministrador();
+ 				/*try {
+ 					enviarMailAdministrador("smtp.gmail.com", "587", "false", "true", "true","nietosilvana@gmail.com", "Gasgas259", "CHECKING SETTINGS", "CHECKING EMAIL FUNCTIONALITY", "text/html", "nietosilvana@yahoo.com.ar");
+ 		        } catch (Exception ex) {
+ 		            ex.printStackTrace();
+ 		        } */  
+
+ 				 try {
+ 					enviarConGMail();
+ 		            
+ 		        } catch (Exception e) {
+ 		            System.out.println("Error en el envio de mail: " + e.getMessage());
+ 		            e.printStackTrace();
+ 		        }
+ 				 
 				tx.commit();
 				//envio de mail a refipass para hacerle saber que hay un chofer esperando el ok				
 				mensajeGuardado=mensajeria.getMessage().getString("registro_ok_chofer_mag");
@@ -280,48 +305,177 @@ public class AltaChoferesBean extends AbstBackingBean {
 		
 	}
 	
+	
+	private  void enviarConGMail() throws Exception {
+		
+		FileUtil fileUtil= new FileUtil();
+   		Properties property= fileUtil.getPropertiesFile();
+   		String mail_smtp_password= property.getProperty("mail_smtp_password");
+   		String mail_smtp_host= property.getProperty("mail_smtp_host");
+   		String mail_smtp_ssl_trust= property.getProperty("mail_smtp_ssl_trust");
+   		String mail_smtp_starttls_enable= property.getProperty("mail_smtp_starttls_enable");
+   		String mail_smtp_port = property.getProperty("mail_smtp_port");
+   		String mail_smtp_user = property.getProperty("mail_smtp_user");
+   		String mail_smtp_auth = property.getProperty("mail_smtp_auth");
+   		String mail_from = property.getProperty("mail_from");
+   		String mail_to = property.getProperty("mail_to");
+   	    String subject =  GetMensaje(property.getProperty("asuntoChoferAlta"));
+   	    String body =   GetMensaje(property.getProperty("cuerpoChoferAlta"));
+   	 
+		Properties props = new Properties();
 
-	/*
-	 * private void enviarMailCliente(String email) throws
-	 * NoSePudeEnviarMailException { try{ InitialContext ic = new InitialContext();
-	 * Context envCtx = (Context) ic.lookup("java:comp/env"); javax.mail.Session
-	 * session = (javax.mail.Session) envCtx.lookup("mail/Session"); Properties
-	 * props = session.getProperties(); if (props.containsKey("mail.smtp.auth") &&
-	 * props.getProperty("mail.smtp.auth").equals("true")) { session =
-	 * javax.mail.Session.getDefaultInstance(session.getProperties(), new
-	 * Autenticador(props.getProperty("mail.smtp.user"),
-	 * props.getProperty("mail.smtp.password"))); }
-	 * 
-	 * System.out.println("Va a utilizar como archivo de Subject: "+props.
-	 * getProperty("asuntoChoferModificacion")); String subject =
-	 * GetMensaje(props.getProperty("asuntoChoferModificacion"));
-	 * 
-	 * System.out.println("Va a utilizar como archivo de Body: "+props.getProperty(
-	 * "cuerpoChoferModificacion")); String body =
-	 * GetMensaje(props.getProperty("cuerpoChoferModificacion"));
-	 * System.out.println("se enviara a: "+email);
-	 * 
-	 * MimeMessage msg = new MimeMessage(session); msg.setHeader("Content-Type",
-	 * "text/html; charset=ISO-8859-2"); msg.setContentLanguage(new String[]
-	 * {"es-ar"}); msg.addHeader("Content-Transfer-Encoding", "base64");
-	 * msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");
-	 * msg.setSentDate(new java.util.Date());
-	 * msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email,
-	 * false)); msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-	 * msg.setHeader("X-Mailer", "sendhtml"); msg.setText(reemplazarEtiquetas(body),
-	 * "ISO-8859-2");
-	 * 
-	 * Transport.send(msg); }catch (Exception e) { e.printStackTrace(); throw new
-	 * NoSePudeEnviarMailException(mensajeria.getMessage().getString(
-	 * "no_se_envio_mail_msg")); } }
-	 */
+		// Nombre del host de correo, es smtp.gmail.com
+		props.setProperty("mail.smtp.host", mail_smtp_host);  
+		props.put("mail.smtp.ssl.trust", mail_smtp_ssl_trust );
+
+		// TLS si está disponible
+		props.setProperty("mail.smtp.starttls.enable", mail_smtp_starttls_enable);
+
+		// Puerto de gmail para envio de correos
+		props.setProperty("mail.smtp.port",mail_smtp_port);
+
+		// Nombre del usuario
+		props.setProperty("mail.smtp.user", mail_smtp_user);
+
+		// Si requiere o no usuario y password para conectarse.
+		props.setProperty("mail.smtp.auth", mail_smtp_auth);
+
+		javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+
+		// Para obtener un log de salida más extenso
+		session.setDebug(true);
+		
+		MimeMessage message = new MimeMessage(session);
+
+		// Quien envia el correo
+		message.setFrom(new InternetAddress(mail_from));
+
+		// A quien va dirigido
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(  mail_to ));
+
+		message.setSubject(reemplazarEtiquetas(subject));
+		message.setText(reemplazarEtiquetas(body));
+		
+		Transport t = session.getTransport("smtp");
+
+		// Aqui usuario y password de gmail
+		t.connect(mail_from , mail_smtp_password );
+		t.sendMessage(message,message.getAllRecipients());
+		t.close();
+		
+		
+	}
+
+	
+	  private void enviarMailCliente(String email) throws  NoSePudeEnviarMailException { 
+		  try{ 
+//			  InitialContext ic = new InitialContext();
+//	  
+//			  Context envCtx = (Context) ic.lookup("java:comp/env"); 
+//			  javax.mail.Session  session = (javax.mail.Session) envCtx.lookup("mail/Session"); 
+//			  Properties props = session.getProperties(); 
+//			  
+//			  if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true")) { 
+//				  		session =  javax.mail.Session.getDefaultInstance(session.getProperties(), new  Autenticador(props.getProperty("mail.smtp.user"),
+//						  props.getProperty("mail.smtp.password"))); 
+//				  }
+//	  
+//			  System.out.println("Va a utilizar como archivo de Subject: "+props.  getProperty("asuntoChoferModificacion")); 
+//			  String subject =  GetMensaje(props.getProperty("asuntoChoferModificacion"));
+//			  
+//			  System.out.println("Va a utilizar como archivo de Body: "+props.getProperty(  "cuerpoChoferModificacion")); 
+//			  String body =   GetMensaje(props.getProperty("cuerpoChoferModificacion"));
+//			  System.out.println("se enviara a: "+email);
+//			  
+//			  MimeMessage msg = new MimeMessage(session); 
+//			  msg.setHeader("Content-Type",   "text/html; charset=ISO-8859-2"); 
+//			  msg.setContentLanguage(new String[]   {"es-ar"}); 
+//			  msg.addHeader("Content-Transfer-Encoding", "base64");
+//			  msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");
+//			  msg.setSentDate(new java.util.Date());
+//			  msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email,   false)); 
+//			  msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+//			  msg.setHeader("X-Mailer", "sendhtml"); 
+//			  msg.setText(reemplazarEtiquetas(body),  "ISO-8859-2");
+//			  
+//			  Transport.send(msg); 
+			  
+			  
+			    FileUtil fileUtil= new FileUtil();
+		   		Properties property= fileUtil.getPropertiesFile();
+		   		String mail_smtp_password= property.getProperty("mail_smtp_password");
+		   		String mail_smtp_host= property.getProperty("mail_smtp_host");
+		   		String mail_smtp_ssl_trust= property.getProperty("mail_smtp_ssl_trust");
+		   		String mail_smtp_starttls_enable= property.getProperty("mail_smtp_starttls_enable");
+		   		String mail_smtp_port = property.getProperty("mail_smtp_port");
+		   		String mail_smtp_user = property.getProperty("mail_smtp_user");
+		   		String mail_smtp_auth = property.getProperty("mail_smtp_auth");
+		   		String mail_from = property.getProperty("mail_from");
+		   		String mail_to = property.getProperty("mail_to");
+		   	    String subject =  GetMensaje(property.getProperty("asuntoChoferModificacion"));
+		   	    String body =   GetMensaje(property.getProperty("cuerpoChoferModificacion"));
+		   	 
+				Properties props = new Properties();
+
+				// Nombre del host de correo, es smtp.gmail.com
+				props.setProperty("mail.smtp.host", mail_smtp_host);  
+				props.put("mail.smtp.ssl.trust", mail_smtp_ssl_trust );
+
+				// TLS si está disponible
+				props.setProperty("mail.smtp.starttls.enable", mail_smtp_starttls_enable);
+
+				// Puerto de gmail para envio de correos
+				props.setProperty("mail.smtp.port",mail_smtp_port);
+
+				// Nombre del usuario
+				props.setProperty("mail.smtp.user", mail_smtp_user);
+
+				// Si requiere o no usuario y password para conectarse.
+				props.setProperty("mail.smtp.auth", mail_smtp_auth);
+
+				javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+
+				// Para obtener un log de salida más extenso
+				session.setDebug(true);
+				
+				MimeMessage message = new MimeMessage(session);
+
+				// Quien envia el correo
+				message.setFrom(new InternetAddress(mail_from));
+
+				// A quien va dirigido
+				System.out.println("email "+ email);
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(  email ));
+
+				message.setSubject(reemplazarEtiquetas(subject));
+				message.setText(reemplazarEtiquetas(body));
+				
+				Transport t = session.getTransport("smtp");
+
+				// Aqui usuario y password de gmail
+				t.connect(mail_from , mail_smtp_password );
+				t.sendMessage(message,message.getAllRecipients());
+				t.close();
+			  
+			  
+			  
+	  }catch (Exception e) { 
+		  e.printStackTrace(); 
+		  throw new  NoSePudeEnviarMailException(mensajeria.getMessage().getString(  "no_se_envio_mail_msg")); 
+		  } 
+     }
+	 
+	
+	
 	
 	/*
 	 * private void enviarMailAdministrador() throws NoSePudeEnviarMailException {
+	 * 
 	 * try{ InitialContext ic = new InitialContext(); Context envCtx = (Context)
 	 * ic.lookup("java:comp/env"); javax.mail.Session session = (javax.mail.Session)
-	 * envCtx.lookup("mail/Session"); Properties props = session.getProperties(); if
-	 * (props.containsKey("mail.smtp.auth") &&
+	 * envCtx.lookup("mail/Session"); Properties props = session.getProperties();
+	 * 
+	 * if (props.containsKey("mail.smtp.auth") &&
 	 * props.getProperty("mail.smtp.auth").equals("true")) { session =
 	 * javax.mail.Session.getDefaultInstance(session.getProperties(), new
 	 * Autenticador(props.getProperty("mail.smtp.user"),
@@ -346,10 +500,101 @@ public class AltaChoferesBean extends AbstBackingBean {
 	 * msg.setHeader("X-Mailer", "sendhtml"); msg.setText(reemplazarEtiquetas(body),
 	 * "ISO-8859-2");
 	 * 
-	 * Transport.send(msg); }catch (Exception e) { e.printStackTrace(); throw new
+	 * Transport.send(msg); } catch (Exception e) { e.printStackTrace(); throw new
 	 * NoSePudeEnviarMailException(mensajeria.getMessage().getString(
-	 * "no_se_envio_mail_msg")); } }
+	 * "no_se_envio_mail_msg")); }
+	 * 
+	 * }
 	 */
+	 
+	
+	
+	
+	  private void enviarMailAdministrador( String host, String port, String useSSL, String useTLS, String useAuth, String user, String password, String subject, String content, String type, String recipients)
+	            throws NoSuchProviderException, AddressException, MessagingException {
+		  // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también. 
+	/*  String  remitente = "nietosilvana"; //Para la dirección nomcuenta@gmail.com
+	  
+	  Properties props = System.getProperties(); 
+	  props.put("mail.smtp.host", "smtp.gmail.com"); //El servidor SMTP de Google 
+	  props.put("mail.smtp.user", remitente); 
+	  props.put("mail.smtp.clave", "Gasgas259"); //La clave de la	  cuenta 
+	  props.put("mail.smtp.auth", "false"); //Usar autenticación mediante	  usuario y clave 
+	  props.put("mail.smtp.starttls.enable", "true"); //Para  conectar de manera segura al servidor SMTP 
+	  
+	  props.put("mail.smtp.port",	  "587"); //El puerto SMTP seguro de Google
+	  
+	  javax.mail.Session session = javax.mail.Session.getDefaultInstance(props); 
+	  MimeMessage  message = new MimeMessage(session);
+	  
+	  try {
+		  message.setFrom(new InternetAddress(remitente)); 
+		  message.addRecipients(Message.RecipientType.TO, "nietosilvana@yahoo.com.ar");  //Se podrían añadir varios de la misma manera 
+		  message.setSubject("hola");
+		  message.setText("soy el cuerpo del mail"); 
+		  Transport transport =	  session.getTransport("smtp"); 
+		  transport.connect("smtp.gmail.com", remitente,  "Gasgas259"); 
+		  transport.send(message);
+	      transport.close(); 
+	  } catch (MessagingException me)
+	  {
+		  me.printStackTrace();
+	  }
+	  //Si se produce un error } */
+		  
+		  try {	  
+			  Properties props = new Properties();
+		        props.setProperty("mail.transport.protocol", "smtp");
+		        props.setProperty("mail.smtp.host", host);
+		        props.setProperty("mail.smtp.port", port);        
+		        if (useSSL != null && !useSSL.equals("false") && useSSL.equals("true")) {
+		            props.setProperty("mail.smtp.ssl.enable", useSSL);
+		            props.setProperty("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+		            props.setProperty("mail.smtp.socketFactory.port", port);
+
+		        }
+		        if (useTLS != null && !useTLS.equals("false") && useTLS.equals("true")) {
+		            props.setProperty("mail.smtp.starttls.enable", useTLS);
+		            props.setProperty("mail.smtp.socketFactory.fallback", "true");
+		            
+		        }   
+		        props.setProperty("mail.smtp.auth", useAuth);
+		        props.setProperty("mail.from", user);  
+		        props.setProperty("mail.smtp.user", user);
+		        props.setProperty("mail.password", password);
+
+		        javax.mail.Session mailSession = javax.mail.Session.getDefaultInstance(props, new Authenticator() {
+		            protected PasswordAuthentication getPasswordAuthentication() {
+		                return new PasswordAuthentication(props.getProperty("mail.smtp.user"), props
+		                        .getProperty("mail.password"));
+		            }
+		        });   
+
+		        Transport transport = mailSession.getTransport();
+
+		        MimeMessage message = new MimeMessage(mailSession);
+		        message.setHeader("Subject", subject);
+		        message.setContent(content, type);
+
+		        StringTokenizer tokenizer = new StringTokenizer(recipients, ";");
+		        while (tokenizer.hasMoreTokens()) {
+		            String recipient = tokenizer.nextToken();
+		            message.addRecipient(Message.RecipientType.TO,
+		                    new InternetAddress(recipient));
+		        }
+
+		        transport.connect();
+		        transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+		        transport.close();
+		   
+		  } catch (MessagingException me)
+		  {
+			  me.printStackTrace();
+		  }
+		      
+	  }
+	 
+	
 	
 	private String GetMensaje(String archivo) throws Exception {
 		String mensaje = "";
