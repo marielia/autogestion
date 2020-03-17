@@ -11,10 +11,8 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.refinor.extranet.data.Mchofer;
 import com.refinor.extranet.data.Mvehiculo;
 import com.refinor.extranet.data.base.BaseMvehiculoDAO;
-import com.refinor.extranet.to.MChoferTO;
 import com.refinor.extranet.to.MVehiculoTO;
 import com.refinor.extranet.util.Const;
 import com.refinor.extranet.util.Messages;

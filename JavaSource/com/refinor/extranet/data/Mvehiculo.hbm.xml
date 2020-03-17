@@ -106,7 +106,7 @@
 	</query>
 	
 	<query name="findVehiculoPorCodigo">	
-		from Mchofer where codigo = :codVehiculo
+		from Mvehiculo where codigo = :codVehiculo
 	</query>
 	
 	  <sql-query name="findVehiculoPorCliente">
