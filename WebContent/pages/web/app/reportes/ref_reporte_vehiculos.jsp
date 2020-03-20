@@ -265,7 +265,7 @@
 					</h:column>
 					
 					<%/* modificar */%>
-					<h:column  > 
+					<h:column rendered="#{sessionScope.usuario.tipo == 0}" > 
 						<%/*rendered="#{sessionScope.usuario.tipo == 0}"*/%> 
 						<f:facet name="header">
 							<h:outputText value="#{Message.vehiculo_label}"/>
