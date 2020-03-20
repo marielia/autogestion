@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;*/
 import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -257,12 +258,22 @@ private  void enviarMailAdministrador() throws Exception {
 		props.setProperty("mail.smtp.port",mail_smtp_port);
 
 		// Nombre del usuario
-		props.setProperty("mail.smtp.user", mail_smtp_user);
+		//props.setProperty("mail.smtp.user", mail_smtp_user);
 
 		// Si requiere o no usuario y password para conectarse.
 		props.setProperty("mail.smtp.auth", mail_smtp_auth);
 
-		javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+		//javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+		
+		javax.mail.Session session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
+			
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication(mail_from, mail_smtp_password);
+
+            }
+
+        });
 
 		// Para obtener un log de salida más extenso
 		session.setDebug(true);
@@ -281,10 +292,13 @@ private  void enviarMailAdministrador() throws Exception {
 		Transport t = session.getTransport("smtp");
 
 		// Aqui usuario y password de gmail
-		t.connect(mail_from , mail_smtp_password );
-		t.sendMessage(message,message.getAllRecipients());
-		t.close();
-		
+		//t.connect(mail_from , mail_smtp_password );
+		t.connect();
+		try {
+			t.sendMessage(message,message.getAllRecipients());
+		} finally {
+			t.close();
+		}
 		
 	}
 
@@ -318,12 +332,22 @@ private  void enviarMailAdministrador() throws Exception {
 				props.setProperty("mail.smtp.port",mail_smtp_port);
 
 				// Nombre del usuario
-				props.setProperty("mail.smtp.user", mail_smtp_user);
+				//props.setProperty("mail.smtp.user", mail_smtp_user);
 
 				// Si requiere o no usuario y password para conectarse.
 				props.setProperty("mail.smtp.auth", mail_smtp_auth);
 
-				javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+				//javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+				
+				javax.mail.Session session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
+					
+		            protected PasswordAuthentication getPasswordAuthentication() {
+	
+		                return new PasswordAuthentication(mail_from, mail_smtp_password);
+	
+		            }
+	
+		        });
 
 				// Para obtener un log de salida más extenso
 				session.setDebug(true);
@@ -343,11 +367,13 @@ private  void enviarMailAdministrador() throws Exception {
 				Transport t = session.getTransport("smtp");
 
 				// Aqui usuario y password de gmail
-				t.connect(mail_from , mail_smtp_password );
-				t.sendMessage(message,message.getAllRecipients());
-				t.close();
-			  
-			  
+				//t.connect(mail_from , mail_smtp_password );
+				t.connect();
+				try {
+					t.sendMessage(message,message.getAllRecipients());
+				} finally {
+					t.close();
+				}
 			  
 	  }catch (Exception e) { 
 		  e.printStackTrace(); 
