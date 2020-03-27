@@ -5,8 +5,10 @@ package com.refinor.extranet.faces.seguridad;
 
 import com.itsolver.util.io.FileUtil;
 import com.itsolver.util.seguridad.PasswordService;
+import com.refinor.extranet.data.Mccss;
 import com.refinor.extranet.data.Mclientes;
 import com.refinor.extranet.data.MusuarioWeb;
+import com.refinor.extranet.data.dao.MccssDAO;
 import com.refinor.extranet.data.dao.MclientesDAO;
 import com.refinor.extranet.data.dao.MusuarioWebDAO;
 import com.refinor.extranet.data.dao._RootDAO;
@@ -112,6 +114,12 @@ public class LogonBean extends AbstBackingBean {
 				MclientesDAO clienteDAO = new MclientesDAO(session);
 				List clientes = clienteDAO.getPorDocumento(usuario.getCuit());			
 				sesion.setAttribute(Const.CLIENTE, (Mclientes)clientes.get(0));
+			}
+			
+			if(usuario.getTipo()==2){				
+				MccssDAO ccssDAO = new MccssDAO(session);
+				List ccss = ccssDAO.getCCSS(usuario.getCodigoCcssEmpleado());			
+				sesion.setAttribute(Const.CCSS, (Mccss)ccss.get(0));
 			}
 			
 			

@@ -8,6 +8,9 @@ import java.util.GregorianCalendar;
 public class Const {
 
 	
+	
+
+
 	// General
 	public static String SESSION_TIMEOUT="session_timeout";
 	
@@ -400,6 +403,7 @@ public class Const {
 	
 	public static String USUARIO="usuario";
 	public static String CLIENTE="cliente";
+	public static String CCSS = "ccss";
 	public static String INICIO_LABEL= "Volver a Menu"; 
 	public static String PARAM_COD_GRUPO_UNIDAD_NEGOCIO="codGrupoUnidadNegocio";	
 	public static String PARAM_ESTADO= "estado";
