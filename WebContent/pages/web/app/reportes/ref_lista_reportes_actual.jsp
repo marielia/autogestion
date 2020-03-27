@@ -43,8 +43,9 @@
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
 				<t:column>
 					<t:outputText value="&nbsp;&nbsp;#{Message.bienvenido_label}&nbsp;&nbsp;" escape="false" styleClass="campoSinFondoGrande"/>
-					<t:outputText  value="#{sessionScope.cliente.descripcion}"  escape="false"   styleClass="campoSinFondoGrandeBold" />
-					<t:outputText  rendered="#{sessionScope.usuario.tipo==0}" value="#{Message.admin_refipass_label}"  escape="false"   styleClass="campoSinFondoGrandeBold" />
+					<t:outputText value="#{sessionScope.cliente.descripcion}" escape="false"   styleClass="campoSinFondoGrandeBold" />
+					<t:outputText value="#{Message.admin_label}#{sessionScope.ccss.descCcss}" escape="false"   styleClass="campoSinFondoGrandeBold" />
+					<t:outputText rendered="#{sessionScope.usuario.tipo==0}" value="#{Message.admin_refipass_label}"  escape="false"   styleClass="campoSinFondoGrandeBold" />
 				</t:column>				
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
 			</t:panelGrid>
@@ -791,6 +792,49 @@
 								
 							</h:panelGrid>
 						</h:column>
+						
+						<h:column>	
+							<h:panelGrid columns="1" width="65%" columnClasses="cpo8SinFondo" styleClass="columnaTablaCentradaYArriba" cellspacing="0" cellpadding="0">						 
+								<h:column>					
+<%-- 									<t:graphicImage   value="/img/fondo_sistema2.jpg"/> --%>
+										<t:graphicImage   value=""/>
+								</h:column>
+							</h:panelGrid>
+						</h:column>
+												
+					</h:panelGrid>
+					
+					<h:panelGrid   rendered="#{sessionScope.usuario.tipo==2}" columns="1" width="100%" columnClasses="cpo8SinFondo" styleClass="columnaTablaCentradaYArriba" cellspacing="0" cellpadding="4">						 
+							
+							<h:column>
+								<t:outputLabel for="consulte" styleClass="titulos">
+									<h:outputText  value="&nbsp;#{Message.facturacion_label}" escape="false" styleClass="titulos"/>
+								</t:outputLabel>
+							</h:column>	
+							<h:column>
+							</h:column>
+						
+							<h:column>
+							<t:outputLabel styleClass="campoNoEditableSinFondo">			
+							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>		
+							<t:graphicImage value="/img/icono_poliactiva.gif"/>
+							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>																
+								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/reportes/ref_reporte_clientes.jsf" >
+									<h:outputText value="#{Message.remitos_fiscales_label}" styleClass="campoNoEditableSinFondo"/>
+								</h:outputLink>							
+							</t:outputLabel>
+							</h:column>	
+							
+							<h:column>
+							<t:outputLabel styleClass="campoNoEditableSinFondo">			
+							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>		
+							<t:graphicImage value="/img/icono_poliactiva.gif"/>
+							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>																
+								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/reportes/ref_reporte_choferes.jsf" >
+									<h:outputText value="#{Message.remitos_manuales_label}" styleClass="campoNoEditableSinFondo"/>
+								</h:outputLink>							
+							</t:outputLabel>
+							</h:column>								
 						
 						<h:column>	
 							<h:panelGrid columns="1" width="65%" columnClasses="cpo8SinFondo" styleClass="columnaTablaCentradaYArriba" cellspacing="0" cellpadding="0">						 

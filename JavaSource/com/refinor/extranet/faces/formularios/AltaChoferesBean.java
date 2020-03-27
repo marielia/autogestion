@@ -337,12 +337,22 @@ public class AltaChoferesBean extends AbstBackingBean {
 		props.setProperty("mail.smtp.port",mail_smtp_port);
 
 		// Nombre del usuario
-		props.setProperty("mail.smtp.user", mail_smtp_user);
+		//props.setProperty("mail.smtp.user", mail_smtp_user);
 
 		// Si requiere o no usuario y password para conectarse.
 		props.setProperty("mail.smtp.auth", mail_smtp_auth);
 
-		javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+		//javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+		
+		javax.mail.Session session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
+			
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication(mail_from, mail_smtp_password);
+
+            }
+
+        });
 
 		// Para obtener un log de salida más extenso
 		session.setDebug(true);
@@ -361,46 +371,49 @@ public class AltaChoferesBean extends AbstBackingBean {
 		Transport t = session.getTransport("smtp");
 
 		// Aqui usuario y password de gmail
-		t.connect(mail_from , mail_smtp_password );
-		t.sendMessage(message,message.getAllRecipients());
-		t.close();
-		
+		//t.connect(mail_from , mail_smtp_password );
+		t.connect();
+		try {
+			t.sendMessage(message,message.getAllRecipients());
+		} finally {
+			t.close();
+		}
 		
 	}
 
 	
 	  private void enviarMailCliente(String email) throws  NoSePudeEnviarMailException { 
-		  try{ 
-//			  InitialContext ic = new InitialContext();
-//	  
-//			  Context envCtx = (Context) ic.lookup("java:comp/env"); 
-//			  javax.mail.Session  session = (javax.mail.Session) envCtx.lookup("mail/Session"); 
-//			  Properties props = session.getProperties(); 
-//			  
-//			  if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true")) { 
-//				  		session =  javax.mail.Session.getDefaultInstance(session.getProperties(), new  Autenticador(props.getProperty("mail.smtp.user"),
-//						  props.getProperty("mail.smtp.password"))); 
-//				  }
-//	  
-//			  System.out.println("Va a utilizar como archivo de Subject: "+props.  getProperty("asuntoChoferModificacion")); 
-//			  String subject =  GetMensaje(props.getProperty("asuntoChoferModificacion"));
-//			  
-//			  System.out.println("Va a utilizar como archivo de Body: "+props.getProperty(  "cuerpoChoferModificacion")); 
-//			  String body =   GetMensaje(props.getProperty("cuerpoChoferModificacion"));
-//			  System.out.println("se enviara a: "+email);
-//			  
-//			  MimeMessage msg = new MimeMessage(session); 
-//			  msg.setHeader("Content-Type",   "text/html; charset=ISO-8859-2"); 
-//			  msg.setContentLanguage(new String[]   {"es-ar"}); 
-//			  msg.addHeader("Content-Transfer-Encoding", "base64");
-//			  msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");
-//			  msg.setSentDate(new java.util.Date());
-//			  msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email,   false)); 
-//			  msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
-//			  msg.setHeader("X-Mailer", "sendhtml"); 
-//			  msg.setText(reemplazarEtiquetas(body),  "ISO-8859-2");
-//			  
-//			  Transport.send(msg); 
+		  	try{ 
+	//			InitialContext ic = new InitialContext();
+	//	  
+	//			Context envCtx = (Context) ic.lookup("java:comp/env"); 
+	//			javax.mail.Session  session = (javax.mail.Session) envCtx.lookup("mail/Session"); 
+	//			Properties props = session.getProperties(); 
+	//			
+	//			if (props.containsKey("mail.smtp.auth") && props.getProperty("mail.smtp.auth").equals("true")) { 
+	//				session =  javax.mail.Session.getDefaultInstance(session.getProperties(), new  Autenticador(props.getProperty("mail.smtp.user"),
+	//				props.getProperty("mail.smtp.password"))); 
+	//			}
+	//	  
+	//			System.out.println("Va a utilizar como archivo de Subject: "+props.  getProperty("asuntoChoferModificacion")); 
+	//			String subject =  GetMensaje(props.getProperty("asuntoChoferModificacion"));
+	//			  
+	//			System.out.println("Va a utilizar como archivo de Body: "+props.getProperty(  "cuerpoChoferModificacion")); 
+	//			String body =   GetMensaje(props.getProperty("cuerpoChoferModificacion"));
+	//			System.out.println("se enviara a: "+email);
+	//			  
+	//			MimeMessage msg = new MimeMessage(session); 
+	//			msg.setHeader("Content-Type",   "text/html; charset=ISO-8859-2"); 
+	//			msg.setContentLanguage(new String[]   {"es-ar"}); 
+	//			msg.addHeader("Content-Transfer-Encoding", "base64");
+	//			msg.setSubject(reemplazarEtiquetas(subject), "ISO-8859-2");
+	//			msg.setSentDate(new java.util.Date());
+	//			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email,   false)); 
+	//			msg.setFrom(new InternetAddress(props.getProperty("mail.from")));
+	//			msg.setHeader("X-Mailer", "sendhtml"); 
+	//			msg.setText(reemplazarEtiquetas(body),  "ISO-8859-2");
+	//			  
+	//			Transport.send(msg); 
 			  
 			  
 			    FileUtil fileUtil= new FileUtil();
@@ -409,6 +422,7 @@ public class AltaChoferesBean extends AbstBackingBean {
 		   		String mail_smtp_host= property.getProperty("mail_smtp_host");
 		   		String mail_smtp_ssl_trust= property.getProperty("mail_smtp_ssl_trust");
 		   		String mail_smtp_starttls_enable= property.getProperty("mail_smtp_starttls_enable");
+		   		String mail_smtp_ssl_enable= property.getProperty("mail_smtp_ssl_enable");
 		   		String mail_smtp_port = property.getProperty("mail_smtp_port");
 		   		String mail_smtp_user = property.getProperty("mail_smtp_user");
 		   		String mail_smtp_auth = property.getProperty("mail_smtp_auth");
@@ -418,48 +432,60 @@ public class AltaChoferesBean extends AbstBackingBean {
 		   	    String body =   GetMensaje(property.getProperty("cuerpoChoferModificacion"));
 		   	 
 				Properties props = new Properties();
-
+	
 				// Nombre del host de correo, es smtp.gmail.com
 				props.setProperty("mail.smtp.host", mail_smtp_host);  
-				props.put("mail.smtp.ssl.trust", mail_smtp_ssl_trust );
-
+				//props.put("mail.smtp.ssl.trust", mail_smtp_ssl_trust );
+	
 				// TLS si está disponible
 				props.setProperty("mail.smtp.starttls.enable", mail_smtp_starttls_enable);
-
+	
 				// Puerto de gmail para envio de correos
 				props.setProperty("mail.smtp.port",mail_smtp_port);
-
+	
 				// Nombre del usuario
-				props.setProperty("mail.smtp.user", mail_smtp_user);
-
+				//props.setProperty("mail.smtp.user", mail_smtp_user);
+	
 				// Si requiere o no usuario y password para conectarse.
 				props.setProperty("mail.smtp.auth", mail_smtp_auth);
-
-				javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
-
+	
+				//javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+				
+				javax.mail.Session session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
+	
+		            protected PasswordAuthentication getPasswordAuthentication() {
+	
+		                return new PasswordAuthentication(mail_from, mail_smtp_password);
+	
+		            }
+	
+		        });
+	
 				// Para obtener un log de salida más extenso
 				session.setDebug(true);
 				
 				MimeMessage message = new MimeMessage(session);
-
+	
 				// Quien envia el correo
 				message.setFrom(new InternetAddress(mail_from));
-
+	
 				// A quien va dirigido
 				System.out.println("email "+ email);
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(  email ));
-
+	
 				message.setSubject(reemplazarEtiquetas(subject));
 				message.setText(reemplazarEtiquetas(body));
 				
 				Transport t = session.getTransport("smtp");
-
+	
 				// Aqui usuario y password de gmail
-				t.connect(mail_from , mail_smtp_password );
-				t.sendMessage(message,message.getAllRecipients());
-				t.close();
-			  
-			  
+				//t.connect(mail_from , mail_smtp_password );
+				t.connect();
+				try {
+					t.sendMessage(message,message.getAllRecipients());
+				} finally {
+					t.close();
+				}
 			  
 	  }catch (Exception e) { 
 		  e.printStackTrace(); 
