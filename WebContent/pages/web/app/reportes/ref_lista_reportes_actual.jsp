@@ -44,7 +44,7 @@
 				<t:column>
 					<t:outputText value="&nbsp;&nbsp;#{Message.bienvenido_label}&nbsp;&nbsp;" escape="false" styleClass="campoSinFondoGrande"/>
 					<t:outputText value="#{sessionScope.cliente.descripcion}" escape="false"   styleClass="campoSinFondoGrandeBold" />
-					<t:outputText value="#{Message.admin_label}#{sessionScope.ccss.descCcss}" escape="false"   styleClass="campoSinFondoGrandeBold" />
+					<t:outputText rendered="#{sessionScope.usuario.tipo==2}" value="#{Message.admin_label}#{sessionScope.ccss.descCcss}" escape="false"   styleClass="campoSinFondoGrandeBold" />
 					<t:outputText rendered="#{sessionScope.usuario.tipo==0}" value="#{Message.admin_refipass_label}"  escape="false"   styleClass="campoSinFondoGrandeBold" />
 				</t:column>				
 				<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
@@ -235,9 +235,19 @@
 							</t:outputLabel>
 							</h:column>
 							
+							<!-- PRUEBA -->
+							<h:column>
+							<t:outputLabel styleClass="campoNoEditableSinFondo">			
+							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>		
+							<t:graphicImage value="/img/icono_poliactiva.gif"/>
+							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>																
+								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/reportes/ref_reporte_limite_de_carga.jsf" >
+									<h:outputText value="#{Message.limite_de_carga_de_clientes_label}" styleClass="campoNoEditableSinFondo"/>
+								</h:outputLink>							
+							</t:outputLabel>
+							</h:column>
+							
 							</h:panelGrid>
-						
-						
 						
 						</h:column>
 						

@@ -18,6 +18,7 @@ import com.refinor.extranet.data.base.BaseMlimiteCargaDAO;
 import com.refinor.extranet.to.CuposTO;
 import com.refinor.extranet.to.MChoferTO;
 import com.refinor.extranet.to.MProductoTO;
+import com.refinor.extranet.to.MlimiteCargaTO;
 import com.refinor.extranet.util.Const;
 import com.refinor.extranet.util.DataUtil;
 import com.refinor.extranet.util.Messages;
@@ -37,9 +38,9 @@ public class MlimiteCargaDAO extends BaseMlimiteCargaDAO implements com.refinor.
 	public static String FIND_CUPOS_BY_PATENTE_Y_CLIENTE= "findCuposPorVehiculosCliente";
 	public static String FIND_PRODUCTOS_POR_VEHICULO_CCSS= "findProductosPorVehiculoCCSS";
 	public static String FIND_CUPO_BY_PATENTE_CLIENTE_ART_FAMILIA_GRUPO= "findCuposByPatenteClienteFamiliaGrupoArticulo";
-	
 	public static String FIND_CUPO_BY_COD_VEHICULO= "findCuposByCodVehiculo";
 	public static String FIND_LIMITE_CARGA_BY_COD_VEHICULO= "findLimiteCargaByCodVehiculo";
+	public static String FIND_LIMITES_CARGA_BY_COD_VEHICULO= "findLimitesCargaByCodVehiculo";
 	
 	public List getCuposConsumoPorClientePatente(String codCliente, String patente, Integer mes, Integer anio) throws DataAccessErrorException,NoExistenItemsException{
 		try{
@@ -396,57 +397,112 @@ public class MlimiteCargaDAO extends BaseMlimiteCargaDAO implements com.refinor.
 		}
 	}	
 	 
-  public MlimiteCarga getLimiteCargaPorCodVehiculo( Integer codVehiculo ) throws DataAccessErrorException,NoExistenItemsException{
-			try{
-				Messages mensajeria = new Messages();
-				List lstCupos= new ArrayList();
-				Map<String, Object> params = new HashMap<String, Object>();  
-				params.put(Const.PARAM_COD_VEHICULO, codVehiculo ); 
-				Query tiposDocumentoQry = this.getNamedQuery(MlimiteCargaDAO.FIND_LIMITE_CARGA_BY_COD_VEHICULO, params, session);
-				lstCupos= tiposDocumentoQry.list();
+	public MlimiteCarga getLimiteCargaPorCodVehiculo( Integer codVehiculo ) throws DataAccessErrorException,NoExistenItemsException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstCupos= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>();  
+			params.put(Const.PARAM_COD_VEHICULO, codVehiculo ); 
+			Query tiposDocumentoQry = this.getNamedQuery(MlimiteCargaDAO.FIND_LIMITE_CARGA_BY_COD_VEHICULO, params, session);
+			lstCupos= tiposDocumentoQry.list();
+			
+			if(lstCupos.size()>0){
+				Iterator itCupos = lstCupos.iterator();
+				lstCupos= new ArrayList();
+				MlimiteCarga mlimiteCarga= new MlimiteCarga();
+				MlimiteCargaId mlimiteCargaID= new MlimiteCargaId();
+				Object[] objCupon= null;			
+								
+				while(itCupos.hasNext()){
+					objCupon=(Object[]) itCupos.next();	
+					mlimiteCarga= new MlimiteCarga();
+					
+					mlimiteCargaID = new MlimiteCargaId();
+					mlimiteCargaID.setCodArt(new Integer(objCupon[0].toString())); 
+					mlimiteCargaID.setCodVeh(new Integer(objCupon[1].toString())); 
+					mlimiteCarga.setId(mlimiteCargaID);
+					
+					mlimiteCarga.setIlimitado(new Boolean(objCupon[2].toString()));
+					mlimiteCarga.setLitrosPcarga(new BigDecimal(objCupon[3].toString()));	
+					mlimiteCarga.setLitrosPdia(new BigDecimal(objCupon[4].toString()));	
+					mlimiteCarga.setLitrosPmes(new BigDecimal(objCupon[5].toString()));	
+				 
+					mlimiteCarga.setFliaGrupArt(objCupon[7].toString());  
 				
-				if(lstCupos.size()>0){
-					Iterator itCupos = lstCupos.iterator();
-					lstCupos= new ArrayList();
-					MlimiteCarga mlimiteCarga= new MlimiteCarga();
-					MlimiteCargaId mlimiteCargaID= new MlimiteCargaId();
-					Object[] objCupon= null;			
-									
-					while(itCupos.hasNext()){
-						objCupon=(Object[]) itCupos.next();	
-						mlimiteCarga= new MlimiteCarga();
-						
-						mlimiteCargaID = new MlimiteCargaId();
-						mlimiteCargaID.setCodArt(new Integer(objCupon[0].toString())); 
-						mlimiteCargaID.setCodVeh(new Integer(objCupon[1].toString())); 
-						mlimiteCarga.setId(mlimiteCargaID);
-						
-						mlimiteCarga.setIlimitado(new Boolean(objCupon[2].toString()));
-						mlimiteCarga.setLitrosPcarga(new BigDecimal(objCupon[3].toString()));	
-						mlimiteCarga.setLitrosPdia(new BigDecimal(objCupon[4].toString()));	
-						mlimiteCarga.setLitrosPmes(new BigDecimal(objCupon[5].toString()));	
-					 
-						mlimiteCarga.setFliaGrupArt(objCupon[7].toString());  
-					
-				        lstCupos.add(mlimiteCarga);
-					}	
-					
-					
-				}else if(lstCupos.size()==0){
-					throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+			        lstCupos.add(mlimiteCarga);
 				}	
 				
 				
-		        
-				return (MlimiteCarga)lstCupos.get(0);
-			}
-			catch(NoExistenItemsException ex){
-				ex.printStackTrace();
-				throw ex;
-			}catch(Exception ex){
-				ex.printStackTrace();
-				throw new DataAccessErrorException();
-			}
+			}else if(lstCupos.size()==0){
+				throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+			}	
+			
+			
+	        
+			return (MlimiteCarga)lstCupos.get(0);
 		}
+		catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+	}
+  
+	public List getLimitesCargaPorCodVehiculo(Integer codVehiculo) throws DataAccessErrorException, NoExistenItemsException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstLimitesDeCarga= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>();  
+			params.put(Const.PARAM_COD_VEHICULO, codVehiculo); 
+			
+			Query tiposDocumentoQry = this.getNamedQuery(MlimiteCargaDAO.FIND_LIMITES_CARGA_BY_COD_VEHICULO, params, session);
+			lstLimitesDeCarga = tiposDocumentoQry.list();
+			
+			if(lstLimitesDeCarga.size()>0){
+				Iterator it = lstLimitesDeCarga.iterator();
+				lstLimitesDeCarga = new ArrayList<>();
+				MlimiteCargaTO mLimiteCargaTO = new MlimiteCargaTO();
+				Object[] objLimiteCarga = null;			
+								
+				while(it.hasNext()){
+					objLimiteCarga = (Object[]) it.next();	
+					mLimiteCargaTO = new MlimiteCargaTO();
+					mLimiteCargaTO.setAgrupado(objLimiteCarga[0].toString());
+					mLimiteCargaTO.setDescripcion(objLimiteCarga[1].toString());
+					//mLimiteCargaTO.setLimite(objLimiteCarga[2].toString());
+					mLimiteCargaTO.setLimite("LITROS POR CARGA");
+					if (!objLimiteCarga[3].toString().equals("")) {
+						mLimiteCargaTO.setLitros(objLimiteCarga[3].toString());
+					} else {
+						mLimiteCargaTO.setLitros("---");
+					}
+					if (!objLimiteCarga[4].toString().equals("")) {
+						mLimiteCargaTO.setPermitido(objLimiteCarga[4].toString());
+					} else {
+						mLimiteCargaTO.setPermitido("---");
+					}
+					if (!objLimiteCarga[5].toString().equals("")) {
+						mLimiteCargaTO.setUtilizado(objLimiteCarga[5].toString());
+					} else {
+						mLimiteCargaTO.setUtilizado("---");
+					}
+					lstLimitesDeCarga.add(mLimiteCargaTO);
+				}	
+				
+			}else if(lstLimitesDeCarga.size()==0){
+				throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+			}	
+			return lstLimitesDeCarga;
+		}
+		catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new DataAccessErrorException();
+		}
+	}
 
 }

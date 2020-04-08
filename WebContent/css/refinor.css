@@ -1106,6 +1106,16 @@ input.alinaerADerechoMonto{
 	text-transform: uppercase;
 }
 
+.cpo8Center {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #000;
+	background-color: #F3F5F7;
+	line-height: 13pt;
+	text-align: center;
+	text-transform: uppercase;
+}
+
 .cpo8-Var10 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 8pt;
