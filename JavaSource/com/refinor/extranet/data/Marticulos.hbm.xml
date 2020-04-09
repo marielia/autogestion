@@ -137,4 +137,46 @@
      </query>
      
      
+       <sql-query name="findArticulosLimiteCarga"> 
+		  <query-param name="codVehiculo" type="integer" />
+		  <query-param name="codCcss" type="integer" />
+		<![CDATA[	
+			 SELECT
+			  a.nroAforador, 
+			  convert(varchar(25),a.nroAforador) 
+			 FROM 
+			 MAforador a INNER JOIN MTanque t ON a.nroTanque = t.nroTanque AND t.ccss = :codCcss
+			 INNER JOIN MComision co ON t.ccss = co.ccss And t.codArticulo = co.cod_art  
+			 INNER JOIN (SELECT 
+			 				ar.codigo  
+						 FROM 
+						 	mlimitecarga l INNER JOIN marticulos ar  
+							 ON (l.fliaGrupArt = 'F' and l.cod_art=ar.especie)  
+							 OR (l.fliaGrupArt = 'G' and l.cod_art=ar.variedad)  
+							 OR (l.fliaGrupArt = 'A' and l.cod_art=ar.codigo)  
+						 WHERE l.cod_veh= :codVehiculo ) lc ON lc.codigo=t.codArticulo  
+			 WHERE co.f_baja Is Null And a.fhbaja Is Null And t.fhbaja Is Null
+			 
+		]]>	
+    </sql-query>
+    
+      <sql-query name="findArticulosSinLimiteCarga"> 
+		  <query-param name="codCcss" type="integer" />
+		<![CDATA[	
+			  SELECT 
+			   a.nroAforador, 
+			   convert(varchar(25),a.nroAforador)  
+			  FROM MAforador a, MTanque t, CCSS c, MComision co 
+			  WHERE a.nroTanque = t.nroTanque AND 
+			  t.ccss = C.ID AND 
+			  t.ccss = co.ccss AND 
+			  t.codArticulo = co.cod_art AND 
+			  co.ccss = :codCcss AND 
+			  co.f_baja is null AND 
+			  a.fhbaja is null AND 
+			  t.fhbaja is null 
+			 
+		]]>	
+    </sql-query>
+     
 </hibernate-mapping>

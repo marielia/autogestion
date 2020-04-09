@@ -49,4 +49,92 @@
 		order by descCcss
     </query>
     
+    
+     <sql-query name="findTurnoVigente">
+     	<query-param name="codSector" type="integer"/>
+		<query-param name="codEstadoTurno" type="integer"/>
+		<query-param name="codCcss" type="integer"/>
+		
+	SELECT 
+		t.codigo as codTurno,
+		t.Descripcion,
+		t.CodigoSector,
+		tv.Codigo as codTurnoVigencia, 
+		tv.CodEstadoTurno,
+		tv.AlmacenId ,
+		a.AlmacenDescripcion ,
+		a.CCSSId
+
+	FROM MTurnoVigencia tv left join MTurno t on tv.codigoTurno = t.codigo 
+	inner join Almacen a on a.AlmacenId = tv.AlmacenId 
+	
+	WHERE  
+	t.codigoSector = :codSector and 
+	tv.FechaFin IS NULL and 
+	tv.CodEstadoTurno = :codEstadoTurno 
+     and a.CCSSId = :codCcss 
+		
+    </sql-query>
+    
+    
+     <sql-query name="findPeriodoMensualVigente">
+     	  <query-param name="fecha" type="timestamp" /> 
+		  <query-param name="codCcss" type="integer" />
+	<![CDATA[	
+		SELECT 
+			id,
+			ccss,
+			fecha_inicio,
+			fecha_fin,
+			estado 
+		FROM 
+			MPeriodoMensual 
+		WHERE 
+		ccss = :codCcss 
+		and fecha_inicio <= :fecha 
+		and fecha_fin >= :fecha 
+		and estado in ( 1 , 3 ) 
+	]]>	
+    </sql-query>
+    
+    
+     <sql-query name="findCCSSTO"> 
+		  <query-param name="codCcss" type="integer" />
+	<![CDATA[	
+	SELECT 
+	   id
+      ,nombre
+      ,nro_leg_jefe
+      ,consumidor_final_id
+      ,pcia
+      ,es_terceros
+      ,es_hoffice
+  	FROM CCSS
+	WHERE
+	id = :codCcss 
+		 
+	]]>	
+    </sql-query>
+   
+   
+   <sql-query name="findFormasPago"> 
+		  <query-param name="codCcss" type="integer" />
+		  <query-param name="condVta" type="integer" />
+	<![CDATA[	
+		SELECT 
+			fp.codigo, 
+			fp.descripcion 
+		FROM MCondicionVenta cv, rel_cvta_fpag r , MFormaPago fp, rel_ccssfpago rc 
+		WHERE 
+			r.cod_cvta=cv.codigo and 
+			r.cod_fpago=fp.codigo and 
+			fp.codigo=rc.cod_fpago and 
+			fp.fbaja is null  and 
+			r.cod_cvta = :condVta
+			and rc.cod_ccss = :codCcss 
+		 
+	]]>	
+    </sql-query>
+   
+    
 </hibernate-mapping>

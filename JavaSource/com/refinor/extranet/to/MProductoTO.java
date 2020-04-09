@@ -1,9 +1,12 @@
 package com.refinor.extranet.to;
 
+import java.math.BigDecimal;
+
 public class MProductoTO {
 
 	private Integer codArticulo;
 	private String descripcion;
+	private BigDecimal cantidad;
 	
 	public Integer getCodArticulo() {
 		return codArticulo;
@@ -25,4 +28,15 @@ public class MProductoTO {
 		// TODO Auto-generated constructor stub
 	}
 
+	public BigDecimal getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	
+	
+	
 }

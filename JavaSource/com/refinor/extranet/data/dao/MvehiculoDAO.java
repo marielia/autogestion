@@ -35,6 +35,8 @@ public class MvehiculoDAO extends BaseMvehiculoDAO implements com.refinor.extran
 	private static String FIND_VEHICULO_POR_DOMINIO_CLIENTE= "findVehiculoPorDominioCliente";
 	public static String FIND_VEHICULO_POR_CODIGO= "findVehiculoPorCodigo";
 	public static String FIND_VEHICULO_POR_CLIENTE= "findVehiculoPorCliente";
+	public static String FIND_VEHICULO_POR_CODIGO_BARRA= "findVehiculoPorCodigoBarra";
+	
 	
 	public Mvehiculo getVehiculoPorDominioYClienteEstado(String dominio, Integer codCliente,int estado) throws NoExistenItemsException, VariosVehiculosPorPatenteYClienteException, IOException, DataAccessErrorException{
 		try{
@@ -271,6 +273,61 @@ public class MvehiculoDAO extends BaseMvehiculoDAO implements com.refinor.extran
 		}
 			 
 			 
+		
+	}
+	
+	public MVehiculoTO getVehiculoPorCodBarra(String codBarra) throws NoExistenItemsException, IOException, DataAccessErrorException{
+		try{
+			Messages mensajeria = new Messages();
+			List lstVehiculosPorFiltro= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>();			
+			params.put(Const.PARAM_COD_BARRA, codBarra);
+					
+			Query query = this.getNamedQuery(MvehiculoDAO.FIND_VEHICULO_POR_CODIGO_BARRA, params, session);
+			lstVehiculosPorFiltro= query.list();
+			
+			if(lstVehiculosPorFiltro.size()>0){
+				Iterator itVehiculos = lstVehiculosPorFiltro.iterator();
+				lstVehiculosPorFiltro= new ArrayList();
+				MVehiculoTO mVehiculoTO= new MVehiculoTO();
+				SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
+				Object[] objVehiculo= null;
+				
+				while(itVehiculos.hasNext())
+				{
+					objVehiculo = (Object[]) itVehiculos.next(); 
+			        mVehiculoTO=new MVehiculoTO();
+			        mVehiculoTO.setCodigo(new Integer(objVehiculo[0].toString()));
+			        mVehiculoTO.setCodCliente(new Integer(objVehiculo[1].toString()));
+			        mVehiculoTO.setDominio(objVehiculo[2].toString());	
+			        mVehiculoTO.setCodUnidadNegocio(new Integer(objVehiculo[3].toString()));
+			        mVehiculoTO.setEsRefipass(new Boolean(objVehiculo[4].toString()));
+			        mVehiculoTO.setActivo(new Boolean(objVehiculo[5].toString()));
+			        mVehiculoTO.setActivoDesc(mVehiculoTO.getActivo()? mensajeria.getMessage().getString("si_label") : mensajeria.getMessage().getString("no_label"));
+			        mVehiculoTO.setInicializado(new Boolean(objVehiculo[6].toString()));
+			        mVehiculoTO.setInicializadoDesc(mVehiculoTO.getInicializado()? mensajeria.getMessage().getString("si_label") : mensajeria.getMessage().getString("no_label"));
+			        mVehiculoTO.setCodClienteAlfa(objVehiculo[7].toString());
+			        mVehiculoTO.setVerificaLimiteCarga(new Boolean(objVehiculo[8].toString()));
+			        mVehiculoTO.setOrdenCliente(new Integer(objVehiculo[9].toString())); 
+			        mVehiculoTO.setCliDescripcion(objVehiculo[10].toString());  
+				        
+			        lstVehiculosPorFiltro.add(mVehiculoTO);
+				}				
+				
+			}else if(lstVehiculosPorFiltro.size()==0){
+				throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+			}	 
+			
+			
+				return (MVehiculoTO)lstVehiculosPorFiltro.get(0);
+			 		
+		}catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();			
+			throw new DataAccessErrorException();
+		}
 		
 	}
 

@@ -1,10 +1,15 @@
 package com.refinor.extranet.to;
 
+import java.util.Date;
+
 public class FacturacionRemitoTO {
 
-	private String fecha;
-	private String hora;
+	private Date fecha;
+	 
 	private String codTarjeta;
+	
+	private Integer nroSucursal;
+	private Integer nroRemito;
 	
 	private String patente; 
 	private String dniChofer;
@@ -12,6 +17,25 @@ public class FacturacionRemitoTO {
 	private String kilometraje;
 	
 	
+	private int  codCliente;
+	private String descCliente;
+	private String codAlfaCliente;
+	
+	private Integer codCCSS;
+	private String descCCSS;
+	
+	private int codTurno;
+	private String descTurno;
+	
+	private int codAlmacen;
+	private String descAlmacen;
+	
+	 
+	 
+	public FacturacionRemitoTO() {
+		super();
+		 
+	}
 	public String getPinChofer() {
 		return pinChofer;
 	}
@@ -36,18 +60,8 @@ public class FacturacionRemitoTO {
 	public void setKilometraje(String kilometraje) {
 		this.kilometraje = kilometraje;
 	}
-	public String getFecha() {
-		return fecha;
-	}
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-	public String getHora() {
-		return hora;
-	}
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
+	 
+	 
 	public String getCodTarjeta() {
 		return codTarjeta;
 	}
@@ -66,8 +80,71 @@ public class FacturacionRemitoTO {
 	public void setNroRemito(Integer nroRemito) {
 		this.nroRemito = nroRemito;
 	}
-	private Integer nroSucursal;
-	private Integer nroRemito;
+	public int getCodCliente() {
+		return codCliente;
+	}
+	public void setCodCliente(int codCliente) {
+		this.codCliente = codCliente;
+	}
+	public String getDescCliente() {
+		return descCliente;
+	}
+	public void setDescCliente(String descCliente) {
+		this.descCliente = descCliente;
+	}
+	public String getCodAlfaCliente() {
+		return codAlfaCliente;
+	}
+	public void setCodAlfaCliente(String codAlfaCliente) {
+		this.codAlfaCliente = codAlfaCliente;
+	}
+	 
+	public Integer getCodCCSS() {
+		return codCCSS;
+	}
+	public void setCodCCSS(Integer codCCSS) {
+		this.codCCSS = codCCSS;
+	}
+	public String getDescCCSS() {
+		return descCCSS;
+	}
+	public void setDescCCSS(String descCCSS) {
+		this.descCCSS = descCCSS;
+	}
+	public int getCodTurno() {
+		return codTurno;
+	}
+	public void setCodTurno(int codTurno) {
+		this.codTurno = codTurno;
+	}
+	public String getDescTurno() {
+		return descTurno;
+	}
+	public void setDescTurno(String descTurno) {
+		this.descTurno = descTurno;
+	}
+	public int getCodAlmacen() {
+		return codAlmacen;
+	}
+	public void setCodAlmacen(int codAlmacen) {
+		this.codAlmacen = codAlmacen;
+	}
+	public String getDescAlmacen() {
+		return descAlmacen;
+	}
+	public void setDescAlmacen(String descAlmacen) {
+		this.descAlmacen = descAlmacen;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	
+
+
+	 
 	 
 	
 	

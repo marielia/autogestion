@@ -138,4 +138,27 @@
 		 ORDER BY b.dominio
     </sql-query>
     
+    <sql-query name="findVehiculoPorCodigoBarra">	
+		 
+		
+		SELECT 
+  		  v.codigo, 
+  		  v.codCliente, 
+  		  v.dominio, 
+  		  v.codUnidadN, 
+  		  c.refipass, 
+  		  v.activo, 
+  		  v.inicializado, 
+  		  c.cod_cliente_alfa,
+  		  v.verifica_lim_carga, 
+  		  v.orden_en_cliente,
+  		  c.Descripcion   
+		
+		
+		FROM   MVehiculo v inner join MClientes c on c.codigo=v.codCliente
+		WHERE 
+		v.codBarra = :codBarra   
+	 
+	</sql-query>
+    
 </hibernate-mapping>

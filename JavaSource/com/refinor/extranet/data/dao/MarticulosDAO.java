@@ -18,6 +18,7 @@ import com.refinor.extranet.to.AnioTO;
 import com.refinor.extranet.to.FamiliaTO;
 import com.refinor.extranet.to.GrupoTO;
 import com.refinor.extranet.to.ImpuestoLeyVialCbaTO;
+import com.refinor.extranet.to.MProductoTO;
 import com.refinor.extranet.to.MovimientoStockTO;
 import com.refinor.extranet.util.Const;
 import com.refinor.extranet.util.Messages;
@@ -39,6 +40,8 @@ public class MarticulosDAO extends BaseMarticulosDAO implements com.refinor.extr
 	public static String FIND_ARTICULOS_Es_COMBO= "findArticulosEsCombo"; 
 	public static String FIND_FAMILIAS= "findFamilias";
 	public static String FIND_GRUPO= "findGrupos";
+	public static String FIND_ARTICULOS_LIMITE_CARGA= "findArticulosLimiteCarga";
+	public static String FIND_ARTICULOS_SIN_LIMITE_CARGA= "findArticulosSinLimiteCarga";
 	
 	public List getArticulos() throws PersonaNoExisteException, DataAccessErrorException {
 		try {		
@@ -166,6 +169,89 @@ public class MarticulosDAO extends BaseMarticulosDAO implements com.refinor.extr
 		
 	}
 	
-	
+	    //Productos Limite Carga
+		public List getProductosLimiteCarga(int codVehiculo, int codCCSS) throws NoExistenItemsException, DataAccessErrorException { 
+
+				try{
+					Messages mensajeria = new Messages();
+					List lstRes= new ArrayList();
+					Map<String, Object> params = new HashMap<String, Object>();			
+					params.put(Const.PARAM_COD_VEHICULO, codVehiculo);
+					params.put(Const.PARAM_COD_CCSS, codCCSS);
+					Query qry = this.getNamedQuery(FIND_ARTICULOS_LIMITE_CARGA, params, session);
+					lstRes= qry.list();
+					
+					if(lstRes.size()>0){
+						Iterator itCupos = lstRes.iterator();
+						lstRes= new ArrayList();
+						MProductoTO mproductoTO= new MProductoTO();
+						Object[] objResultado= null;
+						
+						while(itCupos.hasNext()){
+							objResultado=(Object[]) itCupos.next();	
+							mproductoTO= new MProductoTO();	
+							mproductoTO.setCodArticulo(Integer.parseInt(objResultado[0].toString()));					
+							mproductoTO.setDescripcion(objResultado[1].toString());					
+					        lstRes.add(mproductoTO);
+						}		
+						
+					}else if(lstRes.size()==0){
+						throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+					}	
+					 
+			        
+					return lstRes;
+				}
+				catch(NoExistenItemsException ex){
+					ex.printStackTrace();
+					throw ex;
+				}catch(Exception ex){
+					ex.printStackTrace();
+					throw new DataAccessErrorException();
+				}
+		}
+		
+		
+		  //Productos sin Limite Carga
+				public List getProductosSinLimiteCarga( int codCCSS ) throws NoExistenItemsException, DataAccessErrorException { 
+
+						try{
+							Messages mensajeria = new Messages();
+							List lstRes= new ArrayList();
+							Map<String, Object> params = new HashMap<String, Object>();	 
+							params.put(Const.PARAM_COD_CCSS, codCCSS);
+							Query qry = this.getNamedQuery(FIND_ARTICULOS_SIN_LIMITE_CARGA, params, session);
+							lstRes= qry.list();
+							
+							if(lstRes.size()>0){
+								Iterator itCupos = lstRes.iterator();
+								lstRes= new ArrayList();
+								MProductoTO mproductoTO= new MProductoTO();
+								Object[] objResultado= null;
+								
+								while(itCupos.hasNext()){
+									objResultado=(Object[]) itCupos.next();	
+									mproductoTO= new MProductoTO();	
+									mproductoTO.setCodArticulo(Integer.parseInt(objResultado[0].toString()));					
+									mproductoTO.setDescripcion(objResultado[1].toString());					
+							        lstRes.add(mproductoTO);
+								}		
+								
+							}else if(lstRes.size()==0){
+								throw new NoExistenItemsException(mensajeria.getMessage().getString("no_se_econtraron_registros_msg"));
+							}	
+							 
+					        
+							return lstRes;
+						}
+						catch(NoExistenItemsException ex){
+							ex.printStackTrace();
+							throw ex;
+						}catch(Exception ex){
+							ex.printStackTrace();
+							throw new DataAccessErrorException();
+						}
+				}
+				
 	
 }

@@ -307,7 +307,8 @@ public class Const {
 	//REFIPASS
 	public static String TAMANIO_PAGINA_ARCHIVO="tamanio_pagina";
 	public static String PARAM_COD_VENDEDOR="codVendedor";
-	public static String PARAM_COD_CCSS="codCcss";
+	public static String PARAM_COD_CCSS="codCcss"; 
+	public static String PARAM_CON_VTA="condVta";
 	public static String PARAM_COD_PROVINCIA="codProvincia";
 	public static String PARAM_NRO_RENDICION="nroRendicion";
 	public static String PARAM_NRO_OPER_RENDICION="nroOperRendicion";
@@ -316,7 +317,7 @@ public class Const {
 	public static String PARAM_COD_DESCRIPCION="codDescripcion";
 	public static String PARAM_COD_CHOFER="codChofer";
 	public static String PARAM_COD_VEHICULO="codVehiculo";
-	
+	public static String PARAM_COD_BARRA="codBarra";
 	
 	public static String PARAM_COD_CLIENTE_INT="codClienteInt";
 	public static String PARAM_NOMBRE="nombre";
@@ -449,6 +450,8 @@ public class Const {
 	
 	public static String COD_INCRIPCION_IIBB= "codInscripIb";
 	public static String PARAM_DESCRIPCION="descripcion";
+	public static String PARAM_COD_SECTOR="codSector";
+	public static String PARAM_COD_ESTADO_TURNO="codEstadoTurno";
 	
 	//indices de columnas del archivo de generacion de autorizaciones
 	public static int COLUMNA_COD_CLIENTE_ALFA= 0;
@@ -475,6 +478,10 @@ public class Const {
 	public static String VISTA_PREVIA_TXT= "vistaPreviaTxt";
 	public static String IMPRESION_DEFINITVA_TXT= "impresionDefinitivaTxt";
 	public static String HOJA_DE_CALCULO_XLS= "hojaDeCalculoXls";
+	
+	public static Integer SECTOR_PLAYA= 2;
+	public static Integer ESTADO_TURNO_VIGENTE= 1;
+	
 }
 
 

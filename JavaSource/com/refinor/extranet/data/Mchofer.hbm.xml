@@ -142,4 +142,14 @@
 	]]>
 	</query>	
 	
+	<query name="findChoferActivoPorCliente"> 
+	 <![CDATA[   
+		from Mchofer 
+		where codCli = :codCliente
+		and dni = :dni 
+		and activo = 1
+		and inicializado = 1		
+	]]>
+	</query>
+	
 </hibernate-mapping>

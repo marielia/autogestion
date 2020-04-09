@@ -27,6 +27,9 @@ public class MVehiculoTO implements Serializable {
 	private String fechaAlta;
 	private String fechaBaja;
 	
+	private Boolean esRefipass;
+	private Boolean verificaLimiteCarga;
+	private Integer ordenCliente;
 	
 	public String getFechaAlta() {
 		return fechaAlta;
@@ -193,5 +196,37 @@ public class MVehiculoTO implements Serializable {
 	public void setCliDescripcion(String cliDescripcion) {
 		this.cliDescripcion = cliDescripcion;
 	}
+
+
+	public Boolean getEsRefipass() {
+		return esRefipass;
+	}
+
+
+	public void setEsRefipass(Boolean esRefipass) {
+		this.esRefipass = esRefipass;
+	}
+
+
+	public Boolean getVerificaLimiteCarga() {
+		return verificaLimiteCarga;
+	}
+
+
+	public void setVerificaLimiteCarga(Boolean verificaLimiteCarga) {
+		this.verificaLimiteCarga = verificaLimiteCarga;
+	}
+
+
+	public Integer getOrdenCliente() {
+		return ordenCliente;
+	}
+
+
+	public void setOrdenCliente(Integer ordenCliente) {
+		this.ordenCliente = ordenCliente;
+	}
+	
+	
 
 }
