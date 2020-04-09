@@ -235,16 +235,17 @@
  	<managed-bean-class>com.refinor.extranet.faces.reportes.RefReporteCuposCargaBean</managed-bean-class>
  	<managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
- <managed-bean>
-<<<<<<< HEAD
- 	<managed-bean-name>facturacionRemitosBean</managed-bean-name>
- 	<managed-bean-class>com.refinor.extranet.faces.formularios.FacturacionRemitosBean</managed-bean-class>
-=======
+ <managed-bean>  
  	<managed-bean-name>refReporteLimiteDeCargaBean</managed-bean-name>
- 	<managed-bean-class>com.refinor.extranet.faces.reportes.RefReporteLimiteDeCargaBean</managed-bean-class>
->>>>>>> 4ce76c01376c956ccc5404c7ae57a94a32dc646f
+ 	<managed-bean-class>com.refinor.extranet.faces.reportes.RefReporteLimiteDeCargaBean</managed-bean-class> 
  	<managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
+  <managed-bean> 
+ 	<managed-bean-name>facturacionRemitosBean</managed-bean-name>
+ 	<managed-bean-class>com.refinor.extranet.faces.formularios.FacturacionRemitosBean</managed-bean-class>  
+ 	<managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ 
  <navigation-rule>
   <from-view-id>*</from-view-id>
   <navigation-case>

@@ -830,6 +830,7 @@
 							<t:graphicImage value="/img/icono_poliactiva.gif"/>
 							<h:outputText  value="&nbsp;&nbsp;&nbsp; " escape="false"/>																
 								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/reportes/ref_reporte_clientes.jsf" >
+								</h:outputLink>
 								<h:outputLink value="#{Message.contexto_sistema}/pages/web/app/formularios/ref_facturacion_remitos.jsf?vaPor=RF" >
 									<h:outputText value="#{Message.remitos_fiscales_label}" styleClass="campoNoEditableSinFondo"/>
 								</h:outputLink>							
