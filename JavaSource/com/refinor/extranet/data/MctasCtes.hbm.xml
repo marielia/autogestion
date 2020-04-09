@@ -2371,5 +2371,15 @@ UNION
 			from vSaldoPorComprobanteCliente 
 			where clteProv = :codCliente
    </sql-query>
+   
+   <sql-query name="findUtilizadoByCodCliente"> 
+		<query-param name="codCliente" type="integer"/>
+			<![CDATA[
+				SELECT 
+					importe
+					FROM vSaldoDeCtaCtePorCliente 
+					WHERE codCli = :codCliente
+		    ]]> 
+    </sql-query>
 	
 </hibernate-mapping>

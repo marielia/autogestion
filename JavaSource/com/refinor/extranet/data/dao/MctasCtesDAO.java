@@ -1,5 +1,6 @@
 package com.refinor.extranet.data.dao;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.refinor.extranet.data.Mchofer;
 import com.refinor.extranet.data.Mclientes;
 import com.refinor.extranet.data.MctasCtes;
 import com.refinor.extranet.data.base.BaseMctasCtesDAO;
@@ -32,7 +34,6 @@ public class MctasCtesDAO extends BaseMctasCtesDAO implements com.refinor.extran
 		super(session);
 	}
 
-	
 	public static String FIND_FACTURAS_IMPAGAS_POR_CLIENTE= "findFacturasImpagasPorCliente";
 	public static String FIND_REMITOS_IMPAGAS_POR_CLIENTE= "findRemitosImpagasPorCliente";
 	public static String FIND_RECIBOS_NO_APLICADOS_A_FACTURAS= "findRecibosNoAplicadosAFacturas";	
@@ -43,6 +44,7 @@ public class MctasCtesDAO extends BaseMctasCtesDAO implements com.refinor.extran
 	public static String FIND_NC_REMITO_NO_APLICADO= "findNCyReciboNoAplicados";
 	public static String FIND_NC_NO_APLICADO= "findNCNoAplicados";
 	public static String FIND_REMITO_MCTACTE= "findTotalRemitos";
+	public static String FIND_UTILIZADO_BY_COD_CLIENTE= "findUtilizadoByCodCliente";
 	
 	public List getDocumentosConSaldo(String codCliente) throws DataAccessErrorException,NoExistenItemsException{
 		try{
@@ -555,5 +557,28 @@ public class MctasCtesDAO extends BaseMctasCtesDAO implements com.refinor.extran
 		return total;
 	}
 	
-
+	public BigDecimal getUtilizadoCliente(int codCliente) throws NoExistenItemsException, IOException, DataAccessErrorException{
+		try {
+			Messages mensajeria = new Messages();
+			List lstUtilizado= new ArrayList();
+			Map<String, Object> params = new HashMap<String, Object>();			
+			params.put(Const.PARAM_COD_CLIENTE, codCliente);
+			
+			Query query = this.getNamedQuery(MctasCtesDAO.FIND_UTILIZADO_BY_COD_CLIENTE, params, session);
+			lstUtilizado = query.list();
+			
+			if(lstUtilizado.size()==1){
+				return (BigDecimal)lstUtilizado.get(0);				
+			} else {
+				 throw new NoExistenItemsException(mensajeria.getMessage().getString("utilizado_no_existe_msg"));
+			}
+		}catch(NoExistenItemsException ex){
+			ex.printStackTrace();
+			throw ex;
+		}catch(Exception ex){
+			ex.printStackTrace();			
+			throw new DataAccessErrorException();
+		}
+	}
+	
 }

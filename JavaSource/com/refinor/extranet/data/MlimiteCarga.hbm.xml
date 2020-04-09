@@ -878,10 +878,20 @@ select
 		   ]]>  
     </sql-query>
     
-    
-    
-    
-    
-	   
+    <sql-query name="findLimitesCargaByCodVehiculo"> 
+		<query-param name="codVehiculo" type="integer"/>
+			<![CDATA[
+				SELECT CASE l.fliaGrupArt WHEN 'F' THEN 'Familia'  
+				WHEN 'G' THEN 'Grupo'   
+				WHEN 'A' THEN 'Artículo' 
+				END as desc_fliaGrupArt,  
+				CASE l.fliaGrupArt WHEN 'F' THEN (SELECT Descripcion FROM mespecies WHERE FhBaja is null AND Codigo=l.cod_art)  
+				WHEN 'G' THEN (SELECT VariedadD FROM mvariedades WHERE FhBaja is null AND variedad=l.cod_art)  
+				WHEN 'A' THEN (SELECT descripcion FROM marticulos WHERE FhBaja is null AND codigo=l.cod_art)  
+				END as desc_art, '', '---', '---', '---'  
+				FROM mLimiteCarga l left join mArticulos a on l.cod_art=a.codigo  
+			    WHERE l.cod_veh=:codVehiculo
+		    ]]> 
+      </sql-query>
     
 </hibernate-mapping>
