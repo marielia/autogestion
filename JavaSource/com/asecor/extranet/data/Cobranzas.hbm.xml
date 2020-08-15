@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/04/2020 02:39:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="com.asecor.extranet.data.Cobranzas" table="cobranzas">
+  <id name="id" type="java.lang.Integer">
+   <column name="codCobranza"/>
+   <generator class="identity"/>
+  </id>
+  <many-to-one name="polizas" class="com.asecor.extranet.data.Polizas" fetch="select">
+   <column  name="codPoliza" not-null="true"/>
+  </many-to-one>
+  
+  <property generated="never" lazy="false" name="nroCuota" type="java.lang.Integer">
+   <column  name="nroCuota" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="codTipoMovimiento" type="java.lang.Integer">
+   <column  name="codTipoMovimiento" not-null="true"/>
+  </property>
+
+   <property generated="never" lazy="false" name="importe" type="java.lang.Float">
+   <column name="importe" not-null="true"/>
+  </property>
+   <property generated="never" lazy="false" name="importePago" type="java.lang.Float">
+   <column name="importePago" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="fechaCobranza" type="timestamp">
+   <column length="19" name="fechaCobranza"/>
+  </property>
+  <property generated="never" lazy="false" name="fechaVto" type="timestamp">
+   <column length="19" name="fechaVto"/>
+  </property>
+  <property generated="never" lazy="false" name="fechaInicio" type="timestamp">
+   <column length="19" name="fechaInicio"/>
+  </property>
+ 
+  <property generated="never" lazy="false" name="codFormaPago" type="string">
+   <column length="4" name="codFormaPago"/>
+  </property>
+  
+  <property generated="never" lazy="false" name="estado" type="string">
+   <column length="4" name="codEstadoCuota"/>
+  </property>
+
+ </class>
+ <query name="findCobranzasByPolizas">
+ 	<![CDATA[
+		 	from  Cobranzas c 
+		 		where c.polizas =:polizas 	and c.estado =:estado  order by c.nroCuota desc	 		]]>		 		
+		 	</query>
+
+		 
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/04/2020 02:39:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.asecor.extranet.data.Adherentes" table="sepeliosAdherentes"  >
+        <id name="id" type="java.lang.Integer">
+            <column name="codAdherente" />
+            <generator class="identity" />
+        </id>
+        <property name="codSolicitud" type="int">
+            <column name="codSolicitud"  />
+        </property>
+       
+        <property name="codParentesco" type="int">
+            <column name="codParentesco"  />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="50" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        
+        <property name="nroDocumento" type="string">
+            <column name="nroDocumento" length="10" />
+        </property>
+         <property name="fechaNacimiento" type="timestamp">
+            <column name="fechaNacimiento" length="19" />
+        </property>
+            
+    </class>
+     <query name="findAdherentesByPolizas">
+ 	<![CDATA[
+		 	from  Adherentes a 
+		 		where a.codSolicitud =:codSolicitud 
+		 		]]>		 		
+		 	</query>
+</hibernate-mapping>

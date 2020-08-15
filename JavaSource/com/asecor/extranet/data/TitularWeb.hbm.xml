@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/04/2020 02:39:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.asecor.extranet.data.TitularWeb" table="TitularWeb"  >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+       
+        <property name="password" type="string">
+            <column name="password" length="128" />
+        </property>
+        <property name="nombres" type="string">
+            <column name="nombres" length="100" />
+        </property>
+               
+        <property name="tipoDocumento" type="java.lang.Integer">
+            <column name="codTipoDocumento" />
+        </property>
+        <property name="dni" type="java.lang.Long">
+            <column name="dni" length="20" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="30" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="20" />
+        </property>
+        <property name="active" type="java.lang.Boolean">
+            <column name="active" />
+        </property>
+        <property name="passwordChange" type="java.lang.Boolean">
+            <column name="password_change" />
+        </property>
+        <property name="failedLogons" type="java.lang.Integer">
+            <column name="failed_logons" />
+        </property>
+        <property name="lastFailedLogon" type="timestamp">
+            <column name="last_failed_logon" length="19" />
+        </property>
+        <property name="lastLogin" type="timestamp">
+            <column name="last_login" length="19" />
+        </property>
+        <property name="createDate" type="timestamp">
+            <column name="create_date" length="19" />
+        </property>
+        <property name="createUser" type="string">
+            <column name="create_user" length="50" />
+        </property>
+        <property name="updateDate" type="timestamp">
+            <column name="update_date" length="19" />
+        </property>
+        <property name="updateUser" type="string">
+            <column name="update_user" length="50" />
+        </property>
+        <property name="deleteDate" type="timestamp">
+            <column name="delete_date" length="19" />
+        </property>
+        <property name="deleteUser" type="string">
+            <column name="delete_user" length="50" />
+        </property>
+         <property name="pin" type="string">
+            <column name="pin" length="30" />
+        </property>
+           <property name="confirmed" type="java.lang.Boolean">
+            <column name="confirmed" />
+        </property>
+        <property name="fechaNacimiento" type="timestamp">
+            <column name="fechaNacimiento" length="19" />
+        </property>
+    </class>
+     
+    
+  <!-- 
+    <query name="findByUserNameAndPass">
+		 	<![CDATA[
+		 		from OlUser u 
+		 		where u.userName = :userName
+		 		      and u.password = :pass
+		 	]]>
+	</query>
+	  --> 
+	  
+	  
+	  
+	  <query name="findByUserDni">
+		 	<![CDATA[
+		 		from TitularWeb u 
+		 		where u.dni = :dni and
+		 		u.active = :active    
+		 	]]>
+	</query>
+	
+	<query name="findUserByEmailAndDNI">
+		<![CDATA[
+			from TitularWeb u 
+			where u.email = :email and
+			u.dni = :dni and
+			u.active = :active
+			
+		]]>
+	</query>
+	
+	<query name="findUserByEmailAndDni">
+		<![CDATA[
+			from TitularWeb u 
+			where u.email = :email and
+			u.dni = :dni and
+			u.active = :active
+			
+		]]>
+	</query>
+	
+	
+	 <query name="findUserByMailAndPin">
+		 	<![CDATA[
+		 		from TitularWeb u 
+		 		where u.pin = :pin and
+		 		 u.email = :email and
+		 		 u.active = :active    
+		 	]]>
+	</query>
+	<query name="findByUserDniAndPass">
+		 	<![CDATA[
+		 		from TitularWeb u 
+		 		where u.dni = :dni
+		 		      and u.password = :pass
+		 	]]>
+	</query>
+	<query name="findByUserEmailAndPass">
+		 	<![CDATA[
+		 		from TitularWeb u 
+		 		where u.email = :email
+		 		      and u.password = :pass
+		 	]]>
+	</query>
+</hibernate-mapping>

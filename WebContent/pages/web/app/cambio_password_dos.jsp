@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<f:loadBundle basename="com.refinor.extranet.bundle.Messages" var="Message"/>
+<f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR" var="Message"/>
 <f:view>
 
 <html>
@@ -17,7 +17,7 @@
 	</head>
 	<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" rightmargin="0" >
 		<%@ include file="header.jsp" %>				
-		<%@ include file="formulario_cambio_contrasenia.jsp" %>
+	<!-- 	<%@ include file="formulario_cambio_contrasenia.jsp" %> -->
 		<%@ include file="footer.jsp" %>
 	</body>	
 </html> 

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/04/2020 02:39:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.asecor.extranet.data.Titulares" table="titulares"  >
+        <id name="id" type="java.lang.Integer">
+            <column name="codTitular" />
+            <generator class="identity" />
+        </id>
+       <!--   <many-to-one name="agencyType" class="com.asecor.extranet.data.AgencyType" fetch="select">
+            <column name="type_agency_id" />
+        </many-to-one>
+        <many-to-one name="city" class="com.asecor.extranet.data.City" fetch="select">
+            <column name="city_id" />
+        </many-to-one>
+        -->
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" />
+        </property>
+        <property name="localidad" type="string">
+            <column name="localidad" />
+        </property>
+        <property name="nroDocumento" type="long">
+            <column name="nroDocumento" />
+        </property>
+         <property name="domicilio" type="string">
+            <column name="domicilio" />
+        </property>
+         <property name="numero" type="int">
+            <column name="numero" />
+        </property>
+        <property name="fechaNacimiento" type="timestamp">
+            <column name="fechaNacimiento" length="19" />
+        </property>
+        <set name="polizas" table="polizas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="codPoliza" />
+            </key>
+            <one-to-many class="com.asecor.extranet.data.Polizas" />
+        </set>
+    </class>
+    
+ 
+     <query name="findTitularByUserDni">
+		 	<![CDATA[
+		 		from Titulares  
+		 		where  nroDocumento = :dni
+		 		       
+		 	]]>
+	</query>
+	
+</hibernate-mapping>

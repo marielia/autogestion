@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21/04/2020 02:39:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="com.asecor.extranet.data.Polizas" table="polizas">
+  <id name="id" type="java.lang.Integer">
+   <column name="codPoliza"/>
+   <generator class="identity"/>
+  </id>
+   <many-to-one name="titular" class="com.asecor.extranet.data.Titulares" fetch="select">
+            <column name="codTitular" />
+   </many-to-one>
+  <property generated="never" lazy="false" name="codcompania" type="java.lang.Integer">
+   <column  name="codcompania" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="nroCertificado" type="string">
+   <column length="50" name="nroCertificado"/>
+  </property>
+    <property generated="never" lazy="false" name="nroPoliza" type="string">
+   <column length="10" name="nroPoliza"/>
+  </property>
+    <property generated="never" lazy="false" name="codSolicitud" type="java.lang.Integer">
+   <column  name="codSolicitud" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="baja" type="boolean">
+   <column name="baja" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="codRama" type="string">
+   <column length="2" name="codRama"/>
+  </property>
+   <property generated="never" lazy="false" name="premio" type="java.lang.Float">
+   <column name="premio" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="fechaAlta" type="timestamp">
+   <column length="19" name="fechaAlta"/>
+  </property>
+  <property generated="never" lazy="false" name="codEstadoPoliza" type="string">
+   <column length="1" name="codEstadoPoliza"/>
+  </property>
+
+<property generated="never" lazy="false" name="detalleAnulacion" type="string">
+   <column length="50" name="detalleAnulacion"/>
+  </property>
+  <property generated="never" lazy="false" name="codFormaPago" type="string">
+   <column length="4" name="codFormaPago"/>
+  </property>
+
+ </class>
+
+ 
+ <query name="findPolizasByTitular">
+ 	<![CDATA[
+		 	from  Polizas p 
+		 		where p.titular = :titular and p.codRama =:codRama
+		 		]]>		 		
+		 	</query>
+		 
+</hibernate-mapping>

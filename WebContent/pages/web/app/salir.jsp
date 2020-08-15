@@ -1,71 +1,74 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="com.asecor.extranet.util.Const"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
-<%@ page import="com.refinor.extranet.util.Const"%>
-
-<f:loadBundle basename="com.refinor.extranet.bundle.Messages" var="Message"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR" var="Message"/>
 <html>
 <f:view>
 	<head>
         <meta http-equiv="Content-Type"
              content="text/html; charset=windows-1252"/>
 		<title><h:outputText value="#{Message.nombre_sistema}"/> </title>
-		<link rel="stylesheet" type="text/css" href="<h:outputText value="#{Message.contexto_sistema}"/>/css/refinor.css">		
+		<link rel="stylesheet" type="text/css" href="<h:outputText value="#{Message.contexto_sistema}"/>/css/login_ol.css">		
+		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsutiles.js"></script>
+		 
 	</head>
-	<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" rightmargin="0">
-		<%@ include file="header_salir.jsp" %>
-		
 	
-	<h:form id="frmSalir">
-	<t:panelGrid width="100%" border="0" cellpadding="0" cellspacing="0" columnClasses="columnaTablaCentrada" columns="1">
-		<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-					 columns="1" columnClasses="titulosGrande" width="100%">
-			<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-			<t:column>
-				<t:outputText value="#{Message.tit_cierre_sesion}"/>
-			</t:column>
-			<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-		</t:panelGrid>
-		
-		<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-					 columns="1" rowClasses="nada" width="100%">			
-			<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-		</t:panelGrid>	
-		
-		
-		<t:panelGrid border="0" cellpadding="0" cellspacing="0" styleClass="bordeblanco" 
-					 columns="1" columnClasses="fondo" width="100%" rowClasses="columnaTablaCentrada">
-					 <t:column><h:outputText value="&nbsp;&nbsp;" escape="false"/></t:column>
-					
-					 
-			
-			<t:column>
-				<h:outputLabel  styleClass="cpo8">
-				   <h:outputText value="&nbsp;&nbsp;#{Message.cierre_sesion_texto1}" escape="false"/>
-				</h:outputLabel> 
-			</t:column>
-			<t:column>
-					<h:outputLabel  styleClass="cpo8">
-						<h:outputText value="&nbsp;&nbsp;#{Message.cierre_sesion_texto2}&nbsp;" escape="false"/><h:outputLink value="#{Message.contexto_sistema}"><h:outputText value="#{Message.click_aqui_text}"/></h:outputLink> 
-					</h:outputLabel>
-			</t:column>
-			 <t:column><h:outputText value="&nbsp;&nbsp;" escape="false"/></t:column>
-			
-		</t:panelGrid>
-	</t:panelGrid>
-	</h:form>
-	
-	
-	<%@ include file="footer.jsp" %>
-	<% 
-	request.getSession().setAttribute(Const.USUARIO, null);
-
+<body class="cover">
+<h:form id="frmSalir"  >	 
+				
+	<div class="loginContainer">
+	  <table width="100%" border="0" cellspacing="40" cellpadding="0">
+	   
+	    <tr>
+	      <td align="center" valign="middle" class="title"> <h:outputText value="#{Message.tit_cierre_sesion}"    /></td>
+	    </tr>
+	     	
+	    <tr>
+	      <td align="center" valign="top">
+	      
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	          <tr>
+	             <td colspan="2" align="left" valign="top"> 
+	                <h:outputText value="#{Message.cierre_sesion_texto1}"    />
+ 	              </td>
+	          </tr> 
+	           
+	        </table>
+	       </td>
+	    </tr>
+	     <tr>
+	    	<td align="left" valign="middle" > </td>
+	     </tr>	
+	      <tr>
+	    	<td align="left" valign="middle" > </td>
+	     </tr>	
+	      <tr>
+	    	<td align="left" valign="middle" > </td>
+	     </tr>	
+	      <tr>
+	    	<td align="left" valign="middle" > </td>
+	     </tr>
+	      <tr>
+	    	<td align="left" valign="middle" > </td>
+	     </tr>
+	      <tr>
+	    	<td align="left" valign="middle" > </td>
+	     </tr>	
+	  </table>
+	</div>
+ 	</h:form> 
+ 	
+ 	<% 
+	request.getSession().setAttribute( Const.COMES_FROM, null);
+  
 	request.getSession().invalidate();	
 	%>
-
-	</body>	
+	
+</body>	
 </f:view>
 </html> 
-						
+

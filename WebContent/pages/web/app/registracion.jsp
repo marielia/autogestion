@@ -4,31 +4,76 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<f:loadBundle basename="com.refinor.extranet.bundle.Messages" var="Message"/>
+<f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR" var="Message"/>
 <html>
 <f:view>
 	<head>
+	<link rel="apple-touch-icon" href="favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" href="favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png"
+	href="favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" href="favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" href="favicon/favicon-16x16.png">
+
+<link rel="manifest" href="favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	content="favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap"
+	rel="stylesheet">
+
         <meta http-equiv="Content-Type"
              content="text/html; charset=windows-1252"/>
-		<title><h:outputText value="#{Message.nombre_sistema}"/> </title>
-		<link rel="stylesheet" type="text/css" href="<h:outputText value="#{Message.contexto_sistema}"/>/css/refinor.css">		
+		
+		<link rel="stylesheet" type="text/css" href="<h:outputText value="#{Message.contexto_sistema}"/>/css/asecor.css">		
 		<script type="text/javascript" src="<h:outputText value="#{Message.contexto_sistema}"/>/js/comun/jsutiles.js"></script>
 		<script>
 		function validar() { 				
-				var cuit = document.getElementById('frmRegistracion:cuit');
-				var email = document.getElementById('frmRegistracion:clave');
-
-				if (cuit.value == '' ||					
-					email.value == '') {
-						alert('Debe completar los campos obligatorios.');
-					return false;
+				var nombres = document.getElementById('frmRegistracion:nombres');
+				var fechaNacimiento = document.getElementById('frmRegistracion:fechaNacimiento');
+				var telefono = document.getElementById('frmRegistracion:telefono');
+				var email = document.getElementById('frmRegistracion:email');
+				//var optPN = document.forms['frmRegistracion']['frmRegistracion:rdFormaRegistracion'][1].checked ;
+				//var optEM = document.forms['frmRegistracion']['frmRegistracion:rdFormaRegistracion'][0].checked ; 
+				// var opt=true;
+				 
+				//if(optPN == false && optEM == false) 
+				//	opt = false;
+			 	
+				
+				if (nombres.value.trim() == '' ||	 					
+						fechaNacimiento.value.trim() == '' ||  			
+					telefono.value.trim() == '' ||	 					
+					email.value.trim() == '' 
+						 ) {
+						alert('Debe completar todos los campos.');
+					    return false;
 				} else {
-					if(emailCheck(email.value, false)) 
+					if(emailCheck(email.value.trim(), false)) {
+						
+						//if(optPN == true)
+						//{
+						//	alert('La opcion registrarse por celular esta en desarrollo.');
+						//	return false;	
+						//}
+						
 						return true;
+					}
 					else
 						email.focus();
 						return false;	
-				}			
+				}	 
 				
 				return true;
 			}
@@ -49,243 +94,114 @@
 				} 
 		</script>
 	</head>
-	<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" rightmargin="0">
 	
+<body class="cover">
+<div class="loginContainer">
+  <div class="loginHeader">
+    <div class="logoLogin"><img src="<h:outputText value="#{Message.contexto_sistema}"/>/img/logo_login.png" width="65" height="61" /></div>
+    <div class="tituloPortal">PORTAL DE ASEGURADOS</div>
+<div class="tituloLogin">REGISTRO DE USUARIO</div>
+  </div>
+  <div class="loginContent">
+<h:form id="frmRegistracion" rendered="#{!userRegisterBean.mostrarResultado}" onsubmit="return validar();">	 
+				
 	
-
-		<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" >
-		  <tr>
-		    <td width="8" align="left" valign="top" background="/refipass/img/sombra_left.gif">
-		   	 <img src="/refipass/img/sombra_left.gif" width="8" height="4">
-		    </td>
-		    <td align="left" valign="top">
-		    
-			    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-				  <tr> 
-				    <td align="left" valign="top" background="/refipass/img/fondo_logo.jpg"> 
-<!-- 				    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="250" height="80"> -->
-<!-- 				        <param name="movie" value="/refipass/img/logo.swf"> -->
-<!-- 				        <param name="quality" value="high"> -->
-<!-- 				        <embed src="/refipass/img/logo.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="250" height="80"></embed> -->
-<!-- 				    </object> -->
-						<img src="/refipass/img/logo.png" class="logo">
-				    </td>
-				  </tr>
-				  <tr> 
-				    <td align="right" valign="middle" > 
-				    	
-			            <h:outputLink value="#{Message.contexto_sistema}/pages/web/app/salir.jsf">            	
-				            <h:outputText styleClass="campo8" value="#{Message.salir_header_label}" escape="false"/>	            
-				   		 </h:outputLink>	   		 
-				   		 <h:outputText styleClass="campo8" value="&nbsp;&nbsp;" escape="false"/>
-			        </td>      
-				  </tr>
-				  <tr> 
-				    <td align="left" valign="top" background="/refipass/img/fondo_top.jpg"><img src="/refipass/img/fondo_top.jpg" width="3" height="19"></td>
-				  </tr>
-				</table>		
-		      
-		      </td>					
-		    <td width="8" align="right" valign="top" background="/refipass/img/sombra_right.gif">
-		    <img src="/refipass/img/sombra_right.gif" width="8" height="4">
-		    </td>
-		  </tr>
-		  <tr>
-		    <td width="8" align="left" valign="top" background="/refipass/img/sombra_left.gif">
-		    <img src="/refipass/img/sombra_left.gif" width="8" height="4">
-		    </td>
-		  	<td align="center" valign="top" height="300">
-		  	
-		
-		
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				  <tr> 
-				    <td width="243" align="left" valign="top"> 
-				    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-				        <tr> 
-				          <td align="left" valign="top"><img src="/refipass/img/logo_refipass.gif" width="243" height="72"></td>
-				
-				        </tr>
-				        <tr> 
-				          <td align="left" valign="top"><img src="/refipass/img/foto_camion.jpg" width="243" height="264"></td>
-				        </tr>
-				        <tr> 
-				          <td align="left" valign="top" bgcolor="#d6d6d6">
-				          <table width="100%" border="0" cellspacing="10" cellpadding="0">
-				              <tr> 
-				               	  <td class="campo10">Si desea realizar alguna consulta 
-				               	  sobre la Registraci&oacute;n de Usuarios 
-				                  llame al siguiente n&uacute;mero de tel&eacute;fono:
-				                  </td>				
-				              </tr>
-				              <tr> 
-				                <td class="campo10"><img src="/refipass/img/telefono.gif" width="168" height="18"></td>
-				              </tr>
-				              <tr> 
-				                <td class="campo10"></td>
-				              </tr>
-				            </table>
-				            </td>
-				        </tr>
-				      </table>
-				      </td>
-				    <td align="left" valign="top">
-				    
-				    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-				        <tr> 
-				          <td bgcolor="#FFFFFF">
-				          
-				        <h:panelGrid width="100%" border="0" cellpadding="0" cellspacing="0" columns="1" styleClass="columnaTablaCentrada">
-						<h:column>  		
-						
-						<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-						
-									 columns="1" columnClasses="titulosGrande" width="100%">
-							 <t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-							<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-							<t:column>
-								<t:outputText value="&nbsp;&nbsp;#{Message.tit_informe_ingreso_usuarios}" escape="false"  />
-							</t:column>
-							<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-							<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>
-						</t:panelGrid>
-						<t:panelGrid border="0" cellpadding="0" cellspacing="0" 
-									 columns="1" width="100%">
-							<t:column><h:outputText  value="&nbsp;&nbsp;" escape="false" /></t:column>			
-						</t:panelGrid>
-						
-						<%/*FILTROS*/%>
-							<h:messages styleClass="errorNegro"/>
-						
-						   <h:form id="frmRegistracion" rendered="#{!registracionBean.mostrarResultado}" onsubmit="return validar();">	 
-				
-							<h:panelGrid columns="2" width="80%" columnClasses="cpo8,cpo8" styleClass="bordeblanco" cellspacing="0" cellpadding="4">						 
-								<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
-								<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
-								
-												
-								
-								<h:column>
-										<t:outputText value="&nbsp;.:&nbsp;#{Message.cuit_label}" styleClass="cpo8" escape="false"/>
-								</h:column>
-								<h:column>
-										<t:inputText id="cuit" value="#{registracionBean.numeroDocumento}" size="20" maxlength="20" styleClass="campo" />
-										<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>	
-								</h:column>
-								
-								
-								<h:column>
-										<t:outputText value="&nbsp;.:&nbsp;#{Message.cuenta_correo_label}" styleClass="cpo8" escape="false"/>
-								</h:column>
-								<h:column>					
-										<t:inputText id="clave" value="#{registracionBean.email}" size="35" maxlength="50" styleClass="campo" />
-										<h:outputText value="&nbsp;[x]" styleClass="datoObligatorio" escape="false"/>	
-								</h:column>				
-								
-												
-								<h:column>	
-								<t:panelGrid border="0" cellpadding="" cellspacing="0" styleClass="columnaTablaTexto" 
-										columns="1" columnClasses="cpo11-20" width="100%" >							
-										<t:column>
-											<t:div styleClass="cpo11">
-												<t:outputText id="datosOblig" value="&nbsp;&nbsp;#{Message.datos_obligatorios_texto}"  styleClass="datoObligatorio" escape="false"/>
-											</t:div>
-										</t:column>										
-								</t:panelGrid>
-								</h:column>		
-									
-								<h:column>
-									<h:panelGrid columns="1" width="50%"  columnClasses="fondo" styleClass="columnaTablaNumero" cellspacing="0" cellpadding="4">						 
-								     <h:column>
-								    	<t:commandButton value="#{Message.aceptar_label}" actionListener="#{registracionBean.aceptar}"
-								    	 styleClass="boton"/>
-								    </h:column>
-								 	</h:panelGrid> 
-							 	</h:column>	
-							 	<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
-							 	</h:panelGrid>
-							 	</h:form>	
-							 	
-							 	  <h:form id="frmFiltroCuenta2" rendered="#{registracionBean.mostrarResultado}">	
-							 		<h:panelGrid columns="1" width="80%" columnClasses="campo10" styleClass="columnaTablaTexto" cellspacing="0" cellpadding="4">						 
-								
-								<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>						
-								
-								<h:column>
-										<h:outputText value="#{Message.texto_registracion_resultado_linea1}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
-								</h:column>								
-								<h:column></h:column>
-								
-								<h:column>	
-									<h:outputText value="#{Message.texto_registracion_resultado_linea3}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
-								</h:column>
-								<h:column>	</h:column>
-								
-								<h:column>
-										<h:outputText value="#{Message.texto_registracion_resultado_linea4}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
-								</h:column>										
-								<h:column>	</h:column>
-								
-								<h:column>
-										<h:outputText value="#{Message.texto_registracion_resultado_linea2}" style="color: #000000; font-size: 11px;" styleClass="campo10"/>
-										<h:outputLink value="#{Message.contexto_sistema}/pages/web/index.jsf"><h:outputText id="txtClickAqui" value="#{Message.click_aqui_text}" styleClass="linkhome" /></h:outputLink>
-								</h:column>											
-								
-								<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
-								<h:column><h:outputText  value="&nbsp;&nbsp;" escape="false" />	</h:column>
-									
-								
-							 	</h:panelGrid>
-							 	
-							 	</h:form>			
-							 	</h:column>
-							</h:panelGrid>
-							
-				          
-				          
-				          
-				          </td>
-				
-				        </tr>
-				        <tr> 
-				          <td>&nbsp;</td>
-				        </tr>
-				      </table>
-				      
-				      
-				      
-				 
-				    
-				      
-				      
-				      </td>
-				  </tr>
-				</table>
-		
-		
-		  <td width="8" align="right" valign="top" background="/refipass/img/sombra_right.gif">&nbsp;</td>
-		  </tr>
-		  <tr> 
-		    <td height="4" align="left" valign="top"><img src="/refipass/img/esquina_left.gif" width="8" height="4"></td>
-		    <td height="4" align="left" valign="top" background="/refipass/img/sombra_down.gif"><img src="/refipass/img/sombra_down.gif" width="2" height="4"></td>
-		    <td width="8" height="4" align="right" valign="top"><img src="/refipass/img/esquina_right.gif" width="8" height="4"></td>
-		  </tr>
-		  <tr>
-		    <td  colspan="3" height="4" align="left" valign="top" >
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				  <tr> 
-				    <td align="right" valign="bottom" background="/refipass/img/FND_PIE.gif">&nbsp;</td>
-				    <td width="181" align="right" valign="bottom" background="/refipass/img/FND_PIE.gif">
-				    <img src="/refipass/img/logorefi_pie.gif" width="181" height="65">
-				    </td>
-				  </tr>
-				</table>
+	 
+	      
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	          <tr>
+	            <td align="left" valign="top">  
+	            <h:messages styleClass="errorNegro"/>
+	            </td> 
+	         </tr>
+         
+	          <tr>
+	            <td colspan="2" align="left" valign="top">
+	               <span class="mediumFont"><h:outputLabel for="dni" value="#{Message.tit_dni_tr_label}" /></span>	             
+ 	                <t:inputText id="dni" value="#{userRegisterBean.dni}"  maxlength="20"    />
+ 	              </td>
+	          </tr>
+	            <tr>
+	          <td colspan="2" align="left" valign="top">
+	               
+	              <label for="nombres"><span class="mediumFont"><h:outputLabel value="#{Message.tit_nombres_tr_label}" /></span></label>
+ 	              <t:inputText id="nombres" value="#{userRegisterBean.nombres}"    maxlength="99"  />
+	              </td>
+	          </tr>
+	          <tr>
+	            <td colspan="2" align="left" valign="top">
+	                
+	              <label for="fechaNacimiento" >
+	              <span class="mediumFont"><h:outputLabel value="#{Message.tit_nacimiento_tr_label}" /></span>
+	              </label>
+	              <br>
+   	              <t:inputDate type="date" id="fechaNacimiento" styleClass="fechass" value="#{userRegisterBean.fechaNacimiento}"  />  
+	             </td>
+	          </tr>
+	           <tr>
+	            <td height="60" colspan="2" align="left" valign="top">
+	              <label for="telefono" >
+	               <span class="mediumFont"><h:outputLabel value="#{Message.tit_phone_label}" /></span>
+ 	                </label>
+ 	              <t:inputText id="telefono" value="#{userRegisterBean.phoneNumber}"   maxlength="30"   />
+				 </td>				
+	          </tr>
+	          <tr>
+	            <td height="60" colspan="2" align="left" valign="top">
+	            <label for="email" >
+	               <span class="mediumFont"><h:outputText value="#{Message.tit_email_label}" /></span>
+ 	             </label>
+ 	              <t:inputText id="email" value="#{userRegisterBean.email}"   maxlength="80"   />
+				 </td>				
+	          </tr>
+	         
+	         
+	       
+	          
+	          <tr>
+	            <td height="100" colspan="2" align="center" valign="top"> 
+	            <br>
+	                 <t:saveState value="#{userRegisterBean.comesFrom}"></t:saveState>
+	               	<h:commandButton type="submit" value="REGISTRAR"  action="#{userRegisterBean.aceptar}"  styleClass="botonAceptar"></h:commandButton>
 			</td>
-		    
-		  </tr>
-		</table>	
+	          </tr>
+	          
+	          
+	        </table>
+	    
+
+ 	</h:form>
+ 	
+ 	
+ 	<h:form id="frmFiltroCuenta2" rendered="#{userRegisterBean.mostrarResultado}" onsubmit="return validar();">	 
+				
 	
-	</body>	
+	  <table width="100%" border="0" cellspacing="40" cellpadding="0">
+	    
+	    <tr>
+	      <td align="center" valign="middle" class="title"><h:outputText value="#{Message.tit_form_registracion}" /></td>
+	    </tr>
+	     	
+	    <tr>
+	      <td align="center" valign="top"> 
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	          <tr>
+	            <td colspan="2" align="left" valign="top"> 
+ 	            	 <h:outputText value="#{Message.texto_registracion_resultado_linea1}"    />
+ 	            </td>
+	          </tr> 
+ 	        
+	        </table>
+	      </td>
+	    </tr>
+	    
+	    
+	  </table>
+	
+ 	</h:form>	
+ 	</div>
+ 	</div>		
+</body>	
 </f:view>
 </html> 
 
