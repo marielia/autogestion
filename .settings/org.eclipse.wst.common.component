@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+            
     
-    <wb-module deploy-name="refipass">
+    
+    <wb-module deploy-name="asecor">
+                        
+        
         
         <wb-resource deploy-path="/" source-path="/WebContent"/>
+                        
+        
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/JavaSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/cfg"/>
+                        
+        
         
         <property name="java-output-path" value="build/classes"/>
-        <property name="context-root" value="refipass"/>
-        
-    </wb-module>
+        <property name="context-root" value="asecor"/>
+                        
     
+    
+    </wb-module>
+            
+
+
 </project-modules>

@@ -7,45 +7,51 @@ import java.util.Map;
 
 import org.hibernate.Session;
 
+import com.asecor.extranet.data.Adherentes;
 import com.asecor.extranet.data.Cobranzas;
 import com.asecor.extranet.data.Polizas;
+import com.asecor.extranet.data.SepeliosPlanes;
 import com.asecor.extranet.data.base.BasePolizasDAO;
 import com.asecor.extranet.util.Const;
 import com.asecor.extranet.util.exception.DataAccessErrorException;
 import com.asecor.extranet.util.exception.UsuarioNoExisteException;
 
-public class CobranzasDAO extends BasePolizasDAO {
+public class SepeliosPlanesDAO extends _RootDAO  {
 
-	public static String FIND_BY_POLIZAS = "findCobranzasByPolizas";
+	public static String FIND_BY_POLIZAS = "findPlanByPoliza";
 
-	public CobranzasDAO() {
+	public SepeliosPlanesDAO() {
 	}
 
-	public CobranzasDAO(Session session) {
+	public SepeliosPlanesDAO(Session session) {
 		super(session);
 	}
 
-	public List<Cobranzas> findCobranzasByPoliza(Polizas pol) throws DataAccessErrorException {
+	public String findPlanByPoliza(Polizas pol) throws DataAccessErrorException {
+		
 		try {
-			List listado = new ArrayList<Polizas>();
+		
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put(Const.PARAM_POLIZAS, pol);
-			//params.put(Const.PARAM_ESTADO_CUOTA, "COB");
+			params.put(Const.PARAM_COD_SOLICITUD, pol.getCodSolicitud());
 						List result = this.getNamedQuery(FIND_BY_POLIZAS, params, session).list();
 			if (result.size() > 0) {
-				result.listIterator().forEachRemaining(listado::add);
-				if (listado.size() > 10) {
-					return listado.subList(0, 10);
-				}
-				return listado;
+				
+				return "FAMILIAR";
 			} else if (result.size() == 0)
-				throw new UsuarioNoExisteException();
-			else
-				throw new DataAccessErrorException();
-
+				return "INDIVIDUAL";
+			
+			
 		} catch (Exception ex) {
 			throw new DataAccessErrorException();
 		}
+		return "INDIVIDUAL";
+		
+	}
+
+	@Override
+	protected Class<SepeliosPlanes> getReferenceClass() {
+		return com.asecor.extranet.data.SepeliosPlanes.class;
+		
 	}
 
 }

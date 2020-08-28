@@ -1,6 +1,7 @@
 package com.asecor.extranet.data.base;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -153,7 +154,14 @@ public String getDomicilioCompleto(){
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-
+	public String getFechaNacimientoString() {
+		String fecha=" ";
+		if(null!=this.fechaNacimiento) {
+		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+		fecha=sdf.format(fechaNacimiento);
+		}
+		return fecha;
+	}
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}

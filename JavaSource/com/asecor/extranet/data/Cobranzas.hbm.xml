@@ -47,7 +47,7 @@
  <query name="findCobranzasByPolizas">
  	<![CDATA[
 		 	from  Cobranzas c 
-		 		where c.polizas =:polizas 	and c.estado =:estado  order by c.nroCuota desc	 		]]>		 		
+		 		where c.polizas =:polizas and  c.estado ='COB'  order by c.nroCuota desc	 		]]>		 		
 		 	</query>
 
 		 

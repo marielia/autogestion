@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>refipass</name>
+	<name>asecor</name>
 	<comment></comment>
 	<projects>
+		<project>Servers</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -28,4 +29,11 @@
 		<nature>com.exadel.jsf.jsfnature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>cfg</name>
+			<type>2</type>
+			<location>C:/cfg/asecor</location>
+		</link>
+	</linkedResources>
 </projectDescription>

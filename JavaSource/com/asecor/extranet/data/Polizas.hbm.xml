@@ -38,7 +38,9 @@
   <property generated="never" lazy="false" name="codEstadoPoliza" type="string">
    <column length="1" name="codEstadoPoliza"/>
   </property>
-
+  <property generated="never" lazy="false" name="fechaAnulacion" type="timestamp">
+   <column length="19" name="fechaAnulacion"/>
+  </property>
 <property generated="never" lazy="false" name="detalleAnulacion" type="string">
    <column length="50" name="detalleAnulacion"/>
   </property>
