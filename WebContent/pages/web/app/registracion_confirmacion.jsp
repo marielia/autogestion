@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR" var="Message"/>
 <html>
 <f:view>
@@ -199,10 +200,9 @@
 				</div>
 			</div>
 			<div class="loginContent">
-				<h:form id="frmRegistracion"
+				<h:form id="frmRegistracion" 
 					rendered="#{!registrationConfirmationBean.mostrarResultado}"
 					onsubmit="return validar();">
-
 
 
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">

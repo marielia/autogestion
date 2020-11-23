@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="botDetect" uri="https://captcha.com/java/jsf"%>
 <f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR" var="Message"/>
 <html>
 <f:view>
@@ -103,7 +104,7 @@
 <div class="tituloLogin">REGISTRO DE USUARIO</div>
   </div>
   <div class="loginContent">
-<h:form id="frmRegistracion" rendered="#{!userRegisterBean.mostrarResultado}" onsubmit="return validar();">	 
+<h:form id="frmRegistracion" rendered="#{!userRegisterBean.mostrarResultado}" prependId="false" onsubmit="return validar();">	 
 				
 	
 	 
@@ -114,7 +115,7 @@
 	            <h:messages styleClass="errorNegro"/>
 	            </td> 
 	         </tr>
-         
+        
 	          <tr>
 	            <td colspan="2" align="left" valign="top">
 	               <span class="mediumFont"><h:outputLabel for="dni" value="#{Message.tit_dni_tr_label}" /></span>	             
@@ -154,7 +155,15 @@
  	              <t:inputText id="email" value="#{userRegisterBean.email}"   maxlength="80"   />
 				 </td>				
 	          </tr>
-	         
+	          <tr><td>
+<h:outputLabel for="captchaCode" 
+  value="Escriba los caracteres de la imagen"/>
+  
+<botDetect:jsfCaptcha id="exampleCaptcha" 
+                      userInputID="captchaCode"
+                      binding="#{userRegisterBean.captcha}"/>
+                      
+<h:inputText id="captchaCode" value="#{userRegisterBean.captchaCode}"/></td></tr>
 	         
 	       
 	          

@@ -203,17 +203,29 @@
 							<td align="left" valign="middle"><h:messages
 									styleClass="errorNegro" /></td>
 						</tr>
-
-						
 						<tr>
 							<td align="left" valign="top"><span
 								class="mediumFont"><h:outputText
 										value="#{Message.tit_contrase_label}" /> </span> <br> <span
+								class="smallFontSec"> <t:outputText id="seguridad1">
+									</t:outputText> <t:outputText id="lblseguridad1" value=" "></t:outputText>
+							</span> <label for="pass"></label></td><td> <h:inputSecret id="passOld"
+									styleClass="password"
+									value="#{logonBean.pass}" maxlength="10"
+									onkeypress="muestra_seguridad_clave(this)">
+									<f:validateLength minimum="1" />
+								</h:inputSecret></td>
+						</tr>
+						
+						<tr>
+							<td align="left" valign="top"><span
+								class="mediumFont"><h:outputText
+										value="#{Message.tit_contrase_new_label}" /> </span> <br> <span
 								class="smallFontSec"> <t:outputText id="seguridad">
 									</t:outputText> <t:outputText id="lblseguridad" value=" "></t:outputText>
 							</span> <label for="pass"></label></td><td> <h:inputSecret id="pass"
 									styleClass="password"
-									value="#{logonBean.pass}" maxlength="10"
+									value="#{logonBean.newPass}" maxlength="10"
 									onkeypress="muestra_seguridad_clave(this)">
 									<f:validateLength minimum="1" />
 								</h:inputSecret></td>
@@ -248,8 +260,7 @@
 				</h:form>
 
 
-				<h:form id="frmFiltroCuenta2" rendered="#{logonBean.cambiaPass}"
-					>
+				<h:form id="frmFiltroCuenta2" rendered="#{logonBean.cambiaPass}">
 
 					<div class="loginContainer">
 						<table width="100%" border="0" cellspacing="40" cellpadding="0">

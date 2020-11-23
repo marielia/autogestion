@@ -350,7 +350,7 @@
 									<f:param name="dni" value="#{consultaPoliza.poliza.titular.nroDocumento}" ></f:param>
 									<f:param name="fechNac" value="#{consultaPoliza.poliza.titular.fechaNacimientoString}" ></f:param>
 									<f:param name="domicilio" value="#{consultaPoliza.poliza.titular.domicilioCompleto}" ></f:param>
-									|<f:param name="vigencia" value="#{consultaPoliza.poliza.
+									<f:param name="vigencia" value="#{consultaPoliza.poliza.
 									fechaAltaString}" ></f:param>
 									
 									<f:param name="plan" value="#{consultaPoliza.poliza.plan}" ></f:param>

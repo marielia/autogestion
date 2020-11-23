@@ -49,11 +49,12 @@ public class LogonBean extends AbstBackingBean {
 	private String email;
 	private List<Polizas> polizas;
 	private TitularWeb usuario;
-	private Boolean cambiaPass;
-private String repetpass;
-private String pass;
-private Polizas poliza;
-private UsuarioWebDAO usrDAO;
+	private boolean cambiaPass;
+	private String repetpass;
+	private String pass;
+	private String newPass;
+	private Polizas poliza;
+	private UsuarioWebDAO usrDAO;
 
 	public void preRenderView() {
 	      HttpSession session = ( HttpSession ) FacesContext.getCurrentInstance().getExternalContext().getSession( true );
@@ -93,18 +94,28 @@ private UsuarioWebDAO usrDAO;
 	
 	
 	public String cambiarPassword() {
+		
 		PasswordService ps= PasswordService.getInstance();
-		System.out.println(this.usuario.getId());
-	//	this.usuario.setPasswordChange(true);
 		try {
-			this.usuario.setPassword(ps.encrypt(this.pass));
+			System.out.println(ps.encrypt(this.pass));
+			System.out.println(usuario.getPassword());
+			if(ps.encrypt(this.pass).equalsIgnoreCase(usuario.getPassword())) {
+			System.out.println(this.usuario.getId());
+//	this.usuario.setPasswordChange(true);
+			try {
+				this.usuario.setPassword(ps.encrypt(this.newPass));
+			} catch (ProtocoloDeSeguridadException e) {
+				// TODO Auto-generated catch block
+				AddErrorMessage("Se produjo un error al cambiar la contraseña.");
+			} 
+			usrDAO.saveOrUpdate(this.usuario);
+			this.cambiaPass=true;
+			}
 		} catch (ProtocoloDeSeguridadException e) {
 			// TODO Auto-generated catch block
-			AddErrorMessage("Se produjo un error al cambiar la contraseña.");
-		} 
-		usrDAO.saveOrUpdate(this.usuario);
-		this.cambiaPass=true;
-			return "polizasUsuarios";
+			e.printStackTrace();
+		}
+			return "cambio_usuario";
 		}
 	public String cambiarTelefono() {
 	
@@ -389,12 +400,20 @@ private UsuarioWebDAO usrDAO;
 		this.pass = pass;
 	}
 
-	public Boolean getCambiaPass() {
+	public boolean getCambiaPass() {
 		return cambiaPass;
 	}
 
-	public void setCambiaPass(Boolean cambiaPass) {
+	public void setCambiaPass(boolean cambiaPass) {
 		this.cambiaPass = cambiaPass;
+	}
+
+	public String getNewPass() {
+		return newPass;
+	}
+
+	public void setNewPass(String newPass) {
+		this.newPass = newPass;
 	}
 
 

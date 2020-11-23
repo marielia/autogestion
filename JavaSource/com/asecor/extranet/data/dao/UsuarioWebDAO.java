@@ -33,7 +33,22 @@ public class UsuarioWebDAO extends BaseOlUserDAO implements com.asecor.extranet.
 	public static String FIND_USER_BY_MAIL_AND_PHONE= "findUserByEmailAndDNI";
 	public static String FIND_USER_MAIL_AND_= "findUserByMailAndPin";
 	public static String FIND_USER_BY_MAIL_AND_DNI= "findUserByEmailAndDni";
+    public static String FIND_USER_BY_EMAIL= "findByUserEmail";
 	
+	public Boolean existEmail( String email) throws DataAccessErrorException, UsuarioNoExisteException {
+		
+			Map<String, Object> params = new HashMap<String, Object>();
+		
+			params.put(Const.PARAM_EMAIL, email);
+			params.put(Const.ACTIVE, true);
+			
+			Query usuarioQry = this.getNamedQuery(FIND_USER_BY_EMAIL, params, session);
+			List usuarios= usuarioQry.list();
+			if(usuarios.size()>0)
+				return true;
+			else return false;
+		
+	}
 	
 	public TitularWeb ExistPinAndEmail(String pin, String email) throws DataAccessErrorException, UsuarioNoExisteException {
 		try {

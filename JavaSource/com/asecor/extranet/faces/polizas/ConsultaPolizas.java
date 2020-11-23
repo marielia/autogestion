@@ -114,12 +114,14 @@ public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException
 		
 		FacesContext facesContext = FacesContext. getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		
+		Boolean hayAdh=null;
 		if(null==this.adherentes){
-		this.adherentes=new ArrayList<Adherentes>();
-		this.adherentes.add(new Adherentes(0,0,0," "," ",null," "));
-		}
-		//actionEvent.getComponent().getAttributes().get("adherentes");
+			this.adherentes=new ArrayList<Adherentes>();
+			this.adherentes.add(new Adherentes(0,0,0," "," ",null," "));
+			hayAdh=Boolean.FALSE;		
+			}
+		else {hayAdh=Boolean.TRUE;}
+		
 		Map params = externalContext.getRequestParameterMap();
 		
 		Map<String,Object> parametros= new HashMap<String,Object>();
@@ -134,6 +136,7 @@ public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException
 		parametros.put("domicilio",params.get("domicilio"));
 		parametros.put("vigencia",params.get("vigencia"));
 		parametros.put("plan",params.get("plan"));
+		parametros.put("adh",hayAdh);
 		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reporteAsecor.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),parametros, new JRBeanCollectionDataSource(this.adherentes));
 		
@@ -152,11 +155,13 @@ public void exportarTarjeta(ActionEvent actionEvent) throws JRException, IOExcep
 	
 	FacesContext facesContext = FacesContext. getCurrentInstance();
 	ExternalContext externalContext = facesContext.getExternalContext();
-	
+	Boolean hayAdh=null;
 	if(null==this.adherentes){
 		this.adherentes=new ArrayList<Adherentes>();
 		this.adherentes.add(new Adherentes(0,0,0," "," ",null," "));
+		hayAdh=Boolean.FALSE;		
 		}
+	else {hayAdh=Boolean.TRUE;}
 	actionEvent.getComponent().getAttributes().get("adherentes");
 	Map params = externalContext.getRequestParameterMap();
 	
@@ -169,7 +174,7 @@ String nombres=params.get("nombre").toString().concat(" ,").concat(params.get("a
 	parametros.put("dni",params.get("dni"));
 	parametros.put("nacimiento",params.get("fechNac").toString().subSequence(0, 10));
 	parametros.put("plan",params.get("plan"));
-	//parametros.put("domicilio",params.get("domicilio"));
+	parametros.put("adh",hayAdh);
 	parametros.put("vigencia",params.get("vigencia"));
 	//parametros.put("plan",params.get("plan"));
 	File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/tarjeta.jasper"));

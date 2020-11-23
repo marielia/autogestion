@@ -17,6 +17,7 @@
 	<parameter name="titular" class="java.lang.String"/>
 	<parameter name="dni" class="java.lang.String"/>
 	<parameter name="nacimiento" class="java.lang.String"/>
+	<parameter name="adh" class="java.lang.Boolean"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -153,9 +154,9 @@
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
-			<printWhenExpression><![CDATA[null!=$F{nombreYApellido}]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$P{adh}]]></printWhenExpression>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="190" y="3" width="103" height="17" uuid="5bffa745-3a83-4a17-9b38-792991aab3ae">
+				<reportElement isPrintRepeatedValues="false" x="182" y="3" width="114" height="16" uuid="5bffa745-3a83-4a17-9b38-792991aab3ae">
 					<printWhenExpression><![CDATA[!$F{nombreYApellido}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<textElement>
@@ -164,7 +165,7 @@
 				<text><![CDATA[NOMBRE Y APELLIDO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="299" y="3" width="40" height="17" uuid="876fcf96-63c1-48fe-a624-6467740005b8"/>
+				<reportElement x="319" y="3" width="40" height="16" uuid="876fcf96-63c1-48fe-a624-6467740005b8"/>
 				<textElement>
 					<font size="8" isBold="false"/>
 				</textElement>
@@ -177,12 +178,15 @@
 				<reportElement x="379" y="0" width="1" height="20" uuid="ab7c37ba-3470-4c93-9a2a-67a95fed62ac"/>
 			</line>
 			<line>
-				<reportElement x="181" y="0" width="1" height="20" uuid="33da3ad7-2991-42cf-8b13-5b15d92b38c3"/>
+				<reportElement x="181" y="0" width="1" height="20" uuid="33da3ad7-2991-42cf-8b13-5b15d92b38c3">
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{adh}]]></printWhenExpression>
 			<textField>
 				<reportElement x="308" y="0" width="71" height="20" isRemoveLineWhenBlank="true" uuid="b36d5e1d-54e4-4cc9-8e48-9dbce602d8c5"/>
 				<box>

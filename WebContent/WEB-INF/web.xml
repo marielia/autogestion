@@ -51,6 +51,26 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
+  <servlet>
+    <servlet-name>BotDetect Captcha</servlet-name>
+    <servlet-class>com.captcha.botdetect.web.servlet.CaptchaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BotDetect Captcha</servlet-name>
+    <url-pattern>/botdetectcaptcha</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CaptchaFormAction</servlet-name>
+    <servlet-class>com.captcha.botdetect.examples.jsp.form.CaptchaFormAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CaptchaFormAction</servlet-name>
+    <url-pattern>/captchaFormAction</url-pattern>
+  </servlet-mapping>
+  
+  
     <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.jsf</url-pattern>
