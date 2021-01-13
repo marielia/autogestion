@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,16 +41,18 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
+@ViewScoped
 public class ConsultaPolizas  extends AbstBackingBean{
 	private Session session;
 	private CobranzasDAO cobranzasDAO=null;
 	private AdherentesDAO adherentesDAO=null;
 	private SepeliosPlanesDAO sepeliosPlanesDAO=null;
+	
 	private Polizas poliza;
 	private Titulares titular;
-	List<Cobranzas> cobranzas;
-	List<Adherentes> adherentes;
+	private List<Cobranzas> cobranzas;	
+
+	private List<Adherentes> adherentes;
 	private Float premioFamiliar;
 	private String plan;
 
@@ -101,7 +106,9 @@ public class ConsultaPolizas  extends AbstBackingBean{
 		 try {
 			 poliza.setPlan(sepeliosPlanesDAO.findPlanByPoliza(poliza));
 			 cobranzas = cobranzasDAO.findCobranzasByPoliza(poliza);
-			adherentes= adherentesDAO.findAdherentesByPoliza(poliza);
+			 this.adherentes=adherentesDAO.findAdherentesByPoliza(poliza);
+		this.getSession().setAttribute("adherentes",  this.adherentes); 
+			//adherentes= adherentesDAO.findAdherentesByPoliza(poliza);
 		} catch (DataAccessErrorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,22 +117,27 @@ public class ConsultaPolizas  extends AbstBackingBean{
 		return "detallePoliza";
 	}
 	
-public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException{
+public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException, DataAccessErrorException{
 		
 		FacesContext facesContext = FacesContext. getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Boolean hayAdh=null;
-		if(null==this.adherentes){
-			this.adherentes=new ArrayList<Adherentes>();
-			this.adherentes.add(new Adherentes(0,0,0," "," ",null," "));
-			hayAdh=Boolean.FALSE;		
-			}
-		else {hayAdh=Boolean.TRUE;}
+		
 		
 		Map params = externalContext.getRequestParameterMap();
-		
+		;
+
+		 this.adherentes=(List)this.getSession().getAttribute("adherentes");
+			if(null==this.adherentes){
+				System.out.println("dkfdhhjfsdkjdfskjsd");
+				this.adherentes=new ArrayList<Adherentes>();
+				this.adherentes.add(new Adherentes(0,0,0," "," ",null," "));
+				hayAdh=Boolean.FALSE;		
+				}
+			else {hayAdh=Boolean.TRUE;}
 		Map<String,Object> parametros= new HashMap<String,Object>();
 	String nombres=params.get("nombre").toString().concat(" ,").concat(params.get("apellido").toString());
+	
 		parametros.put("lista", null!=this.adherentes?"1":"0");
 		parametros.put("codSolicitud",params.get("codSolicitud").toString());
 		parametros.put("nroCertificado",params.get("nroCertificado"));

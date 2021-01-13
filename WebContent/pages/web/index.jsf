@@ -119,11 +119,11 @@
 											<td align="center" valign="top">
 												<p>
 
-													<h:outputLink
-														value="#{Message.contexto_sistema}/pages/web/app/registracion.jsf">
+													<h:commandLink 
+														action="registrar">
 														<h:outputText id="txtClickAqui"
 															value="#{Message.registrarse_label}" />
-													</h:outputLink>
+													</h:commandLink>
 
 
 												</p>

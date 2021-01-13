@@ -40,46 +40,39 @@
 	<pageHeader>
 		<band height="210" splitType="Stretch">
 			<staticText>
-				<reportElement x="21" y="5" width="177" height="19" uuid="ae99f933-4878-4be3-878d-fc3f7cbd5459"/>
+				<reportElement x="19" y="8" width="261" height="19" uuid="ae99f933-4878-4be3-878d-fc3f7cbd5459"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Certificamos que mediante la solicitud nro]]></text>
+				<text><![CDATA[Certificamos que mediante la solicitud numero]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="184" y="5" width="39" height="20" uuid="760cff83-e8d2-46f9-acd9-eaeb251915eb"/>
+				<reportElement x="281" y="9" width="49" height="18" uuid="760cff83-e8d2-46f9-acd9-eaeb251915eb"/>
 				<textFieldExpression><![CDATA[$P{codSolicitud}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="228" y="5" width="309" height="19" uuid="1557d440-a15d-4f01-9ce9-86b8565cad44"/>
+				<reportElement x="20" y="27" width="449" height="19" uuid="1557d440-a15d-4f01-9ce9-86b8565cad44"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[, a partir de la fecha de inicio de vigencia, se ha contratado]]></text>
+				<text><![CDATA[ de inicio de vigencia, se ha contratado la cobertura que se detalla a continuación:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="21" y="27" width="245" height="18" uuid="d6f270cd-da93-4d60-b430-6543ce5a4832"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[la cobertura que se detalla a continuación:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="20" y="59" width="269" height="18" uuid="770b40f5-ef98-496f-8589-f7fcac1b03ca"/>
+				<reportElement x="19" y="66" width="269" height="18" uuid="770b40f5-ef98-496f-8589-f7fcac1b03ca"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Compania: BONACORSI SEG DE PERSONAS S.A.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="370" y="59" width="89" height="20" uuid="bd250d5c-cd54-4233-a268-41ca98e1a0d2"/>
+				<reportElement x="370" y="66" width="89" height="20" uuid="bd250d5c-cd54-4233-a268-41ca98e1a0d2"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nro Certificado:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="460" y="59" width="80" height="20" uuid="85f27981-da15-49b7-9abd-3af04ef9571c"/>
+				<reportElement x="460" y="66" width="80" height="20" uuid="85f27981-da15-49b7-9abd-3af04ef9571c"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -109,7 +102,7 @@
 				<text><![CDATA[Datos del Titular]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="71" y="123" width="130" height="20" uuid="6da0327f-3f54-4502-8223-8b29e087400e"/>
+				<reportElement x="71" y="123" width="266" height="20" uuid="6da0327f-3f54-4502-8223-8b29e087400e"/>
 				<textFieldExpression><![CDATA[$P{nombres}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -123,6 +116,13 @@
 			<staticText>
 				<reportElement x="21" y="146" width="80" height="22" uuid="9ee64625-6bd9-4b06-8a87-59c90985539f"/>
 				<text><![CDATA[Documento:  DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="9" width="154" height="19" uuid="a1dbfdaf-2350-4ab3-af33-27e9924268ea"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[, a partir de la fecha ]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

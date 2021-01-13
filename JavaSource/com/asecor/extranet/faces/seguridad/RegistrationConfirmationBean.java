@@ -35,7 +35,7 @@ public class RegistrationConfirmationBean extends AbstBackingBean{
 	private String email;	
 	private java.lang.Boolean mostrarResultado;
 	private String comesFrom; 
-	 
+	 private String aceptar;
 
 	public RegistrationConfirmationBean() throws Exception {
 		super();
@@ -220,6 +220,14 @@ public class RegistrationConfirmationBean extends AbstBackingBean{
 
 	public void setComesFrom(String comesFrom) {
 		this.comesFrom = comesFrom;
+	}
+
+	public String getAceptar() {
+		return aceptar;
+	}
+
+	public void setAceptar(String aceptar) {
+		this.aceptar = aceptar;
 	}
 
 	 

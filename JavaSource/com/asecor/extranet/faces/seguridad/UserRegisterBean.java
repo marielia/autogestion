@@ -188,12 +188,12 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
    		String mail_smtp_ssl_trust= property.getProperty("mail_smtp_ssl_trust");
    		String mail_smtp_starttls_enable= property.getProperty("mail_smtp_starttls_enable");
    		String mail_smtp_port = property.getProperty("mail_smtp_port");
-   		String mail_smtp_user = property.getProperty("mail_smtp_user");
+   	//	String mail_smtp_user = property.getProperty("mail_smtp_user");
    		String mail_smtp_auth = property.getProperty("mail_smtp_auth");
    		String mail_from = property.getProperty("mail_from");
    		System.out.println(" olUser.getEmail() "+ olUser.getEmail());
    		String mail_to = olUser.getEmail();
-        String subject =  GetMensaje(property.getProperty("asuntoRegistracion"));
+      //  String subject =  GetMensaje(property.getProperty("asuntoRegistracion"));
  	    String body =   GetMensaje(property.getProperty("cuerpoRegistracion")); 
    	   
 		Properties props = new Properties();
@@ -256,6 +256,7 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
 		t.connect();
 		try {
 			t.sendMessage(message,message.getAllRecipients());
+			
 		} finally {
 			t.close();
 		}
