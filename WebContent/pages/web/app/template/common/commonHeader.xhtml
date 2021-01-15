@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+           xmlns:f="http://java.sun.com/jsf/core"
+      >
+      <f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR"
+	var="Message" />
+      
+    <body class="cover">
+	    <ui:composition >
+	
+			<h:form >
+
+
+    <table  border="0" class="top">
+      <tr>
+        <td align="left" valign="middle"><div class="logoTop"><img src="/asecor/img/logo_login.png" width="50" height="46" /></div>
+    <div class="tituloPortalTop">PORTAL DE ASEGURADOS</div></td>
+        <td align="right" valign="middle">
+        
+        <div class="topData"><h:commandLink action="#{logonBean.salir}"><img src="/asecor/img/icon_logout.png" width="20" height="20" class="icon" />SALIR</h:commandLink></div>
+        <div class="topData"><h:commandLink action="cambio_password"><img src="/asecor/img/icon_password.png" width="20" height="20" class="icon" />CAMBIAR CONTRASEÑA</h:commandLink></div>
+        <div class="topData"><h:commandLink action="cambio_usuario"><img src="/asecor/img/icon_user.png" width="20" height="20" class="icon" /><h:outputText value="#{logonBean.usuario.nombres} "/></h:commandLink></div>
+        </td>
+      </tr>
+    </table>
+    
+     </h:form>
+				
+	    </ui:composition>
+    </body>
+</html>
+
+

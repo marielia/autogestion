@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:t="http://myfaces.apache.org/tomahawk">
+      
+      <f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR"
+	var="Message" />
+	  <f:metadata>
+        <f:event type="preRenderView" listener="#{logonBean.permission()}"/>
+</f:metadata>
+    <h:body  class="cover">
+    	<link rel="stylesheet" type="text/css"
+	href="/template/css/asecor.css"/>
+		<head>
+    			<script type="text/javascript" src="asecor/js/comun/jsutiles.js"></script>
+		<script>
+		function validar() { 				
+				
+				var pass = document.getElementById('frmRegistracion:pass'); 
+				var repetpass = document.getElementById('frmRegistracion:repetpass'); 
+				
+				
+				
+				if (pass.value.trim().length &lt;  4 || repetpass.value.trim().length &lt;  4) {
+						alert('La contrase\u00F1a debe tener entre 4 y 10 d\u00EDgitos.');
+					    return false;
+				}
+				
+				if (pass.value.trim() != repetpass.value.trim() ) {
+					alert('La contrase\u00F1a y repita contrase\u00F1a tiene que ser iguales.');
+				    return false;
+			    }
+				
+			 
+				return true;
+			}
+			
+		
+		
+		
+		  var numeros = "0123456789";
+
+	      function tiene_numeros(texto) {
+	          for (i = 0; i &lt;  texto.length; i++) {
+	              if (numeros.indexOf(texto.charAt(i), 0) != -1) {
+	                  return 1;
+	              }
+	          }
+	          return 0;
+	      }
+
+	      var letras = "abcdefghyjklmnñopqrstuvwxyz";
+
+	      function tiene_letras(texto) {
+	          texto = texto.toLowerCase();
+	          for (i = 0; i &lt;  texto.length; i++) {
+	              if (letras.indexOf(texto.charAt(i), 0) != -1) {
+	                  return 1;
+	              }
+	          }
+	          return 0;
+	      }
+
+	      var letras = "abcdefghyjklmnñopqrstuvwxyz";
+
+	      function tiene_minusculas(texto) {
+	          for (i = 0; i &lt;  texto.length; i++) {
+	              if (letras.indexOf(texto.charAt(i), 0) != -1) {
+	                  return 1;
+	              }
+	          }
+	          return 0;
+	      }
+
+	      var letras_mayusculas = "ABCDEFGHYJKLMNÑOPQRSTUVWXYZ";
+
+	      function tiene_mayusculas(texto) {
+	          for (i = 0; i &lt;  texto.length; i++) {
+	              if (letras_mayusculas.indexOf(texto.charAt(i), 0) != -1) {
+	                  return 1;
+	              }
+	          }
+	          return 0;
+	      }
+
+	      function seguridad_clave(clave) {
+	          var seguridad = 0;
+	          if (clave.length != 0) {
+	              if (tiene_numeros(clave) &amp;&amp; tiene_letras(clave)) {
+	                  seguridad += 30;
+	              }
+	              if (tiene_minusculas(clave) &amp;&amp; tiene_mayusculas(clave)) {
+	                  seguridad += 30;
+	              }
+	              if (clave.length >= 4&amp;&amp; clave.length &lt;= 5) {
+	                  seguridad += 10;
+	              } else {
+	                  if (clave.length &gt;= 6 &amp;&amp; clave.length &lt;= 8) {
+	                      seguridad += 30;
+	                  } else {
+	                      if (clave.length &gt; 8) {
+	                          seguridad += 40;
+	                      }
+	                  }
+	              }
+	          }
+	          return seguridad
+	      }
+	      
+		 function muestra_seguridad_clave(clave) {
+	          var seguridad = seguridad_clave(clave.value);  
+
+	          if (clave.name == "frmRegistracion:pass") {
+	        	  
+	        	  if(seguridad &lt; 20)
+        		  {
+        		   document.getElementById('frmRegistracion:lblseguridad').innerHTML =" (SEGURIDAD DÉBIL)";
+        		  }
+	        	  
+	        	  if(seguridad &gt;=20 &amp;&amp; seguridad &lt;=60)
+        		  {
+        		   document.getElementById('frmRegistracion:lblseguridad').innerHTML =" (SEGURIDAD MEDIA)";
+        		  }
+	        	  
+	        	  if(seguridad &gt; 60 &amp;&amp; seguridad &lt;=100)
+        		  {
+        		   document.getElementById('frmRegistracion:lblseguridad').innerHTML =" (SEGURIDAD FUERTE)";
+        		  } 
+	            
+	          }
+	          
+	          if (clave.name == "frmRegistracion:repetpass") { 
+	              if(seguridad &lt; 20)
+        		  {
+        		   document.getElementById('frmRegistracion:lblseguridadrepetpass').innerHTML =" (SEGURIDAD DÉBIL)";
+        		  }
+	        	  
+	        	  if(seguridad &gt;=20  &amp;&amp; seguridad &lt;=60)
+        		  {
+        		   document.getElementById('frmRegistracion:lblseguridadrepetpass').innerHTML =" (SEGURIDAD MEDIA)";
+        		  }
+	        	  
+	        	  if(seguridad &gt; 60 &amp;&amp; seguridad &lt;=100)
+        		  {
+        		   document.getElementById('frmRegistracion:lblseguridadrepetpass').innerHTML =" (SEGURIDAD FUERTE)";
+        		  } 
+	          } 
+
+			 
+
+	      }
+		</script>
+	
+	
+</head>
+    	<ui:composition template="/pages/web/app/template/common/commonLayout.xhtml">
+    	
+    		<ui:define name="content">
+    	
+<table width="50%" border="0" cellspacing="0" cellpadding="0" align="center">
+ 
+  <tr>
+  
+   <td align="left">
+	<div class="mainContainer">
+		
+
+			<div class="mainHeader">USUARIO</div>
+		<div class="mainContentTop">
+				<h:form id="frmRegistra">
+
+
+
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="left" valign="middle"><h:messages
+									styleClass="errorNegro" /></td>
+						</tr>
+<tr>
+							<td align="left" valign="top"><span
+								class="mediumFont"><h:outputText
+										value="#{Message.tit_contrase_label}" /> </span>  <span
+								class="
+								smallFontSec"> <t:outputText id="seguridad1">
+									</t:outputText> <t:outputText id="lblseguridad1" value=" "></t:outputText>
+							</span> <label for="pass"></label></td><td> <h:inputSecret id="passOld"
+									styleClass="password"
+									value="#{logonBean.pass}" maxlength="10"
+									onkeypress="muestra_seguridad_clave(this)">
+									<f:validateLength minimum="1" />
+								</h:inputSecret></td>
+						</tr>
+						
+						<tr>
+							<td align="left" valign="top"><span
+								class="mediumFont"><h:outputText
+										value="#{Message.tit_nombres_tr_label}" /> </span>  <label for="nom"></label></td><td>
+							 <h:inputText value="#{logonBean.usuario.nombres}" id="nom"></h:inputText></td>
+						</tr>
+						<tr>
+							<td align="left" valign="top"><span
+								class="mediumFont"><h:outputText
+										value="#{Message.tit_phone_label}" /> </span>  <label for="tel"></label></td><td>
+							 <h:inputText value="#{logonBean.usuario.telefono}" id="tel"></h:inputText></td>
+						</tr>
+						<tr>
+							<td align="left" valign="top"><span
+								class="mediumFont"><h:outputText  
+										value="#{Message.tit_nacimiento_tr_label}" /> </span>   <label for="cumple"></label></td><td>
+							 <h:inputText  disabled="true"  value="#{logonBean.usuario.fechaNacimiento}" id="cumple"></h:inputText></td>
+						</tr>
+						<tr>
+							<td align="left" valign="top"><span
+								class="mediumFont"><h:outputText
+										value="#{Message.tit_documento_tr_label}" /> </span> <label for="dni"></label></td><td>
+							 <h:inputText disabled="true" value="#{logonBean.usuario.dni}" id="dni"></h:inputText></td>
+						</tr>
+						<tr>
+							   <td   align="center">
+									<h:commandButton
+									id="btnConfirmar" value="CONFIRMAR"   styleClass="botonAceptar"
+									 action="#{logonBean.cambiarTelefono}"  onclick="return validar();"></h:commandButton>
+									 </td><td>
+									 <h:commandButton action="polizasUsuarios"
+									 value="CANCELAR"   styleClass="botonAceptar"
+									 ></h:commandButton>
+							</td>
+						</tr>
+					</table>
+
+				</h:form>
+
+
+				
+			</div>
+		</div>
+		</td>
+		</tr>
+		</table>
+	</ui:define>
+    		
+        <ui:define name="footer">
+    			<h2></h2>
+    		</ui:define>
+            
+            
+            
+    	</ui:composition>
+    	 
+
+ </h:body>
+</html> 

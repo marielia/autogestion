@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+      >
+      
+<f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR"
+	var="Message" />
+	<h:head>
+		<link rel="apple-touch-icon" href="favicon/apple-icon-57x57.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-60x60.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-72x72.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-76x76.png"/>
+<h:link rel="apple-touch-icon" href="favicon/apple-icon-114x114.png"></h:link>
+<link rel="apple-touch-icon" href="favicon/apple-icon-120x120.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-144x144.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-152x152.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-180x180.png"/>
+<link rel="icon" type="image/png"
+	href="favicon/android-icon-192x192.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-32x32.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-96x96.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-16x16.png"/>
+
+<link rel="manifest" href="favicon/manifest.json"/>
+<meta name="msapplication-TileColor" content="#ffffff"/>
+<meta name="msapplication-TileImage"
+	content="favicon/ms-icon-144x144.png"/>
+<meta name="theme-color" content="#ffffff"/>
+
+
+
+<meta http-equiv="Content-Type"
+	content="text/html; charset=windows-1252" />
+	
+	<h:link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700;"
+	rel="stylesheet"/>
+
+
+
+<link rel="stylesheet" type="text/css"
+	href="/asecor/css/asecor.css"/>
+	
+
+
+	</h:head>
+    
+    <h:body class="cover">
+
+	<div id="page">
+		
+		<div id="header">
+			<ui:insert name="header" >
+				<ui:include src="/pages/web/app/template/common/commonHeader.xhtml" />
+			</ui:insert>
+	    </div>
+	    
+	    <div id="content">
+		   	<ui:insert name="content" >
+		   		<ui:include src="/pages/web/app/template/common/commonContent.xhtml" />
+		   	</ui:insert>
+	    </div>
+		    
+	    <div id="footer">
+	    	<ui:insert name="footer" >
+	    		<ui:include src="/pages/web/app/template/common/commonFooter.xhtml" />
+	    	</ui:insert>
+    	</div>
+    	
+    </div>
+    
+    </h:body>
+
+</html>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR"
+	var="Message" />
+<f:view>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/asecor.css"/>
+<title></title>
+
+<link rel="apple-touch-icon" href="favicon/apple-icon-57x57.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-60x60.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-72x72.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-76x76.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-114x114.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-120x120.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-144x144.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-152x152.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-180x180.png"/>
+<link rel="icon" type="image/png"
+	href="favicon/android-icon-192x192.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-32x32.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-96x96.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-16x16.png"/>
+
+<link rel="manifest" href="favicon/manifest.json"/>
+<meta name="msapplication-TileColor" content="#ffffff"/>
+<meta name="msapplication-TileImage"
+	content="favicon/ms-icon-144x144.png"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&amp;display=swap"
+	rel="stylesheet"/>
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Asecor - Portal de Asegurados</title>
+	<link rel="stylesheet" type="text/css"
+	href="/asecor/css/asecor.css"/>
+
+<script type="text/javascript" src="/asecor/js/comun/jsutiles.js"></script>
+<script>
+	function validar() {
+		var user = document.getElementById('frmIngreso:user');
+		var password = document.getElementById('frmIngreso:password');
+
+		if (user.value == '' || password.value == '') {
+			alert('Debe completar todos los campos.');
+			return false;
+		}
+
+		return true;
+	}
+</script>
+
+	</head>
+	<body class="cover">
+
+		<div class="loginContainer">
+			<div class="loginHeader">
+				<div class="logoLogin">
+					<img
+						src="/asecor/img/logo_login.png"
+						width="65" height="61" />
+				</div>
+				<div class="tituloPortal">PORTAL DE ASEGURADOS</div>
+				<div class="tituloLogin">LOGIN</div>
+			</div>
+			<div class="loginContent">
+				<h:form id="frmIngreso" rendered="#{logonBean.mostrarPagina}"
+					onsubmit="return validar();">
+
+					<!-- <c:if test="${!logonBean.puedeIngresar}">
+						<c:redirect url="/pages/web/app/salir.jsf"></c:redirect>
+					</c:if>
+ -->
+					<div class="loginContainer">
+
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+										<tr>
+											<td align="left" valign="top"><h:messages
+													styleClass="errorNegro" /></td>
+										</tr>
+										<tr>
+											<td align="left" valign="top"><span class="mediumFont"><h:outputText
+														value="#{Message.tit_email_label}" /> </span> <label for="dni"></label>
+												<h:inputText id="user" value="#{logonBean.email}"
+													maxlength="50" /></td>
+										</tr>
+										<tr>
+											<td align="left" valign="top"><span class="mediumFont"><h:outputText
+														value="#{Message.tit_contrase_label}" /> </span>  <label for="password"></label><h:inputSecret
+													id="password" value="#{logonBean.clave}" maxlength="10" styleClass="password">
+													<f:validateLength minimum="1"  />
+												</h:inputSecret></td>
+										</tr>
+										<tr>
+										
+											<td align="center" valign="top">
+											<t:saveState
+													value="#{logonBean.comesFrom}"></t:saveState> 
+													<h:commandButton  value="INGRESAR" action="#{logonBean.chkLogon}" styleClass="botonAceptar"></h:commandButton>
+												
+													</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td align="center" valign="top">
+												<p>
+
+													<h:outputLink
+														value="app/registracion.xhtml">
+														<h:outputText id="txtClickAqui"
+															value="#{Message.registrarse_label}" />
+													</h:outputLink>
+
+
+												</p>
+												<p>
+													<h:outputLink
+														value="#{Message.contexto_sistema}/pages/web/app/olvido_password.jsf">
+														<h:outputText id="txtClickAqui1"
+															value="#{Message.Olvido_label}" />
+													</h:outputLink>
+
+
+
+												</p>
+
+
+											</td>
+										</tr>
+									</table>
+								
+					</div>
+
+
+
+
+				</h:form>
+			</div>
+		</div>
+
+	</body>
+</f:view>
+</html>

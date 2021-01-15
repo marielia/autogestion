@@ -33,6 +33,9 @@
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="380" y="30" width="146" height="29" uuid="9471c75c-0fd8-45e0-a197-35abc4d49cb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -47,7 +50,11 @@
 				<text><![CDATA[Certificamos que mediante la solicitud numero]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="281" y="9" width="49" height="18" uuid="760cff83-e8d2-46f9-acd9-eaeb251915eb"/>
+				<reportElement x="281" y="8" width="31" height="19" uuid="760cff83-e8d2-46f9-acd9-eaeb251915eb">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{codSolicitud}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -110,7 +117,7 @@
 				<text><![CDATA[Domicilio:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="74" y="172" width="320" height="21" uuid="93775c22-58b2-45c4-95d0-090695fbc6d9"/>
+				<reportElement x="74" y="172" width="473" height="21" uuid="93775c22-58b2-45c4-95d0-090695fbc6d9"/>
 				<textFieldExpression><![CDATA[$P{domicilio}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -118,7 +125,7 @@
 				<text><![CDATA[Documento:  DNI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="330" y="9" width="154" height="19" uuid="a1dbfdaf-2350-4ab3-af33-27e9924268ea"/>
+				<reportElement x="317" y="9" width="154" height="19" uuid="a1dbfdaf-2350-4ab3-af33-27e9924268ea"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

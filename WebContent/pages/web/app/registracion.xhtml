@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:t="http://myfaces.apache.org/tomahawk"
+        xmlns:botDetect="https://captcha.com/java/jsf">
+<f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR"
+	var="Message" />
+<f:view>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/asecor.css"/>
+<title></title>
+
+<link rel="apple-touch-icon" href="favicon/apple-icon-57x57.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-60x60.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-72x72.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-76x76.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-114x114.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-120x120.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-144x144.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-152x152.png"/>
+<link rel="apple-touch-icon" href="favicon/apple-icon-180x180.png"/>
+<link rel="icon" type="image/png"
+	href="favicon/android-icon-192x192.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-32x32.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-96x96.png"/>
+<link rel="icon" type="image/png" href="favicon/favicon-16x16.png"/>
+
+<link rel="manifest" href="favicon/manifest.json"/>
+<meta name="msapplication-TileColor" content="#ffffff"/>
+<meta name="msapplication-TileImage"
+	content="favicon/ms-icon-144x144.png"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&amp;display=swap"
+	rel="stylesheet"/>
+
+        <meta http-equiv="Content-Type"
+             content="text/html; charset=windows-1252"/>
+		
+		<link rel="stylesheet" type="text/css" href="/asecor/css/asecor.css"/>		
+		<script type="text/javascript" src="/asecor/js/comun/jsutiles.js"></script>
+		<script>
+		function validar() { 				
+				var nombres = document.getElementById('frmRegistracion:nombres');
+				var fechaNacimiento = document.getElementById('frmRegistracion:fechaNacimiento');
+				var telefono = document.getElementById('frmRegistracion:telefono');
+				var email = document.getElementById('frmRegistracion:email');
+				//var optPN = document.forms['frmRegistracion']['frmRegistracion:rdFormaRegistracion'][1].checked ;
+				//var optEM = document.forms['frmRegistracion']['frmRegistracion:rdFormaRegistracion'][0].checked ; 
+				// var opt=true;
+				 
+			
+			 	
+				
+				if (nombres.value.trim() == '' ||	 					
+						fechaNacimiento.value.trim() == '' ||  			
+					telefono.value.trim() == '' ||	 					
+					email.value.trim() == '' 
+						 ) {
+						alert('Debe completar todos los campos.');
+					    return false;
+				} else {
+					if(emailCheck(email.value.trim(), false)) {
+						
+						//if(optPN == true)
+						//{
+						//	alert('La opcion registrarse por celular esta en desarrollo.');
+						//	return false;	
+						//}
+						
+						return true;
+					}
+					else
+						email.focus();
+						return false;	
+				}	 
+				
+				return true;
+			}
+			
+			function emailCheck (emailStr, fehlermeldung) { 
+					var notallowed = " ;:!$%/()=?*"; 
+					if (fehlermeldung == false) { var fehlermeldung = "La cuenta de Email no es v\xE1lida.";} 
+					var pos = emailStr.lastIndexOf("@"); 
+					var pos2 = emailStr.lastIndexOf("."); 
+					if ((pos &lt;= 0) || (pos == emailStr.length - 1) || 
+					(pos2 &lt;= 0) || (pos2 == emailStr.length - 1) || (pos2 &lt;= pos + 2)) 
+					{alert(fehlermeldung); return false;} 
+					for (i=0; i &lt; notallowed.length; i++) { 
+						var pos = emailStr.indexOf( notallowed.charAt(i) ); 
+						if (pos &gt; -1) {alert(fehlermeldung); return false;} 
+					} 
+					return true; 
+				} 
+		</script>
+	</head>
+	
+<body class="cover">
+<div class="loginContainer">
+  <div class="loginHeader">
+    <div class="logoLogin"><img src="/asecor/img/logo_login.png" width="65" height="61" /></div>
+    <div class="tituloPortal">PORTAL DE ASEGURADOS</div>
+<div class="tituloLogin">REGISTRO DE USUARIO</div>
+  </div>
+  <div class="loginContent">
+<h:form id="frmRegistracion"  rendered="#{!userRegisterBean.mostrarResultado}"  onsubmit="return validar();">	 
+				
+	
+	 
+	      
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	          <tr>
+	            <td align="left" valign="top">  
+	            <h:messages styleClass="errorNegro"/>
+	            </td> 
+	         </tr>
+        
+	          <tr>
+	            <td colspan="2" align="left" valign="top">
+	               <span class="mediumFont"><h:outputLabel for="dni" value="#{Message.tit_dni_tr_label}" /></span>	             
+ 	                <h:inputText id="dni" value="#{userRegisterBean.dni}"  maxlength="20"    />
+ 	              </td>
+	          </tr>
+	            <tr>
+	          <td colspan="2" align="left" valign="top">
+	               
+	              <label for="nombres"><span class="mediumFont"><h:outputLabel value="#{Message.tit_nombres_tr_label}" /></span></label>
+ 	              <h:inputText id="nombres" value="#{userRegisterBean.nombres}"    maxlength="99"  />
+	              </td>
+	          </tr>
+	          <tr>
+	            <td colspan="2" align="left" valign="top">
+	                
+	              <label for="fechaNacimiento" >
+	              <span class="mediumFont"><h:outputLabel value="#{Message.tit_nacimiento_tr_label}" /></span>
+	              </label>
+	             
+   	              <t:inputDate type="date" id="fechaNacimiento" styleClass="fechass" value="#{userRegisterBean.fechaNacimiento}"  />  
+   	              
+   	          <h:panelGrid columns="2">
+      
+        <h:inputText id="date" value="#{userRegisterBean.fechaNacimiento}" 
+          size="20" required="true"
+          label="Receipt Date" >
+          <f:convertDateTime pattern="d-M-yyyy" />
+        </h:inputText>
+        <h:message for="date" style="color:red" />
+      </h:panelGrid>
+   	              
+	             </td>
+	          </tr>
+	           <tr>
+	            <td height="60" colspan="2" align="left" valign="top">
+	              <label for="telefono" >
+	               <span class="mediumFont"><h:outputLabel value="#{Message.tit_phone_label}" /></span>
+ 	                </label>
+ 	              <h:inputText id="telefono" value="#{userRegisterBean.phoneNumber}"   maxlength="30"   />
+				 </td>				
+	          </tr>
+	          <tr>
+	            <td height="60" colspan="2" align="left" valign="top">
+	            <label for="email" >
+	               <span class="mediumFont"><h:outputText value="#{Message.tit_email_label}" /></span>
+ 	             </label>
+ 	              <t:inputText id="email" value="#{userRegisterBean.email}"   maxlength="80"   />
+ 	              <h:panelGrid columns="2">
+           
+                <h:inputText id="email" value="#{userRegisterBean.email}">
+                    <f:validateRegex pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"/>
+                </h:inputText>
+           
+            <h:message for="email" style="color:red" />
+        </h:panelGrid>
+				 </td>				
+	          </tr>
+	          <tr><td>
+<h:outputLabel for="captchaCode" 
+  value="Escriba los caracteres de la imagen"/>
+  
+<botDetect:jsfCaptcha id="exampleCaptcha" 
+                      userInputID="captchaCode"
+                      binding="#{userRegisterBean.captcha}"/>
+                      
+<h:inputText id="captchaCode" value="#{userRegisterBean.captchaCode}"/></td></tr>
+	         
+	       
+	          
+	          <tr>
+	            <td height="100" colspan="2" align="center" valign="top"> 
+	           
+	                 <t:saveState value="#{userRegisterBean.comesFrom}"></t:saveState>
+	               	<h:commandButton type="submit" value="REGISTRAR"  action="#{userRegisterBean.aceptar}"  styleClass="botonAceptar"></h:commandButton>
+			</td>
+	          </tr>
+	          
+	          
+	        </table>
+	    
+
+ 	</h:form>
+ 	
+ 	
+ 	<h:form id="frmFiltroCuenta2" rendered="#{userRegisterBean.mostrarResultado}" onsubmit="return validar();">	 
+				
+	
+	  <table width="100%" border="0" cellspacing="40" cellpadding="0">
+	    
+	    <tr>
+	      <td align="center" valign="middle" class="title"><h:outputText value="#{Message.tit_form_registracion}" /></td>
+	    </tr>
+	     	
+	    <tr>
+	      <td align="center" valign="top"> 
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	          <tr>
+	            <td colspan="2" align="left" valign="top"> 
+ 	            	 <h:outputText value="#{Message.texto_registracion_resultado_linea1}"    />
+ 	            </td>
+	          </tr> 
+ 	        
+	        </table>
+	      </td>
+	    </tr>
+	    
+	    
+	  </table>
+	
+ 	</h:form>	
+ 	</div>
+ 	</div>		
+</body>	
+</f:view>
+</html> 
+
