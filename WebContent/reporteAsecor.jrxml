@@ -32,12 +32,19 @@
 				<text><![CDATA[Asesores de Córdoba S.A]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="380" y="30" width="146" height="29" uuid="9471c75c-0fd8-45e0-a197-35abc4d49cb4"/>
+				<reportElement x="430" y="30" width="106" height="29" uuid="9471c75c-0fd8-45e0-a197-35abc4d49cb4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="13"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="380" y="30" width="50" height="30" uuid="e89a8b8a-1192-433d-a0fd-277a7c3d3295"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Cordoba]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
