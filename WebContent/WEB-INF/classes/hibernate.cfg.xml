@@ -1,0 +1,35 @@
+
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">
+			com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+			<property name="hibernate.connection.url">jdbc:sqlserver://172.16.9.226:1433;databaseName=AsecorR3;selectMethod=Direct</property>	
+			
+			<!--  <property name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-N70HT9N;databaseName=TEST</property> -->	
+		      <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+	     	<property name="connection.username">sa</property>
+	<property name="connection.password">Argentina+12</property>
+  <!--    <property name="connection.username">user</property>
+	<property name="connection.password">123</property>-->	
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.c3p0.max_size">15</property>
+		<property name="hibernate.c3p0.min_size">0</property>
+		<property name="hibernate.c3p0.timeout">5000</property>
+		<property name="hibernate.c3p0.max_statements">100</property>
+		<property name="hibernate.c3p0.idle_test_period">300</property>
+		<property name="hibernate.c3p0.acquire_increment">2</property>
+		
+	 	<mapping resource="/com/asecor/extranet/data/TitularWeb.hbm.xml" />
+	 	<mapping resource="/com/asecor/extranet/data/Titulares.hbm.xml" />  
+	 	<mapping resource="/com/asecor/extranet/data/Polizas.hbm.xml" /> 
+	 	<mapping resource="/com/asecor/extranet/data/Cobranzas.hbm.xml" />  
+		<mapping resource="/com/asecor/extranet/data/Adherentes.hbm.xml" /> 
+        <mapping resource="/com/asecor/extranet/data/SepeliosPlanes.hbm.xml" /> 
+		
+	</session-factory>
+</hibernate-configuration>
+

@@ -1,0 +1,22 @@
+<html>
+<body>
+
+Hola #user# <br /><br />
+
+Te enviamos la clave de blanqueo de contrase&ntilde;a <b>#pin#</b> <br /><br />
+
+Accede al formulario para cambiar tu contrase&ntilde;a haciendo <a href="http://localhost:8080/asecor/pages/web/indexInterno.jsf?page=CLEAN&userId=#userId#&comesFrom=#comesFrom#" target="_blank" >Click aqu&#237;</a> <br /><br />
+
+<b>Solo con la nueva contrase&ntilde;a, elegida por vos, podr&aacute;s ingresar en tu cuenta.</b><br /><br />
+ 
+Saludos! <br /><br />
+
+
+__________________________________________________________________________________ 
+<br /><br />
+Este mensaje se ha enviado autom&aacute;ticamente, por favor, no respondas.  
+</body>
+</html>
+ 
+
+ 

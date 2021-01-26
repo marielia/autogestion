@@ -1,0 +1,20 @@
+<html>
+<body>
+
+Hola #user# <br /><br />
+
+Te enviamos la clave de ingreso para que puedas terminar tu registro. <br /><br /> 
+Clave de ingreso al sistema <b>#pin#</b> <br /><br />
+
+Acced&eacute; al formulario para terminar la registraci&oacute;n haciendo <a href="http://localhost:8080/asecor/pages/web/app/registracion_confirmacion.xhtml?email=#email#" target="_blank" >Click aqu&#237;</a> <br /><br />
+
+ 
+Saludos! <br /><br /> 
+
+__________________________________________________________________________________ 
+<br /><br />
+Este mensaje se ha enviado autom&aacute;ticamente, por favor, no respondas.  
+</body>
+</html>
+
+ 

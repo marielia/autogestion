@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<hibernateDataAdapter class="net.sf.jasperreports.data.hibernate.HibernateDataAdapterImpl"><name>New Data Adapter 1</name><xMLFileName>C:\cfg\asecor\hibernate.cfg.xml</xMLFileName><propertiesFileName>C:\cfg\asecor\tpg.properties</propertiesFileName><useAnnotation>false</useAnnotation></hibernateDataAdapter>
