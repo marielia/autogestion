@@ -82,7 +82,13 @@
 		 	]]>
 	</query>
 	  --> 
-	  
+	  <query name="findByUserEmail">
+		 	<![CDATA[
+		 		from TitularWeb u 
+		 		where u.email = :email and
+		 		u.active = :active    
+		 	]]>
+	</query>
 	  
 	  
 	  <query name="findByUserDni">

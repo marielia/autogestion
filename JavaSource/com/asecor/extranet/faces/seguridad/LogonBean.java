@@ -4,11 +4,21 @@
 package com.asecor.extranet.faces.seguridad;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +45,8 @@ import com.asecor.util.seguridad.PasswordService;
  
 
 
-public class LogonBean extends AbstBackingBean {
+@WebFilter("/app/*")
+public class LogonBean  extends AbstBackingBean implements Filter {
 
 	private Long dni;
 	
@@ -49,12 +60,15 @@ public class LogonBean extends AbstBackingBean {
 	private String email;
 	private List<Polizas> polizas;
 	private TitularWeb usuario;
-	private Boolean cambiaPass;
-private String repetpass;
-private String pass;
-private Polizas poliza;
-private UsuarioWebDAO usrDAO;
-
+	private boolean cambiaPass;
+	private boolean cambiarTelefono;
+	private String repetpass;
+	private String pass;
+	private String newPass;
+	private Polizas poliza;
+	private UsuarioWebDAO usrDAO;
+	private String chkLogon;
+private String cambiarPassword;
 	public void preRenderView() {
 	      HttpSession session = ( HttpSession ) FacesContext.getCurrentInstance().getExternalContext().getSession( true );
 	      //tune session params, eg. session.setMaxInactiveInterval(..);
@@ -69,7 +83,8 @@ private UsuarioWebDAO usrDAO;
 		{
 	
 			
-	 		FileUtil fileUtil= new FileUtil();
+
+			FileUtil fileUtil= new FileUtil();
 	   		Properties props= fileUtil.getPropertiesFile();
 	   		File hibernateCfgXml= new File(props.getProperty(Const.ARCHIVO_CONF_HIBERNATE)); 
 	   				_RootDAO.initialize(hibernateCfgXml);
@@ -81,9 +96,9 @@ private UsuarioWebDAO usrDAO;
 			 this.comesFrom =  "1819"; 
 			 puedeIngresar = true; 
 			 
-			FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
-			HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
-			response.setHeader("Cache-Control", "no-cache"); 
+			//FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
+			//HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
+			//response.setHeader("Cache-Control", "no-cache"); 
 		
 		}catch(Exception ex)
 		{
@@ -93,32 +108,74 @@ private UsuarioWebDAO usrDAO;
 	
 	
 	public String cambiarPassword() {
-		PasswordService ps= PasswordService.getInstance();
-		System.out.println(this.usuario.getId());
-	//	this.usuario.setPasswordChange(true);
+
+		PasswordService ps = PasswordService.getInstance();
 		try {
-			this.usuario.setPassword(ps.encrypt(this.pass));
+			System.out.println(ps.encrypt(this.pass));
+			System.out.println(usuario.getPassword());
+			if (ps.encrypt(this.pass).equalsIgnoreCase(usuario.getPassword())) {
+				System.out.println(this.usuario.getId());
+
+				try {
+					this.usuario.setPassword(ps.encrypt(this.newPass));
+				} catch (ProtocoloDeSeguridadException e) {
+					// TODO Auto-generated catch block
+					AddErrorMessage("Se produjo un error al cambiar la contraseña.");
+				}
+				usrDAO.saveOrUpdate(this.usuario);
+				
+				//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+				//FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+				this.cambiaPass = true;
+			}else {
+				AddErrorMessage("Error la contraseña ingresada no es correcta.");
+			}
 		} catch (ProtocoloDeSeguridadException e) {
 			// TODO Auto-generated catch block
-			AddErrorMessage("Se produjo un error al cambiar la contraseña.");
-		} 
-		usrDAO.saveOrUpdate(this.usuario);
-		this.cambiaPass=true;
-			return "polizasUsuarios";
+			e.printStackTrace();
 		}
+		return "cambio_password";
+	}
 	public String cambiarTelefono() {
 	
-		System.out.println(this.usuario.getId());
-	//	this.usuario.setPasswordChange(true);
-		
-		usrDAO.saveOrUpdate(this.usuario);
-		this.cambiaPass=true;
-		
-			return "polizasUsuarios";
+		PasswordService ps = PasswordService.getInstance();
+		try {
+			System.out.println(ps.encrypt(this.pass));
+			System.out.println(usuario.getPassword());
+			if (ps.encrypt(this.pass).equalsIgnoreCase(usuario.getPassword())) {
+				System.out.println(this.usuario.getId());
+
+				
+				usrDAO.saveOrUpdate(this.usuario);
+				
+				//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+				//FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+				//this.ca = true;
+			}else {
+				AddErrorMessage("Error la contraseña ingresada no es correcta.");
+				return "cambio_usuario";
+			}
+		} catch (ProtocoloDeSeguridadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "polizasUsuarios";
 		}
 	
 	
-	 
+	public void permission() throws IOException {
+		
+
+       if(this.getUsuario().getActive() == null) {
+            System.out.println("*** The user has no permission to visit this page. *** ");
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect("salir.jsf");
+           
+        } else {
+            System.out.println("*** The session is still active. User is logged in. *** ");
+        }
+    }
+	
 	
 	private void inicializarValores()
 	{
@@ -152,16 +209,16 @@ private UsuarioWebDAO usrDAO;
 		PasswordService ps= PasswordService.getInstance();
 		PerfilAdmin perfAdmin= new PerfilAdmin(session);
 		 
-		puedeIngresar=true;
+		
 		try { 
 			
 			if(email.equals(" "))
 				throw new UsuarioNoExisteException();		
-			
+			System.out.println(ps.encrypt(clave));
+			System.out.println(clave);
 			//usuario= usrDAO.getByUserDniAndPass(dni, ps.encrypt(clave)); 
 			this.usuario= usrDAO.getByEmailAndPass(email, ps.encrypt(clave));
-			
-			usrDAO.refresh(usuario, session);
+				usrDAO.refresh(usuario, session);
 			// Chequea si el Usuario estÃ¡ Activo
 			if(!usuario.getActive())
 				throw new UsuarioNoActivoException();
@@ -184,7 +241,7 @@ private UsuarioWebDAO usrDAO;
 			
 			 
 			// this.polizas.addAll(titular.getPolizas());
-			 
+			 puedeIngresar=true;
 				   
 			return Const.ANCLA_POLIZAS_USUARIO;//Const.ANCLA_BIENVENIDO; 	
 		} catch (TitularNoExisteExcepcion ex) {
@@ -254,11 +311,12 @@ private UsuarioWebDAO usrDAO;
 	} 
 	
 	public String salir() {
+		this.puedeIngresar=false;
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		
+	
 		//NavigationUtils.redirect("/admin/login");
-		return "index";
+		return Const.ANCLA_INDEX;
 	}
 
 
@@ -389,12 +447,71 @@ private UsuarioWebDAO usrDAO;
 		this.pass = pass;
 	}
 
-	public Boolean getCambiaPass() {
+	public boolean getCambiaPass() {
 		return cambiaPass;
 	}
 
-	public void setCambiaPass(Boolean cambiaPass) {
+	public void setCambiaPass(boolean cambiaPass) {
 		this.cambiaPass = cambiaPass;
+	}
+
+	public String getNewPass() {
+		return newPass;
+	}
+
+	public void setNewPass(String newPass) {
+		this.newPass = newPass;
+	}
+
+	public String getCambiarPassword() {
+		return cambiarPassword;
+	}
+
+	public void setCambiarPassword(String cambiarPassword) {
+		this.cambiarPassword = cambiarPassword;
+	}
+
+	public boolean isCambiarTelefono() {
+		return cambiarTelefono;
+	}
+
+	public void setCambiarTelefono(boolean cambiarTelefono) {
+		this.cambiarTelefono = cambiarTelefono;
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+		   HttpServletRequest request = (HttpServletRequest) req;
+	        HttpServletResponse response = (HttpServletResponse) res;
+	        HttpSession session = request.getSession(false);
+
+	        if (session == null || session.getAttribute("user") == null) {
+	            response.sendRedirect(request.getContextPath() + "/login"); // No logged-in user found, so redirect to login page.
+	        } else {
+	            chain.doFilter(req, res); // Logged-in user found, so just continue request.
+	        }
+		
+	}
+
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getChkLogon() {
+		return chkLogon;
+	}
+
+	public void setChkLogon(String chkLogon) {
+		this.chkLogon = chkLogon;
 	}
 
 

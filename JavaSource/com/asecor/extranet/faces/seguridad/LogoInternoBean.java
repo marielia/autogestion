@@ -49,16 +49,16 @@ public class LogoInternoBean extends AbstBackingBean {
 			String url=  sistema + "/pages/web/app/salir.jsf";
 			
 			System.out.println(" entrando a  Logo Interno  "   ); 
- 			  
+			System.out.println(getRequest().getParameter("page"));
 			if(getRequest().getParameter("page")!=null  && getRequest().getParameter("page").equals("REG"))
-			{ 	  
+			{ 	  	System.out.println(getRequest().getParameter(Const.COMES_FROM));
 				if(getRequest().getParameter(Const.COMES_FROM)!=null  )
 				{  	
 				    this.comesFrom = getRequest().getParameter(Const.COMES_FROM); 
 				    getSession().setAttribute(Const.COMES_FROM, this.comesFrom ); 
 				    
 				    this.puedeIngresar = true;
-				    url = "index.jsf"; 
+				    url = "index.xhtml"; 
 	   		     } 
 			}
 			
@@ -79,7 +79,7 @@ public class LogoInternoBean extends AbstBackingBean {
 				   
 	   		     } 
 			}
-			
+			System.out.println(url);
 			
 			  ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			  ec.redirect(url); 

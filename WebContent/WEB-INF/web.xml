@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.                                                                                                                                                                        
 -->
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>extranet</display-name>
   <context-param>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
@@ -24,6 +24,7 @@
     <param-name>javax.faces.CONFIG_FILES</param-name>
     <param-value>/WEB-INF/faces-config.xml</param-value>
   </context-param>
+
   <filter>
     <filter-name>ExtensionsFilter</filter-name>
     <filter-class>
@@ -43,17 +44,41 @@
     <servlet-name>Faces Servlet</servlet-name>
   </filter-mapping>
   <servlet>
-    <servlet-name>Faces Servlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+   <servlet-name>faces</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+       
+  
     <init-param>
       <param-name>debug</param-name>
       <param-value>2</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
+  <servlet>
+    <servlet-name>BotDetect Captcha</servlet-name>
+    <servlet-class>com.captcha.botdetect.web.servlet.CaptchaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BotDetect Captcha</servlet-name>
+    <url-pattern>/botdetectcaptcha</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CaptchaFormAction</servlet-name>
+    <servlet-class>com.captcha.botdetect.examples.jsp.form.CaptchaFormAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CaptchaFormAction</servlet-name>
+    <url-pattern>/captchaFormAction</url-pattern>
+  </servlet-mapping>
+  
+  
     <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-name>faces</servlet-name>
     <url-pattern>*.jsf</url-pattern>
+  
+        <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <resource-ref>
     <res-ref-name>mail/TpgMailSession</res-ref-name>

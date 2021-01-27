@@ -30,7 +30,7 @@ public class CobranzasDAO extends BasePolizasDAO {
 			List listado = new ArrayList<Polizas>();
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(Const.PARAM_POLIZAS, pol);
-			params.put(Const.PARAM_ESTADO_CUOTA, "COB");
+			//params.put(Const.PARAM_ESTADO_CUOTA, "COB");
 						List result = this.getNamedQuery(FIND_BY_POLIZAS, params, session).list();
 			if (result.size() > 0) {
 				result.listIterator().forEachRemaining(listado::add);

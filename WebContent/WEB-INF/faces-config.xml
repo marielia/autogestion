@@ -70,7 +70,7 @@
  
     <navigation-case>
    <from-outcome>polizasUsuarios</from-outcome>
-   <to-view-id>/pages/web/app/listado_polizas.jsp</to-view-id>
+   <to-view-id>/pages/web/app/listado_polizas.xhtml</to-view-id>
   </navigation-case>
   <!--
    <navigation-case>
@@ -79,7 +79,7 @@
   </navigation-case> -->
    <navigation-case>
    <from-outcome>registrar</from-outcome>
-   <to-view-id>/pages/web/app/registracion.jsp</to-view-id>
+   <to-view-id>/pages/web/app/registracion.xhtml</to-view-id>
   </navigation-case>
    <navigation-case>
    <from-outcome>indexTemp</from-outcome>
@@ -88,38 +88,13 @@
   
   <navigation-case>
    <from-outcome>index</from-outcome>
-   <to-view-id>/pages/web/index.jsp</to-view-id>
+   <to-view-id>/pages/web/index.xhtml</to-view-id>
   </navigation-case>
   <navigation-case>
    <from-outcome>cambio_password</from-outcome>
-   <to-view-id>/pages/web/app/cambio_password.jsp</to-view-id>
+   <to-view-id>/pages/web/app/cambio_password.xhtml</to-view-id>
   </navigation-case>
-  <navigation-case>
-   <from-outcome>lista_reportes_disponibles</from-outcome>
-   <to-view-id>/pages/web/app/reportes/ref_lista_reportes_actual.jsp</to-view-id>
-  </navigation-case>
-  
-  <navigation-case>
-   <from-outcome>lista_choferes</from-outcome>
-   <to-view-id>/pages/web/app/reportes/ref_reporte_choferes.jsp</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>lista_vehiculos</from-outcome>
-   <to-view-id>/pages/web/app/reportes/ref_reporte_vehiculos.jsp</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>ver_documento</from-outcome>
-   <to-view-id>/pages/web/app/verDocumento.jsp</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>mesa_ayuda_alta_modificacion</from-outcome>
-   <to-view-id>/pages/web/app/formularios/ref_mesa_ayuda.jsp</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>lista_autorizaciones</from-outcome>
-   <to-view-id>/pages/web/app/reportes/ref_reporte_autorizaciones_usadas.jsp</to-view-id>
-  </navigation-case>
- </navigation-rule>
+  </navigation-rule>
  <application>
   <locale-config>
    <default-locale>es_AR</default-locale>

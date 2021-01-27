@@ -48,9 +48,6 @@ public void sendMail(String from, String to, String subject, String messageBody)
 }
 
 
- 
-
-
 public  void enviarConGMail( ) throws Exception {
 	
 	FileUtil fileUtil= new FileUtil();
@@ -135,5 +132,6 @@ public  void enviarConGMail( ) throws Exception {
 	}
 	
 }
+
 
 }

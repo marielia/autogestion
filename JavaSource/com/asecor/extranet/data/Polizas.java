@@ -1,6 +1,8 @@
 
 package com.asecor.extranet.data;
 
+import java.text.SimpleDateFormat;
+
 // Generated 21/04/2020 02:39:42 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
@@ -95,7 +97,10 @@ public class Polizas implements java.io.Serializable {
 	public Date getFechaAlta() {
 		return fechaAlta;
 	}
-
+	public String getFechaAltaString() {
+		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(fechaAlta);
+	}
 	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}

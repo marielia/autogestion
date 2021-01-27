@@ -20,7 +20,7 @@ import com.asecor.util.io.FileUtil;
 import com.asecor.util.seguridad.Autenticador;
 import com.asecor.util.seguridad.PassGenerator;
 import com.asecor.util.seguridad.PasswordService;
- 
+import com.captcha.botdetect.web.jsf.JsfCaptcha;
 import com.asecor.extranet.data.TitularWeb;
 import com.asecor.extranet.data.dao.UsuarioWebDAO;
 import com.asecor.extranet.faces.base.AbstBackingBean;
@@ -43,6 +43,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
+
 public class UserRegisterBean extends AbstBackingBean{
 
 	private Integer id;
@@ -53,7 +54,7 @@ public class UserRegisterBean extends AbstBackingBean{
 	private String phoneNumber;
 	private String email;	
 	private java.lang.Boolean mostrarResultado;
-	private long dni;
+	private Long dni;
 	private Date fechaNacimiento;
 	
 	private String codigoCliente;
@@ -63,10 +64,11 @@ public class UserRegisterBean extends AbstBackingBean{
 	protected List<SelectItem> estados;
 	
 	private String comesFrom;
-		
+	private String captchaCode;
+	  private JsfCaptcha captcha;
 	public UserRegisterBean() throws Exception {
 		super();
-		 		
+		
 		session= (new UsuarioWebDAO()).getSession();
 		inicializar(); 
 		
@@ -82,7 +84,7 @@ public class UserRegisterBean extends AbstBackingBean{
 		surname = "";
 		email = "";
 		phoneNumber = "";
-		dni=0;
+		//dni=0;
 		fechaNacimiento=new Date();
 		
 		estados = new ArrayList<SelectItem>(); 
@@ -91,57 +93,76 @@ public class UserRegisterBean extends AbstBackingBean{
 		estado = 0;
 		 
 	}
-	
-	 
-	public String aceptar() { 
-		PerfilAdmin perfAdmin = new PerfilAdmin(session);
-		try {
-			PasswordService ps= PasswordService.getInstance();
-			TitularWeb usuario =  new TitularWeb();
-			DataUtil dataUtil = new DataUtil();
-			DateTO dateTO = dataUtil.getFechaActual();
-			usuario.setNombres(nombres);
-			//usuario.setSurname(surname.trim()); 
-			usuario.setEmail(email.trim());
-			usuario.setTelefono(phoneNumber.trim()); 
-			usuario.setActive(true); 
-			usuario.setCreateDate(new Date());
-			usuario.setCreateUser(Const.SISTEMA);
-			usuario.setPin(new Date().getTime()+""); 
-			usuario.setConfirmed(false); 
-			usuario.setDni(dni); 
-			usuario.setFechaNacimiento(fechaNacimiento);
-			//guardar la relacion usuario y agencia
-			UsuarioWebDAO userDAO =  new UsuarioWebDAO(session);
-			 
-			usuario = userDAO.registerUser(usuario); 
-			 
-			mostrarResultado= true;
-			
-			if(estado == 0)
-			{
-				//registracion por email
-				 enviarConGMail(usuario); 
-				
-			} 
-			
-		} catch (PersonaNoExisteException ex) {
-			AddErrorMessage(ex.getMessage());			
-		} catch (UsuarioYaRegistradoException ex) {
-			AddErrorMessage(ex.getMessage());
-		} catch (ExisteEmailException ex) {
-			AddErrorMessage(ex.getMessage()); 
-		}catch (DataAccessErrorException ex) {
-			AddErrorMessage(ex.getMessage()); 
-		} catch(Exception ex) {
-			ex.printStackTrace();
-			AddErrorMessage("Se produjo un error desconocido al realizar la registración.");
-		}
-		return "registrar";
-	}
+	public void validate() {
+	    // validate the Captcha to check we're not dealing with a bot
+	    boolean isHuman = captcha.validate(captchaCode);
 
-	
+	    if (isHuman) {
+	      // TODO: Captcha validation passed, perform protected action
+	    } else {
+	      // TODO: Captcha validation failed, show error message
+	    }
+
+	   
+	  }
 	 
+		public String aceptar() {
+			boolean isHuman = captcha.validate(captchaCode);
+			if (isHuman) {
+				PerfilAdmin perfAdmin = new PerfilAdmin(session);
+				try {
+					PasswordService ps = PasswordService.getInstance();
+					TitularWeb usuario = new TitularWeb();
+					DataUtil dataUtil = new DataUtil();
+					DateTO dateTO = dataUtil.getFechaActual();
+					usuario.setNombres(nombres);
+					// usuario.setSurname(surname.trim());
+					usuario.setEmail(email.trim());
+					usuario.setTelefono(phoneNumber.trim());
+					usuario.setActive(true);
+					usuario.setCreateDate(new Date());
+					usuario.setCreateUser(Const.SISTEMA);
+					usuario.setPin(new Date().getTime() + "");
+					usuario.setConfirmed(false);
+					usuario.setDni(dni);
+					usuario.setFechaNacimiento(fechaNacimiento);
+					// guardar la relacion usuario y agencia
+					UsuarioWebDAO userDAO = new UsuarioWebDAO(session);
+					if (!userDAO.existEmail(email.trim())) {
+						usuario = userDAO.registerUser(usuario);
+
+						mostrarResultado = true;
+
+						if (estado == 0) {
+							// registracion por email
+							enviarConGMail(usuario);
+
+						}
+					} else {
+						throw new ExisteEmailException();
+					}
+				} catch (PersonaNoExisteException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (UsuarioYaRegistradoException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (ExisteEmailException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (DataAccessErrorException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					AddErrorMessage("Se produjo un error desconocido al realizar verificar el email.");
+					mostrarResultado = false;
+
+				}
+
+			} else {
+				this.captchaCode = "";
+				AddErrorMessage("Debe ingresar los caracteres del catpcha");
+				mostrarResultado = false;
+			}
+			return "registrar";
+		}
 	 
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
@@ -156,9 +177,7 @@ public class UserRegisterBean extends AbstBackingBean{
 	}
 
 
-	
 
- 
 	  
 private  void enviarConGMail(TitularWeb olUser) throws Exception {
 		
@@ -169,12 +188,12 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
    		String mail_smtp_ssl_trust= property.getProperty("mail_smtp_ssl_trust");
    		String mail_smtp_starttls_enable= property.getProperty("mail_smtp_starttls_enable");
    		String mail_smtp_port = property.getProperty("mail_smtp_port");
-   		String mail_smtp_user = property.getProperty("mail_smtp_user");
+   	//	String mail_smtp_user = property.getProperty("mail_smtp_user");
    		String mail_smtp_auth = property.getProperty("mail_smtp_auth");
    		String mail_from = property.getProperty("mail_from");
    		System.out.println(" olUser.getEmail() "+ olUser.getEmail());
    		String mail_to = olUser.getEmail();
-        String subject =  GetMensaje(property.getProperty("asuntoRegistracion"));
+      //  String subject =  GetMensaje(property.getProperty("asuntoRegistracion"));
  	    String body =   GetMensaje(property.getProperty("cuerpoRegistracion")); 
    	   
 		Properties props = new Properties();
@@ -237,6 +256,7 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
 		t.connect();
 		try {
 			t.sendMessage(message,message.getAllRecipients());
+			
 		} finally {
 			t.close();
 		}
@@ -406,6 +426,22 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
 
 	public void setComesFrom(String comesFrom) {
 		this.comesFrom = comesFrom;
+	}
+
+	public String getCaptchaCode() {
+		return captchaCode;
+	}
+
+	public void setCaptchaCode(String captchaCode) {
+		this.captchaCode = captchaCode;
+	}
+
+	public JsfCaptcha getCaptcha() {
+		return captcha;
+	}
+
+	public void setCaptcha(JsfCaptcha captcha) {
+		this.captcha = captcha;
 	}
 
 	 

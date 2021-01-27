@@ -132,19 +132,20 @@
 
 							</h:column>
 							
-							<h:column rendered="#{consultaPoliza.cancelar}">
+							<h:column rendered="#{consultaPoliza.poliza.codEstadoPoliza eq 'X' }">
 								<h:outputLabel for="motAnu" styleClass="mediumFont"
 									value="#{Message.tit_anulacion_tr_label}"></h:outputLabel>
 							</h:column>
-							<h:column rendered="#{consultaPoliza.cancelar}">
-								<h:inputText disabled="true" id="motAnu"
+							<h:column >
+							
+								<h:inputText disabled="true" id="motAnu" rendered="#{consultaPoliza.poliza.codEstadoPoliza eq 'X' }"
 									value="#{consultaPoliza.poliza.detalleAnulacion}" />
 							</h:column>
-							<h:column rendered="#{consultaPoliza.cancelar}">
+							<h:column rendered="#{consultaPoliza.poliza.codEstadoPoliza eq 'X' }">
 								<h:outputLabel for="fechanu" styleClass="mediumFont"
 									value="#{Message.tit_fecha_anulacion_tr_label}"></h:outputLabel>
 							</h:column>
-							<h:column rendered="#{consultaPoliza.cancelar}">
+							<h:column rendered="#{consultaPoliza.poliza.codEstadoPoliza eq 'X'}">
 								<h:inputText disabled="true" id="fechanu"
 									value="#{consultaPoliza.poliza.fechaAnulacion}" />
 							</h:column>
@@ -306,8 +307,8 @@
 									<h:outputText value="#{Message.tit_importe_pago_label}"></h:outputText>
 								</f:facet>
 
-								<h:outputText value="#{cobranza.importePago}"></h:outputText>
-
+								<h:outputText value="#{cobranza.importePago}" rendered="#{cobranza.importePago gt 0.0 }" />
+                                  <h:outputText value="#{cobranza.importe}" rendered="#{cobranza.importePago eq 0.0 }" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
@@ -347,9 +348,10 @@
 									<f:param name="nombre" value="#{consultaPoliza.poliza.titular.nombre}" ></f:param>
 									<f:param name="apellido" value="#{consultaPoliza.poliza.titular.apellido}" ></f:param>
 									<f:param name="dni" value="#{consultaPoliza.poliza.titular.nroDocumento}" ></f:param>
-									<f:param name="fechNac" value="#{consultaPoliza.poliza.titular.fechaNacimiento}" ></f:param>
+									<f:param name="fechNac" value="#{consultaPoliza.poliza.titular.fechaNacimientoString}" ></f:param>
 									<f:param name="domicilio" value="#{consultaPoliza.poliza.titular.domicilioCompleto}" ></f:param>
-									<f:param name="vigencia" value="#{consultaPoliza.poliza.fechaAlta}" ></f:param>
+									<f:param name="vigencia" value="#{consultaPoliza.poliza.
+									fechaAltaString}" ></f:param>
 									
 									<f:param name="plan" value="#{consultaPoliza.poliza.plan}" ></f:param>
 									
@@ -357,6 +359,22 @@
 							<td width="200px"><t:commandButton action="polizasUsuarios"
 									value="VOLVER" styleClass="botonAceptar"></t:commandButton>
 							</td>
+							<td width="200px">
+							
+							       
+							<h:commandButton id="btntraeta" onclick="this.form.target = '_blank'"
+									value="TARJETA" styleClass="botonAceptar" 
+									actionListener="#{consultaPoliza.exportarTarjeta}">
+									<f:param name="nroCertificado" value="#{consultaPoliza.poliza.nroCertificado}" ></f:param>
+									<f:param name="nombre" value="#{consultaPoliza.poliza.titular.nombre}" ></f:param>
+									<f:param name="apellido" value="#{consultaPoliza.poliza.titular.apellido}" ></f:param>
+									<f:param name="dni" value="#{consultaPoliza.poliza.titular.nroDocumento}" ></f:param>
+									<f:param name="fechNac" value="#{consultaPoliza.poliza.titular.fechaNacimientoString}" ></f:param>
+										<f:param name="vigencia" value="#{consultaPoliza.poliza.fechaAltaString}" ></f:param>
+									
+									<f:param name="plan" value="#{consultaPoliza.poliza.plan}" ></f:param>
+									
+									</h:commandButton></td>
 						</tr>
 					</table>
 

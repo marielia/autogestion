@@ -63,7 +63,7 @@ public class LogoFirstBean extends AbstBackingBean {
 			
 			 this.puedeIngresar=true;
 			 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		     ec.redirect("index.jsf"); 
+		     ec.redirect("index.xhtml"); 
  
 		
 		}catch(Exception ex)
