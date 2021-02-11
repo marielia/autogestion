@@ -171,7 +171,7 @@
 
 			<div class="mainHeader">USUARIO</div>
 		<div class="mainContentTop">
-				<h:form id="frmRegistra">
+				<h:form id="frmRegistracion">
 
 
 
@@ -207,18 +207,13 @@
 										value="#{Message.tit_phone_label}" /> </span>  <label for="tel"></label></td><td>
 							 <h:inputText value="#{logonBean.usuario.telefono}" id="tel"></h:inputText></td>
 						</tr>
-						<tr>
+					<!--  	<tr>
 							<td align="left" valign="top"><span
 								class="mediumFont"><h:outputText  
 										value="#{Message.tit_nacimiento_tr_label}" /> </span>   <label for="cumple"></label></td><td>
-							 <h:inputText  disabled="true"  value="#{logonBean.usuario.fechaNacimiento}" id="cumple"></h:inputText></td>
+							 <h:inputText    value="#{logonBean.usuario.fechaNacimiento}" id="cumple"></h:inputText></td>
 						</tr>
-						<tr>
-							<td align="left" valign="top"><span
-								class="mediumFont"><h:outputText
-										value="#{Message.tit_documento_tr_label}" /> </span> <label for="dni"></label></td><td>
-							 <h:inputText disabled="true" value="#{logonBean.usuario.dni}" id="dni"></h:inputText></td>
-						</tr>
+						-->
 						<tr>
 							   <td   align="center">
 									<h:commandButton

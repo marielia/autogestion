@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Produces;
 
 import org.hibernate.Session;
 
@@ -145,7 +146,7 @@ private String cambiarPassword;
 			if (ps.encrypt(this.pass).equalsIgnoreCase(usuario.getPassword())) {
 				System.out.println(this.usuario.getId());
 
-				
+				this.usuario.setNombres(this.usuario.getNombres().toUpperCase());
 				usrDAO.saveOrUpdate(this.usuario);
 				
 				//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
@@ -222,6 +223,7 @@ private String cambiarPassword;
 			// Chequea si el Usuario estÃ¡ Activo
 			if(!usuario.getActive())
 				throw new UsuarioNoActivoException();
+				
 			
 			if(usuario.getPasswordChange())
 				throw new DataAccessErrorException("El usuario no terminó el proceso de cambio de contraseña");
@@ -242,7 +244,9 @@ private String cambiarPassword;
 			 
 			// this.polizas.addAll(titular.getPolizas());
 			 puedeIngresar=true;
-				   
+			 if(!usuario.getConfirmed())
+				 return Const.ANCLA_EMAIL; 
+			 
 			return Const.ANCLA_POLIZAS_USUARIO;//Const.ANCLA_BIENVENIDO; 	
 		} catch (TitularNoExisteExcepcion ex) {
 			sesion.setAttribute(Const.USUARIO, null);
@@ -257,7 +261,8 @@ private String cambiarPassword;
 				 try {
 					 System.out.println("codigoCliente ");
 					 usuario= usrDAO.getByUserDni(usuario.getDni());
-					
+					 if(usuario==null)
+					throw new UsuarioNoExisteException();
 					// Chequea si el Usuario estÃ¡ Activo
 				 	if(!usuario.getActive())
 				 	   throw new UsuarioNoActivoException();
@@ -266,8 +271,8 @@ private String cambiarPassword;
 				 	
 				 	System.out.println("El usuario o la contraseña no son válidos.");
 					AddErrorMessage("El usuario o la contraseña no son válidos.");
-					 
-					 return Const.ANCLA_INDEX;
+					
+					 //return Const.ANCLA_INDEX;
 			    } catch(UsuarioNoActivoException exp) {
 					// Chequea si es un Usuario Interno
 					exp.printStackTrace();
@@ -308,6 +313,7 @@ private String cambiarPassword;
 			//if(sesion.isNew())
 			//session.close();
 		}
+		 return Const.ANCLA_INDEX;
 	} 
 	
 	public String salir() {

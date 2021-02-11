@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:jsf="http://xmlns.jcp.org/jsf"
+      >
+      <f:metadata>
+        <f:event type="preRenderView" listener="#{logonBean.permission()}"/>
+</f:metadata>
+      
+      <f:loadBundle basename="com.asecor.extranet.bundle.Messages_es_AR"
+	var="Message" />
+	
+    <h:body  class="cover">
+    	<link rel="stylesheet" type="text/css"
+	href="/template/css/asecor.css"/>
+    	<ui:composition template="/pages/web/app/template/common/commonLayout.xhtml">
+    	
+    		<ui:define name="content">
+    			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <h:form>
+ <td align="left">
+	<div class="mainContainer">
+		
+
+			<div class="mainHeader">DATOS TITULAR</div>
+		<div class="mainContentTop">
+		
+		
+
+			<h:panelGrid width="90%" border="0" cellpadding="5" cellspacing="1" 
+				columns="4" styleClass="mainTable">
+				<h:column>
+
+					<h:outputLabel for="nombre" value="NOMBRE Y APELLIDO"></h:outputLabel>
+				</h:column>
+				<h:column>
+					<h:inputText  id="nombre" disabled="true"
+						value="#{logonBean.titular.nombre},#{logonBean.titular.apellido} " />
+
+
+				</h:column>
+				<h:column>
+					<h:outputLabel value="#{Message.tit_documento_tr_label}" for="dni"></h:outputLabel>
+				</h:column>
+				<h:column>
+					<h:inputText disabled="true" id="dni"
+						value="#{logonBean.titular.nroDocumento}" />
+				</h:column>
+				<h:column>
+					<h:outputLabel for="email" value="#{Message.email_label}"></h:outputLabel>
+				</h:column>
+				<h:column>
+					<h:inputText id="email" disabled="true"
+						value="#{logonBean.email} " />  &nbsp;
+				
+				</h:column>
+				<h:column>
+					<h:outputLabel for="codigo" value="#{Message.codigo_label}"></h:outputLabel>
+				</h:column>
+				<h:column>
+			
+					<h:inputText  id="codigo"
+						value="#{userRegisterBean.pin}" />
+				</h:column>
+				
+
+			</h:panelGrid>
+		</div>
+							
+<div class="mainContainer">
+			<div class="mainHeader">VALIDACION DE EMAIL</div>		
+					<div class="mainContentTop">
+
+						<table width="100%" border="0" cellspacing="1" cellpadding="0">
+							<tr>
+								<td><p>
+										* <strong>ENVIAR EMAIL</strong>: Se enviara un Email a la casilla declarada con un codigo de verificacion <br /> 
+										* <strong>VALIDAR EMAIL</strong>: Con codigo de verificacion , se completa el proceso de validacion del e-mail <br /> 
+									</p>
+									</td>
+									</tr>
+									</table>
+									</div>
+									</div>
+			
+		</div>
+		
+
+
+		
+	
+		
+			
+			<div align="center" >
+			<table>
+						<tr>
+						<td width="500px">
+			<h:commandButton action="#{userRegisterBean.enviarEmail}"
+									value="ENVIAR EMAIL" styleClass="botonAceptar" >
+								<f:param name="email" value="#{logonBean.email}" ></f:param>
+							
+									</h:commandButton>
+									
+				
+									</td>
+							<td width="500px">
+			<h:commandButton action="#{userRegisterBean.verificarEmail}"
+									value="VALIDAR EMAIL" styleClass="botonAceptar" >
+								<f:param name="email" value="#{logonBean.email}" ></f:param>
+								
+									</h:commandButton>
+									
+				
+									</td>
+									<td width="200px">
+			
+									
+				<h:commandButton action="polizasUsuarios"
+									value="AHORA NO" styleClass="botonAceptar"></h:commandButton>
+									</td>
+									</tr>
+									</table>
+									</div>
+			
+	
+	
+	</td>
+	</h:form>
+	</tr>
+	</table>
+    		</ui:define>
+    		
+        <ui:define name="footer">
+    			<h2></h2>
+    		</ui:define>
+            
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

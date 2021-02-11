@@ -18,6 +18,7 @@ public class Const {
 	public static String ANCLA_CAMBIO_PASSWORD= "cambio_password"; 
 	public static String ANCLA_BIENVENIDO= "bienvenido";
 	public static String ANCLA_POLIZAS_USUARIO = "polizasUsuarios";
+	public static String ANCLA_EMAIL="validarEmail";
 	
 	public static String SEGUNDOS_LOGON_FALLIDO="segundos_logon_fallido";
 	public static int INTENTO_FALLIDOS=2000;

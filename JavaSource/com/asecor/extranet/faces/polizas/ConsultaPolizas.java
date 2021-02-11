@@ -125,7 +125,7 @@ public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException
 		
 		
 		Map params = externalContext.getRequestParameterMap();
-		;
+		
 
 		 this.adherentes=(List)this.getSession().getAttribute("adherentes");
 			if(null==this.adherentes){

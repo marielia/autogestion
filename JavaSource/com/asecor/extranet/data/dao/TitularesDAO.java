@@ -227,11 +227,13 @@ public class TitularesDAO extends BaseOlUserDAO implements com.asecor.extranet.d
 						
    }
 
-	public Titulares findTitularByUserDni(Long dni) throws UsuarioNoExisteException, DataAccessErrorException, TitularNoExisteExcepcion {
+	public Titulares findTitularByUserDni(String dni) throws UsuarioNoExisteException, DataAccessErrorException, TitularNoExisteExcepcion {
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
+			System.out.println(dni);
 			
-			params.put(Const.DNI, dni);
+			System.out.println( Long.valueOf(dni));
+			params.put(Const.DNI, Long.valueOf(dni));
 			//params.put(Const.ACTIVE, true);
 			
 			Query usuariosQry = this.getNamedQuery(FIND_TITULAR_BY_DNI, params, session);

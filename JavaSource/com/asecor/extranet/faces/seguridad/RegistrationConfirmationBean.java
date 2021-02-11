@@ -140,6 +140,10 @@ public class RegistrationConfirmationBean extends AbstBackingBean{
 		
 	}
   
+	public String verificarEmail() {
+		return Const.SALIR;
+	}
+	
 	
 	 
 	public String cancelar() {

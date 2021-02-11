@@ -147,7 +147,16 @@ public abstract class BaseTitulares  implements Serializable {
 	}
 
 public String getDomicilioCompleto(){
-	return this.domicilio.concat(" ").concat(this.numero.toString()).concat(",").concat(this.localidad);
+String numerotxt="";
+	if (null==this.domicilio) 
+	this.domicilio="Sin datos";
+	if (null==this.localidad) 
+		this.localidad=" ";
+	if (null==this.numero) 
+		numerotxt="S/N";
+	else
+		numerotxt=this.numero.toString();
+	return this.domicilio.concat(" ").concat(numerotxt).concat(",").concat(this.localidad);
 }
 	
 

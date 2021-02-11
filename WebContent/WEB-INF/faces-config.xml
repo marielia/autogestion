@@ -72,6 +72,10 @@
    <from-outcome>polizasUsuarios</from-outcome>
    <to-view-id>/pages/web/app/listado_polizas.xhtml</to-view-id>
   </navigation-case>
+    <navigation-case>
+   <from-outcome>validarEmail</from-outcome>
+   <to-view-id>/pages/web/app/validarEmail.xhtml</to-view-id>
+  </navigation-case>
   <!--
    <navigation-case>
    <from-outcome>polizasUsuarios</from-outcome>

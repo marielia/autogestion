@@ -109,11 +109,11 @@ public class ForgotYouPasswordBean extends AbstBackingBean {
 			usrDAO.refresh(usuario, session);
 									
 			// Chequea si el Usuario  confirmado			 		
-			 if(!usuario.getConfirmed())
-			 	throw new UsuarioNoConfirmadoException("El usuario no confirmó su registro"); 
+			 //if(!usuario.getConfirmed())
+			 	//throw new UsuarioNoConfirmadoException("El usuario no confirmó su registro"); 
 		 					 
 			perfAdmin.limpiarIntentosFallidos(usuario);
-			
+			//FIXME aca puse las barra
 			//genera una clave 
 			usuario.setPin(new Date().getTime()+"");
 			cambiarPIN(usuario);
@@ -126,9 +126,9 @@ public class ForgotYouPasswordBean extends AbstBackingBean {
 			ex.printStackTrace();
 			//inicializar();
 			AddErrorMessage(ex.getMessage());			
-		} catch (UsuarioNoConfirmadoException ex) {			
+		//} catch (UsuarioNoConfirmadoException ex) {			
 			//inicializar();
-			AddErrorMessage(ex.getMessage());			
+			//AddErrorMessage(ex.getMessage());			
 		}  catch (DataAccessErrorException ex) {
 			ex.printStackTrace();			
 			//inicializar();
@@ -263,8 +263,8 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
 			 
 			 System.out.println("comesFrom "+comesFrom);
 			 
-			 if(mensaje.indexOf("#comesFrom#") >= 0)
-				 	mensaje = mensaje.replaceFirst("#comesFrom#",  this.comesFrom);
+			// if(mensaje.indexOf("#comesFrom#") >= 0)
+				 //	mensaje = mensaje.replaceFirst("#comesFrom#",  this.comesFrom);
 			 
 			 
 			 

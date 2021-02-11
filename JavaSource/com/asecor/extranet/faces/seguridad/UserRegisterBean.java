@@ -4,15 +4,20 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
- 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent; 
 import javax.faces.model.SelectItem; 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
@@ -21,6 +26,10 @@ import com.asecor.util.seguridad.Autenticador;
 import com.asecor.util.seguridad.PassGenerator;
 import com.asecor.util.seguridad.PasswordService;
 import com.captcha.botdetect.web.jsf.JsfCaptcha;
+
+
+import jdk.jfr.Name;
+
 import com.asecor.extranet.data.TitularWeb;
 import com.asecor.extranet.data.dao.UsuarioWebDAO;
 import com.asecor.extranet.faces.base.AbstBackingBean;
@@ -31,6 +40,7 @@ import com.asecor.extranet.to.DateTO;
 import com.asecor.extranet.util.exception.DataAccessErrorException;
 import com.asecor.extranet.util.exception.ExisteEmailException;
 import com.asecor.extranet.util.exception.PersonaNoExisteException;
+import com.asecor.extranet.util.exception.UsuarioNoExisteException;
 import com.asecor.extranet.util.exception.UsuarioYaRegistradoException; 
 
 import javax.mail.Message;
@@ -54,18 +64,23 @@ public class UserRegisterBean extends AbstBackingBean{
 	private String phoneNumber;
 	private String email;	
 	private java.lang.Boolean mostrarResultado;
-	private Long dni;
+	private String dni;
+	private String pin;
 	private Date fechaNacimiento;
-	
+	private String pass;
 	private String codigoCliente;
 	private String nombreUsuario;  
-	
+	private String repetpass;
 	protected Integer estado;	
 	protected List<SelectItem> estados;
+	
+
 	
 	private String comesFrom;
 	private String captchaCode;
 	  private JsfCaptcha captcha;
+	  
+	
 	public UserRegisterBean() throws Exception {
 		super();
 		
@@ -82,7 +97,7 @@ public class UserRegisterBean extends AbstBackingBean{
 		id = 0;		
 		nombres = "";
 		surname = "";
-		email = "";
+		//email = "";
 		phoneNumber = "";
 		//dni=0;
 		fechaNacimiento=new Date();
@@ -161,8 +176,200 @@ public class UserRegisterBean extends AbstBackingBean{
 				AddErrorMessage("Debe ingresar los caracteres del catpcha");
 				mostrarResultado = false;
 			}
+			
 			return "registrar";
 		}
+		
+		public String confirmar() {
+			session= (new UsuarioWebDAO()).getSession();
+			PerfilAdmin perfAdmin = new PerfilAdmin(session);
+			try {
+				TitularWeb usuario =  new TitularWeb(); 
+				UsuarioWebDAO olUserDAO= new UsuarioWebDAO(session);
+				//this.dni;
+				try {
+					//olUserDAO.getByUserDniAndPass(dni, pass)
+					//System.out.println("pin " +  pin );
+					System.out.println("email " +  email );
+					usuario = olUserDAO.getByEmailAndDNI(email,dni);
+				}
+				catch(UsuarioNoExisteException ex)
+				{
+					//el pin y el mail no son validos
+					throw new UsuarioNoExisteException("La clave de ingreso no es válida.");
+				} 
+				
+				 
+			/*	 {
+				// usuario = olUserDAO.getByUserName( this.dni );
+				 if(usuario!=null)
+					 throw new UsuarioYaRegistradoException("El nombre de usuario ya está registrado"); 
+				}catch(UsuarioNoExisteException ex)
+				{
+					
+				}
+				
+				*/
+				PasswordService ps= PasswordService.getInstance();
+				
+				DataUtil dataUtil = new DataUtil();
+				DateTO dateTO = dataUtil.getFechaActual(); 
+				//usuario = olUserDAO.ExistPinAndEmail(this.pin, this.email);
+				//usuario.setUserName(username); 
+			    usuario.setPassword(ps.encrypt(this.pass)); 
+				usuario.setUpdateDate( new Date());
+				usuario.setUpdateUser(Const.SISTEMA);  
+				usuario.setFailedLogons(0); 
+				usuario.setPasswordChange(false);
+				usuario.setConfirmed(false); 
+				usuario.setLastFailedLogon(new Date());
+				
+				usuario= olUserDAO.confirmUser(usuario); 
+				
+			//	OlUserAgencyDAO olUserAgencyDAO = new OlUserAgencyDAO(session);
+			//	OlUserAgency olUserAgency =	olUserAgencyDAO.getByUser(usuario.getId());			
+			//	this.comesFrom= olUserAgency.getAgencyId().toString();
+				 
+				mostrarResultado= true; 
+				
+				System.out.println("comesFrom= " +  this.comesFrom  );
+				
+			} catch (UsuarioNoExisteException ex) {
+				AddErrorMessage(ex.getMessage());
+			}  catch (DataAccessErrorException ex) {
+				AddErrorMessage(ex.getMessage()); 
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				AddErrorMessage("Se produjo un error al confirmar la registración.");
+			}
+			return "index";
+		}
+		public String aceptarNuevo() {	
+			boolean isHuman = captcha.validate(captchaCode);
+			if (isHuman) {
+				PerfilAdmin perfAdmin = new PerfilAdmin(session);
+				try {
+					PasswordService ps = PasswordService.getInstance();
+					TitularWeb usuario = new TitularWeb();
+					DataUtil dataUtil = new DataUtil();
+					DateTO dateTO = dataUtil.getFechaActual();
+					usuario.setNombres(nombres);
+					// usuario.setSurname(surname.trim());
+					usuario.setEmail(email.trim());
+					usuario.setTelefono(phoneNumber.trim());
+					usuario.setActive(true);
+					usuario.setCreateDate(new Date());
+					usuario.setCreateUser(Const.SISTEMA);
+					usuario.setPin(new Date().getTime() + "");
+					usuario.setConfirmed(false);
+					usuario.setDni(dni);
+					//Calendar fecha= GregorianCalendar.getInstance();
+					//fecha.set(Calendar.YEAR,fecha.get(Calendar.YEAR)-1);
+					//if(fechaNacimiento.after(fecha.getTime()))
+						//throw new Exception("Ingrese la fecha de Nacimiento correcta");
+					//usuario.setFechaNacimiento(fechaNacimiento);
+					// guardar la relacion usuario y agencia
+					UsuarioWebDAO userDAO = new UsuarioWebDAO(session);
+					
+					if(null!=userDAO.getByUserDni(dni)) {
+						throw new UsuarioYaRegistradoException("El Usuario ya esta registrado");
+					}
+					
+					if (userDAO.existEmail(email.trim())) 
+						throw new ExisteEmailException();
+						
+					
+						
+						usuario = userDAO.registerUser(usuario);
+
+						mostrarResultado = true;
+
+						//if (estado == 0) {
+							// registracion por email
+						//	enviarConGMail(usuario);
+
+					//}
+					
+				} catch (PersonaNoExisteException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (UsuarioYaRegistradoException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (ExisteEmailException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (DataAccessErrorException ex) {
+					AddErrorMessage(ex.getMessage());
+				} catch (UsuarioNoExisteException ex) {
+					AddErrorMessage(ex.getMessage());
+					
+					
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					AddErrorMessage("Ingrese la fecha de Nacimiento correcta");
+					mostrarResultado = false;
+
+				}
+
+			} else {
+				this.captchaCode = "";
+				AddErrorMessage("Debe ingresar los caracteres del catpcha");
+				mostrarResultado = false;
+			}
+			return "registrar";
+			}
+		
+		public String enviarEmail() {
+			FacesContext facesContext = FacesContext. getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+		
+			Map params = externalContext.getRequestParameterMap();
+			TitularWeb usuario=new TitularWeb();
+			UsuarioWebDAO userDAO = new UsuarioWebDAO(session);
+			try {
+				usuario=userDAO.getUserByEmail(params.get("email").toString());
+			} catch (DataAccessErrorException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (UsuarioNoExisteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			usuario.setEmail(params.get("email").toString());
+			usuario.setNombres(usuario.getNombres().toUpperCase());
+			usuario.setPin(usuario.getPin());
+			try {
+				enviarConGMail(usuario);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return "polizasUsuarios";
+		}
+	public String verificarEmail() {	
+		FacesContext facesContext = FacesContext. getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+	
+		Map params = externalContext.getRequestParameterMap();
+		TitularWeb usuario=new TitularWeb();
+		UsuarioWebDAO userDAO = new UsuarioWebDAO(session);
+		try {
+			usuario=userDAO.getUserByEmail(params.get("email").toString());
+		} catch (DataAccessErrorException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UsuarioNoExisteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if (!this.pin.isEmpty()) {
+			if(usuario.getPin().toString().equalsIgnoreCase(this.pin)) {
+				usuario.setConfirmed(true);
+				userDAO.update(usuario);
+			}
+		}
+		
+		return "polizasUsuarios";
+	}
 	 
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
@@ -340,11 +547,11 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
 		super.finalize();
 	}
 
-	public Long getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(Long dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
@@ -442,6 +649,30 @@ private  void enviarConGMail(TitularWeb olUser) throws Exception {
 
 	public void setCaptcha(JsfCaptcha captcha) {
 		this.captcha = captcha;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public String getRepetpass() {
+		return repetpass;
+	}
+
+	public void setRepetpass(String repetpass) {
+		this.repetpass = repetpass;
+	}
+
+	public String getPin() {
+		return pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
 	}
 
 	 

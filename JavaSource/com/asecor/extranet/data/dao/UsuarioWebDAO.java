@@ -49,6 +49,21 @@ public class UsuarioWebDAO extends BaseOlUserDAO implements com.asecor.extranet.
 			else return false;
 		
 	}
+	public TitularWeb getUserByEmail( String email) throws DataAccessErrorException, UsuarioNoExisteException {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+	
+		params.put(Const.PARAM_EMAIL, email);
+		params.put(Const.ACTIVE, true);
+		
+		Query usuarioQry = this.getNamedQuery(FIND_USER_BY_EMAIL, params, session);
+		List usuarios= usuarioQry.list();
+		if(usuarios.size()>0)
+			return (TitularWeb)usuarios.get(0);
+		else return null;
+	
+		 
+}
 	
 	public TitularWeb ExistPinAndEmail(String pin, String email) throws DataAccessErrorException, UsuarioNoExisteException {
 		try {
@@ -73,7 +88,7 @@ public class UsuarioWebDAO extends BaseOlUserDAO implements com.asecor.extranet.
 		}
 	}
 	
-	public TitularWeb getByEmailAndDNI(String email, Long dni) throws UsuarioNoExisteException, DataAccessErrorException {
+	public TitularWeb getByEmailAndDNI(String email, String dni) throws UsuarioNoExisteException, DataAccessErrorException {
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(Const.EMAIL, email);
@@ -137,6 +152,7 @@ public class UsuarioWebDAO extends BaseOlUserDAO implements com.asecor.extranet.
 				throw new DataAccessErrorException();
 		} catch (UsuarioNoExisteException ex) {
 			throw ex;
+			
 		} catch (DataAccessErrorException ex) {
 			throw ex;
 		} catch (Exception ex) {
@@ -144,7 +160,7 @@ public class UsuarioWebDAO extends BaseOlUserDAO implements com.asecor.extranet.
 			throw new DataAccessErrorException();
 		}
 	}
-	public TitularWeb getByUserDni(Long dni) throws UsuarioNoExisteException, DataAccessErrorException {
+	public TitularWeb getByUserDni(String dni) throws  DataAccessErrorException {
 		try {			
 			Map<String, Object> params= new HashMap<String, Object>(); 
 			params.put(Const.PARAM_USER_DNI, dni);
@@ -154,14 +170,12 @@ public class UsuarioWebDAO extends BaseOlUserDAO implements com.asecor.extranet.
 			if(result.size() == 1) 
 				return (TitularWeb)result.iterator().next();
 			else if(result.size() == 0)
-				throw new UsuarioNoExisteException();
-			else 
-				throw new DataAccessErrorException();
-		} catch(UsuarioNoExisteException ex) {
-			throw ex;
+				return null;
+			
 		} catch(Exception ex) {
 			throw new DataAccessErrorException();
 		}
+		return null;
 	} 
 
 	

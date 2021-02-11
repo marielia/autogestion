@@ -19,7 +19,7 @@
         <property name="tipoDocumento" type="java.lang.Integer">
             <column name="codTipoDocumento" />
         </property>
-        <property name="dni" type="java.lang.Long">
+        <property name="dni" type="string">
             <column name="dni" length="20" />
         </property>
         <property name="email" type="string">

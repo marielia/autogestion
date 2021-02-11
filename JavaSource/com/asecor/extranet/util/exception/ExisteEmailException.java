@@ -14,8 +14,13 @@ package com.asecor.extranet.util.exception;
  */
 public class ExisteEmailException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8254896395101022794L;
+
 	public ExisteEmailException() {
-		super("El email y el celular ya se encuentran registrados.");
+		super("El email  ya se encuentra registrado.");
 	}
 	
 }

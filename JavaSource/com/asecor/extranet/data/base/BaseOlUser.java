@@ -67,7 +67,7 @@ public abstract class BaseOlUser  implements Serializable {
 	private String nombres;
 	//private String surname;
 	private Integer tipoDocumento;
-	private Long dni;
+	private String dni;
 	private String email;
 	private String telefono;
 	private Boolean active;
@@ -145,11 +145,11 @@ public abstract class BaseOlUser  implements Serializable {
 		this.tipoDocumento = documentTypeId;
 	}
 
-	public Long getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(Long documentNumber) {
+	public void setDni(String documentNumber) {
 		this.dni = documentNumber;
 	}
 
