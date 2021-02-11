@@ -263,12 +263,7 @@ public class UserRegisterBean extends AbstBackingBean{
 					usuario.setPin(new Date().getTime() + "");
 					usuario.setConfirmed(false);
 					usuario.setDni(dni);
-					//Calendar fecha= GregorianCalendar.getInstance();
-					//fecha.set(Calendar.YEAR,fecha.get(Calendar.YEAR)-1);
-					//if(fechaNacimiento.after(fecha.getTime()))
-						//throw new Exception("Ingrese la fecha de Nacimiento correcta");
-					//usuario.setFechaNacimiento(fechaNacimiento);
-					// guardar la relacion usuario y agencia
+				
 					UsuarioWebDAO userDAO = new UsuarioWebDAO(session);
 					
 					if(null!=userDAO.getByUserDni(dni)) {
