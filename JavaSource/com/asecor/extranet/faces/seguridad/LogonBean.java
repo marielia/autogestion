@@ -244,8 +244,8 @@ private String cambiarPassword;
 			 
 			// this.polizas.addAll(titular.getPolizas());
 			 puedeIngresar=true;
-			 if(!usuario.getConfirmed())
-				 return Const.ANCLA_EMAIL; 
+			 //if(!usuario.getConfirmed())
+				// return Const.ANCLA_EMAIL; 
 			 
 			return Const.ANCLA_POLIZAS_USUARIO;//Const.ANCLA_BIENVENIDO; 	
 		} catch (TitularNoExisteExcepcion ex) {

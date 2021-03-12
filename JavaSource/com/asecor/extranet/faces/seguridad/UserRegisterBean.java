@@ -138,7 +138,7 @@ public class UserRegisterBean extends AbstBackingBean{
 					usuario.setCreateDate(new Date());
 					usuario.setCreateUser(Const.SISTEMA);
 					usuario.setPin(new Date().getTime() + "");
-					usuario.setConfirmed(false);
+					usuario.setConfirmed(true);
 					usuario.setDni(dni);
 					usuario.setFechaNacimiento(fechaNacimiento);
 					// guardar la relacion usuario y agencia
@@ -261,7 +261,7 @@ public class UserRegisterBean extends AbstBackingBean{
 					usuario.setCreateDate(new Date());
 					usuario.setCreateUser(Const.SISTEMA);
 					usuario.setPin(new Date().getTime() + "");
-					usuario.setConfirmed(false);
+					usuario.setConfirmed(true);
 					usuario.setDni(dni);
 				
 					UsuarioWebDAO userDAO = new UsuarioWebDAO(session);
